@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>О!кно — макет карточки отеля</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --brand:#0E41D2;--brand-hover:rgb(6,54,200);--brand-active:rgb(0,23,176);--sec:#E3EBFD;--highlight:rgb(238,249,255);
+  --ink:#2D3137;--muted:#868686;--line:#E5E5E5;--bg2:#F4F4F4;--bg3:#F8F8F8;--white:#fff;
+  --ok:#53AF24;--ok-bg:#DDEFD3;--warn:#E77D00;--warn-bg:#FAE5CC;--alert:#CE2121;--alert-bg:#FAE9E9;
+  --sea:#3D8BFD;--sea-l:#BFD8FF;--sun:#FF8A3D;--rock:#B9B4A7;--house:#5B6170;
+  --r-sm:8px;--r-md:12px;--r-lg:20px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--white);color:var(--ink);font:400 14px/1.5 Manrope,system-ui,sans-serif}
+button{font:inherit;cursor:pointer}
+.hdr{height:56px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:0 24px;position:sticky;top:0;background:#fff;z-index:5}
+.logo{font-weight:800;font-size:22px;color:var(--brand);letter-spacing:-.5px}
+.hdr nav{display:flex;gap:18px;color:var(--muted);font-weight:500}
+.hdr .sp{flex:1}
+.trip{display:flex;gap:8px;align-items:center;background:var(--bg2);border-radius:var(--r-md);padding:6px 6px 6px 14px;font-weight:600}
+.trip span{color:var(--muted);font-weight:500}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 24px 60px}
+.crumbs{color:var(--muted);font-size:13px;margin-bottom:8px}
+h1{font-size:28px;font-weight:800;margin:0 0 4px;letter-spacing:-.4px}
+.sub{color:var(--muted);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.stars{color:#FFB800}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;margin-top:20px}
+@media(max-width:960px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background:#fff}
+.okno-head{display:flex;align-items:center;gap:12px;padding:18px 20px 0}
+.o-mark{width:40px;height:40px;border-radius:50%;border:5px solid var(--brand);display:grid;place-items:center;flex:none}
+.o-mark i{font-size:16px;color:var(--brand)}
+.okno-head h2{margin:0;font-size:20px;font-weight:800}
+.okno-head p{margin:0;color:var(--muted);font-size:13px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--r-sm);font-weight:600;font-size:13px}
+.b-ok{background:var(--ok-bg);color:#2E6E10}.b-warn{background:var(--warn-bg);color:#8A4A00}.b-info{background:var(--sec);color:var(--brand)}
+.stage{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:16px 20px}
+@media(max-width:700px){.stage{grid-template-columns:1fr}}
+.pano-box{position:relative;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/7}
+.pano-box svg{display:block;width:100%;height:100%}
+.pano-cap{position:absolute;left:12px;top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.92);border-radius:var(--r-sm);padding:3px 9px;font-size:12px;font-weight:600}
+.facade{display:flex;flex-direction:column;align-items:center;gap:8px}
+.facade .lbl{font-size:12px;color:var(--muted);font-weight:600}
+.bld{display:flex;flex-direction:column-reverse;gap:3px;background:var(--bg2);padding:8px;border-radius:10px 10px 4px 4px}
+.fl{display:flex;gap:3px;border-radius:4px;padding:2px;cursor:pointer;border:2px solid transparent}
+.fl:hover{border-color:var(--sec)}
+.fl.on{border-color:var(--brand)}
+.win{width:18px;height:14px;border-radius:3px}
+.fl-n{font-size:11px;color:var(--muted);width:14px;text-align:right;align-self:center;margin-right:2px}
+.legend{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--muted)}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+.ctrls{display:flex;gap:16px;flex-wrap:wrap;align-items:center;padding:0 20px 16px}
+.seg{display:inline-flex;background:var(--bg2);border-radius:var(--r-md);padding:3px;gap:2px;border:1px solid var(--line)}
+.seg button{border:0;background:transparent;border-radius:10px;padding:6px 12px;font-weight:600;color:var(--muted)}
+.seg button.on{background:#fff;color:var(--brand);box-shadow:0 0 0 1px var(--line)}
+.ctl-l{font-size:12px;color:var(--muted);font-weight:600;margin-right:6px}
+.months{display:flex;gap:4px;flex-wrap:wrap}
+.months button{border:1px solid var(--line);background:#fff;border-radius:var(--r-sm);padding:4px 8px;font-size:12px;font-weight:600;color:var(--ink)}
+.months button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.facts{border-top:1px solid var(--line);padding:6px 20px 14px}
+.fact{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.fact:last-child{border-bottom:0}
+.fact .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:20px}
+.fact .t{font-weight:600}
+.fact .s{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.src{display:inline-flex;align-items:center;gap:3px;background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:0 6px;font-size:11px;color:var(--ink)}
+.ring{flex:none;text-align:center;font-size:10px;color:var(--muted);width:44px}
+.ring svg{display:block;margin:0 auto 2px}
+.side .card{padding:18px}
+.price{font-size:26px;font-weight:800}
+.price small{font-size:13px;color:var(--muted);font-weight:500}
+.reco{margin:14px 0;border-radius:var(--r-md);background:var(--highlight);border:1px solid var(--sec);padding:12px 14px}
+.reco .h{display:flex;gap:8px;align-items:center;font-weight:700;color:var(--brand)}
+.reco ul{margin:8px 0 0;padding-left:18px}
+.btn{display:flex;width:100%;justify-content:center;align-items:center;gap:8px;border:0;border-radius:var(--r-md);padding:13px 16px;font-weight:700;font-size:15px}
+.btn-p{background:var(--brand);color:#fff}.btn-p:hover{background:var(--brand-hover)}.btn-p:active{background:var(--brand-active)}
+.btn-s{background:var(--sec);color:var(--brand);margin-top:8px}
+.day{margin-top:16px}
+.day h3{font-size:16px;font-weight:800;margin:0 0 8px}
+.tl{position:relative;padding-left:22px}
+.tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.ev{position:relative;padding:6px 0;font-size:13px}
+.ev:before{content:"";position:absolute;left:-19px;top:11px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--brand)}
+.ev.bad:before{border-color:var(--warn)}
+.ev b{font-weight:700;margin-right:6px}
+.ev .m{color:var(--muted);font-size:12px}
+.note{color:var(--muted);font-size:12px;margin-top:14px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo">Островок!</div>
+  <nav><span>Отели</span><span>Апартаменты</span><span>Поездки</span></nav>
+  <div class="sp"></div>
+  <div class="trip"><i class="ti ti-map-pin"></i>Сочи <span>·</span> 12–19 мая <span>·</span> 2 взрослых, 1 ребёнок
+    <button class="seg" style="border:0;padding:6px 10px;background:#fff;border-radius:10px;color:var(--brand);font-weight:700"><i class="ti ti-adjustments-horizontal"></i></button></div>
+</header>
+
+<main class="wrap">
+  <div class="crumbs">Сочи → Центральный район → Отели у моря</div>
+  <h1>Отель «Приморье Парк»</h1>
+  <div class="sub"><span class="stars">★★★★</span><span><i class="ti ti-map-pin"></i> ул. Приморская, 12</span><span class="badge b-info"><i class="ti ti-sparkles"></i> 9 фактов сверх карточки</span></div>
+
+  <div class="grid">
+    <section>
+      <div class="card">
+        <div class="okno-head">
+          <div class="o-mark"><i class="ti ti-window"></i></div>
+          <div style="flex:1"><h2>О!кно</h2><p>Что вы увидите из номера — рассчитано по рельефу, зданиям и положению солнца</p></div>
+          <span id="seaBadge" class="badge"></span>
+        </div>
+
+        <div class="stage">
+          <div class="facade">
+            <div class="lbl" id="facLbl">Фасад: запад</div>
+            <div class="bld" id="bld"></div>
+            <div class="legend">
+              <span><b style="background:var(--sea)"></b>море и закат</span>
+              <span><b style="background:var(--sea-l)"></b>море частично</span>
+              <span><b style="background:#D7D3CA"></b>без вида</span>
+            </div>
+          </div>
+          <div>
+            <div class="pano-box">
+              <svg id="pano" viewBox="0 0 800 350" preserveAspectRatio="none" aria-label="Панорама из окна"></svg>
+              <div class="pano-cap"><span class="pill" id="capFloor"></span><span class="pill" id="capSun"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ctrls">
+          <div><span class="ctl-l">Сторона</span>
+            <div class="seg" id="facSeg">
+              <button data-f="0">С</button><button data-f="90">В</button><button data-f="180">Ю</button><button data-f="270" class="on">З</button>
+            </div></div>
+          <div style="display:flex;align-items:center"><span class="ctl-l">Месяц</span><div class="months" id="months"></div></div>
+        </div>
+
+        <div class="facts" id="facts"></div>
+      </div>
+
+      <div class="card day" style="padding:18px 20px">
+        <h3>Ваш день здесь · <span id="dayDate" style="color:var(--muted);font-weight:600"></span></h3>
+        <div class="tl" id="tl"></div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="card" style="position:sticky;top:76px">
+        <div class="price">8 400 ₽ <small>/ ночь</small></div>
+        <div style="color:var(--muted);font-size:13px">58 800 ₽ за 7 ночей</div>
+        <div class="reco">
+          <div class="h"><i class="ti ti-bookmark"></i>Пожелание к брони</div>
+          <ul id="recoList"></ul>
+        </div>
+        <button class="btn btn-p"><i class="ti ti-check"></i>Забронировать с пожеланием</button>
+        <button class="btn btn-s"><i class="ti ti-scale"></i>Сравнить</button>
+        <div class="note"><i class="ti ti-info-circle"></i> Отель увидит пожелание в заявке. Если не сможет выполнить — предупредим до оплаты.</div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script>
+const MONTHS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const MONTHS_G=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+// Сочи, 43.6° с.ш.: азимут/время заката и восхода по месяцам (примерные)
+const SET_AZ=[241,252,266,281,293,300,297,286,271,256,243,238];
+const SET_T=['17:12','17:52','18:30','19:57','20:28','20:52','20:50','20:16','19:21','18:24','16:49','16:39'];
+const RISE_AZ=SET_AZ.map(a=>360-a);
+const RISE_T=['08:07','07:42','07:01','06:08','05:28','05:13','05:27','05:58','06:31','07:04','07:41','08:09'];
+const WATER=[9,8,9,12,17,22,25,26,23,19,15,11];
+const NFL=9, FLOOR_H=3.1, GROUND=34; // отель на высоте 34 м над морем
+let st={fac:270,floor:4,month:4};
+
+// рельеф: угол возвышения горизонта (без зданий) по азимуту, с учётом высоты глаза
+function terrain(az,eye){
+  const a=((az%360)+360)%360;
+  const sea = a>=188 && a<=305;               // море на ЮЗ–СЗ
+  if(sea) return -Math.sqrt(2*eye/6371000)*180/Math.PI; // понижение горизонта моря
+  // горы: Кавказ на С–В, холмы города на Ю
+  let h = 4 + 5*Math.sin((a-20)/38) + 2.2*Math.sin(a/9) + 1.4*Math.cos(a/4.3);
+  if(a>110 && a<188) h = 1.6 + 1.2*Math.sin(a/6) + (188-a)/40;
+  if(a>305) h = 1 + (a-305)/9 + Math.sin(a/5);
+  return Math.max(h,0.4) - eye/400;
+}
+// соседние здания: азимут центра, полуширина, высота (м, абс. над морем), дистанция (м)
+const NB=[
+  {az:252,w:13,top:GROUND+19,d:38,name:'дом 6 эт.'},
+  {az:283,w:7,top:GROUND+12,d:65,name:'дом 4 эт.'},
+  {az:200,w:9,top:GROUND+28,d:90,name:'ЖК 9 эт.'},
+  {az:120,w:16,top:GROUND+16,d:30,name:'дом 5 эт.'},
+  {az:35,w:12,top:GROUND+22,d:45,name:'дом 7 эт.'},
+];
+function bldAngle(az,eye){
+  let best=null;
+  for(const b of NB){
+    let dA=((az-b.az+540)%360)-180;
+    if(Math.abs(dA)<=b.w){const ang=Math.atan((b.top-eye)/b.d)*180/Math.PI; if(best===null||ang>best.ang) best={ang,b};}
+  }
+  return best;
+}
+function eyeOf(floor){return GROUND+FLOOR_H*(floor-1)+1.5}
+function seaShare(fac,floor){
+  const eye=eyeOf(floor);let tot=0,vis=0;
+  for(let a=fac-80;a<=fac+80;a++){
+    const az=((a%360)+360)%360; if(!(az>=188&&az<=305)) continue; tot++;
+    const b=bldAngle(az,eye); if(!b||b.ang<terrain(az,eye)) vis++;
+  }
+  return {tot,vis,share: tot?vis/tot:0, inView:tot};
+}
+function sunVisible(fac,floor,m,kind){
+  const az = kind==='set'?SET_AZ[m]:RISE_AZ[m];
+  if(Math.abs(((az-fac+540)%360)-180)>80) return {inField:false};
+  const eye=eyeOf(floor), b=bldAngle(az,eye), t=terrain(az,eye);
+  const block = b && b.ang>t+0.3 ? b.b.name : (t>1.2?'горы':null);
+  return {inField:true,az,block,overSea:az>=188&&az<=305 && !block};
+}
+function firstSeaFloor(fac){for(let f=1;f<=NFL;f++){if(seaShare(fac,f).share>0.5)return f;}return null}
+function firstSunsetFloor(fac,m){for(let f=1;f<=NFL;f++){const s=sunVisible(fac,f,m,'set');if(s.inField&&!s.block)return f;}return null}
+
+function drawPano(){
+  const svg=document.getElementById('pano'),W=800,H=350,eye=eyeOf(st.floor);
+  const a0=st.fac-80, X=a=>(a-a0)/160*W, Y=e=>H*0.62 - e*16;
+  let s=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFE3FF"/><stop offset="1" stop-color="#F6FAFF"/></linearGradient>
+  <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FB2FF"/><stop offset="1" stop-color="#3D8BFD"/></linearGradient></defs>`;
+  s+=`<rect width="${W}" height="${H}" fill="url(#sky)"/>`;
+  // солнце
+  const sets=sunVisible(st.fac,st.floor,st.month,'set'), rises=sunVisible(st.fac,st.floor,st.month,'rise');
+  for(const [sv,kind] of [[sets,'set'],[rises,'rise']]){
+    if(!sv.inField) continue;
+    const az=sv.az, dir = kind==='set'?-1:1;
+    let p=`M${X(az+dir*-26)} ${Y(22)} Q ${X(az+dir*-9)} ${Y(9)} ${X(az)} ${Y(0)}`;
+    s+=`<path d="${p}" fill="none" stroke="${'#FF8A3D'}" stroke-width="2" stroke-dasharray="5 5" opacity=".8"/>`;
+    s+=`<circle cx="${X(az)}" cy="${Y(0.6)}" r="13" fill="${sv.block?'#FFC9A3':'#FF8A3D'}" opacity="${sv.block?.6:1}"/>`;
+  }
+  const HZ=Y(-0.15);
+  // ниже горизонта: море в морском секторе, суша — вне его
+  for(let a=a0;a<a0+160;a+=1){const az=((a%360)+360)%360;const sea=az>=188&&az<=305;
+    s+=`<rect x="${X(a)-0.5}" y="${HZ}" width="${X(a+1)-X(a)+1}" height="${H-HZ}" fill="${sea?'url(#sea)':'#D9D4C8'}"/>`;}
+  // горы над горизонтом
+  let d=`M${X(a0)} ${HZ}`;
+  for(let a=a0;a<=a0+160;a+=0.5){const az=((a%360)+360)%360;const t=terrain(az,eye);d+=` L${X(a)} ${Y(Math.max(t,-0.15))}`;}
+  d+=` L${X(a0+160)} ${HZ} Z`;
+  s+=`<path d="${d}" fill="#C9C3B5"/>`;
+  // крыши ближнего города: чем выше этаж, тем ниже уходят
+  const fg=HZ+40+st.floor*9;
+  let r=`M0 ${H} L0 ${fg}`;
+  for(let x=0;x<=W;x+=40){const hh=fg-((x*37)%23);r+=` L${x} ${hh} L${x+28} ${hh}`;}
+  r+=` L${W} ${H} Z`;
+  s+=`<path d="${r}" fill="#E9E6DF"/>`;
+  // соседние здания
+  for(const b of NB){
+    const ang=Math.atan((b.top-eye)/b.d)*180/Math.PI;
+    for(const off of [0,360,-360]){
+      const c=b.az+off; if(c+b.w<a0||c-b.w>a0+160) continue;
+      const x1=X(c-b.w), x2=X(c+b.w), y=Y(ang);
+      s+=`<rect x="${x1}" y="${y}" width="${x2-x1}" height="${H-y}" fill="#5B6170" rx="3"/>`;
+      for(let r=y+10;r<H-8;r+=18) for(let wx=x1+8;wx<x2-12;wx+=20) s+=`<rect x="${wx}" y="${r}" width="9" height="8" rx="1.5" fill="#7C8291"/>`;
+      if(y>16) s+=`<text x="${(x1+x2)/2}" y="${Math.max(y-8,14)}" text-anchor="middle" font-size="13" font-weight="700" fill="#2D3137" font-family="Manrope">${b.name}</text>`;
+    }
+  }
+  // подписи сторон
+  const lab={0:'С',45:'СВ',90:'В',135:'ЮВ',180:'Ю',225:'ЮЗ',270:'З',315:'СЗ'};
+  for(let a=Math.ceil(a0/45)*45;a<=a0+160;a+=45){const k=((a%360)+360)%360;s+=`<text x="${X(a)}" y="${H-10}" text-anchor="middle" font-size="13" font-weight="700" fill="#2D3137" font-family="Manrope">${lab[k]}</text>`;}
+  // рамка «О»-окна
+  s+=`<rect x="3" y="3" width="${W-6}" height="${H-6}" rx="14" fill="none" stroke="#fff" stroke-width="6"/>`;
+  svg.innerHTML=s;
+  document.getElementById('capFloor').textContent=`${st.floor} этаж · высота глаз ${Math.round(eye)} м над морем`;
+  const sv=sets.inField?sets:rises, kind=sets.inField?'Закат':'Восход', t=sets.inField?SET_T[st.month]:RISE_T[st.month];
+  document.getElementById('capSun').textContent = sv.inField ? `${kind} ${t}${sv.block?' — закрыт: '+sv.block:''}` : 'Солнце не видно с этой стороны';
+}
+
+function drawBuilding(){
+  const el=document.getElementById('bld');let h='';
+  for(let f=1;f<=NFL;f++){
+    const sh=seaShare(st.fac,f).share, ss=sunVisible(st.fac,f,st.month,'set');
+    const col = sh>0.5 && ss.inField && !ss.block ? 'var(--sea)' : sh>0.5 ? '#6FA6FF' : sh>0.05 ? 'var(--sea-l)' : '#D7D3CA';
+    h+=`<div class="fl ${f===st.floor?'on':''}" data-f="${f}"><span class="fl-n">${f}</span>${('<span class="win" style="background:'+col+'"></span>').repeat(4)}</div>`;
+  }
+  el.innerHTML=h;
+  el.querySelectorAll('.fl').forEach(n=>n.onclick=()=>{st.floor=+n.dataset.f;render();});
+  const names={0:'север',90:'восток',180:'юг',270:'запад'};
+  document.getElementById('facLbl').textContent='Фасад: '+names[st.fac];
+}
+
+function ring(c){const r=15,L=2*Math.PI*r;return `<div class="ring"><svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="${r}" fill="none" stroke="#E5E5E5" stroke-width="4"/><circle cx="18" cy="18" r="${r}" fill="none" stroke="#0E41D2" stroke-width="4" stroke-linecap="round" stroke-dasharray="${L*c} ${L}" transform="rotate(-90 18 18)"/></svg>уверен. ${Math.round(c*100)}%</div>`}
+
+function drawFacts(){
+  const sh=seaShare(st.fac,st.floor), sf=firstSeaFloor(st.fac), ss=sunVisible(st.fac,st.floor,st.month,'set'), ssf=firstSunsetFloor(st.fac,st.month);
+  const b=document.getElementById('seaBadge');
+  const pct=Math.round(sh.share*100);
+  if(!sh.inView){b.className='badge b-warn';b.innerHTML='<i class="ti ti-eye-off"></i> Моря с этой стороны нет';}
+  else{b.className='badge '+(pct>50?'b-ok':'b-warn');b.innerHTML=`<i class="ti ti-ripple"></i> Видно ${pct}% моря`;}
+  const F=[];
+  F.push(['ti-ripple','var(--sec)','var(--brand)', sf?`Вид на море с ${sf}-го этажа (${['север','','',''][0]&&''}${{0:'северная',90:'восточная',180:'южная',270:'западная'}[st.fac]} сторона)`:`С ${({0:'северной',90:'восточной',180:'южной',270:'западной'})[st.fac]} стороны моря не видно`,
+     [['ti-satellite','рельеф Copernicus GLO-30'],['ti-building','высоты зданий OSM']], '24.10.2026 · пересчёт через 180 дн.', .78]);
+  F.push(['ti-sunset-2','#FFE8D6','#B4530E', ss.inField? (ss.block?`Закат в ${MONTHS_G[st.month]} закрыт: ${ss.block}`:`Закат над морем в ${SET_T[st.month]}, ${MONTHS_G[st.month]}`) : 'Закат не виден с этой стороны',
+     [['ti-sun','положение солнца'],['ti-satellite','линия видимости']], ssf&&st.fac===270?`виден с ${ssf}-го этажа`:'', .82]);
+  F.push(['ti-building','var(--bg2)','var(--ink)','Дом напротив (ЗЮЗ, 38 м) — 6 этажей',
+     [['ti-map','OSM building:levels']], 'точной высоты нет → уверенность ниже · спросили отель', .55]);
+  F.push(['ti-message-question','var(--warn-bg)','#8A4A00','Мнения расходятся: отель пишет «вид на море из всех номеров»',
+     [['ti-calculator','расчёт: с 1–3 эт. закрыт'],['ti-building-skyscraper','описание отеля']], 'отправили вопрос отельеру 24.10', .5]);
+  document.getElementById('facts').innerHTML=F.map(([ic,bg,fg,t,src,extra,c])=>`<div class="fact"><div class="ic" style="background:${bg};color:${fg}"><i class="ti ${ic}"></i></div><div style="flex:1"><div class="t">${t}</div><div class="s">${src.map(([i,l])=>`<span class="src"><i class="ti ${i}"></i>${l}</span>`).join('')}${extra?'<span>'+extra+'</span>':''}</div></div>${ring(c)}</div>`).join('');
+
+  const reco=[];
+  const facN={0:'северную',90:'восточную',180:'южную',270:'западную'};
+  if(sf){reco.push(`${facN[st.fac][0].toUpperCase()+facN[st.fac].slice(1)} сторону, этаж ${Math.max(sf,ssf||sf)}+`);}
+  else reco.push('Номер с видом на море — западная сторона, 4+ этаж');
+  reco.push('Подальше от бара на ул. Навагинской (восток)');
+  reco.push('Детская кроватка');
+  document.getElementById('recoList').innerHTML=reco.map(r=>`<li>${r}</li>`).join('');
+}
+
+function drawDay(){
+  const m=st.month, ss=sunVisible(st.fac,st.floor,m,'set'), rs=sunVisible(st.fac,st.floor,m,'rise');
+  document.getElementById('dayDate').textContent=`${12} ${MONTHS_G[m]}`;
+  const ev=[
+    [RISE_T[m], rs.inField&&!rs.block?'Солнце в окне — плотные шторы есть (подтвердил отель)':'Солнце встаёт с другой стороны — утром не разбудит', '', false],
+    ['09:00','На пляж: 7 мин вниз, через подземный переход под ж/д','маршрут OSM + профиль высот',false],
+    ['09:10',`Вода ${WATER[m]}°C ${WATER[m]<19?'— бодрит, детям прохладно':'— можно купаться'}`,'Open-Meteo, среднее за 10 лет',WATER[m]<19],
+    ['13:00','Обратно 11 мин в гору (+42 м) — с коляской тяжело','функция Тоблера по рельефу',true],
+    [SET_T[m], ss.inField&&!ss.block?'Закат над морем из вашего окна':'Закат лучше смотреть с набережной (5 мин)','расчёт видимости',false],
+    ['23:00', st.fac===90?'Бар в 140 м работает до 02:00 — с вашей стороны слышно':'Бар в 140 м до 02:00 — ваша сторона тихая','OSM opening_hours + модель шума', st.fac===90],
+    ['01:30','Круглосуточная аптека — 6 мин пешком','OSM opening_hours=24/7',false],
+  ];
+  document.getElementById('tl').innerHTML=ev.map(([t,x,s,bad])=>`<div class="ev ${bad?'bad':''}"><b>${t}</b>${x}${s?` <span class="m">· ${s}</span>`:''}</div>`).join('');
+}
+
+function render(){drawPano();drawBuilding();drawFacts();drawDay();
+  document.querySelectorAll('#facSeg button').forEach(b=>b.classList.toggle('on',+b.dataset.f===st.fac));
+  document.querySelectorAll('#months button').forEach(b=>b.classList.toggle('on',+b.dataset.m===st.month));}
+document.getElementById('months').innerHTML=MONTHS.map((m,i)=>`<button data-m="${i}">${m}</button>`).join('');
+document.querySelectorAll('#months button').forEach(b=>b.onclick=()=>{st.month=+b.dataset.m;render();});
+document.querySelectorAll('#facSeg button').forEach(b=>b.onclick=()=>{st.fac=+b.dataset.f;render();});
+render();
+</script>
+</body>
+</html>
