@@ -133,7 +133,7 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
   const [q, setQ] = useState('')
   const toggle = id => setOn(on.includes(id) ? on.filter(x => x !== id) : [...on, id])
   const apply = d => {
-    if (d.lenses.length) setOn(d.lenses)
+    setOn(d.lenses)   // новая фраза — новый подбор: линзы прошлого запроса не тянем
     if (d.month) setMonth(d.month)
   }
 
