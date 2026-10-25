@@ -3,11 +3,12 @@ import Icon from '@app/icons.jsx'
 
 const SIDE = { N: 'север', E: 'восток', S: 'юг', W: 'запад' }
 const ORDER = ['W', 'S', 'N', 'E']
+// Откуда мы это знаем — одной фразой, без дат и оговорок
 const HOW = {
-  'computed:dem': 'Посчитали по спутниковой карте высот рельефа',
-  'computed:horizon': 'Посчитали линию обзора из окон: рельеф местности и высоты соседних домов',
-  'computed:horizon+sun': 'Сопоставили линию обзора из окон с положением солнца по датам',
-  hotelier: 'Ответ отеля', osm: 'Открытая карта OpenStreetMap',
+  'computed:dem': 'Посчитали по карте рельефа.',
+  'computed:horizon': 'Посчитали по рельефу и высоте соседних домов.',
+  'computed:horizon+sun': 'Посчитали по высоте домов вокруг и движению солнца.',
+  hotelier: 'Так ответил отель.', osm: 'Взяли с открытой карты.',
 }
 
 // Уверенность — словами, без процентов (wiki/design-system.md)
@@ -33,8 +34,10 @@ function group(facts) {
   if (sea.length) {
     const by = Object.fromEntries(sea.map(f => [sideOf(f), f]))
     const lines = ORDER.filter(s => by[s]).map(s => {
-      const fl = by[s].value.from_floor
-      return [SIDE[s], fl ? (fl === 1 ? 'с любого этажа' : `с ${fl}-го этажа`) : 'не видно']
+      const { from_floor: fl, glimpse_from: gl } = by[s].value
+      if (fl) return [SIDE[s], fl === 1 ? 'с любого этажа' : `с ${fl}-го этажа`]
+      if (gl) return [SIDE[s], `краешком с ${gl}-го этажа`]
+      return [SIDE[s], 'не видно']
     })
     const any = sea.some(f => f.value.from_floor)
     rows.push({ key: 'sea', icon: 'waves', title: any ? 'Есть номера с видом на море' : 'Вида на море нет',
@@ -65,10 +68,7 @@ function Row({ r }) {
         {r.text && <div className="s">{r.text}</div>}
         {r.lines && <div className="sides">{r.lines.map(([side, v]) =>
           <div key={side}><span>Окна на {side}</span><b className={v === 'не видно' ? 'no' : ''}>{v}</b></div>)}</div>}
-        {open && <div className="how">
-          {HOW[f0.source] || f0.source}. Проверено {new Date(f0.obtained_at).toLocaleDateString('ru-RU')}.
-          {c < 0.8 && ' Высота части соседних домов известна только по числу этажей — уточняем у отеля.'}
-        </div>}
+        {open && <div className="how">{HOW[f0.source] || f0.source}</div>}
       </div>
       <span className={`sure ${cls}`}>{word}</span>
     </div>
@@ -81,7 +81,7 @@ export default function FactList({ facts }) {
   return (
     <div className="block">
       <h2>Что важно знать</h2>
-      <p className="lead">Этого нет в описании отеля — мы проверили сами. Нажмите, чтобы узнать как.</p>
+      <p className="lead">Этого нет в описании отеля, мы проверили сами.</p>
       {rows.map(r => <Row key={r.key} r={r} />)}
     </div>
   )

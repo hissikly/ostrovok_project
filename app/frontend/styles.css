@@ -25,6 +25,11 @@ button { font: inherit; cursor: pointer; color: inherit }
 .panel { overflow: auto; background: var(--page); padding: 14px 14px 40px }
 .map { position: relative; min-height: 280px }
 .map > div { position: absolute; inset: 0 }
+.map > .map-legend { inset: auto auto 16px 16px; background: #fff; border-radius: 16px; padding: 10px 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .08); font-size: 13px; font-weight: 600; display: grid; gap: 4px; z-index: 2 }
+.map-legend-title { font-weight: 800; font-size: 14px; margin-bottom: 2px }
+.map-legend .eye-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 3px solid var(--brand); background: #fff; vertical-align: middle; margin: 0 11px 0 2px }
+.map-legend i { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 8px }
 
 /* блоки */
 .block { background: #fff; border-radius: var(--r-xl); padding: 18px 18px; margin-bottom: 12px }
@@ -74,9 +79,6 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .sunset { background: var(--lime); border-radius: var(--r-lg); padding: 14px 16px; margin-top: 16px; color: var(--lime-ink) }
 .sunset.off { background: var(--chip); color: var(--ink) }
 .sunset b { display: block; font-size: 17px; font-weight: 800; color: var(--ink) }
-.months { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap }
-.months span { font-size: 12px; font-weight: 700; border-radius: 8px; padding: 3px 7px; background: rgba(255, 255, 255, .7); color: var(--muted) }
-.months span.yes { background: #fff; color: var(--ok-ink) }
 
 /* что важно знать */
 .fact { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--chip); cursor: pointer }

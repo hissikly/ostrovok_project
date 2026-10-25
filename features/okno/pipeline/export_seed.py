@@ -46,10 +46,11 @@ def main():
             out["facades"][side] = {"normal_az": f["normal_az"], "eye": [f["eye_lat"], f["eye_lon"]],
                                     "floors": floors}
             shares = {int(fl): v["sea_share"] for fl, v in f["floors"].items()}
-            from_floor = next((fl for fl in sorted(shares) if shares[fl] >= 0.3), None)
+            from_floor = next((fl for fl in sorted(shares) if shares[fl] >= 0.3), None)      # нормальный вид
+            glimpse_from = next((fl for fl in sorted(shares) if shares[fl] >= 0.05), None)  # краешком
             facts.append({
                 "hotel_id": hid, "scope": f"facade:{side}", "characteristic": "sea_view",
-                "value": {"from_floor": from_floor, "share_by_floor": shares,
+                "value": {"from_floor": from_floor, "glimpse_from": glimpse_from, "share_by_floor": shares,
                           "text": (f"Море видно с {from_floor}-го этажа ({SIDE_RU[side]} сторона)" if from_floor
                                    else f"С {SIDE_GEN[side]} стороны моря почти не видно")},
                 "confidence": conf, "source": "computed:horizon", "method_version": "horizon@0.1",

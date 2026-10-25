@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { api } from '@app/api.js'
 
 const SIDE = { N: 'север', E: 'восток', S: 'юг', W: 'запад' }
-const MONTH = ['', 'янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек']
 const MONTH_IN = ['', 'январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре']
 const TRIP_MONTH = 5        // даты поездки из шапки (12–19 мая) — пока зашиты
 const R = 6371000
@@ -18,12 +17,16 @@ function dest([lat, lon], az, d) {
 function coneGeo(w) {
   return {
     type: 'FeatureCollection',
-    features: w.profile.filter(([, , kind, , sea]) => sea || kind === 'b').map(([az, , kind, dist, sea]) => {
-      const k = sea ? 's' : kind
-      const L = sea ? 2500 : k === 'b' ? Math.max(dist, 8) : Math.min(dist, 2500)
-      return { type: 'Feature', properties: { k },
-        geometry: { type: 'LineString', coordinates: [[w.eye[1], w.eye[0]], dest(w.eye, az, L)] } }
-    }),
+    features: [
+      ...w.profile.filter(([, , kind, , sea]) => sea || kind === 'b').map(([az, , kind, dist, sea]) => {
+        const k = sea ? 's' : kind
+        const L = sea ? 2500 : Math.max(dist, 8)
+        return { type: 'Feature', properties: { k },
+          geometry: { type: 'LineString', coordinates: [[w.eye[1], w.eye[0]], dest(w.eye, az, L)] } }
+      }),
+      // само окно — откуда идут лучи
+      { type: 'Feature', properties: { k: 'eye' }, geometry: { type: 'Point', coordinates: [w.eye[1], w.eye[0]] } },
+    ],
   }
 }
 
@@ -35,28 +38,27 @@ function verdict(share) {
   return 'Моря из этого окна не видно'
 }
 
+// Закат в даты поездки. Салатовая плашка — только для хорошей новости.
 function Sunset({ sun }) {
   const trip = sun.find(s => s.month === TRIP_MONTH)
-  const seaMonths = sun.filter(s => s.sets_into_sea).map(s => s.month)
-  let title, text, off = false
+  let title, text, good = false
   if (trip?.sets_into_sea) {
     title = 'Закат над морем прямо из окна'
     text = `В ${MONTH_IN[TRIP_MONTH]} солнце садится в море в ${trip.sunset_astro}`
+    good = true
+  } else if (trip?.sun_hidden_at && trip.minutes_earlier <= 3) {
+    // скрывается за дальними домами у самого горизонта — для человека это обычный закат
+    title = 'Закат виден из окна'
+    text = `В ${MONTH_IN[TRIP_MONTH]} солнце сядет в ${trip.sunset_astro} за дальними домами у горизонта`
+    good = true
   } else if (trip?.sun_hidden_at && ['building', 'terrain'].includes(trip.hidden_by)) {
     title = trip.hidden_by === 'building' ? 'Закат закроет соседний дом' : 'Солнце уйдёт за склон'
-    text = `В ${MONTH_IN[TRIP_MONTH]} оно скроется в ${trip.sun_hidden_at} — за ${trip.minutes_earlier} мин до заката`
+    text = `В ${MONTH_IN[TRIP_MONTH]} оно скроется в ${trip.sun_hidden_at}, за ${trip.minutes_earlier} мин до заката`
   } else {
     title = 'Заката из этих окон не видно'
     text = 'Солнце садится с другой стороны здания'
-    off = true
   }
-  return (
-    <div className={`sunset ${off ? 'off' : ''}`}>
-      <b>{title}</b>{text}
-      {!off && <div className="months">{sun.map(s =>
-        <span key={s.month} className={seaMonths.includes(s.month) ? 'yes' : ''}>{MONTH[s.month]}</span>)}</div>}
-    </div>
-  )
+  return <div className={`sunset ${good ? '' : 'off'}`}><b>{title}</b>{text}</div>
 }
 
 export default function WindowPanel({ hotelId, onCone }) {
@@ -103,9 +105,6 @@ export default function WindowPanel({ hotelId, onCone }) {
       </div>
       <div className="verdict">{verdict(w.sea_share)}</div>
       <div className="meter"><i style={{ width: `${Math.round(w.sea_share * 100)}%` }} /></div>
-      <div className="muted" style={{ fontSize: 13 }}>
-        {w.sea_share > 0 ? 'Синие лучи на карте — туда из окна видно море' : 'Красные лучи на карте — вид закрывают соседние дома'}
-      </div>
       <Sunset sun={w.sun} />
     </div>
   )

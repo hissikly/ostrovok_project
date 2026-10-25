@@ -5,6 +5,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": null,
+"glimpse_from": null,
 "share_by_floor": {
 "1": 0.0,
 "2": 0.0,
@@ -37,6 +38,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": 8,
+"glimpse_from": 8,
 "share_by_floor": {
 "1": 0.019,
 "2": 0.019,
@@ -101,6 +103,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": 1,
+"glimpse_from": 1,
 "share_by_floor": {
 "1": 0.677,
 "2": 0.677,
@@ -167,6 +170,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": 1,
+"glimpse_from": 1,
 "share_by_floor": {
 "1": 0.534,
 "2": 0.547,
@@ -227,6 +231,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": null,
+"glimpse_from": 10,
 "share_by_floor": {
 "1": 0.0,
 "2": 0.0,
@@ -291,6 +296,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": null,
+"glimpse_from": 20,
 "share_by_floor": {
 "1": 0.0,
 "2": 0.0,
@@ -323,6 +329,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": 10,
+"glimpse_from": 1,
 "share_by_floor": {
 "1": 0.143,
 "2": 0.161,
@@ -389,6 +396,7 @@
 "characteristic": "sea_view",
 "value": {
 "from_floor": 10,
+"glimpse_from": 2,
 "share_by_floor": {
 "1": 0.0,
 "2": 0.205,
