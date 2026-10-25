@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import maplibregl from 'maplibre-gl'
 
-const STYLE = 'https://tiles.openfreemap.org/styles/positron'   // без ключей
+const STYLE = 'https://tiles.openfreemap.org/styles/liberty'   // цветной стиль OpenFreeMap, без ключей
 const SOCHI = [39.73, 43.585]
 const RAY_COLOR = ['match', ['get', 'k'], 's', '#3D8BFD', '#CE2121']
 const EMPTY = { type: 'FeatureCollection', features: [] }

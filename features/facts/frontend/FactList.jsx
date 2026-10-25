@@ -67,7 +67,7 @@ function Row({ r }) {
         <div className="t">{r.title}</div>
         {r.text && <div className="s">{r.text}</div>}
         {r.lines && <div className="sides">{r.lines.map(([side, v]) =>
-          <div key={side}><span>Окна на {side}</span><b className={v === 'не видно' ? 'no' : ''}>{v}</b></div>)}</div>}
+          <div key={side}><span>{side[0].toUpperCase() + side.slice(1)}</span><b className={v === 'не видно' ? 'no' : ''}>{v}</b></div>)}</div>}
         {open && <div className="how">{HOW[f0.source] || f0.source}</div>}
       </div>
       <span className={`sure ${cls}`}>{word}</span>
