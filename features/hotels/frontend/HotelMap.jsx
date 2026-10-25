@@ -6,29 +6,39 @@ const SOCHI = [39.73, 43.585]
 const RAY_COLOR = ['match', ['get', 'k'], 's', '#3D8BFD', '#CE2121']
 const EMPTY = { type: 'FeatureCollection', features: [] }
 
-const toGeo = hotels => ({
+// fits — результат подбора {id: 'all'|'some'|'unknown'|'none'}; без линз точки обычные
+const FIT_COLOR = ['match', ['get', 'fit'], 'all', '#0E41D2', 'some', '#5B83F0', 'unknown', '#B5BBC7', 'none', '#D9DCE2', '#7F9BE6']
+const FIT_RADIUS = ['match', ['get', 'fit'], 'all', 9, 'some', 6, 4]
+
+const toGeo = (hotels, fits) => ({
   type: 'FeatureCollection',
   features: hotels.map(h => ({
     type: 'Feature',
-    properties: { id: h.id, rich: h.facts > 1 ? 1 : 0 },
+    properties: { id: h.id, rich: h.okno ? 1 : 0, fit: fits ? fits[h.id] || 'none' : '' },
     geometry: { type: 'Point', coordinates: [h.lon, h.lat] },
   })),
 })
 
-export default function HotelMap({ hotels, selected, onSelect, cone }) {
+export default function HotelMap({ hotels, selected, onSelect, cone, fits }) {
   const box = useRef(null)
   const map = useRef(null)
   const ready = useRef(false)
   // последние пропсы — чтобы применить их, когда карта догрузится
   const props = useRef({})
-  props.current = { hotels, selected, cone, onSelect }
+  props.current = { hotels, selected, cone, onSelect, fits }
 
-  const applyHotels = () => map.current.getSource('hotels').setData(toGeo(props.current.hotels))
+  const applyHotels = () => {
+    const m = map.current, { hotels, fits } = props.current
+    m.getSource('hotels').setData(toGeo(hotels, fits))
+    m.setPaintProperty('hotels', 'circle-color', fits ? FIT_COLOR : ['case', ['==', ['get', 'rich'], 1], '#0E41D2', '#7F9BE6'])
+    // подходящие — поверх остальных
+    m.setLayoutProperty('hotels', 'circle-sort-key', fits ? ['match', ['get', 'fit'], 'all', 3, 'some', 2, 'unknown', 1, 0] : 0)
+  }
   const applyCone = () => map.current.getSource('cone').setData(props.current.cone || EMPTY)
   const applySelected = () => {
     const m = map.current, { selected, hotels } = props.current
     m.setPaintProperty('hotels', 'circle-radius',
-      ['case', ['==', ['get', 'id'], selected || ''], 11, ['==', ['get', 'rich'], 1], 8, 5])
+      ['case', ['==', ['get', 'id'], selected || ''], 11, props.current.fits ? FIT_RADIUS : ['case', ['==', ['get', 'rich'], 1], 8, 5]])
     const h = hotels.find(x => x.id === selected)
     if (h) m.flyTo({ center: [h.lon, h.lat], zoom: Math.max(m.getZoom(), 15), speed: 1.4 })
   }
@@ -58,7 +68,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone }) {
     return () => m.remove()
   }, [])
 
-  useEffect(() => { if (ready.current) { applyHotels(); applySelected() } }, [hotels])
+  useEffect(() => { if (ready.current) { applyHotels(); applySelected() } }, [hotels, fits])
   useEffect(() => { if (ready.current) applySelected() }, [selected])
   useEffect(() => { if (ready.current) applyCone() }, [cone])
 

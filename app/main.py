@@ -9,11 +9,12 @@ from core.config import STATIC
 from features.facts.backend.router import router as facts_router
 from features.hotels.backend.router import router as hotels_router
 from features.okno.backend.router import router as okno_router
+from features.search.backend.router import router as search_router
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 app = FastAPI(title="О!кно", version="0.1.0")
 
-for r in (hotels_router, facts_router, okno_router):
+for r in (hotels_router, facts_router, okno_router, search_router):
     app.include_router(r)
 
 

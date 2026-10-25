@@ -8,6 +8,7 @@ const HOW = {
   'computed:dem': 'Посчитали по карте рельефа.',
   'computed:horizon': 'Посчитали по рельефу и высоте соседних домов.',
   'computed:horizon+sun': 'Посчитали по высоте домов вокруг и движению солнца.',
+  'computed:osm-beach': 'Измерили по открытой карте до ближайшего пляжа, по прямой: настоящий путь может быть длиннее.',
   hotelier: 'Так ответил отель.', osm: 'Взяли с открытой карты.',
 }
 
@@ -49,7 +50,13 @@ function group(facts) {
     const lines = ORDER.filter(s => by[s]).map(s => [SIDE[s], monthRange(by[s].value.months)])
     rows.push({ key: 'sun', icon: 'sunset', title: 'Закат над морем из окна', lines, facts: sun })
   }
-  for (const f of facts.filter(f => !['sea_view', 'sunset_view'].includes(f.characteristic))) {
+  const beach = facts.find(f => f.characteristic === 'beach_distance')
+  if (beach) {
+    const m = beach.value.meters
+    rows.push({ key: 'beach', icon: 'beach', title: `До пляжа ${m < 1000 ? `${m} м` : `${(m / 1000).toFixed(1).replace('.', ',')} км`}`,
+      text: `Около ${beach.value.walk_min} мин пешком`, facts: [beach] })
+  }
+  for (const f of facts.filter(f => !['sea_view', 'sunset_view', 'beach_distance'].includes(f.characteristic))) {
     rows.push({ key: f.id, icon: 'window', title: f.value?.text || f.characteristic, text: '', facts: [f] })
   }
   return rows

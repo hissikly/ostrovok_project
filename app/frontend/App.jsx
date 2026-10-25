@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { api } from './api.js'
+import { api, post } from './api.js'
 import Icon from './icons.jsx'
 import HotelMap from '@features/hotels/frontend/HotelMap.jsx'
-import HotelList from '@features/hotels/frontend/HotelList.jsx'
+import SearchPanel from '@features/search/frontend/SearchPanel.jsx'
 import HotelCard from '@features/hotels/frontend/HotelCard.jsx'
+
+const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
 export default function App() {
   const [hotels, setHotels] = useState([])
@@ -17,8 +19,21 @@ export default function App() {
   }, [])
   const [cone, setCone] = useState(null)   // лучи «вид из окна» для карты
   const [error, setError] = useState(null)
+  // подбор: включённые линзы, месяц поездки, ответ /api/search
+  const [lenses, setLenses] = useState([])
+  const [on, setOn] = useState([])
+  const [month, setMonth] = useState(5)
+  const [result, setResult] = useState(null)
 
   useEffect(() => { api('/api/hotels').then(setHotels).catch(e => setError(String(e))) }, [])
+  useEffect(() => { api('/api/lenses').then(setLenses).catch(e => setError(String(e))) }, [])
+  useEffect(() => {
+    if (!on.length) { setResult(null); return }
+    let alive = true
+    post('/api/search', { lenses: on, month }).then(r => alive && setResult(r)).catch(e => setError(String(e)))
+    return () => { alive = false }
+  }, [on, month])
+  const fits = useMemo(() => result && Object.fromEntries(result.hotels.map(r => [r.id, r.fit])), [result])
   useEffect(() => { if (!selected) setCone(null) }, [selected])
 
   const sel = useMemo(() => hotels.find(h => h.id === selected), [hotels, selected])
@@ -30,7 +45,7 @@ export default function App() {
         <span className="chip lime">О!кно</span>
         <div className="trip">
           <span><Icon name="pin" size={17} />Сочи</span>
-          <span><Icon name="calendar" size={17} />12–19 мая</span>
+          <span><Icon name="calendar" size={17} />{month === 5 ? '12–19 мая' : MONTH[month]}</span>
           <span><Icon name="user" size={17} />2 взрослых</span>
         </div>
       </header>
@@ -39,10 +54,11 @@ export default function App() {
           {error && <div className="chip warn">{error}</div>}
           {sel
             ? <HotelCard id={sel.id} onBack={() => setSelected(null)} onCone={setCone} />
-            : <HotelList hotels={hotels} onSelect={setSelected} />}
+            : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} setMonth={setMonth}
+                result={result} onSelect={setSelected} />}
         </aside>
         <section className="map">
-          <HotelMap hotels={hotels} selected={selected} onSelect={setSelected} cone={cone} />
+          <HotelMap hotels={hotels} selected={selected} onSelect={setSelected} cone={cone} fits={fits} />
         </section>
       </div>
     </div>

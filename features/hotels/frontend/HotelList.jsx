@@ -8,7 +8,7 @@ export default function HotelList({ hotels, onSelect }) {
     const s = q.trim().toLowerCase()
     return hotels
       .filter(h => !s || h.name.toLowerCase().includes(s))
-      .sort((a, b) => b.facts - a.facts)
+      .sort((a, b) => b.okno - a.okno || b.facts - a.facts)
   }, [hotels, q])
 
   return (
@@ -22,7 +22,7 @@ export default function HotelList({ hotels, onSelect }) {
             <div className="sub">
               <span>{h.kind_ru}</span>
               {h.stars && <span style={{ color: '#FFB800' }}>{'★'.repeat(h.stars)}</span>}
-              {h.facts > 1 && <span className="chip lime" style={{ padding: '2px 9px', fontSize: 12 }}>О!кно: видно, что из окна</span>}
+              {h.okno && <span className="chip lime" style={{ padding: '2px 9px', fontSize: 12 }}>О!кно: видно, что из окна</span>}
             </div>
           </div>
           <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small></div>
