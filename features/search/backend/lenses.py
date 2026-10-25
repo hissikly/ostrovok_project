@@ -69,6 +69,12 @@ def month_prep(m):
 
 
 def beach_near(facts, ctx):
+    r = _one(facts, "beach_route")
+    if r:   # настоящий путь по улицам, время по Тоблеру
+        v = r["value"]
+        text = f"До пляжа {v['minutes']} мин пешком, {_dist(v['meters'])}"
+        state = MATCH if v["minutes"] <= 6 else PARTIAL if v["minutes"] <= 12 else NO
+        return _res(state, text, [r])
     f = _one(facts, "beach_distance")
     if not f:
         return _res(UNKNOWN, "Расстояние до пляжа не знаем", [])
@@ -82,7 +88,15 @@ def beach_near(facts, ctx):
 
 
 def flat(facts, ctx):
-    """Обратно с пляжа в гору: пляж на уровне моря, значит подъём ≈ высота отеля над морем."""
+    """Обратно с пляжа в гору: по маршруту (набор высоты на обратном пути), иначе ≈ высота отеля над морем."""
+    r = _one(facts, "beach_route")
+    if r:
+        v = r["value"]
+        up, back = v.get("climb_back_m", v["down_m"]), v["back_minutes"]
+        if up <= 10:
+            return _res(MATCH, f"С пляжа почти ровно, обратно {back} мин", [r])
+        state = PARTIAL if up <= 30 else NO
+        return _res(state, f"Обратно с пляжа {back} мин в гору, подъём {up} м", [r])
     f = _one(facts, "elevation")
     if not f:
         return _res(UNKNOWN, "Высоту над морем не знаем", [])
@@ -110,7 +124,8 @@ def near(spec):
         v = f["value"]
         if v["meters"] is None:
             return _res(NO, f"{spec['kind']}: на карте в {v['within_min']} мин пешком не нашли", [f])
-        name = f"{v['kind']} «{v['name']}»" if v["name"] else v["kind"]
+        q = v["name"] if any(c in v["name"] for c in "«\"„“") else f"«{v['name']}»"
+        name = f"{v['kind']} {q}" if v["name"] else v["kind"]
         text = f"{name} в {_dist(v['meters'])}, {v['walk_min']} мин пешком"
         state = MATCH if v["walk_min"] <= spec["match_min"] else PARTIAL
         r = _res(state, text, [f])

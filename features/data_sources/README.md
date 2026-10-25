@@ -25,5 +25,5 @@
 - [ ] Работает без ключа LLM (fallback)
 
 ## Статус и заметки
-- Статус: в работе. Запросы Overpass — `pipeline/queries/` (`overpass.py <запрос> <выход>`): отели, дома (тайлами, `fetch_buildings.py`), берег и пляжи, **объекты «что рядом» (`poi.overpassql` → `data/raw/osm_poi.json`, 25.10)**.
+- Статус: в работе. Запросы Overpass — `pipeline/queries/` (`overpass.py <запрос> <выход>`): отели, дома (тайлами, `fetch_buildings.py`), берег и пляжи, **объекты «что рядом» (`poi.overpassql` → `data/raw/osm_poi.json`, 25.10)**. Пешеходная сеть — из выгрузки Geofabrik `south-fed-district` (`extract_walk_pbf.py`, pyosmium), запасной путь — `fetch_walk.py` через Overpass.
 - Владелец бэкенда: бэкенд · владелец фронта: фронт/продукт

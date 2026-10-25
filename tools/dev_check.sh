@@ -7,6 +7,15 @@ cd "$(dirname "$0")/.."
 .venv/bin/python features/hotels/pipeline/build_hotels.py
 .venv/bin/python features/beach_route/pipeline/beach_distance.py
 .venv/bin/python features/nearby/pipeline/export_poi.py
+# пешеходный граф: только если скачана выгрузка OSM (см. features/data_sources/pipeline/extract_walk_pbf.py)
+if [ -f data/raw/osm/south-fed-district.osm.pbf ]; then
+  .venv/bin/python features/data_sources/pipeline/extract_walk_pbf.py
+fi
+if [ -d data/raw/walk ]; then
+  .venv/bin/python features/beach_route/pipeline/build_walk_graph.py
+  .venv/bin/python features/beach_route/pipeline/beach_route.py
+  .venv/bin/python features/nearby/pipeline/walk_times.py
+fi
 .venv/bin/python features/okno/pipeline/compute_all.py
 .venv/bin/python features/okno/pipeline/export_seed.py
 du -sh data/seed

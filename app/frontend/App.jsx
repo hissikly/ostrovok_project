@@ -33,6 +33,9 @@ export default function App() {
     post('/api/search', { lenses: on, month }).then(r => alive && setResult(r)).catch(e => setError(String(e)))
     return () => { alive = false }
   }, [on, month])
+  // иконка и группа каждого типа «что рядом» — из каталога фильтров (линзы near_<id>)
+  const nearMeta = useMemo(() => Object.fromEntries(lenses.filter(l => l.id.startsWith('near_'))
+    .map(l => [l.id.slice(5), { icon: l.icon, group: l.group }])), [lenses])
   const fits = useMemo(() => result && Object.fromEntries(result.hotels.map(r => [r.id, r.fit])), [result])
   // у открытого отеля показываем на карте найденное рядом: магазин, парк, аптеку…
   const pois = useMemo(() => {
@@ -41,7 +44,23 @@ export default function App() {
     return pts.length ? { type: 'FeatureCollection', features: pts.map(x => ({ type: 'Feature',
       properties: { name: x.point.name }, geometry: { type: 'Point', coordinates: [x.point.lon, x.point.lat] } })) } : null
   }, [result, selected])
-  useEffect(() => { if (!selected) setCone(null) }, [selected])
+  // места одного типа рядом с открытым отелем (клик по «Что рядом пешком»)
+  const [places, setPlaces] = useState(null)
+  // пеший маршрут на карте: до пляжа или до выбранного места
+  const [route, setRoute] = useState(null)
+  useEffect(() => { if (!selected) setCone(null); setPlaces(null); setRoute(null) }, [selected])
+  const showRoute = (url, title) => api(url).then(r => setRoute({ ...r, title })).catch(() => setRoute({ title, none: true }))
+  const routeTo = p => showRoute(`/api/hotels/${selected}/route?lat=${p.lat}&lon=${p.lon}`,
+    p.name ? `До ${/[«"„“]/.test(p.name) ? p.name : `«${p.name}»`}` : `До места: ${p.kind.toLowerCase()}`)
+  const showPlaces = spec => {
+    if (!spec) { setPlaces(null); setRoute(null); return }
+    api(`/api/hotels/${selected}/nearby/${spec}`).then(d => {
+      setPlaces(d)
+      if (d.items.length) routeTo(d.items[0]); else setRoute(null)
+    })
+  }
+  const showBeach = () => { setPlaces(null); showRoute(`/api/hotels/${selected}/beach-route`, 'До пляжа') }
+  const closeMapBox = () => { setPlaces(null); setRoute(null) }
 
   const sel = useMemo(() => hotels.find(h => h.id === selected), [hotels, selected])
 
@@ -60,12 +79,14 @@ export default function App() {
         <aside className="panel">
           {error && <div className="chip warn">{error}</div>}
           {sel
-            ? <HotelCard id={sel.id} onBack={() => setSelected(null)} onCone={setCone} />
+            ? <HotelCard id={sel.id} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach}
+              places={places} routeTitle={route?.title} nearMeta={nearMeta} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}
         </aside>
         <section className="map">
-          <HotelMap hotels={hotels} selected={selected} onSelect={setSelected} cone={cone} fits={fits} pois={pois} />
+          <HotelMap hotels={hotels} selected={selected} onSelect={setSelected} cone={route || places ? null : cone} fits={fits} pois={pois} places={places} route={route}
+            onPlaceClick={routeTo} onCloseBox={closeMapBox} />
         </section>
       </div>
     </div>

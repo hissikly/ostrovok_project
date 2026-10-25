@@ -1,6 +1,6 @@
 ---
 title: Архитектура и структура репозитория
-updated: 2026-10-24
+updated: 2026-10-25
 sources: []
 status: draft
 ---
@@ -14,7 +14,7 @@ status: draft
 
 ```
 features/<фича>/{README.md, backend/, pipeline/, frontend/}
-core/    общее: гео-утилиты, LLM-клиент, БД, конфиг
+core/    общее: гео-утилиты, LLM-клиент, БД, конфиг; walk.py — пешие маршруты по графу (beach_route, nearby)
 app/     точка входа: роутеры фич, статика фронта, /health
 data/    демо-данные (seed); большие файлы — скачиваются
 ```

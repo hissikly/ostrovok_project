@@ -26,5 +26,11 @@ data_sources, hotels, facts
 
 ## Статус и заметки
 - Статус: **v0 — по прямой** (25.10, Claude). `pipeline/beach_distance.py` → `data/seed/facts_beach.json`: факт `beach_distance` у всех 718 отелей `{meters, walk_min, to: beach|coast}` до ближайшего `natural=beach` из OSM (или берега, если он ближе на 150+ м). Время = прямая ×1,3 / 75 м/мин. Уверенность 0,55–0,6. Нужен для линзы «Рядом пляж».
-- Следующий шаг (главное в фиче): настоящий пеший маршрут по графу OSM с профилем высот, время туда/обратно по Тоблеру, переходы через ж/д и трассы.
+- **v1 — по пешеходному графу** (25.10, Claude), работает по всему Сочи:
+  - Данные: выгрузка Geofabrik `south-fed-district` (~320 МБ, `data/raw/osm/`, не в git) → `features/data_sources/pipeline/extract_walk_pbf.py` → `data/raw/walk/pbf_sochi.json` (34,5 тыс. дорог, тротуаров, троп, лестниц + 75 ж/д переездов, ~18 с). Запасной путь — `fetch_walk.py` через Overpass тайлами (медленно: Overpass часто перегружен).
+  - `pipeline/build_walk_graph.py` → `data/seed/walk_graph.json.gz` (55 тыс. узлов, 68 тыс. рёбер, 2,2 МБ, ~4 с): узлы — перекрёстки и переезды, промежуточные точки — геометрия рёбер; высота узла — Copernicus, минимум 3×3 (ближе к земле, DSM видит крыши); время ребра в обе стороны по Тоблеру, лестницы ×1,2; флаги: лестница, подземный/надземный переход, крупная дорога, ж/д переезд, пешеходная дорожка; узлы в 30 м от пляжа/берега — цели.
+  - Маршрутизатор — `core/walk.py` (общий с nearby): A* до точки, Дейкстра до ближайшего пляжа; подъём маршрута — с порогом шума 2 м.
+  - `pipeline/beach_route.py` → `data/seed/facts_beach_route.json`: факт `beach_route` `{minutes, back_minutes, meters, up_m, down_m, climb_back_m, steps, underpass, bridge, rail, major_m}` у 679 отелей из 718 (остальные дальше 40 мин или далеко от дорог), уверенность 0,75. `up_m`/`down_m` — по дороге к пляжу; **в гору обратно = `climb_back_m` = `down_m`**. Медиана 7 мин; лестницы на пути у 210 отелей, подземный переход у 144, ж/д переезд у 16. Линзы «Рядом пляж» и «С пляжа не в гору» берут его, если он есть, иначе — `beach_distance`.
+  - API: `GET /api/hotels/{id}/beach-route` и `GET /api/hotels/{id}/route?lat=&lon=` → `{coords: [[lon, lat]…], meters, minutes, back_minutes, up_m, down_m, flags: {steps, underpass, bridge, rail, major_m}}`.
+  - Фронт: «Показать путь на карте» в строке «До пляжа»; линия маршрута и «Туда / Обратно / По пути» в плашке на карте.
 - Владелец бэкенда: бэкенд · владелец фронта: фронт/продукт
