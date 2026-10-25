@@ -9,3 +9,4 @@ data/raw/
 *.tif
 .obsidian/
 app/static/
+data/derived/

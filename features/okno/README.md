@@ -25,8 +25,13 @@ data_sources, hotels, facts
 - [ ] Работает без ключа LLM (fallback)
 
 ## Статус и заметки
-- Статус: **v0 для 2 отелей** (25.10, Claude): Pullman Sochi Centre, Azimut Виноградная.
-- Расчёт пока в черновом `pipeline/` в корне (`spike_window.py` → `data/derived/`), `pipeline/export_seed.py` этой фичи переносит его в `data/seed/okno/<hotel_id>.json` и факты `sea_view`, `sunset_view` в `data/seed/facts_okno.json`. Следующий шаг: перенести расчёт сюда и посчитать все 209 отелей с контуром (нужны дома вокруг каждого — качать OSM тайлами).
-- API: `GET /api/hotels/w201474333/window` → какие фасады/этажи посчитаны и доля моря; `GET /api/hotels/w201474333/window?facade=W&floor=16` → `{floor, eye, eye_m, sea_share, sun[{month, sunset_astro, sun_hidden_at, hidden_by, minutes_earlier, sets_into_sea}], profile[[az, angle, kind(b|t|s), dist, sea]]}`. Этаж округляется до ближайшего посчитанного.
-- Фронт: `WindowPanel.jsx` — сторона, этаж, % моря, закат по месяцам; лучи обзора рисуются на основной карте. Красивый «вид из окна» — следующая итерация.
-- Подробности метода и ограничения: `wiki/window-view-method.md`, `wiki/data-check-sochi.md`.
+- Статус: **посчитаны все 209 отелей с контуром здания** (25.10, Claude). В сервисе 194: у 15 нет названия в OSM.
+- Итог: вид на море у 139, только краешком у 52, без моря 18; закат над морем из окон у 150. Этажность: у 119 из OSM отеля, у 44 по корпусу, у 46 неизвестна → считаем 5 этажей (вопрос отельеру).
+- Конвейер (весь — ~1 мин, кроме скачивания домов):
+  1. `features/data_sources/pipeline/fetch_buildings.py` — дома OSM тайлами ~2×2 км вокруг отелей → `data/raw/buildings/` (41 тайл, 95 МБ, не в git).
+  2. `pipeline/compute_all.py` — расчёт параллельно на всех ядрах (~25 с) → `data/derived/okno/<id>.json` (36 МБ, не в git). Один отель: `pipeline/window.py way/201474333`.
+  3. `pipeline/export_seed.py` → `data/seed/okno/<id>.json` (11 МБ) + `data/seed/facts_okno.json` (факты `sea_view`, `sunset_view`).
+- API: `GET /api/hotels/w201474333/window` → фасады/этажи и доля моря; `GET …/window?facade=W&floor=16` → `{floor, eye, eye_m, sea_share, sun[…], profile[[az, kind(b|t|s), dist, sea]]}` (с 25.10 без угла — он нужен только для заката, а закат уже посчитан). Этаж округляется до ближайшего посчитанного.
+- Факт `sea_view.value`: `from_floor` (доля моря ≥30%), `glimpse_from` (≥5% — «краешком»), `share_by_floor`.
+- Фронт: `WindowPanel.jsx` — сторона, этаж, вывод словами, закат; лучи и окно на основной карте.
+- Известные ограничения: дома без этажности (~45%) — оценка по типу; деревья не учтены вблизи; на крутом склоне земля оценивается 10-м процентилем в радиусе 40 м. Метод — `wiki/window-view-method.md`, проверка — `wiki/data-check-sochi.md`.

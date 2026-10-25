@@ -16,8 +16,8 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(ROOT / "pipeline"))
-from horizon import Dem, LocalFrame  # noqa: E402  (спайк, переедет в features/okno)
+sys.path.insert(0, str(ROOT / "features/okno/pipeline"))
+from horizon import Dem, LocalFrame  # noqa: E402
 
 RAW, SEED = ROOT / "data/raw", ROOT / "data/seed"
 KINDS = {"hotel": "Отель", "guest_house": "Гостевой дом", "apartment": "Апартаменты",

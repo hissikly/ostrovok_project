@@ -18,7 +18,7 @@ function coneGeo(w) {
   return {
     type: 'FeatureCollection',
     features: [
-      ...w.profile.filter(([, , kind, , sea]) => sea || kind === 'b').map(([az, , kind, dist, sea]) => {
+      ...w.profile.filter(([, kind, , sea]) => sea || kind === 'b').map(([az, kind, dist, sea]) => {
         const k = sea ? 's' : kind
         const L = sea ? 2500 : Math.max(dist, 8)
         return { type: 'Feature', properties: { k },

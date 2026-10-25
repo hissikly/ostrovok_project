@@ -28,4 +28,4 @@ def window(hotel_id: str, facade: str | None = Query(None, pattern="^[NESW]$"), 
     return {"hotel_id": hotel_id, "facade": facade, "floor": fl, "requested_floor": floor,
             "normal_az": f["normal_az"], "eye": f["eye"], "confidence": d["confidence"],
             "eye_m": v["eye_m"], "sea_share": v["sea_share"], "sun": v["sun"],
-            "profile_fields": ["az", "angle", "kind", "dist", "sea"], "profile": v["profile"]}
+            "profile_fields": ["az", "kind", "dist", "sea"], "profile": v["profile"]}

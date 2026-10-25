@@ -1,8 +1,10 @@
 """Переносит посчитанные профили горизонта в демо-данные сервиса.
 
-Вход: data/derived/spike_*.json (pipeline/spike_window.py — черновой расчёт, переедет сюда).
-Выход: data/seed/okno/<hotel_id>.json — профили для API «вид из окна»
+Вход: data/derived/okno/*.json (compute_all.py).
+Выход: data/seed/okno/<hotel_id>.json — лучи для карты и закат для API «вид из окна»
        data/seed/facts_okno.json       — факты «вид на море», «закат из окна»
+Лучи храним компактно: [азимут, тип препятствия b|t|s, дистанция с шагом 5 м, видно море 0|1] —
+углы нужны только для расчёта заката, он уже посчитан.
 """
 import datetime as dt
 import json
@@ -27,10 +29,14 @@ def hotel_id(osm: str) -> str:
 
 def main():
     today = dt.date.today()
-    facts = []
+    facts, n = [], 0
     (SEED / "okno").mkdir(parents=True, exist_ok=True)
-    for src in sorted((ROOT / "data/derived").glob("spike_*.json")):
+    for old in (SEED / "okno").glob("*.json"):
+        old.unlink()
+    for src in sorted((ROOT / "data/derived/okno").glob("*.json")):
         d = json.load(open(src))
+        if not d["facades"]:
+            continue
         hid = hotel_id(d["hotel"]["osm"])
         conf = confidence(d["buildings_nearby"])
         evidence_base = {"dem": "Copernicus GLO-30", "buildings": d["buildings_nearby"],
@@ -41,7 +47,7 @@ def main():
             for fl, v in f["floors"].items():
                 floors[fl] = {"eye_m": v["eye_m"], "sea_share": v["sea_share"],
                               "blocked_by_buildings": v["blocked_by_buildings"], "sun": v["sun"],
-                              "profile": [[int(az), p["angle"], p["kind"][0], p["dist"], int(p["sea"])]
+                              "profile": [[int(az), p["kind"][0], int(round(p["dist"] / 5) * 5), int(p["sea"])]
                                           for az, p in sorted(v["profile"].items(), key=lambda x: int(x[0]))]}
             out["facades"][side] = {"normal_az": f["normal_az"], "eye": [f["eye_lat"], f["eye_lon"]],
                                     "floors": floors}
@@ -68,10 +74,10 @@ def main():
                     "evidence": evidence_base, "obtained_at": today.isoformat(),
                     "valid_until": (today + dt.timedelta(days=180)).isoformat(), "status": "active",
                 })
-        json.dump(out, open(SEED / "okno" / f"{hid}.json", "w"), ensure_ascii=False)
-        print(f"{d['hotel']['name']}: {len(out['facades'])} фасада, уверенность {conf}")
+        json.dump(out, open(SEED / "okno" / f"{hid}.json", "w"), ensure_ascii=False, separators=(",", ":"))
+        n += 1
     json.dump(facts, open(SEED / "facts_okno.json", "w"), ensure_ascii=False, indent=0)
-    print(f"фактов: {len(facts)}")
+    print(f"отелей: {n}, фактов: {len(facts)}")
 
 
 if __name__ == "__main__":
