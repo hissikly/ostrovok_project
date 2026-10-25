@@ -166,7 +166,10 @@ def compute(osm_ref: str) -> dict | None:
                         "own_building": own_id},
               "buildings_nearby": {"count": len(blds), **srcs},
               "facades": {}}
-    floors_to_count = sorted({1, 2, 3, max(1, levels // 2), levels} & set(range(1, levels + 1)))
+    # доля моря и закат — для каждого этажа (иначе «море с 8-го» на деле может быть «с 5-го»);
+    # полный профиль лучей храним только для нескольких этажей — его рисуют на карте
+    floors_to_count = range(1, levels + 1)
+    profile_floors = {1, 2, 3, max(1, levels // 2), levels}
     for side, f in group_facades(facades(hpoly)).items():
         sector = [int((f.normal_az + d) % 360) for d in range(-80, 81)]
         elat, elon = (float(v) for v in frame.to_latlon(f.x, f.y))
@@ -179,8 +182,9 @@ def compute(osm_ref: str) -> dict | None:
             floors[fl] = {"eye_m": round(eye, 1),
                           "sea_share": round(sum(r.sea_visible for r in rays) / len(rays), 3),
                           "blocked_by_buildings": sum(r.kind == "building" for r in rays),
-                          "sun": sun_events(elat, elon, prof),
-                          "profile": prof}
+                          "sun": sun_events(elat, elon, prof)}
+            if fl in profile_floors:
+                floors[fl]["profile"] = prof
         result["facades"][side] = {"normal_az": round(f.normal_az, 1), "eye_lat": elat, "eye_lon": elon,
                                    "length_m": round(f.length, 1), "floors": floors}
     return result

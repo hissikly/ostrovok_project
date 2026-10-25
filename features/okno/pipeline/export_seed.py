@@ -46,9 +46,10 @@ def main():
             floors = {}
             for fl, v in f["floors"].items():
                 floors[fl] = {"eye_m": v["eye_m"], "sea_share": v["sea_share"],
-                              "blocked_by_buildings": v["blocked_by_buildings"], "sun": v["sun"],
-                              "profile": [[int(az), p["kind"][0], int(round(p["dist"] / 5) * 5), int(p["sea"])]
-                                          for az, p in sorted(v["profile"].items(), key=lambda x: int(x[0]))]}
+                              "blocked_by_buildings": v["blocked_by_buildings"], "sun": v["sun"]}
+                if "profile" in v:   # лучи для карты — только у нескольких этажей
+                    floors[fl]["profile"] = [[int(az), p["kind"][0], int(round(p["dist"] / 5) * 5), int(p["sea"])]
+                                             for az, p in sorted(v["profile"].items(), key=lambda x: int(x[0]))]
             out["facades"][side] = {"normal_az": f["normal_az"], "eye": [f["eye_lat"], f["eye_lon"]],
                                     "floors": floors}
             shares = {int(fl): v["sea_share"] for fl, v in f["floors"].items()}
@@ -59,7 +60,7 @@ def main():
                 "value": {"from_floor": from_floor, "glimpse_from": glimpse_from, "share_by_floor": shares,
                           "text": (f"Море видно с {from_floor}-го этажа ({SIDE_RU[side]} сторона)" if from_floor
                                    else f"С {SIDE_GEN[side]} стороны моря почти не видно")},
-                "confidence": conf, "source": "computed:horizon", "method_version": "horizon@0.1",
+                "confidence": conf, "source": "computed:horizon", "method_version": "horizon@0.2",
                 "evidence": evidence_base, "obtained_at": today.isoformat(),
                 "valid_until": (today + dt.timedelta(days=180)).isoformat(), "status": "active",
             })
@@ -70,7 +71,7 @@ def main():
                     "hotel_id": hid, "scope": f"facade:{side}", "characteristic": "sunset_view",
                     "value": {"months": sea_months, "top_floor": int(max(f["floors"], key=int)),
                               "text": f"Закат над морем из окон {SIDE_GEN[side]} стороны"},
-                    "confidence": conf, "source": "computed:horizon+sun", "method_version": "horizon@0.1",
+                    "confidence": conf, "source": "computed:horizon+sun", "method_version": "horizon@0.2",
                     "evidence": evidence_base, "obtained_at": today.isoformat(),
                     "valid_until": (today + dt.timedelta(days=180)).isoformat(), "status": "active",
                 })

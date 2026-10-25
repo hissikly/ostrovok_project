@@ -61,6 +61,20 @@ function Sunset({ sun }) {
   return <div className={`sunset ${good ? '' : 'off'}`}><b>{title}</b>{text}</div>
 }
 
+// Много этажей: полоска столбиков — высота = сколько моря видно с этажа; сразу видно, «с какого этажа море»
+function FloorStrip({ floors, shares, value, onPick }) {
+  return (
+    <div className="floor-strip">
+      <div className="bars">{floors.map(f => (
+        <button key={f} className={f === value ? 'on' : ''} title={`${f} этаж`} aria-label={`${f} этаж`} onClick={() => onPick(f)}>
+          <i style={{ height: `${Math.max(8, Math.round(shares[f] * 100))}%` }} />
+        </button>
+      ))}</div>
+      <div className="ticks"><span>1</span><b>{value} этаж</b><span>{floors[floors.length - 1]}</span></div>
+    </div>
+  )
+}
+
 export default function WindowPanel({ hotelId, onCone }) {
   const [meta, setMeta] = useState(null)
   const [side, setSide] = useState(null)
@@ -100,8 +114,10 @@ export default function WindowPanel({ hotelId, onCone }) {
           <button key={s} className={s === side ? 'on' : ''} onClick={() => setSide(s)}>{SIDE[s]}</button>)}</div>
       </div>
       <div className="pick"><span>Этаж</span>
-        <div className="pills">{floors.map(f =>
-          <button key={f} className={f === w.floor ? 'on' : ''} onClick={() => setFloor(f)}>{f}</button>)}</div>
+        {floors.length <= 8
+          ? <div className="pills">{floors.map(f =>
+            <button key={f} className={f === w.floor ? 'on' : ''} onClick={() => setFloor(f)}>{f}</button>)}</div>
+          : <FloorStrip floors={floors} shares={meta.facades[side].floors} value={w.floor} onPick={setFloor} />}
       </div>
       <div className="verdict">{verdict(w.sea_share)}</div>
       <div className="meter"><i style={{ width: `${Math.round(w.sea_share * 100)}%` }} /></div>

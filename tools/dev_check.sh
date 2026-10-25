@@ -10,7 +10,9 @@ cd "$(dirname "$0")/.."
 # пешеходный граф: только если скачана выгрузка OSM (см. features/data_sources/pipeline/extract_walk_pbf.py)
 if [ -f data/raw/osm/south-fed-district.osm.pbf ]; then
   .venv/bin/python features/data_sources/pipeline/extract_walk_pbf.py
+  .venv/bin/python features/noise/pipeline/extract_sources.py
 fi
+[ -f data/raw/noise_sources.json ] && .venv/bin/python features/noise/pipeline/noise.py
 if [ -d data/raw/walk ]; then
   .venv/bin/python features/beach_route/pipeline/build_walk_graph.py
   .venv/bin/python features/beach_route/pipeline/beach_route.py

@@ -109,6 +109,25 @@ def flat(facts, ctx):
     return _res(NO, f"С пляжа в гору {h} м, как на {floors}-й этаж", [f])
 
 
+LEVEL_RU = {"quiet": "тихо", "calm": "спокойно", "noisy": "шумно", "very_noisy": "очень шумно"}
+SIDE_TO = {"N": "на север", "E": "на восток", "S": "на юг", "W": "на запад"}
+
+
+def quiet(facts, ctx):
+    """Тишина ночью: лучшая сторона здания (или сам отель, если сторон не знаем). Оценка по карте, не замер."""
+    fs = _by_char(facts, "noise")
+    if not fs:
+        return _res(UNKNOWN, "Шум пока не оценили", [])
+    best = min(fs, key=lambda f: f["value"]["night_db"])
+    v = best["value"]
+    where = f"Окна {SIDE_TO[best['scope'][-1]]}" if best["scope"].startswith("facade:") else "У отеля"
+    src = v.get("source")
+    tail = f": {src['kind_ru']} в {_dist(src['meters'])}" if src and v["level"] in ("noisy", "very_noisy") else ""
+    text = f"{where} — ночью {LEVEL_RU[v['level']]}{tail}"
+    state = MATCH if v["level"] == "quiet" else PARTIAL if v["level"] == "calm" else NO
+    return _res(state, text, [best])
+
+
 def _dist(m):
     return f"{m} м" if m < 1000 else f"{m / 1000:.1f} км".replace(".", ",")
 
@@ -143,6 +162,8 @@ LENSES = [
      "hint": "До ближайшего пляжа по карте OSM"},
     {"id": "flat", "title": "С пляжа не в гору", "icon": "mountain", "fn": flat,
      "hint": "Отель почти на уровне моря: обратно с пляжа не придётся подниматься в гору"},
+    {"id": "quiet", "title": "Тихо ночью", "icon": "mute", "fn": quiet,
+     "hint": "Оценка по карте: дороги, железная дорога, бары и аэропорт рядом — и с какой стороны здания"},
 ]
 for l in LENSES:
     l["primary"] = True

@@ -11,6 +11,7 @@ const HOW = {
   'computed:osm-poi': 'Нашли на открытой карте ближайшее место каждого типа и посчитали путь пешком по прямой: настоящий путь может быть длиннее.',
   'computed:osm-poi+walk': 'Нашли на открытой карте ближайшее место каждого типа и посчитали путь пешком по улицам, с учётом подъёмов.',
   'computed:walk-graph': 'Проложили путь пешком по улицам и тропам открытой карты, подъём — по карте высот.',
+  'computed:noise-model': 'Оценили по карте: какие дороги, железная дорога, бары и аэропорт рядом и с какой стороны здания они. Это не замер, соседние дома как экран не учтены.',
   'computed:osm-beach': 'Измерили по открытой карте до ближайшего пляжа, по прямой: настоящий путь может быть длиннее.',
   hotelier: 'Так ответил отель.', osm: 'Взяли с открытой карты.',
 }
@@ -97,6 +98,24 @@ function group(facts) {
     const lines = ORDER.filter(s => by[s]).map(s => [SIDE[s], monthRange(by[s].value.months)])
     rows.push({ key: 'sun', icon: 'sunset', title: 'Закат над морем из окна', lines, facts: sun })
   }
+  // тишина ночью: по сторонам здания или у отеля целиком
+  const noise = facts.filter(f => f.characteristic === 'noise')
+  if (noise.length) {
+    const LEVEL = { quiet: 'тихо', calm: 'спокойно', noisy: 'шумно', very_noisy: 'очень шумно' }
+    const why = v => v.source && ['noisy', 'very_noisy'].includes(v.level) ? `, ${v.source.kind_ru}` : ''
+    const best = noise.reduce((a, b) => (a.value.night_db <= b.value.night_db ? a : b))
+    const sides = noise.filter(f => f.scope.startsWith('facade:'))
+    const anyQuiet = noise.some(f => ['quiet', 'calm'].includes(f.value.level))
+    if (sides.length) {
+      const by = Object.fromEntries(sides.map(f => [sideOf(f), f]))
+      rows.push({ key: 'noise', icon: 'mute', title: anyQuiet ? 'Ночью есть тихая сторона' : 'Ночью шумно со всех сторон',
+        lines: ORDER.filter(s => by[s]).map(s => [SIDE[s], LEVEL[by[s].value.level] + why(by[s].value)]), facts: sides })
+    } else {
+      const v = best.value
+      rows.push({ key: 'noise', icon: 'mute', title: `Ночью у отеля ${LEVEL[v.level]}`,
+        text: v.source && ['noisy', 'very_noisy'].includes(v.level) ? `Рядом ${v.source.kind_ru}, ${v.source.meters} м` : '', facts: [best] })
+    }
+  }
   const route = facts.find(f => f.characteristic === 'beach_route')
   const beach = !route && facts.find(f => f.characteristic === 'beach_distance')
   if (route) {
@@ -116,7 +135,7 @@ function group(facts) {
   const near = facts.filter(f => f.characteristic.startsWith('near:') && f.value.meters != null)
     .sort((a, b) => a.value.walk_min - b.value.walk_min)
   if (near.length) rows.push({ key: 'near', icon: 'pin', title: 'Что рядом пешком', near: true, facts: near })
-  for (const f of facts.filter(f => !['sea_view', 'sunset_view', 'beach_distance', 'beach_route'].includes(f.characteristic)
+  for (const f of facts.filter(f => !['sea_view', 'sunset_view', 'beach_distance', 'beach_route', 'noise'].includes(f.characteristic)
     && !f.characteristic.startsWith('near:'))) {
     rows.push({ key: f.id, icon: 'window', title: f.value?.text || f.characteristic, text: '', facts: [f] })
   }
@@ -138,7 +157,7 @@ function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
         {r.text && <div className="s">{r.text}</div>}
         {r.near && <NearList facts={r.facts} meta={nearMeta} onPlace={onPlace} activePlace={activePlace} />}
         {!r.near && lines && <div className="sides">{lines.map(([side, v]) =>
-          <div key={side}><span>{side[0].toUpperCase() + side.slice(1)}</span><b className={v === 'не видно' ? 'no' : ''}>{v}</b></div>)}</div>}
+          <div key={side}><span>{side[0].toUpperCase() + side.slice(1)}</span><b className={v === 'не видно' || v.startsWith('шумно') || v.startsWith('очень') ? 'no' : ''}>{v}</b></div>)}</div>}
         {r.beach && onBeach && <div className={`more-link ${beachOn ? 'on' : ''}`}
           onClick={e => { e.stopPropagation(); onBeach() }}>Показать путь на карте</div>}
         {open && <div className="how">{HOW[f0.source] || f0.source} {sure}</div>}
