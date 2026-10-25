@@ -27,11 +27,12 @@ facts, все фичи-характеристики
 ## Статус и заметки
 - Статус: **v0 работает** (25.10, Claude). Шаг пути гостя «Ищу»: линзы вместо фильтров, подбор по фактам, «✨ опиши» на правилах.
 - Линзы (`backend/lenses.py`): «Вид на море» (`sea_view`), «Закат из окна» (`sunset_view` в месяц поездки), «Рядом пляж» (`beach_distance`: ≤400 м — да, ≤900 м — частично), «С пляжа не в гору» (`elevation`: ≤15 м — да, ≤35 м — частично). Нет нужного факта → «не знаем», отель не выкидываем.
+- Фильтры «что рядом» (36 шт., `near_<id>`) собираются из каталога `features/nearby/specs.json`; на экране — 4 основные линзы, остальное в свёрнутом «Ещё фильтры» с поиском по названиям и синонимам; включённые видны чипами.
 - Подбор (`backend/ranking.py`): вклад линзы 1 / 0,5 / 0 × (0,5 + 0,5·уверенность), сортировка по баллу, затем по числу «не знаем», затем по цене.
-- «Опиши» (`backend/describe.py`): регулярки → линзы и месяц; чего не считаем (тишина, ночь, парковка, питомцы, связь) — в `not_yet`, интерфейс честно пишет «пока не умеем». Если заданы `LLM_*` — разбирает модель, но выбирать может только из существующих линз; ошибка → правила.
+- «Опиши» (`backend/describe.py`): регулярки → основные линзы и месяц; синонимы каталога по основам слов («хочу продуктовый рядом и парк» → `near_grocery`, `near_park`; «магазин у дома» → `near_grocery`; длинный синоним побеждает короткий: «круглосуточная аптека» → только `near_pharmacy_24`); чего не считаем (тишина, ночь, парковка, питомцы, связь) — в `not_yet`, интерфейс честно пишет «пока не умеем». Если заданы `LLM_*` — разбирает модель, но выбирать может только из существующих линз; ошибка → правила.
 - API:
-  - `GET /api/lenses` → `[{id, title, icon, hint}]`
-  - `POST /api/search {"lenses": ["sea_view", "beach_near"], "month": 5}` → `{lenses, summary: {lens: {match, partial, no, unknown}}, counts: {all, some, unknown, none}, hotels: [{id, score, fit, unknown, price_rub, reasons: [{lens, state, text, confidence, sources, facts}]}]}`
+  - `GET /api/lenses` → `[{id, title, icon, hint, primary, group?, synonyms?}]`
+  - `POST /api/search {"lenses": ["sea_view", "beach_near"], "month": 5}` → `{lenses, summary: {lens: {match, partial, no, unknown}}, counts: {all, some, unknown, none}, hotels: [{id, score, fit, unknown, price_rub, reasons: [{lens, state, text, confidence, sources, facts, point?}]}]}`
   - `POST /api/describe {"text": "тихий номер с видом на закат недалеко от моря"}` → `{"lenses": ["sunset", "beach_near"], "month": null, "not_yet": ["тишину"], "by": "rules"}`
 - Фронт: `frontend/SearchPanel.jsx` (вместо `HotelList`): «опиши», линзы, выдача с ✓/~/✗ по каждой линзе. Карта красит точки по `fit`.
 - Ограничения: «вид на море» и «закат» пока только у 2 отелей — по мере расчёта агентом «О!кна» появятся сами. Нет «главное — первым», различающей силы, ползунка времени.

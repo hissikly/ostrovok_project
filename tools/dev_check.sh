@@ -5,6 +5,8 @@
 set -e
 cd "$(dirname "$0")/.."
 .venv/bin/python features/hotels/pipeline/build_hotels.py
+.venv/bin/python features/beach_route/pipeline/beach_distance.py
+.venv/bin/python features/nearby/pipeline/export_poi.py
 .venv/bin/python features/okno/pipeline/compute_all.py
 .venv/bin/python features/okno/pipeline/export_seed.py
 du -sh data/seed

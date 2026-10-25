@@ -19,13 +19,13 @@ const toGeo = (hotels, fits) => ({
   })),
 })
 
-export default function HotelMap({ hotels, selected, onSelect, cone, fits }) {
+export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois }) {
   const box = useRef(null)
   const map = useRef(null)
   const ready = useRef(false)
   // последние пропсы — чтобы применить их, когда карта догрузится
   const props = useRef({})
-  props.current = { hotels, selected, cone, onSelect, fits }
+  props.current = { hotels, selected, cone, onSelect, fits, pois }
 
   const applyHotels = () => {
     const m = map.current, { hotels, fits } = props.current
@@ -35,6 +35,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits }) {
     m.setLayoutProperty('hotels', 'circle-sort-key', fits ? ['match', ['get', 'fit'], 'all', 3, 'some', 2, 'unknown', 1, 0] : 0)
   }
   const applyCone = () => map.current.getSource('cone').setData(props.current.cone || EMPTY)
+  const applyPois = () => map.current.getSource('poi').setData(props.current.pois || EMPTY)
   const applySelected = () => {
     const m = map.current, { selected, hotels } = props.current
     m.setPaintProperty('hotels', 'circle-radius',
@@ -49,12 +50,19 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits }) {
     m.on('load', () => {
       m.addSource('hotels', { type: 'geojson', data: EMPTY })
       m.addSource('cone', { type: 'geojson', data: EMPTY })
+      m.addSource('poi', { type: 'geojson', data: EMPTY })
       m.addLayer({ id: 'cone', type: 'line', source: 'cone', filter: ['==', ['geometry-type'], 'LineString'],
         paint: { 'line-color': RAY_COLOR, 'line-width': 1.6, 'line-opacity': 0.75 } })
       m.addLayer({ id: 'hotels', type: 'circle', source: 'hotels', paint: {
         'circle-radius': ['case', ['==', ['get', 'rich'], 1], 8, 5],
         'circle-color': ['case', ['==', ['get', 'rich'], 1], '#0E41D2', '#7F9BE6'],
         'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } })
+      // найденное рядом с открытым отелем (фильтры «что рядом»)
+      m.addLayer({ id: 'poi', type: 'circle', source: 'poi', paint: {
+        'circle-radius': 7, 'circle-color': '#53AF24', 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } })
+      const tip = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 10 })
+      m.on('mouseenter', 'poi', e => tip.setLngLat(e.features[0].geometry.coordinates).setText(e.features[0].properties.name).addTo(m))
+      m.on('mouseleave', 'poi', () => tip.remove())
       // окно рисуем поверх точки отеля: белый кружок с синей обводкой
       m.addLayer({ id: 'eye', type: 'circle', source: 'cone', filter: ['==', ['get', 'k'], 'eye'],
         paint: { 'circle-radius': 6, 'circle-color': '#fff', 'circle-stroke-color': '#0E41D2', 'circle-stroke-width': 3 } })
@@ -62,7 +70,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits }) {
       m.on('mouseenter', 'hotels', () => { m.getCanvas().style.cursor = 'pointer' })
       m.on('mouseleave', 'hotels', () => { m.getCanvas().style.cursor = '' })
       ready.current = true
-      applyHotels(); applyCone(); applySelected()
+      applyHotels(); applyCone(); applyPois(); applySelected()
     })
     map.current = m
     return () => m.remove()
@@ -71,17 +79,21 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits }) {
   useEffect(() => { if (ready.current) { applyHotels(); applySelected() } }, [hotels, fits])
   useEffect(() => { if (ready.current) applySelected() }, [selected])
   useEffect(() => { if (ready.current) applyCone() }, [cone])
+  useEffect(() => { if (ready.current) applyPois() }, [pois])
 
   const kinds = new Set((cone?.features || []).map(f => f.properties.k))
   return (
     <>
       <div ref={box} />
-      {kinds.size > 0 && (
+      {(kinds.size > 0 || pois) && (
         <div className="map-legend">
-          <div className="map-legend-title">Вид из окна</div>
-          <div><b className="eye-dot" />окно номера</div>
-          {kinds.has('s') && <div><i style={{ background: '#3D8BFD' }} />видно море</div>}
-          {kinds.has('b') && <div><i style={{ background: '#CE2121' }} />закрывает дом</div>}
+          {kinds.size > 0 && <>
+            <div className="map-legend-title">Вид из окна</div>
+            <div><b className="eye-dot" />окно номера</div>
+            {kinds.has('s') && <div><i style={{ background: '#3D8BFD' }} />видно море</div>}
+            {kinds.has('b') && <div><i style={{ background: '#CE2121' }} />закрывает дом</div>}
+          </>}
+          {pois && <div><b className="eye-dot" style={{ borderColor: '#53AF24', background: '#53AF24' }} />рядом, что вы искали</div>}
         </div>
       )}
     </>

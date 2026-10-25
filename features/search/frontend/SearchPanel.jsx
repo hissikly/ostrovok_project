@@ -18,8 +18,8 @@ function Describe({ onApply }) {
     if (!text.trim()) return
     const d = await post('/api/describe', { text })
     onApply(d)
-    setNote(d.not_yet.length ? `Пока не умеем учитывать ${d.not_yet.join(', ')}. Скоро научимся.`
-      : d.lenses.length ? null : 'Не поняли, что важно. Попробуйте «вид на море» или «рядом пляж».')
+    setNote(d.not_yet.length ? `Это пока не учитываем: ${d.not_yet.join(', ')}. Скоро научимся.`
+      : d.lenses.length ? null : 'Не поняли, что важно. Попробуйте «вид на море», «продуктовый рядом» или откройте «Ещё фильтры».')
     if (d.lenses.length) setText('')
   }
   return (
@@ -34,15 +34,50 @@ function Describe({ onApply }) {
   )
 }
 
+// Поиск по фильтрам — по основам слов, как в «опиши»: «магазинчик у дома» найдёт «Продуктовый рядом»
+const words = t => t.toLowerCase().replace(/ё/g, 'е').match(/[a-zа-я0-9]+/g) || []
+const stem = w => (w.length <= 4 ? w : w.slice(0, Math.max(4, w.length - 2)))
+function matches(l, query) {
+  const hay = words([l.title, ...(l.synonyms || [])].join(' '))
+  return words(query).every(q => hay.some(w => w.startsWith(stem(q)) || q.startsWith(stem(w))))
+}
+
 function Lenses({ lenses, on, toggle }) {
+  const [open, setOpen] = useState(false)
+  const [q, setQ] = useState('')
+  const primary = lenses.filter(l => l.primary)
+  const extra = lenses.filter(l => !l.primary)
+  const extraOn = extra.filter(l => on.includes(l.id))
+  const found = q.trim() ? extra.filter(l => matches(l, q)) : extra
+  const groups = [...new Set(found.map(l => l.group))]
+  const btn = l => (
+    <button key={l.id} className={on.includes(l.id) ? 'on' : ''} onClick={() => toggle(l.id)} title={l.hint}>
+      <Icon name={l.icon} size={18} />{l.title}
+    </button>
+  )
   return (
-    <div className="lenses">
-      {lenses.map(l => (
-        <button key={l.id} className={on.includes(l.id) ? 'on' : ''} onClick={() => toggle(l.id)} title={l.hint}>
-          <Icon name={l.icon} size={18} />{l.title}
+    <>
+      <div className="lenses">
+        {primary.map(btn)}
+        {extraOn.map(btn)}
+        <button className={`more ${open ? 'open' : ''}`} onClick={() => setOpen(!open)}>
+          {open ? 'Свернуть' : `Ещё фильтры${extra.length ? ` (${extra.length})` : ''}`}
         </button>
-      ))}
-    </div>
+      </div>
+      {open && (
+        <div className="more-box">
+          <input className="more-search" placeholder="Найти фильтр: аптека, парк, остановка…" value={q}
+            onChange={e => setQ(e.target.value)} autoFocus />
+          {groups.map(g => (
+            <div key={g} className="more-group">
+              <div className="more-title">{g}</div>
+              <div className="lenses">{found.filter(l => l.group === g).map(btn)}</div>
+            </div>
+          ))}
+          {!found.length && <div className="describe-note">Такого фильтра нет. Напишите в строку «опиши» выше: если по карте это не узнать, спросим у отелей.</div>}
+        </div>
+      )}
+    </>
   )
 }
 

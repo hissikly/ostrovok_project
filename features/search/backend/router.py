@@ -19,7 +19,8 @@ class DescribeIn(BaseModel):
 
 @router.get("/lenses")
 def list_lenses():
-    return [{k: l[k] for k in ("id", "title", "icon", "hint")} for l in LENSES]
+    keys = ("id", "title", "icon", "hint", "primary", "group", "synonyms")
+    return [{k: l[k] for k in keys if k in l} for l in LENSES]
 
 
 @router.post("/search")

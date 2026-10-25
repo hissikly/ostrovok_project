@@ -34,6 +34,13 @@ export default function App() {
     return () => { alive = false }
   }, [on, month])
   const fits = useMemo(() => result && Object.fromEntries(result.hotels.map(r => [r.id, r.fit])), [result])
+  // у открытого отеля показываем на карте найденное рядом: магазин, парк, аптеку…
+  const pois = useMemo(() => {
+    const r = result && selected && result.hotels.find(x => x.id === selected)
+    const pts = (r?.reasons || []).filter(x => x.point)
+    return pts.length ? { type: 'FeatureCollection', features: pts.map(x => ({ type: 'Feature',
+      properties: { name: x.point.name }, geometry: { type: 'Point', coordinates: [x.point.lon, x.point.lat] } })) } : null
+  }, [result, selected])
   useEffect(() => { if (!selected) setCone(null) }, [selected])
 
   const sel = useMemo(() => hotels.find(h => h.id === selected), [hotels, selected])
@@ -58,7 +65,7 @@ export default function App() {
                 result={result} onSelect={setSelected} />}
         </aside>
         <section className="map">
-          <HotelMap hotels={hotels} selected={selected} onSelect={setSelected} cone={cone} fits={fits} />
+          <HotelMap hotels={hotels} selected={selected} onSelect={setSelected} cone={cone} fits={fits} pois={pois} />
         </section>
       </div>
     </div>

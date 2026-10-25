@@ -1,8 +1,9 @@
 """«✨ Опиши»: фраза гостя → какие линзы включить и какой месяц. Это не чат: ответ — настройки интерфейса.
 
-Без ключа LLM работают правила по ключевым словам. С ключом (LLM_* в .env) фразу разбирает модель,
-но выбирать она может только из существующих линз — факты она не создаёт.
-Чего мы пока не считаем (тишина, ночь, питомцы…), называем честно в not_yet.
+Без ключа LLM работают правила: регулярки для основных линз и синонимы фильтров «что рядом»
+(«магазин у дома» → «Продуктовый рядом»), сравнение по основам слов. С ключом (LLM_* в .env)
+фразу разбирает модель, но выбирать она может только из существующих линз — факты она не создаёт.
+Чего мы пока не считаем (тишина, питомцы в отеле…), называем честно в not_yet.
 """
 import json
 import logging
@@ -22,10 +23,8 @@ RULES = [  # (регулярка, линзы) — порядок важен: «�
     (r"без подъ[её]м|не в гору|без горк|ровн|коляск|пожил|тяжело ходить|с реб[её]нк|с детьми|дет[еяи]", ["flat", "beach_near"]),
 ]
 NOT_YET = [  # (регулярка, как назвать) — честно говорим, что этого пока не знаем
-    (r"тих|шум|спать|выспат", "тишину"),
-    (r"ночь|ночн|круглосут|аптек", "что работает ночью"),
-    (r"парков|на машин|авто\b", "парковку"),
-    (r"собак|кошк|питом|животн", "условия для питомцев"),
+    (r"тих|шум|спать|выспат", "тишина"),
+    (r"с собак|с кошк|с питом|с животн|с пс[оа]м", "можно ли с питомцем"),
     (r"удал[её]н|интернет|связь|wi-?fi|вайфай", "связь для работы"),
 ]
 MONTHS = ["январ", "феврал", "март", "апрел", "ма[йяе]", "июн", "июл", "август",
@@ -39,12 +38,60 @@ def describe(text: str) -> dict:
     return out
 
 
+def _words(text: str) -> list[str]:
+    t = text.lower().replace("ё", "е").replace("/", "")
+    return re.findall(r"[a-zа-я0-9]+", t)
+
+
+def _stem(w: str) -> str:
+    return w if len(w) <= 4 else w[:max(4, len(w) - 2)]
+
+
+def _find(stems: list[str], words: list[str]) -> set[int] | None:
+    """Позиции слов фразы, где по порядку встречаются все основы синонима (окно — длина синонима + 2)."""
+    for start in range(len(words)):
+        pos, i = [], start
+        for st in stems:
+            while i < len(words) and i - start <= len(stems) + 2:
+                if words[i].startswith(st) and len(words[i]) - len(st) <= 3:
+                    pos.append(i)
+                    i += 1
+                    break
+                i += 1
+            else:
+                break
+        if len(pos) == len(stems):
+            return set(pos)
+    return None
+
+
+def _catalog(text: str) -> list[str]:
+    """Фильтры «что рядом» по синонимам. Длинный синоним побеждает короткий внутри себя:
+    «круглосуточная аптека» — это «Аптека круглосуточно», а не ещё и просто «Аптека»."""
+    words = _words(text)
+    found = []
+    for l in LENSES:
+        for syn in l.get("synonyms", []):
+            stems = [_stem(w) for w in _words(syn) if len(w) > 2 or w in ("тц", "жд")]
+            pos = _find(stems, words) if stems else None
+            if pos:
+                found.append((len(pos), pos, l["id"]))
+    taken, out = [], []
+    for n, pos, lid in sorted(found, key=lambda x: -x[0]):
+        if lid in out or any(pos < p for p in taken):
+            continue
+        taken.append(pos)
+        out.append(lid)
+    return out
+
+
 def _rules(text: str) -> dict:
     t = text.lower()
     lenses = []
     for rx, ids in RULES:
         if re.search(rx, t):
             lenses += [i for i in ids if i not in lenses]
+    lenses += [i for i in _catalog(text) if i not in lenses]
     if "sea_view" in lenses and "beach_near" in lenses and not re.search(r"пляж|у моря|к морю|от моря|до моря", t):
         lenses.remove("beach_near")   # «вид на море» сам по себе не значит «рядом пляж»
     month = next((i + 1 for i, rx in enumerate(MONTHS) if re.search(rf"\b{rx}", t)), None)
@@ -56,7 +103,7 @@ def _llm(text: str) -> dict | None:
     menu = "\n".join(f"- {l['id']}: {l['title']} ({l['hint']})" for l in LENSES)
     prompt = (f"Гость описал поездку: «{text}».\nДоступные линзы:\n{menu}\n"
               "Верни JSON: {\"lenses\": [id подходящих линз], \"month\": номер месяца или null, "
-              "\"not_yet\": [чего гость хочет, но в списке линз нет — 1–3 слова по-русски, в винительном падеже]}. "
+              "\"not_yet\": [чего гость хочет, но в списке линз нет — 1–3 слова по-русски, в именительном падеже]}. "
               "Только JSON.")
     body = {"model": LLM_MODEL, "temperature": 0, "messages": [{"role": "user", "content": prompt}]}
     req = urllib.request.Request(f"{LLM_BASE_URL.rstrip('/')}/chat/completions", json.dumps(body).encode(),

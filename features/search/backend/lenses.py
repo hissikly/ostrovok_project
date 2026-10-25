@@ -2,8 +2,10 @@
 подходит / частично / нет / не знаем — с одной фразой «почему» и уверенностью факта.
 
 Линза никогда не додумывает: нет нужного факта → «не знаем», а не «нет».
-Новая линза = запись в LENSES + функция-оценщик.
+Основные линзы — ниже в LENSES; фильтры «что рядом» собираются из каталога features/nearby
+(описание в specs.json → одна общая функция near), новый фильтр там появляется здесь сам.
 """
+from features.nearby.backend import specs as nearby_specs
 MATCH, PARTIAL, NO, UNKNOWN = "match", "partial", "no", "unknown"
 SIDE = {"N": "север", "E": "восток", "S": "юг", "W": "запад"}
 
@@ -71,8 +73,7 @@ def beach_near(facts, ctx):
     if not f:
         return _res(UNKNOWN, "Расстояние до пляжа не знаем", [])
     m, mins = f["value"]["meters"], f["value"]["walk_min"]
-    dist = f"{m} м" if m < 1000 else f"{m / 1000:.1f} км".replace(".", ",")
-    text = f"До пляжа {dist}, около {mins} мин пешком"
+    text = f"До пляжа {_dist(m)}, около {mins} мин пешком"
     if m <= 400:
         return _res(MATCH, text, [f])
     if m <= 900:
@@ -94,6 +95,30 @@ def flat(facts, ctx):
     return _res(NO, f"С пляжа в гору {h} м, как на {floors}-й этаж", [f])
 
 
+def _dist(m):
+    return f"{m} м" if m < 1000 else f"{m / 1000:.1f} км".replace(".", ",")
+
+
+def near(spec):
+    """Оценщик для фильтра из каталога «что рядом»."""
+    char = f"near:{spec['id']}"
+
+    def fn(facts, ctx):
+        f = _one(facts, char)
+        if not f:
+            return _res(UNKNOWN, f"{spec['kind']}: пока не знаем", [])
+        v = f["value"]
+        if v["meters"] is None:
+            return _res(NO, f"{spec['kind']}: на карте в {v['within_min']} мин пешком не нашли", [f])
+        name = f"{v['kind']} «{v['name']}»" if v["name"] else v["kind"]
+        text = f"{name} в {_dist(v['meters'])}, {v['walk_min']} мин пешком"
+        state = MATCH if v["walk_min"] <= spec["match_min"] else PARTIAL
+        r = _res(state, text, [f])
+        r["point"] = {"lat": v["lat"], "lon": v["lon"], "name": name}
+        return r
+    return fn
+
+
 LENSES = [
     {"id": "sea_view", "title": "Вид на море", "icon": "waves", "fn": sea_view,
      "hint": "Считаем по рельефу и соседним домам, с какого этажа видно море"},
@@ -104,4 +129,10 @@ LENSES = [
     {"id": "flat", "title": "С пляжа не в гору", "icon": "mountain", "fn": flat,
      "hint": "Отель почти на уровне моря: обратно с пляжа не придётся подниматься в гору"},
 ]
+for l in LENSES:
+    l["primary"] = True
+LENSES += [{"id": f"near_{s['id']}", "title": s["title"], "icon": s["icon"], "fn": near(s), "primary": False,
+            "group": s["group"], "synonyms": s["synonyms"],
+            "hint": f"До {s['match_min']} мин пешком — рядом, до {s['partial_min']} мин — можно дойти. По карте OSM"}
+           for s in nearby_specs()]
 BY_ID = {l["id"]: l for l in LENSES}
