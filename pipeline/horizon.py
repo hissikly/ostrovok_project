@@ -201,7 +201,7 @@ class Facade:
     length: float
 
 
-def facades(poly_xy: Polygon, min_len: float = 6.0) -> list[Facade]:
+def facades(poly_xy: Polygon, min_len: float = 1.5) -> list[Facade]:
     p = poly_xy.exterior
     if not p.is_ccw:
         p = type(p)(list(p.coords)[::-1])
@@ -217,12 +217,16 @@ def facades(poly_xy: Polygon, min_len: float = 6.0) -> list[Facade]:
     return out
 
 
-def group_facades(fs: list[Facade]) -> dict[str, Facade]:
-    """Объединяем рёбра в 4 стороны (С/В/Ю/З), берём самое длинное ребро стороны."""
+def group_facades(fs: list[Facade], min_side: float = 8.0) -> dict[str, Facade]:
+    """Объединяем рёбра в 4 стороны (С/В/Ю/З). Скруглённый фасад в OSM — это много
+    коротких рёбер, поэтому длину стороны суммируем, а точку глаза берём у самого
+    длинного ребра. Сторона короче min_side — не фасад (угол, выступ)."""
     names = {0: "N", 90: "E", 180: "S", 270: "W"}
     best: dict[str, Facade] = {}
+    total: dict[str, float] = {}
     for f in fs:
         k = names[int(((f.normal_az + 45) % 360) // 90) * 90]
+        total[k] = total.get(k, 0.0) + f.length
         if k not in best or f.length > best[k].length:
             best[k] = f
-    return best
+    return {k: Facade(f.normal_az, f.x, f.y, total[k]) for k, f in best.items() if total[k] >= min_side}

@@ -17,11 +17,6019 @@
   "default": 226
  },
  "facades": {
+  "E": {
+   "normal_az": 87.6,
+   "eye_lat": 43.57721728021456,
+   "eye_lon": 39.724093152824096,
+   "length_m": 26.5,
+   "floors": {
+    "1": {
+     "eye_m": 23.0,
+     "sea_share": 0.0,
+     "sea_degrees": 0,
+     "blocked_by_buildings": 161,
+     "sun": [
+      {
+       "month": 4,
+       "sunset_astro": "19:03",
+       "sunset_az": 284.6,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 5,
+       "sunset_astro": "19:38",
+       "sunset_az": 297.5,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 6,
+       "sunset_astro": "20:03",
+       "sunset_az": 304.0,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 7,
+       "sunset_astro": "19:59",
+       "sunset_az": 301.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 8,
+       "sunset_astro": "19:24",
+       "sunset_az": 290.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 9,
+       "sunset_astro": "18:31",
+       "sunset_az": 274.7,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 10,
+       "sunset_astro": "17:37",
+       "sunset_az": 258.8,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      }
+     ],
+     "profile": {
+      "7": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "8": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "9": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "10": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "11": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "12": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "13": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "14": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "15": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "16": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "17": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "18": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "19": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "20": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "21": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "22": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "23": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "24": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "25": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "26": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "27": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "28": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "29": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "30": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "31": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "32": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "33": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "34": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "35": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "36": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "37": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "38": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "39": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "40": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "41": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "42": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "43": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "44": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "45": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "46": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "47": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "48": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "49": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "50": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "51": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "52": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "53": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "54": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "55": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "56": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "57": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "58": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "59": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "60": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "61": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "62": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "63": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "64": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "65": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "66": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "67": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "68": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "69": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "70": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "71": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "72": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "73": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "74": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "75": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "76": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "77": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "78": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "79": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "80": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "81": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "82": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "83": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "84": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "85": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "86": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "87": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "88": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "89": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "90": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "91": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "92": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "93": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "94": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "95": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "96": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "97": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "98": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "99": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "100": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "101": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "102": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "103": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "104": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "105": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "106": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "107": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "108": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "109": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "110": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "111": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "112": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "113": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "114": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "115": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "116": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "117": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "118": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "119": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "120": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "121": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "122": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "123": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "124": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "125": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "126": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "127": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "128": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "129": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "130": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "131": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "132": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "133": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "134": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "135": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "136": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "137": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "138": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "139": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "140": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "141": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "142": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "143": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "144": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "145": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "146": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "147": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "148": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "149": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "150": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "151": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "152": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "153": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "154": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "155": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "156": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "157": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "158": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "159": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "160": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "161": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "162": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "163": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "164": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "165": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "166": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "167": {
+       "angle": 79.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      }
+     }
+    },
+    "2": {
+     "eye_m": 26.1,
+     "sea_share": 0.0,
+     "sea_degrees": 0,
+     "blocked_by_buildings": 161,
+     "sun": [
+      {
+       "month": 4,
+       "sunset_astro": "19:03",
+       "sunset_az": 284.6,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 5,
+       "sunset_astro": "19:38",
+       "sunset_az": 297.5,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 6,
+       "sunset_astro": "20:03",
+       "sunset_az": 304.0,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 7,
+       "sunset_astro": "19:59",
+       "sunset_az": 301.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 8,
+       "sunset_astro": "19:24",
+       "sunset_az": 290.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 9,
+       "sunset_astro": "18:31",
+       "sunset_az": 274.7,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 10,
+       "sunset_astro": "17:37",
+       "sunset_az": 258.8,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      }
+     ],
+     "profile": {
+      "7": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "8": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "9": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "10": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "11": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "12": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "13": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "14": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "15": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "16": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "17": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "18": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "19": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "20": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "21": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "22": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "23": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "24": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "25": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "26": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "27": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "28": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "29": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "30": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "31": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "32": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "33": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "34": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "35": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "36": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "37": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "38": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "39": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "40": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "41": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "42": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "43": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "44": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "45": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "46": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "47": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "48": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "49": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "50": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "51": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "52": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "53": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "54": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "55": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "56": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "57": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "58": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "59": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "60": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "61": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "62": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "63": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "64": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "65": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "66": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "67": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "68": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "69": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "70": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "71": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "72": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "73": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "74": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "75": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "76": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "77": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "78": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "79": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "80": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "81": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "82": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "83": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "84": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "85": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "86": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "87": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "88": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "89": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "90": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "91": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "92": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "93": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "94": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "95": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "96": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "97": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "98": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "99": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "100": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "101": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "102": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "103": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "104": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "105": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "106": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "107": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "108": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "109": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "110": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "111": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "112": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "113": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "114": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "115": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "116": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "117": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "118": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "119": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "120": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "121": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "122": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "123": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "124": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "125": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "126": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "127": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "128": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "129": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "130": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "131": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "132": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "133": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "134": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "135": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "136": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "137": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "138": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "139": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "140": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "141": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "142": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "143": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "144": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "145": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "146": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "147": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "148": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "149": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "150": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "151": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "152": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "153": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "154": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "155": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "156": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "157": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "158": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "159": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "160": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "161": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "162": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "163": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "164": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "165": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "166": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "167": {
+       "angle": 77.31,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      }
+     }
+    },
+    "3": {
+     "eye_m": 29.2,
+     "sea_share": 0.0,
+     "sea_degrees": 0,
+     "blocked_by_buildings": 161,
+     "sun": [
+      {
+       "month": 4,
+       "sunset_astro": "19:03",
+       "sunset_az": 284.6,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 5,
+       "sunset_astro": "19:38",
+       "sunset_az": 297.5,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 6,
+       "sunset_astro": "20:03",
+       "sunset_az": 304.0,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 7,
+       "sunset_astro": "19:59",
+       "sunset_az": 301.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 8,
+       "sunset_astro": "19:24",
+       "sunset_az": 290.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 9,
+       "sunset_astro": "18:31",
+       "sunset_az": 274.7,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 10,
+       "sunset_astro": "17:37",
+       "sunset_az": 258.8,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      }
+     ],
+     "profile": {
+      "7": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "8": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "9": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "10": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "11": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "12": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "13": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "14": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "15": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "16": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "17": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "18": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "19": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "20": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "21": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "22": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "23": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "24": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "25": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "26": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "27": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "28": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "29": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "30": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "31": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "32": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "33": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "34": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "35": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "36": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "37": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "38": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "39": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "40": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "41": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "42": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "43": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "44": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "45": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "46": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "47": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "48": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "49": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "50": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "51": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "52": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "53": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "54": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "55": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "56": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "57": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "58": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "59": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "60": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "61": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "62": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "63": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "64": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "65": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "66": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "67": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "68": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "69": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "70": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "71": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "72": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "73": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "74": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "75": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "76": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "77": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "78": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "79": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "80": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "81": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "82": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "83": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "84": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "85": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "86": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "87": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "88": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "89": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "90": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "91": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "92": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "93": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "94": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "95": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "96": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "97": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "98": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "99": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "100": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "101": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "102": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "103": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "104": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "105": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "106": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "107": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "108": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "109": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "110": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "111": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "112": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "113": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "114": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "115": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "116": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "117": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "118": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "119": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "120": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "121": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "122": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "123": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "124": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "125": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "126": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "127": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "128": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "129": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "130": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "131": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "132": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "133": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "134": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "135": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "136": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "137": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "138": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "139": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "140": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "141": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "142": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "143": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "144": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "145": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "146": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "147": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "148": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "149": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "150": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "151": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "152": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "153": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "154": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "155": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "156": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "157": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "158": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "159": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "160": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "161": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "162": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "163": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "164": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "165": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "166": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      },
+      "167": {
+       "angle": 73.65,
+       "kind": "building",
+       "dist": 3,
+       "building": 201474329,
+       "sea": false
+      }
+     }
+    },
+    "8": {
+     "eye_m": 44.7,
+     "sea_share": 0.0,
+     "sea_degrees": 0,
+     "blocked_by_buildings": 147,
+     "sun": [
+      {
+       "month": 4,
+       "sunset_astro": "19:03",
+       "sunset_az": 284.6,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 5,
+       "sunset_astro": "19:38",
+       "sunset_az": 297.5,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 6,
+       "sunset_astro": "20:03",
+       "sunset_az": 304.0,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 7,
+       "sunset_astro": "19:59",
+       "sunset_az": 301.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 8,
+       "sunset_astro": "19:24",
+       "sunset_az": 290.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 9,
+       "sunset_astro": "18:31",
+       "sunset_az": 274.7,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 10,
+       "sunset_astro": "17:37",
+       "sunset_az": 258.8,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      }
+     ],
+     "profile": {
+      "7": {
+       "angle": 3.83,
+       "kind": "building",
+       "dist": 584,
+       "building": 99690907,
+       "sea": false
+      },
+      "8": {
+       "angle": 28.17,
+       "kind": "building",
+       "dist": 66,
+       "building": 201474331,
+       "sea": false
+      },
+      "9": {
+       "angle": 31.14,
+       "kind": "building",
+       "dist": 58,
+       "building": 201474331,
+       "sea": false
+      },
+      "10": {
+       "angle": 33.95,
+       "kind": "building",
+       "dist": 52,
+       "building": 201474331,
+       "sea": false
+      },
+      "11": {
+       "angle": 36.36,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474331,
+       "sea": false
+      },
+      "12": {
+       "angle": 39.09,
+       "kind": "building",
+       "dist": 44,
+       "building": 201474331,
+       "sea": false
+      },
+      "13": {
+       "angle": 41.11,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "14": {
+       "angle": 43.3,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "15": {
+       "angle": 44.47,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474331,
+       "sea": false
+      },
+      "16": {
+       "angle": 46.96,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "17": {
+       "angle": 48.29,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "18": {
+       "angle": 49.67,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474331,
+       "sea": false
+      },
+      "19": {
+       "angle": 51.12,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474331,
+       "sea": false
+      },
+      "20": {
+       "angle": 52.62,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "21": {
+       "angle": 54.19,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474331,
+       "sea": false
+      },
+      "22": {
+       "angle": 54.19,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474331,
+       "sea": false
+      },
+      "23": {
+       "angle": 55.82,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "24": {
+       "angle": 55.82,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "25": {
+       "angle": 55.82,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "26": {
+       "angle": 55.82,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "27": {
+       "angle": 55.82,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "28": {
+       "angle": 52.62,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "29": {
+       "angle": 52.62,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "30": {
+       "angle": 52.62,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "31": {
+       "angle": 52.62,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "32": {
+       "angle": 49.67,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474331,
+       "sea": false
+      },
+      "33": {
+       "angle": 49.67,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474331,
+       "sea": false
+      },
+      "34": {
+       "angle": 48.29,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "35": {
+       "angle": 48.29,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "36": {
+       "angle": 48.29,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "37": {
+       "angle": 48.29,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "38": {
+       "angle": 46.96,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "39": {
+       "angle": 46.96,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "40": {
+       "angle": 46.96,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "41": {
+       "angle": 45.69,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474331,
+       "sea": false
+      },
+      "42": {
+       "angle": 45.69,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474331,
+       "sea": false
+      },
+      "43": {
+       "angle": 45.69,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474331,
+       "sea": false
+      },
+      "44": {
+       "angle": 44.47,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474331,
+       "sea": false
+      },
+      "45": {
+       "angle": 44.47,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474331,
+       "sea": false
+      },
+      "46": {
+       "angle": 43.3,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "47": {
+       "angle": 43.3,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "48": {
+       "angle": 43.3,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "49": {
+       "angle": 42.18,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474331,
+       "sea": false
+      },
+      "50": {
+       "angle": 42.18,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474331,
+       "sea": false
+      },
+      "51": {
+       "angle": 41.11,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "52": {
+       "angle": 41.11,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "53": {
+       "angle": 42.18,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474331,
+       "sea": false
+      },
+      "54": {
+       "angle": 41.11,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "55": {
+       "angle": 41.11,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "56": {
+       "angle": 40.08,
+       "kind": "building",
+       "dist": 42,
+       "building": 201474331,
+       "sea": false
+      },
+      "57": {
+       "angle": 5.97,
+       "kind": "terrain",
+       "dist": 718,
+       "building": null,
+       "sea": false
+      },
+      "58": {
+       "angle": 5.94,
+       "kind": "terrain",
+       "dist": 730,
+       "building": null,
+       "sea": false
+      },
+      "59": {
+       "angle": 5.81,
+       "kind": "terrain",
+       "dist": 724,
+       "building": null,
+       "sea": false
+      },
+      "60": {
+       "angle": 9.44,
+       "kind": "building",
+       "dist": 544,
+       "building": 51386710,
+       "sea": false
+      },
+      "61": {
+       "angle": 9.78,
+       "kind": "building",
+       "dist": 525,
+       "building": 51386710,
+       "sea": false
+      },
+      "62": {
+       "angle": 9.89,
+       "kind": "building",
+       "dist": 519,
+       "building": 51386710,
+       "sea": false
+      },
+      "63": {
+       "angle": 9.59,
+       "kind": "building",
+       "dist": 536,
+       "building": 51386710,
+       "sea": false
+      },
+      "64": {
+       "angle": 7.46,
+       "kind": "building",
+       "dist": 378,
+       "building": 108067972,
+       "sea": false
+      },
+      "65": {
+       "angle": 7.49,
+       "kind": "building",
+       "dist": 376,
+       "building": 108067972,
+       "sea": false
+      },
+      "66": {
+       "angle": 7.49,
+       "kind": "building",
+       "dist": 376,
+       "building": 108067972,
+       "sea": false
+      },
+      "67": {
+       "angle": 7.43,
+       "kind": "building",
+       "dist": 380,
+       "building": 108067972,
+       "sea": false
+      },
+      "68": {
+       "angle": 4.5,
+       "kind": "terrain",
+       "dist": 742,
+       "building": null,
+       "sea": false
+      },
+      "69": {
+       "angle": 4.58,
+       "kind": "building",
+       "dist": 135,
+       "building": 51414279,
+       "sea": false
+      },
+      "70": {
+       "angle": 4.8,
+       "kind": "building",
+       "dist": 129,
+       "building": 51414279,
+       "sea": false
+      },
+      "71": {
+       "angle": 5.51,
+       "kind": "building",
+       "dist": 681,
+       "building": 53083403,
+       "sea": false
+      },
+      "72": {
+       "angle": 5.54,
+       "kind": "building",
+       "dist": 676,
+       "building": 53083403,
+       "sea": false
+      },
+      "73": {
+       "angle": 4.97,
+       "kind": "building",
+       "dist": 124,
+       "building": 51414279,
+       "sea": false
+      },
+      "74": {
+       "angle": 4.91,
+       "kind": "building",
+       "dist": 126,
+       "building": 51414279,
+       "sea": false
+      },
+      "75": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "76": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "77": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "78": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "79": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "80": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "81": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "82": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "83": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "84": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "85": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "86": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "87": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "88": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "89": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "90": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "91": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "92": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "93": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "94": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "95": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "96": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "97": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "98": {
+       "angle": 35.11,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "99": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "100": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "101": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "102": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "103": {
+       "angle": 35.98,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "104": {
+       "angle": 2.6,
+       "kind": "terrain",
+       "dist": 39706,
+       "building": null,
+       "sea": false
+      },
+      "105": {
+       "angle": 2.6,
+       "kind": "terrain",
+       "dist": 9694,
+       "building": null,
+       "sea": false
+      },
+      "106": {
+       "angle": 3.17,
+       "kind": "terrain",
+       "dist": 9376,
+       "building": null,
+       "sea": false
+      },
+      "107": {
+       "angle": 3.52,
+       "kind": "terrain",
+       "dist": 10023,
+       "building": null,
+       "sea": false
+      },
+      "108": {
+       "angle": 3.36,
+       "kind": "terrain",
+       "dist": 10363,
+       "building": null,
+       "sea": false
+      },
+      "109": {
+       "angle": 2.83,
+       "kind": "terrain",
+       "dist": 10191,
+       "building": null,
+       "sea": false
+      },
+      "110": {
+       "angle": 3.0,
+       "kind": "terrain",
+       "dist": 4209,
+       "building": null,
+       "sea": false
+      },
+      "111": {
+       "angle": 3.21,
+       "kind": "terrain",
+       "dist": 4352,
+       "building": null,
+       "sea": false
+      },
+      "112": {
+       "angle": 3.11,
+       "kind": "terrain",
+       "dist": 4891,
+       "building": null,
+       "sea": false
+      },
+      "113": {
+       "angle": 2.85,
+       "kind": "terrain",
+       "dist": 4932,
+       "building": null,
+       "sea": false
+      },
+      "114": {
+       "angle": 2.61,
+       "kind": "building",
+       "dist": 130,
+       "building": 51416857,
+       "sea": false
+      },
+      "115": {
+       "angle": 2.61,
+       "kind": "building",
+       "dist": 130,
+       "building": 51416857,
+       "sea": false
+      },
+      "116": {
+       "angle": 4.6,
+       "kind": "building",
+       "dist": 194,
+       "building": 51352167,
+       "sea": false
+      },
+      "117": {
+       "angle": 4.63,
+       "kind": "building",
+       "dist": 192,
+       "building": 51352167,
+       "sea": false
+      },
+      "118": {
+       "angle": 4.67,
+       "kind": "building",
+       "dist": 190,
+       "building": 51352167,
+       "sea": false
+      },
+      "119": {
+       "angle": 4.71,
+       "kind": "building",
+       "dist": 189,
+       "building": 51352167,
+       "sea": false
+      },
+      "120": {
+       "angle": 4.78,
+       "kind": "building",
+       "dist": 186,
+       "building": 51352167,
+       "sea": false
+      },
+      "121": {
+       "angle": 4.78,
+       "kind": "building",
+       "dist": 186,
+       "building": 51352167,
+       "sea": false
+      },
+      "122": {
+       "angle": 35.08,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474330,
+       "sea": false
+      },
+      "123": {
+       "angle": 36.11,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474330,
+       "sea": false
+      },
+      "124": {
+       "angle": 37.18,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474330,
+       "sea": false
+      },
+      "125": {
+       "angle": 36.11,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474330,
+       "sea": false
+      },
+      "126": {
+       "angle": 36.11,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474330,
+       "sea": false
+      },
+      "127": {
+       "angle": 36.11,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474330,
+       "sea": false
+      },
+      "128": {
+       "angle": 37.18,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474330,
+       "sea": false
+      },
+      "129": {
+       "angle": 37.18,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474330,
+       "sea": false
+      },
+      "130": {
+       "angle": 38.32,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474330,
+       "sea": false
+      },
+      "131": {
+       "angle": 38.32,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474330,
+       "sea": false
+      },
+      "132": {
+       "angle": 39.51,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474330,
+       "sea": false
+      },
+      "133": {
+       "angle": 39.51,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474330,
+       "sea": false
+      },
+      "134": {
+       "angle": 39.51,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474330,
+       "sea": false
+      },
+      "135": {
+       "angle": 40.76,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474330,
+       "sea": false
+      },
+      "136": {
+       "angle": 40.76,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474330,
+       "sea": false
+      },
+      "137": {
+       "angle": 42.09,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "138": {
+       "angle": 42.09,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "139": {
+       "angle": 42.09,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "140": {
+       "angle": 43.48,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "141": {
+       "angle": 43.48,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "142": {
+       "angle": 43.48,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "143": {
+       "angle": 43.48,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "144": {
+       "angle": 44.95,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "145": {
+       "angle": 44.95,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "146": {
+       "angle": 48.13,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "147": {
+       "angle": 48.13,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "148": {
+       "angle": 48.13,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "149": {
+       "angle": 48.13,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "150": {
+       "angle": 48.13,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "151": {
+       "angle": 49.85,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474330,
+       "sea": false
+      },
+      "152": {
+       "angle": 49.85,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474330,
+       "sea": false
+      },
+      "153": {
+       "angle": 48.13,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "154": {
+       "angle": 48.13,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "155": {
+       "angle": 46.5,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474330,
+       "sea": false
+      },
+      "156": {
+       "angle": 44.95,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "157": {
+       "angle": 44.95,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "158": {
+       "angle": 43.48,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "159": {
+       "angle": 42.09,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "160": {
+       "angle": 40.76,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474330,
+       "sea": false
+      },
+      "161": {
+       "angle": 39.51,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474330,
+       "sea": false
+      },
+      "162": {
+       "angle": 38.32,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474330,
+       "sea": false
+      },
+      "163": {
+       "angle": 36.11,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474330,
+       "sea": false
+      },
+      "164": {
+       "angle": 35.08,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474330,
+       "sea": false
+      },
+      "165": {
+       "angle": 33.18,
+       "kind": "building",
+       "dist": 44,
+       "building": 201474330,
+       "sea": false
+      },
+      "166": {
+       "angle": 31.46,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474330,
+       "sea": false
+      },
+      "167": {
+       "angle": 29.89,
+       "kind": "building",
+       "dist": 50,
+       "building": 201474330,
+       "sea": false
+      }
+     }
+    },
+    "16": {
+     "eye_m": 69.5,
+     "sea_share": 0.0,
+     "sea_degrees": 0,
+     "blocked_by_buildings": 134,
+     "sun": [
+      {
+       "month": 4,
+       "sunset_astro": "19:03",
+       "sunset_az": 284.6,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 5,
+       "sunset_astro": "19:38",
+       "sunset_az": 297.5,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 6,
+       "sunset_astro": "20:03",
+       "sunset_az": 304.0,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 7,
+       "sunset_astro": "19:59",
+       "sunset_az": 301.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 8,
+       "sunset_astro": "19:24",
+       "sunset_az": 290.2,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 9,
+       "sunset_astro": "18:31",
+       "sunset_az": 274.7,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      },
+      {
+       "month": 10,
+       "sunset_astro": "17:37",
+       "sunset_az": 258.8,
+       "sun_hidden_at": null,
+       "hidden_by": "не видно из этого окна",
+       "minutes_earlier": null,
+       "sets_into_sea": false
+      }
+     ],
+     "profile": {
+      "7": {
+       "angle": 2.51,
+       "kind": "terrain",
+       "dist": 8770,
+       "building": null,
+       "sea": false
+      },
+      "8": {
+       "angle": 9.07,
+       "kind": "building",
+       "dist": 66,
+       "building": 201474331,
+       "sea": false
+      },
+      "9": {
+       "angle": 10.21,
+       "kind": "building",
+       "dist": 58,
+       "building": 201474331,
+       "sea": false
+      },
+      "10": {
+       "angle": 11.35,
+       "kind": "building",
+       "dist": 52,
+       "building": 201474331,
+       "sea": false
+      },
+      "11": {
+       "angle": 12.38,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474331,
+       "sea": false
+      },
+      "12": {
+       "angle": 13.62,
+       "kind": "building",
+       "dist": 44,
+       "building": 201474331,
+       "sea": false
+      },
+      "13": {
+       "angle": 14.59,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "14": {
+       "angle": 15.7,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "15": {
+       "angle": 16.32,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474331,
+       "sea": false
+      },
+      "16": {
+       "angle": 17.71,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "17": {
+       "angle": 18.5,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "18": {
+       "angle": 19.36,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474331,
+       "sea": false
+      },
+      "19": {
+       "angle": 20.29,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474331,
+       "sea": false
+      },
+      "20": {
+       "angle": 21.32,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "21": {
+       "angle": 22.46,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474331,
+       "sea": false
+      },
+      "22": {
+       "angle": 22.46,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474331,
+       "sea": false
+      },
+      "23": {
+       "angle": 23.71,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "24": {
+       "angle": 23.71,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "25": {
+       "angle": 23.71,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "26": {
+       "angle": 23.71,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "27": {
+       "angle": 23.71,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474331,
+       "sea": false
+      },
+      "28": {
+       "angle": 21.32,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "29": {
+       "angle": 21.32,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "30": {
+       "angle": 21.32,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "31": {
+       "angle": 21.32,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474331,
+       "sea": false
+      },
+      "32": {
+       "angle": 19.36,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474331,
+       "sea": false
+      },
+      "33": {
+       "angle": 19.36,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474331,
+       "sea": false
+      },
+      "34": {
+       "angle": 18.5,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "35": {
+       "angle": 18.5,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "36": {
+       "angle": 18.5,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "37": {
+       "angle": 18.5,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474331,
+       "sea": false
+      },
+      "38": {
+       "angle": 17.71,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "39": {
+       "angle": 17.71,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "40": {
+       "angle": 17.71,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474331,
+       "sea": false
+      },
+      "41": {
+       "angle": 16.99,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474331,
+       "sea": false
+      },
+      "42": {
+       "angle": 16.99,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474331,
+       "sea": false
+      },
+      "43": {
+       "angle": 16.99,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474331,
+       "sea": false
+      },
+      "44": {
+       "angle": 16.32,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474331,
+       "sea": false
+      },
+      "45": {
+       "angle": 16.32,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474331,
+       "sea": false
+      },
+      "46": {
+       "angle": 15.7,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "47": {
+       "angle": 15.7,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "48": {
+       "angle": 15.7,
+       "kind": "building",
+       "dist": 38,
+       "building": 201474331,
+       "sea": false
+      },
+      "49": {
+       "angle": 15.12,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474331,
+       "sea": false
+      },
+      "50": {
+       "angle": 15.12,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474331,
+       "sea": false
+      },
+      "51": {
+       "angle": 14.59,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "52": {
+       "angle": 14.59,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "53": {
+       "angle": 15.12,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474331,
+       "sea": false
+      },
+      "54": {
+       "angle": 14.59,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "55": {
+       "angle": 14.59,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474331,
+       "sea": false
+      },
+      "56": {
+       "angle": 14.09,
+       "kind": "building",
+       "dist": 42,
+       "building": 201474331,
+       "sea": false
+      },
+      "57": {
+       "angle": 4.02,
+       "kind": "terrain",
+       "dist": 730,
+       "building": null,
+       "sea": false
+      },
+      "58": {
+       "angle": 4.0,
+       "kind": "terrain",
+       "dist": 730,
+       "building": null,
+       "sea": false
+      },
+      "59": {
+       "angle": 3.86,
+       "kind": "terrain",
+       "dist": 724,
+       "building": null,
+       "sea": false
+      },
+      "60": {
+       "angle": 6.88,
+       "kind": "building",
+       "dist": 544,
+       "building": 51386710,
+       "sea": false
+      },
+      "61": {
+       "angle": 7.13,
+       "kind": "building",
+       "dist": 525,
+       "building": 51386710,
+       "sea": false
+      },
+      "62": {
+       "angle": 7.22,
+       "kind": "building",
+       "dist": 519,
+       "building": 51386710,
+       "sea": false
+      },
+      "63": {
+       "angle": 7.0,
+       "kind": "building",
+       "dist": 536,
+       "building": 51386710,
+       "sea": false
+      },
+      "64": {
+       "angle": 3.74,
+       "kind": "building",
+       "dist": 378,
+       "building": 108067972,
+       "sea": false
+      },
+      "65": {
+       "angle": 3.76,
+       "kind": "building",
+       "dist": 376,
+       "building": 108067972,
+       "sea": false
+      },
+      "66": {
+       "angle": 3.76,
+       "kind": "building",
+       "dist": 376,
+       "building": 108067972,
+       "sea": false
+      },
+      "67": {
+       "angle": 3.73,
+       "kind": "building",
+       "dist": 380,
+       "building": 108067972,
+       "sea": false
+      },
+      "68": {
+       "angle": 2.85,
+       "kind": "terrain",
+       "dist": 18429,
+       "building": null,
+       "sea": false
+      },
+      "69": {
+       "angle": 2.75,
+       "kind": "terrain",
+       "dist": 20370,
+       "building": null,
+       "sea": false
+      },
+      "70": {
+       "angle": 2.67,
+       "kind": "terrain",
+       "dist": 19054,
+       "building": null,
+       "sea": false
+      },
+      "71": {
+       "angle": 3.43,
+       "kind": "building",
+       "dist": 681,
+       "building": 53083403,
+       "sea": false
+      },
+      "72": {
+       "angle": 3.46,
+       "kind": "building",
+       "dist": 676,
+       "building": 53083403,
+       "sea": false
+      },
+      "73": {
+       "angle": 2.76,
+       "kind": "terrain",
+       "dist": 20370,
+       "building": null,
+       "sea": false
+      },
+      "74": {
+       "angle": 2.63,
+       "kind": "terrain",
+       "dist": 20540,
+       "building": null,
+       "sea": false
+      },
+      "75": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "76": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "77": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "78": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "79": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "80": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "81": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "82": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "83": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "84": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "85": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "86": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "87": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "88": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "89": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "90": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "91": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "92": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "93": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "94": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "95": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "96": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "97": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "98": {
+       "angle": 10.57,
+       "kind": "building",
+       "dist": 48,
+       "building": 201474332,
+       "sea": false
+      },
+      "99": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "100": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "101": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "102": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "103": {
+       "angle": 10.9,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474332,
+       "sea": false
+      },
+      "104": {
+       "angle": 2.57,
+       "kind": "terrain",
+       "dist": 39706,
+       "building": null,
+       "sea": false
+      },
+      "105": {
+       "angle": 2.46,
+       "kind": "terrain",
+       "dist": 9694,
+       "building": null,
+       "sea": false
+      },
+      "106": {
+       "angle": 3.02,
+       "kind": "terrain",
+       "dist": 9376,
+       "building": null,
+       "sea": false
+      },
+      "107": {
+       "angle": 3.37,
+       "kind": "terrain",
+       "dist": 10023,
+       "building": null,
+       "sea": false
+      },
+      "108": {
+       "angle": 3.22,
+       "kind": "terrain",
+       "dist": 10363,
+       "building": null,
+       "sea": false
+      },
+      "109": {
+       "angle": 2.69,
+       "kind": "terrain",
+       "dist": 10191,
+       "building": null,
+       "sea": false
+      },
+      "110": {
+       "angle": 2.67,
+       "kind": "terrain",
+       "dist": 4209,
+       "building": null,
+       "sea": false
+      },
+      "111": {
+       "angle": 2.89,
+       "kind": "terrain",
+       "dist": 4388,
+       "building": null,
+       "sea": false
+      },
+      "112": {
+       "angle": 2.82,
+       "kind": "terrain",
+       "dist": 4891,
+       "building": null,
+       "sea": false
+      },
+      "113": {
+       "angle": 2.56,
+       "kind": "terrain",
+       "dist": 4932,
+       "building": null,
+       "sea": false
+      },
+      "114": {
+       "angle": 2.22,
+       "kind": "terrain",
+       "dist": 4850,
+       "building": null,
+       "sea": false
+      },
+      "115": {
+       "angle": 1.8,
+       "kind": "terrain",
+       "dist": 5015,
+       "building": null,
+       "sea": false
+      },
+      "116": {
+       "angle": 1.56,
+       "kind": "terrain",
+       "dist": 9939,
+       "building": null,
+       "sea": false
+      },
+      "117": {
+       "angle": 1.44,
+       "kind": "terrain",
+       "dist": 4388,
+       "building": null,
+       "sea": false
+      },
+      "118": {
+       "angle": 1.41,
+       "kind": "terrain",
+       "dist": 45000,
+       "building": null,
+       "sea": false
+      },
+      "119": {
+       "angle": 1.37,
+       "kind": "terrain",
+       "dist": 44626,
+       "building": null,
+       "sea": false
+      },
+      "120": {
+       "angle": 1.2,
+       "kind": "terrain",
+       "dist": 43161,
+       "building": null,
+       "sea": false
+      },
+      "121": {
+       "angle": 1.04,
+       "kind": "terrain",
+       "dist": 43523,
+       "building": null,
+       "sea": false
+      },
+      "122": {
+       "angle": 5.15,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474330,
+       "sea": false
+      },
+      "123": {
+       "angle": 5.34,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474330,
+       "sea": false
+      },
+      "124": {
+       "angle": 6.71,
+       "kind": "building",
+       "dist": 406,
+       "building": 1287209979,
+       "sea": false
+      },
+      "125": {
+       "angle": 7.18,
+       "kind": "building",
+       "dist": 380,
+       "building": 1287209979,
+       "sea": false
+      },
+      "126": {
+       "angle": 7.27,
+       "kind": "building",
+       "dist": 375,
+       "building": 1287209979,
+       "sea": false
+      },
+      "127": {
+       "angle": 7.94,
+       "kind": "building",
+       "dist": 338,
+       "building": 1287209980,
+       "sea": false
+      },
+      "128": {
+       "angle": 8.01,
+       "kind": "building",
+       "dist": 334,
+       "building": 1287209980,
+       "sea": false
+      },
+      "129": {
+       "angle": 8.01,
+       "kind": "building",
+       "dist": 334,
+       "building": 1287209980,
+       "sea": false
+      },
+      "130": {
+       "angle": 7.98,
+       "kind": "building",
+       "dist": 336,
+       "building": 1287209980,
+       "sea": false
+      },
+      "131": {
+       "angle": 7.91,
+       "kind": "building",
+       "dist": 339,
+       "building": 1287209980,
+       "sea": false
+      },
+      "132": {
+       "angle": 7.8,
+       "kind": "building",
+       "dist": 344,
+       "building": 1287209980,
+       "sea": false
+      },
+      "133": {
+       "angle": 7.8,
+       "kind": "building",
+       "dist": 344,
+       "building": 1287209980,
+       "sea": false
+      },
+      "134": {
+       "angle": 7.74,
+       "kind": "building",
+       "dist": 346,
+       "building": 1287209980,
+       "sea": false
+      },
+      "135": {
+       "angle": 6.31,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474330,
+       "sea": false
+      },
+      "136": {
+       "angle": 6.31,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474330,
+       "sea": false
+      },
+      "137": {
+       "angle": 6.61,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "138": {
+       "angle": 6.61,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "139": {
+       "angle": 6.61,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "140": {
+       "angle": 6.93,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "141": {
+       "angle": 6.93,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "142": {
+       "angle": 6.93,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "143": {
+       "angle": 6.93,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "144": {
+       "angle": 7.29,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "145": {
+       "angle": 7.29,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "146": {
+       "angle": 8.14,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "147": {
+       "angle": 8.14,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "148": {
+       "angle": 8.14,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "149": {
+       "angle": 8.14,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "150": {
+       "angle": 8.14,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "151": {
+       "angle": 8.64,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474330,
+       "sea": false
+      },
+      "152": {
+       "angle": 8.64,
+       "kind": "building",
+       "dist": 24,
+       "building": 201474330,
+       "sea": false
+      },
+      "153": {
+       "angle": 8.14,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "154": {
+       "angle": 8.14,
+       "kind": "building",
+       "dist": 26,
+       "building": 201474330,
+       "sea": false
+      },
+      "155": {
+       "angle": 7.69,
+       "kind": "building",
+       "dist": 27,
+       "building": 201474330,
+       "sea": false
+      },
+      "156": {
+       "angle": 7.29,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "157": {
+       "angle": 7.29,
+       "kind": "building",
+       "dist": 28,
+       "building": 201474330,
+       "sea": false
+      },
+      "158": {
+       "angle": 6.93,
+       "kind": "building",
+       "dist": 30,
+       "building": 201474330,
+       "sea": false
+      },
+      "159": {
+       "angle": 6.61,
+       "kind": "building",
+       "dist": 32,
+       "building": 201474330,
+       "sea": false
+      },
+      "160": {
+       "angle": 6.31,
+       "kind": "building",
+       "dist": 33,
+       "building": 201474330,
+       "sea": false
+      },
+      "161": {
+       "angle": 6.04,
+       "kind": "building",
+       "dist": 34,
+       "building": 201474330,
+       "sea": false
+      },
+      "162": {
+       "angle": 5.79,
+       "kind": "building",
+       "dist": 36,
+       "building": 201474330,
+       "sea": false
+      },
+      "163": {
+       "angle": 5.34,
+       "kind": "building",
+       "dist": 39,
+       "building": 201474330,
+       "sea": false
+      },
+      "164": {
+       "angle": 5.15,
+       "kind": "building",
+       "dist": 40,
+       "building": 201474330,
+       "sea": false
+      },
+      "165": {
+       "angle": 4.79,
+       "kind": "building",
+       "dist": 44,
+       "building": 201474330,
+       "sea": false
+      },
+      "166": {
+       "angle": 4.49,
+       "kind": "building",
+       "dist": 46,
+       "building": 201474330,
+       "sea": false
+      },
+      "167": {
+       "angle": 4.21,
+       "kind": "building",
+       "dist": 50,
+       "building": 201474330,
+       "sea": false
+      }
+     }
+    }
+   }
+  },
   "N": {
    "normal_az": 359.9,
    "eye_lat": 43.5773500932023,
    "eye_lon": 39.72381047828172,
-   "length_m": 50.8,
+   "length_m": 54.1,
    "floors": {
     "1": {
      "eye_m": 23.0,
@@ -6029,7 +12037,7 @@
    "normal_az": 269.9,
    "eye_lat": 43.57722548507995,
    "eye_lon": 39.72342813609356,
-   "length_m": 14.6,
+   "length_m": 23.2,
    "floors": {
     "1": {
      "eye_m": 23.0,
@@ -12037,7 +18045,7 @@
    "normal_az": 179.9,
    "eye_lat": 43.57710365680157,
    "eye_lon": 39.72380927457712,
-   "length_m": 50.5,
+   "length_m": 53.8,
    "floors": {
     "1": {
      "eye_m": 23.0,
