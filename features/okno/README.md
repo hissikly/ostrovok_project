@@ -25,5 +25,8 @@ data_sources, hotels, facts
 - [ ] Работает без ключа LLM (fallback)
 
 ## Статус и заметки
-- Статус: не начато
-- Владелец бэкенда: бэкенд · владелец фронта: фронт/продукт
+- Статус: **v0 для 2 отелей** (25.10, Claude): Pullman Sochi Centre, Azimut Виноградная.
+- Расчёт пока в черновом `pipeline/` в корне (`spike_window.py` → `data/derived/`), `pipeline/export_seed.py` этой фичи переносит его в `data/seed/okno/<hotel_id>.json` и факты `sea_view`, `sunset_view` в `data/seed/facts_okno.json`. Следующий шаг: перенести расчёт сюда и посчитать все 209 отелей с контуром (нужны дома вокруг каждого — качать OSM тайлами).
+- API: `GET /api/hotels/w201474333/window` → какие фасады/этажи посчитаны и доля моря; `GET /api/hotels/w201474333/window?facade=W&floor=16` → `{floor, eye, eye_m, sea_share, sun[{month, sunset_astro, sun_hidden_at, hidden_by, minutes_earlier, sets_into_sea}], profile[[az, angle, kind(b|t|s), dist, sea]]}`. Этаж округляется до ближайшего посчитанного.
+- Фронт: `WindowPanel.jsx` — сторона, этаж, % моря, закат по месяцам; лучи обзора рисуются на основной карте. Красивый «вид из окна» — следующая итерация.
+- Подробности метода и ограничения: `wiki/window-view-method.md`, `wiki/data-check-sochi.md`.

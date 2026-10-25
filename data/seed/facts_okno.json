@@ -1,0 +1,446 @@
+[
+{
+"hotel_id": "w201474333",
+"scope": "facade:E",
+"characteristic": "sea_view",
+"value": {
+"from_floor": null,
+"share_by_floor": {
+"1": 0.0,
+"2": 0.0,
+"3": 0.0,
+"8": 0.0,
+"16": 0.0
+},
+"text": "С восточной стороны моря почти не видно"
+},
+"confidence": 0.65,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 683,
+"height": 13,
+"levels": 444,
+"default": 226
+},
+"levels_src": "hotel:building:levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w201474333",
+"scope": "facade:N",
+"characteristic": "sea_view",
+"value": {
+"from_floor": 8,
+"share_by_floor": {
+"1": 0.019,
+"2": 0.019,
+"3": 0.019,
+"8": 0.317,
+"16": 0.342
+},
+"text": "Море видно с 8-го этажа (северная сторона)"
+},
+"confidence": 0.65,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 683,
+"height": 13,
+"levels": 444,
+"default": 226
+},
+"levels_src": "hotel:building:levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w201474333",
+"scope": "facade:N",
+"characteristic": "sunset_view",
+"value": {
+"months": [
+4,
+5,
+6,
+7,
+8
+],
+"top_floor": 16,
+"text": "Закат над морем из окон северной стороны"
+},
+"confidence": 0.65,
+"source": "computed:horizon+sun",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 683,
+"height": 13,
+"levels": 444,
+"default": 226
+},
+"levels_src": "hotel:building:levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w201474333",
+"scope": "facade:W",
+"characteristic": "sea_view",
+"value": {
+"from_floor": 1,
+"share_by_floor": {
+"1": 0.677,
+"2": 0.677,
+"3": 0.677,
+"8": 0.882,
+"16": 0.907
+},
+"text": "Море видно с 1-го этажа (западная сторона)"
+},
+"confidence": 0.65,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 683,
+"height": 13,
+"levels": 444,
+"default": 226
+},
+"levels_src": "hotel:building:levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w201474333",
+"scope": "facade:W",
+"characteristic": "sunset_view",
+"value": {
+"months": [
+4,
+5,
+6,
+7,
+8,
+9,
+10
+],
+"top_floor": 16,
+"text": "Закат над морем из окон западной стороны"
+},
+"confidence": 0.65,
+"source": "computed:horizon+sun",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 683,
+"height": 13,
+"levels": 444,
+"default": 226
+},
+"levels_src": "hotel:building:levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w201474333",
+"scope": "facade:S",
+"characteristic": "sea_view",
+"value": {
+"from_floor": 1,
+"share_by_floor": {
+"1": 0.534,
+"2": 0.547,
+"3": 0.547,
+"8": 0.547,
+"16": 0.683
+},
+"text": "Море видно с 1-го этажа (южная сторона)"
+},
+"confidence": 0.65,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 683,
+"height": 13,
+"levels": 444,
+"default": 226
+},
+"levels_src": "hotel:building:levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w201474333",
+"scope": "facade:S",
+"characteristic": "sunset_view",
+"value": {
+"months": [
+10
+],
+"top_floor": 16,
+"text": "Закат над морем из окон южной стороны"
+},
+"confidence": 0.65,
+"source": "computed:horizon+sun",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 683,
+"height": 13,
+"levels": 444,
+"default": 226
+},
+"levels_src": "hotel:building:levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w51764141",
+"scope": "facade:N",
+"characteristic": "sea_view",
+"value": {
+"from_floor": null,
+"share_by_floor": {
+"1": 0.0,
+"2": 0.0,
+"3": 0.0,
+"10": 0.081,
+"20": 0.211
+},
+"text": "С северной стороны моря почти не видно"
+},
+"confidence": 0.61,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 1850,
+"height": 0,
+"levels": 994,
+"default": 856
+},
+"levels_src": "корпус 51764149: levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w51764141",
+"scope": "facade:N",
+"characteristic": "sunset_view",
+"value": {
+"months": [
+4,
+5,
+6,
+7,
+8
+],
+"top_floor": 20,
+"text": "Закат над морем из окон северной стороны"
+},
+"confidence": 0.61,
+"source": "computed:horizon+sun",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 1850,
+"height": 0,
+"levels": 994,
+"default": 856
+},
+"levels_src": "корпус 51764149: levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w51764141",
+"scope": "facade:E",
+"characteristic": "sea_view",
+"value": {
+"from_floor": null,
+"share_by_floor": {
+"1": 0.0,
+"2": 0.0,
+"3": 0.0,
+"10": 0.0,
+"20": 0.056
+},
+"text": "С восточной стороны моря почти не видно"
+},
+"confidence": 0.61,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 1850,
+"height": 0,
+"levels": 994,
+"default": 856
+},
+"levels_src": "корпус 51764149: levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w51764141",
+"scope": "facade:W",
+"characteristic": "sea_view",
+"value": {
+"from_floor": 10,
+"share_by_floor": {
+"1": 0.143,
+"2": 0.161,
+"3": 0.224,
+"10": 0.54,
+"20": 0.758
+},
+"text": "Море видно с 10-го этажа (западная сторона)"
+},
+"confidence": 0.61,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 1850,
+"height": 0,
+"levels": 994,
+"default": 856
+},
+"levels_src": "корпус 51764149: levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w51764141",
+"scope": "facade:W",
+"characteristic": "sunset_view",
+"value": {
+"months": [
+4,
+5,
+6,
+7,
+8,
+9,
+10
+],
+"top_floor": 20,
+"text": "Закат над морем из окон западной стороны"
+},
+"confidence": 0.61,
+"source": "computed:horizon+sun",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 1850,
+"height": 0,
+"levels": 994,
+"default": 856
+},
+"levels_src": "корпус 51764149: levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w51764141",
+"scope": "facade:S",
+"characteristic": "sea_view",
+"value": {
+"from_floor": 10,
+"share_by_floor": {
+"1": 0.0,
+"2": 0.205,
+"3": 0.242,
+"10": 0.441,
+"20": 0.602
+},
+"text": "Море видно с 10-го этажа (южная сторона)"
+},
+"confidence": 0.61,
+"source": "computed:horizon",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 1850,
+"height": 0,
+"levels": 994,
+"default": 856
+},
+"levels_src": "корпус 51764149: levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+},
+{
+"hotel_id": "w51764141",
+"scope": "facade:S",
+"characteristic": "sunset_view",
+"value": {
+"months": [
+10
+],
+"top_floor": 20,
+"text": "Закат над морем из окон южной стороны"
+},
+"confidence": 0.61,
+"source": "computed:horizon+sun",
+"method_version": "horizon@0.1",
+"evidence": {
+"dem": "Copernicus GLO-30",
+"buildings": {
+"count": 1850,
+"height": 0,
+"levels": 994,
+"default": 856
+},
+"levels_src": "корпус 51764149: levels"
+},
+"obtained_at": "2026-10-25",
+"valid_until": "2027-04-23",
+"status": "active"
+}
+]

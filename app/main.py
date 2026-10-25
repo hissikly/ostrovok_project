@@ -1,0 +1,34 @@
+"""Точка входа: собирает роутеры фич, отдаёт собранный фронт и /health."""
+import logging
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+
+from core.config import STATIC
+from features.facts.backend.router import router as facts_router
+from features.hotels.backend.router import router as hotels_router
+from features.okno.backend.router import router as okno_router
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+app = FastAPI(title="О!кно", version="0.1.0")
+
+for r in (hotels_router, facts_router, okno_router):
+    app.include_router(r)
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+if (STATIC / "assets").exists():
+    app.mount("/assets", StaticFiles(directory=STATIC / "assets"), name="assets")
+
+
+@app.get("/{path:path}", include_in_schema=False)
+def spa(path: str):
+    index = STATIC / "index.html"
+    if not index.exists():
+        return {"status": "frontend not built", "hint": "npm run build"}
+    return FileResponse(index)

@@ -1,0 +1,13 @@
+.git
+.venv
+node_modules
+data/raw
+data/derived
+app/static
+raw
+wiki
+mockups
+pipeline
+tools
+**/__pycache__
+.env

@@ -8,3 +8,4 @@ dist/
 data/raw/
 *.tif
 .obsidian/
+app/static/

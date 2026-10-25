@@ -25,5 +25,8 @@ data_sources
 - [ ] Работает без ключа LLM (fallback)
 
 ## Статус и заметки
-- Статус: не начато
-- Владелец бэкенда: бэкенд · владелец фронта: фронт/продукт
+- Статус: **v0 работает** (25.10, Claude)
+- Данные: `pipeline/build_hotels.py` → `data/seed/hotels.json` (объекты размещения Сочи из OSM с названием) + `data/seed/facts_hotels.json` (высота над морем по DEM — первый вычисленный факт у каждого отеля). Цена/рейтинг/отзывы — мок (`mock`), детерминированный по id.
+- API: `GET /api/hotels` → `[{id, name, kind_ru, lat, lon, stars, price_rub, facts}]`; `GET /api/hotels/w201474333` → полная запись с `osm`, `address`, `levels`, `website`, `mock{price_rub, rating, reviews}`.
+- Фронт: `HotelMap.jsx` (MapLibre, подложка OpenFreeMap без ключей; синие точки — отели с расчётом вида из окна), `HotelList.jsx`, `HotelCard.jsx`.
+- id отеля = первая буква типа OSM + id: `w201474333` = way/201474333.

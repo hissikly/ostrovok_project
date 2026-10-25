@@ -81,7 +81,11 @@ class Dem:
         g = np.linspace(-radius, radius, 9)
         xx, yy = np.meshgrid(x + g, y + g)
         lat, lon = frame.to_latlon(xx.ravel(), yy.ravel())
-        return float(np.percentile(self.sample(lat, lon), 10))
+        h = self.sample(lat, lon)
+        land = h[h > SEA_LEVEL_MAX]          # у берега в круг попадает море — его не считаем землёй
+        if land.size < 5:
+            return float(max(np.median(h), 1.0))
+        return float(np.percentile(land, 10))
 
 
 @dataclass
