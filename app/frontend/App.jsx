@@ -4,6 +4,7 @@ import Icon from './icons.jsx'
 import HotelMap from '@features/hotels/frontend/HotelMap.jsx'
 import SearchPanel from '@features/search/frontend/SearchPanel.jsx'
 import HotelCard from '@features/hotels/frontend/HotelCard.jsx'
+import Extranet from '@features/hotelier/frontend/Extranet.jsx'
 
 const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
@@ -64,6 +65,13 @@ export default function App() {
 
   const sel = useMemo(() => hotels.find(h => h.id === selected), [hotels, selected])
 
+  // Экстранет отельера: #extranet/<id отеля>
+  if (selected?.startsWith('extranet')) {
+    const hid = selected.split('/')[1] || 'w201474333'
+    return <Extranet hotelId={hid} hotels={hotels} onHotel={id => setSelected(`extranet/${id}`)}
+      onExit={() => setSelected(hid)} />
+  }
+
   return (
     <div className="layout">
       <header className="hdr">
@@ -74,6 +82,7 @@ export default function App() {
           <span><Icon name="calendar" size={17} />{month === 5 ? '12–19 мая' : MONTH[month]}</span>
           <span><Icon name="user" size={17} />2 взрослых</span>
         </div>
+        <button className="for-hotels" onClick={() => setSelected(`extranet/${sel?.id || 'w201474333'}`)}>Для отелей</button>
       </header>
       <div className="main">
         <aside className="panel">

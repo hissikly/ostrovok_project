@@ -10,7 +10,7 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
-from core.textmatch import best
+from core.textmatch import best, meaning_key
 from features.facts.backend import facts_for
 from features.hotels.backend import hotel
 from features.nearby.backend import specs as nearby_specs
@@ -99,7 +99,8 @@ def resolve(hotel_id: str, tid: str, ctx: dict) -> dict:
     base = {"topic": tid, "question": t["question"], "icon": t["icon"], "can_ask_hotel": bool(t.get("ask_hotel"))}
     own = get(path, tid)                       # 1. ответ отеля
     if own:
-        return {**base, "status": "answered", "level": "hotel", "note": LEVEL_NOTE["hotel"], "text": own["text"],
+        return {**base, "status": "answered", "level": "hotel",
+                "note": LEVEL_NOTE["hotel"] + (" (демо)" if (own.get("evidence") or {}).get("demo") else ""), "text": own["text"],
                 "value": own["value"], "source": own["source"], "confidence": own["confidence"],
                 "obtained_at": own["obtained_at"]}
     if tid in COMPUTED:                        # 2. посчитали сами
@@ -138,6 +139,13 @@ def ask(hotel_id: str, text: str, ctx: dict) -> dict:
     near = [sid for sid, _ in best(text, nearby_specs())] if not found else []
     answers = [resolve(hotel_id, tid, ctx) for tid in found] + [a for a in (_near(hotel_id, s) for s in near) if a]
     if not answers:
+        # вопрос не из каталога, но отель на него уже отвечал (по смыслу фразы)
+        note = get(hotel_path(hotel_id), "note:" + meaning_key(text))
+        if note:
+            return {"status": "answered", "can_ask_hotel": False, "answers": [{
+                "topic": "note", "question": text.strip(), "icon": "question", "status": "answered", "level": "hotel",
+                "note": LEVEL_NOTE["hotel"], "text": note["text"], "value": note["value"], "source": "hotelier",
+                "confidence": note["confidence"], "obtained_at": note["obtained_at"], "can_ask_hotel": False}]}
         return {"status": "no_topic", "text": "Этого мы пока не знаем :(", "question": text.strip(),
                 "can_ask_hotel": True, "answers": []}
     unknown = all(a["status"] == "unknown" for a in answers)

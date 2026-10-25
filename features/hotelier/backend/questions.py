@@ -12,7 +12,7 @@ import threading
 from pathlib import Path
 
 from core.config import DATA
-from core.textmatch import STOP, lemmas
+from core.textmatch import meaning_key
 from features.knowledge.backend import topics
 
 DB = Path(os.getenv("HOTELIER_DB", DATA / "runtime" / "hotelier.db"))
@@ -35,7 +35,7 @@ def con():
 
 def _key(topic: str | None, text: str) -> str:
     """Тема, а без темы — смысл фразы: начальные формы значимых слов по алфавиту."""
-    return f"topic:{topic}" if topic else "text:" + " ".join(sorted({w for w in lemmas(text) if w not in STOP}))
+    return f"topic:{topic}" if topic else "text:" + meaning_key(text)
 
 
 def _hotel_text(topic: str | None, guest_text: str) -> str:
@@ -69,3 +69,21 @@ def ask_hotel(hotel_id: str, topic: str | None, guest_text: str, origin: str = "
 def open_questions(hotel_id: str) -> list[dict]:
     return [dict(r) for r in con().execute(
         "select * from questions where hotel_id=? and status='open' order by demand desc, id", (hotel_id,)).fetchall()]
+
+
+def get_question(qid: int) -> dict | None:
+    r = con().execute("select * from questions where id=?", (qid,)).fetchone()
+    return dict(r) if r else None
+
+
+def close(qid: int) -> None:
+    with _lock:
+        con().execute("update questions set status='answered', updated_at=? where id=?",
+                      (dt.datetime.now().isoformat(timespec="seconds"), qid))
+        con().commit()
+
+
+def demand_total(hotel_id: str) -> int:
+    r = con().execute("select coalesce(sum(demand), 0) from questions where hotel_id=? and status='open'",
+                      (hotel_id,)).fetchone()
+    return r[0]

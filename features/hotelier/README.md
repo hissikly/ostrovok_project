@@ -25,7 +25,18 @@ facts, characteristics
 - [ ] Работает без ключа LLM (fallback)
 
 ## Статус и заметки
-- Статус: **очередь вопросов v0** (25.10, Claude). Экрана Экстранета и разбора ответа ещё нет (макет — `mockups/hotelier.html`).
-- `backend/questions.py`: вопрос гостя → в очередь отеля. Тот же отель + та же тема (или тот же смысл фразы, если темы нет) → не новый вопрос, а `demand + 1`. Текст вопроса отелю — из каталога тем `features/knowledge/topics.json` (`ask_hotel`), без темы — фраза гостя. Хранение — SQLite `HOTELIER_DB` (по умолчанию `data/runtime/hotelier.db`, не в git).
-- API: `POST /api/hotelier/{hotel_id}/questions {"topic": "pets"}` или `{"text": "где купить сим-карту"}` → `{id, topic, text, demand, status: "open", created}`; `GET /api/hotelier/{hotel_id}/questions` → открытые вопросы, сначала самые спрашиваемые.
-- Владелец бэкенда: бэкенд · владелец фронта: фронт/продукт
+- Статус: **v1 работает** (25.10, Claude): очередь вопросов, раздел Экстранета, разбор ответа, подтверждение и правка фактов, вопросы агента, имитация отельеров.
+- **Экран:** `frontend/Extranet.jsx`, адрес `/#extranet/<id>` (кнопка «Для отелей» в шапке). Макет — `mockups/hotelier.html`. Справа превью «Так увидит гость» (блок «Частые вопросы» из `knowledge`).
+- **Очередь** (`backend/questions.py`): тот же отель + та же тема (или смысл фразы) → `demand + 1`, а не новый вопрос. Вопросы агента (`origin: agent`): этажность у отелей с «О!кном» без этажности в OSM.
+- **Разбор ответа** (`backend/parse.py`, без LLM): поля темы из `features/knowledge/topics.json` (`kw` — о чём часть фразы, `match` — слова вариантов); отрицания, «бесплатно / за доплату», числа с единицами, время. Отельер видит «как мы поняли» и может поправить таблетками и полями.
+- **Ответ** → база знаний на уровень отеля (`source: hotelier`), вопросы по теме закрываются; без темы — заметка `note:<смысл фразы>`, на тот же вопрос гостя потом отвечает она.
+- **«Верно / Исправить»**: поправка отеля заменяет расчёт (решение 25.10).
+- **Демо:** `demo_answers.json` — 17 свободных ответов 7 отелей, при старте проходят тот же разбор (`evidence.demo = true`, гость видит «Так ответил отель (демо)»).
+- **Метрика:** `pipeline/eval_parse.py` на `eval_answers.json` — 55/55 полей (правила подбирались на этой выборке).
+- API:
+  - `GET /api/hotelier/{id}` → `{hotel, demand, questions: [{id, topic, text, demand, origin, guest_text, icon, fields}], known: [{topic, question, text, by_hotel}]}`
+  - `POST /api/hotelier/{id}/questions {"topic": "pets"} | {"text": "..."}`; `POST /api/hotelier/questions {"hotel_ids": [...], "topic": "pets"}` → `{asked, known}` (кто уже ответил — не спрашиваем)
+  - `POST /api/hotelier/{id}/parse {"question_id": 3, "text": "Собак до 8 кг пускаем, 500 руб в сутки"}` → `{fields: [{id, label, type, unit, value, options}], summary}`
+  - `POST /api/hotelier/{id}/answers {"question_id": 3, "text": "...", "fields": [...]}` → запись базы знаний
+  - `POST /api/hotelier/{id}/confirm {"topic": "sea_view"}` (верно) / `{"topic": "sea_view", "text": "..."}` (исправить)
+- Ограничения: LLM-разбор ещё не подключён (только правила); уведомлений гостю «отель ответил» нет — ответ просто появляется в карточке.

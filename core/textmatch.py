@@ -78,3 +78,8 @@ def best(phrase_text: str, items: list[dict], key: str = "synonyms") -> list[tup
         taken.append(pos)
         out.append((iid, n))
     return out
+
+
+def meaning_key(text: str) -> str:
+    """Смысл фразы без порядка и служебных слов: «где купить сим-карту» == «сим-карту где купить?»."""
+    return " ".join(sorted({w for w in lemmas(text) if w not in STOP}))

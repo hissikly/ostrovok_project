@@ -23,10 +23,10 @@ RULES = [  # (регулярка, линзы) — порядок важен: «�
     (r"без подъ[её]м|не в гору|без горк|ровн|коляск|пожил|тяжело ходить|с реб[её]нк|с детьми|дет[еяи]", ["flat", "beach_near"]),
 ]
 NOT_YET = [  # (регулярка, как назвать) — честно говорим, что этого пока не знаем
-    (r"тих|шум|спать|выспат", "тишина"),
-    (r"с собак|с кошк|с питом|с животн|с пс[оа]м", "можно ли с питомцем"),
     (r"удал[её]н|интернет|связь|wi-?fi|вайфай", "связь для работы"),
 ]
+# что знает только отель: такое пожелание не фильтр, а вопрос отелям (база знаний features/knowledge)
+ASKABLE = ["pets", "checkin", "street_noise", "breakfast", "crib", "ac", "balcony", "transfer"]
 MONTHS = ["январ", "феврал", "март", "апрел", "ма[йяе]", "июн", "июл", "август",
           "сентябр", "октябр", "ноябр", "декабр"]
 
@@ -96,7 +96,14 @@ def _rules(text: str) -> dict:
         lenses.remove("beach_near")   # «вид на море» сам по себе не значит «рядом пляж»
     month = next((i + 1 for i, rx in enumerate(MONTHS) if re.search(rf"\b{rx}", t)), None)
     not_yet = [name for rx, name in NOT_YET if re.search(rx, t)]
-    return {"lenses": lenses, "month": month, "not_yet": not_yet, "by": "rules"}
+    return {"lenses": lenses, "month": month, "not_yet": not_yet, "ask": _askable(text), "by": "rules"}
+
+
+def _askable(text: str) -> list[dict]:
+    from core.textmatch import best
+    from features.knowledge.backend import topics
+    ts = [t for t in topics() if t["id"] in ASKABLE]
+    return [{"topic": tid, "question": next(t["question"] for t in ts if t["id"] == tid)} for tid, _ in best(text, ts)]
 
 
 def _llm(text: str) -> dict | None:
@@ -115,7 +122,7 @@ def _llm(text: str) -> dict | None:
         month = d.get("month")
         return {"lenses": [i for i in d.get("lenses", []) if i in BY_ID],
                 "month": month if isinstance(month, int) and 1 <= month <= 12 else None,
-                "not_yet": [str(x) for x in d.get("not_yet", [])][:3], "by": "llm"}
+                "not_yet": [str(x) for x in d.get("not_yet", [])][:3], "ask": _askable(text), "by": "llm"}
     except Exception as e:  # сеть, ключ, кривой JSON — откатываемся на правила
         log.warning("describe: LLM недоступна (%s), разбираю правилами", e)
         return None

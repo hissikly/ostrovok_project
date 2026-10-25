@@ -10,17 +10,40 @@ const plural = (n, one, few, many) => {
 }
 
 // «✨ Опиши» — не чат: фраза растворяется в линзах и исчезает
-function Describe({ onApply }) {
+// То, что знает только отель (питомцы, завтрак, заезд…), — не фильтр: честно говорим и предлагаем спросить
+function AskHotels({ ask, topIds }) {
+  const [sent, setSent] = useState({})
+  const send = async a => {
+    const r = await post('/api/hotelier/questions', { hotel_ids: topIds(), topic: a.topic })
+    setSent(s => ({ ...s, [a.topic]: r }))
+  }
+  return ask.map(a => (
+    <div key={a.topic} className="ask-hotels">
+      <b>{a.question}</b>
+      {sent[a.topic]
+        ? <div className="faq-asked"><Icon name="check" size={16} />Спросили у {sent[a.topic].asked} {plural(sent[a.topic].asked, 'отеля', 'отелей', 'отелей')} из подборки
+            {sent[a.topic].known > 0 && <span>, ещё {sent[a.topic].known} уже ответили — смотрите в карточках</span>}</div>
+        : <>
+            <div className="muted">Этого мы пока не знаем :( Спросить у отелей? Обычно отвечают за 1–3 дня</div>
+            <button className="faq-ask-btn" onClick={() => send(a)}>Спросить у отелей из подборки</button>
+          </>}
+    </div>
+  ))
+}
+
+function Describe({ onApply, topIds }) {
   const [text, setText] = useState('')
   const [note, setNote] = useState(null)
+  const [ask, setAsk] = useState([])
   const submit = async e => {
     e.preventDefault()
     if (!text.trim()) return
     const d = await post('/api/describe', { text })
     onApply(d)
+    setAsk(d.ask || [])
     setNote(d.not_yet.length ? `Это пока не учитываем: ${d.not_yet.join(', ')}. Скоро научимся.`
-      : d.lenses.length ? null : 'Не поняли, что важно. Попробуйте «вид на море», «продуктовый рядом» или откройте «Ещё фильтры».')
-    if (d.lenses.length) setText('')
+      : d.lenses.length || d.ask?.length ? null : 'Не поняли, что важно. Попробуйте «вид на море», «продуктовый рядом» или откройте «Ещё фильтры».')
+    if (d.lenses.length || d.ask?.length) setText('')
   }
   return (
     <>
@@ -30,6 +53,7 @@ function Describe({ onApply }) {
         {text.trim() && <button className="go">Подобрать</button>}
       </form>
       {note && <div className="describe-note">{note}</div>}
+      <AskHotels ask={ask} topIds={topIds} />
     </>
   )
 }
@@ -131,7 +155,7 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
     <div>
       <div className="block search-block">
         <h2>Что важно в поездке?</h2>
-        <Describe onApply={apply} />
+        <Describe onApply={apply} topIds={() => list.slice(0, 10).map(x => x.h.id)} />
         <Lenses lenses={lenses} on={on} toggle={toggle} />
       </div>
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
