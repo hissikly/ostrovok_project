@@ -11,8 +11,8 @@ status: draft
 
 ## A. Формальная сдача (из правил по технике)
 - [ ] Код в репозитории команды в `ostrovok-hackathon-2026`, git-тег `submission` на последнем коммите основной ветки
-- [ ] `git clone` → `cp .env.example .env` → `docker compose up --build` → http://localhost:8080, ≤10 мин, без ручных шагов
-- [ ] `Dockerfile` (multi-stage, не root, `linux/amd64`), `docker-compose.yml` (8080:8080, healthcheck, env_file), `/health` → `{"status":"ok"}`
+- [ ] `git clone` → `cp .env.example .env` → `docker compose up --build` → http://localhost:8080, ≤10 мин, без ручных шагов *(25.10: сборка и контейнер проверены; финально прогнать на чистом клоне)*
+- [x] `Dockerfile` (multi-stage, не root, `linux/amd64`), `docker-compose.yml` (8080:8080, healthcheck, env_file), `/health` → `{"status":"ok"}`
 - [ ] `.env.example` (ключ LLM, модель, URL — с описанием; без ключа всё работает в упрощённом режиме)
 - [ ] `README.md` по шаблону: что делает · ссылка на видео · быстрый старт · ресурсы и переменные · данные/сидирование · маршруты
 - [ ] **Видео-скринкаст** 2–3 мин, открывается в инкогнито

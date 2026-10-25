@@ -10,11 +10,19 @@
 - `wiki/index.md` — база знаний: требования, концепция, архитектура, решения
 - `features/README.md` — список фич; одна фича = одна папка
 
-## Быстрый старт (будет)
+## Быстрый старт
 ```bash
 git clone https://github.com/ostrovok-hackathon-2026/vot-takaya-vot-komanda-sobachka.git
 cd vot-takaya-vot-komanda-sobachka
-cp .env.example .env
+cp .env.example .env   # необязательно: без ключа LLM всё работает
 docker compose up --build
 # открыть http://localhost:8080
 ```
+Сборка с нуля — около минуты (плюс скачивание базовых образов node и python). Образ ~210 МБ, один контейнер, `/health` → `{"status":"ok"}`.
+
+## Разработка без Docker
+```bash
+sh tools/dev_check.sh            # пересобрать демо-данные и фронт, поднять сервис на :8080
+PORT=8090 sh tools/dev_check.sh  # на другом порту
+```
+Нужны `.venv` с `pipeline/requirements.txt` и скачанные `data/raw/` (OSM, Copernicus DEM).
