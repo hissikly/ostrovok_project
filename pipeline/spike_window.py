@@ -75,27 +75,26 @@ def sun_events(lat, lon, profile_by_az, eye_ground, months=(4, 5, 6, 7, 8, 9, 10
     for m in months:
         day = dt.date(2026, m, 15)
         ss = sunset(obs, day, tzinfo=TZ)
-        hide, hide_az, blocker = None, None, None
-        t = ss - dt.timedelta(minutes=180)
-        while t <= ss + dt.timedelta(minutes=5):
+        # идём от заката назад: последняя минута, когда солнце видно из окна
+        hide, blocker, t = None, None, ss + dt.timedelta(minutes=6)
+        while t >= ss - dt.timedelta(minutes=240):
             az = azimuth(obs, t) % 360
-            el = elevation(obs, t)
             p = profile_by_az.get(int(round(az)) % 360)
-            if p is None:                        # солнце вне сектора окна
-                hide, blocker = t, "вне обзора окна"
-                hide_az = az
+            if p is not None and elevation(obs, t) > p["angle"]:
+                hide = t + dt.timedelta(minutes=1)
+                pn = profile_by_az.get(int(round(azimuth(obs, hide) % 360)) % 360)
+                blocker = (pn or p)["kind"] if pn else "край окна"
                 break
-            if el < p["angle"]:
-                hide, hide_az, blocker = t, az, p["kind"]
-                break
-            t += dt.timedelta(minutes=1)
+            t -= dt.timedelta(minutes=1)
+        if hide is None:
+            blocker = "не видно из этого окна"
         res.append({
             "month": m,
             "sunset_astro": ss.strftime("%H:%M"),
             "sunset_az": round(azimuth(obs, ss) % 360, 1),
             "sun_hidden_at": hide.strftime("%H:%M") if hide else None,
             "hidden_by": blocker,
-            "minutes_earlier": round((ss - hide).total_seconds() / 60) if hide else None,
+            "minutes_earlier": max(0, round((ss - hide).total_seconds() / 60)) if hide else None,
             "sets_into_sea": bool(blocker == "sea"),
         })
     return res
@@ -123,24 +122,32 @@ def run(osm_ref: str):
             continue
         hh, src = building_height(b.get("tags", {}))
         c = poly.centroid
-        la, lo = frame.to_latlon(c.x, c.y)
-        blds.append(Building(b["id"], poly, hh, src, float(dem.sample(la, lo))))
+        blds.append(Building(b["id"], poly, hh, src, dem.ground(frame, c.x, c.y, 40)))
     srcs = {k: sum(b.height_src == k for b in blds) for k in ("height", "levels", "default")}
 
     # здание отеля: контур из OSM, ищем совпадающий building
     hp = poly_of(h)
     hx, hy = frame.to_xy([p[0] for p in hp], [p[1] for p in hp])
     hpoly = Polygon(zip(hx, hy)).buffer(0)
-    own = max((b for b in blds if b.poly_xy.intersects(hpoly)),
-              key=lambda b: b.poly_xy.intersection(hpoly).area, default=None)
-    if own is not None and own.poly_xy.area > hpoly.area * 0.3:
-        hpoly, own_id, lv_src = own.poly_xy, own.osm_id, own.height_src
+    # контур отеля в OSM бывает территорией курорта — тогда берём главный корпус внутри
+    inside = [b for b in blds if b.poly_xy.intersects(hpoly)
+              and b.poly_xy.intersection(hpoly).area > 0.5 * b.poly_xy.area]
+    own = max(inside, key=lambda b: (b.height_src != "default", b.height * b.poly_xy.area), default=None)
+    is_area = "building" not in tags and hpoly.area > 2500
+    if own is not None and (is_area or own.poly_xy.area > hpoly.area * 0.3):
+        hpoly, own_id = own.poly_xy, own.osm_id
     else:
-        own_id, lv_src = None, "hotel-tag"
-    levels = int(float(tags.get("building:levels") or (own and own.height_src == "levels"
-                                                       and round((own.height - 1) / 3)) or 5))
+        own_id = None
+    if tags.get("building:levels"):
+        levels, lv_src = int(float(tags["building:levels"])), "hotel:building:levels"
+    elif own is not None and own.height_src in ("levels", "height"):
+        levels, lv_src = max(1, round((own.height - 1) / 3)), f"корпус {own.osm_id}: {own.height_src}"
+    else:
+        levels, lv_src = 5, "нет данных → 5 (спросить отельера)"
     local = build_local(blds, exclude_id=own_id)
-    ground = float(dem.sample(lat0, lon0))
+    c = hpoly.centroid
+    ground = dem.ground(frame, c.x, c.y, 60)
+    lat0, lon0 = (float(v) for v in frame.to_latlon(c.x, c.y))
 
     sides = group_facades(facades(hpoly))
     result = {"hotel": {"osm": osm_ref, "name": tags.get("name"), "lat": lat0, "lon": lon0,
@@ -151,9 +158,9 @@ def run(osm_ref: str):
     for side, f in sides.items():
         sector = [int((f.normal_az + d) % 360) for d in range(-80, 81)]
         floors = {}
-        for fl in sorted({1, 2, 3, max(1, levels // 2), levels}):
+        for fl in sorted({1, 2, 3, max(1, levels // 2), levels} - {0}):
             eye = ground + FLOOR_H * (fl - 1) + EYE_ABOVE_FLOOR
-            rays = cast(frame, dem, local, f.x, f.y, eye, sector)
+            rays = cast(frame, dem, local, f.x, f.y, eye, sector, ground)
             sea_rays = [r for r in rays if r.sea_visible]
             prof = {r.az: {"angle": round(r.angle, 2), "kind": r.kind, "dist": round(r.dist),
                            "building": r.building, "sea": r.sea_visible} for r in rays}

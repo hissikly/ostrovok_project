@@ -75,6 +75,14 @@ class Dem:
         return ((a[r0, c0] * (1 - fc) + a[r0, c0 + 1] * fc) * (1 - fr)
                 + (a[r0 + 1, c0] * (1 - fc) + a[r0 + 1, c0 + 1] * fc) * fr)
 
+    def ground(self, frame: "LocalFrame", x: float, y: float, radius: float = 60.0) -> float:
+        """Оценка земли под зданием/деревьями: Copernicus — модель поверхности (DSM),
+        в ней уже есть крыши и кроны. Берём низкий процентиль высот вокруг точки."""
+        g = np.linspace(-radius, radius, 9)
+        xx, yy = np.meshgrid(x + g, y + g)
+        lat, lon = frame.to_latlon(xx.ravel(), yy.ravel())
+        return float(np.percentile(self.sample(lat, lon), 10))
+
 
 @dataclass
 class Building:
@@ -150,8 +158,11 @@ class RayResult:
     sea_from: float | None  # ближайшая дистанция видимого моря
 
 
+NEAR_BLEND = 150.0   # м: ближе этого DSM не используем (там крыши — их даёт OSM), тянем землю линейно
+
+
 def cast(frame: LocalFrame, dem: Dem, local: LocalBuildings, ex: float, ey: float,
-         eye_h: float, azimuths) -> list[RayResult]:
+         eye_h: float, azimuths, eye_ground: float) -> list[RayResult]:
     d = ray_distances()
     out = []
     for az in azimuths:
@@ -159,6 +170,10 @@ def cast(frame: LocalFrame, dem: Dem, local: LocalBuildings, ex: float, ey: floa
         xs, ys = ex + d * math.sin(a), ey + d * math.cos(a)
         lat, lon = frame.to_latlon(xs, ys)
         ground = dem.sample(lat, lon)
+        far_g = float(dem.sample(*frame.to_latlon(ex + NEAR_BLEND * math.sin(a), ey + NEAR_BLEND * math.cos(a))))
+        near = d < NEAR_BLEND
+        ground = np.where(near, eye_ground + (far_g - eye_ground) * d / NEAR_BLEND, ground)
+        ground = np.where(near & (ground < SEA_LEVEL_MAX + 0.01) & (far_g > SEA_LEVEL_MAX), SEA_LEVEL_MAX + 0.01, ground)
         btop, bid = local.sample(xs, ys)
         is_bld = ~np.isnan(btop) & (btop > ground)
         h = np.where(is_bld, btop, ground)

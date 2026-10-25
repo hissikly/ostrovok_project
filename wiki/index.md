@@ -17,6 +17,7 @@ status: agreed
 | [requirements.md](requirements.md) | Что требуют организаторы: задачи трека, правила сдачи, сроки |
 | [product-concept.md](product-concept.md) | Концепция v2: 3D-город, линзы, «Окно», фасад, «Твой день», отельер; архитектура, приоритеты, план по дням, сценарий видео |
 | [window-view-method.md](window-view-method.md) | Как считается «вид из окна»: данные, офлайн-расчёт профиля горизонта, отрисовка, ограничения |
+| [data-check-sochi.md](data-check-sochi.md) | Проверка данных по Сочи: полнота OSM, подвохи карты высот, первые реальные «виды из окна» (Pullman, Azimut) |
 | [design-system.md](design-system.md) | Стиль Островка: цвета и токены с сайта, радиусы, шрифт-замена, иконки, айдентика «О!» |
 | [decisions.md](decisions.md) | Журнал решений команды |
 | [open-questions.md](open-questions.md) | Вопросы к организаторам и внутри команды |
@@ -27,6 +28,8 @@ status: agreed
 - [user-journey.canvas](user-journey.canvas) — схема пользовательского пути (Obsidian canvas; оригинал в хранилище Obsidian), генерируется `tools/make_journey_canvas.py`
 - `../features/README.md` — список фич и их папок
 - [../mockups/okno.html](../mockups/okno.html) — карточка отеля с фичей «Окно» в стиле Островка
+
+- `mockups/spike-cone-pullman.html`, `mockups/spike-cone-azimut.html` — конус обзора на реальных данных
 
 ## Источники (`raw/`)
 - `raw/organizers/` — описания треков, правила по технике, контрольные точки (скачаны с docs.ostrovok.tech 24.10)

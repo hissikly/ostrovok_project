@@ -21,3 +21,4 @@ status: agreed
 - 2026-10-24 · decision · Пользователь одобрил «главное — первым», калибровку и «было / стало» · decisions.md
 - 2026-10-24 · query · Что должно быть в итоговом решении — чек-лист сдачи · deliverables.md, index.md
 - 2026-10-24 · update · Подготовка к совместной работе с бэкендером: AGENTS.md, правило Cursor, 17 папок фич с README, architecture.md, inbox.md; пуш в GitHub · AGENTS.md, CLAUDE.md, features/*, architecture.md, inbox.md, decisions.md, index.md
+- 2026-10-24 · update · Спайк данных Сочи: OSM (92 тыс. зданий, этажность 37%, 209 отелей с контуром), DEM Copernicus, профили горизонта Pullman и Azimut, конусы обзора на карте; найдены подвох DSM и ошибка времени заката в макете · data-check-sochi.md, open-questions.md, index.md
