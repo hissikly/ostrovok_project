@@ -10,3 +10,4 @@ data/raw/
 .obsidian/
 app/static/
 data/derived/
+data/runtime/

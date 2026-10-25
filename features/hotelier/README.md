@@ -25,5 +25,7 @@ facts, characteristics
 - [ ] Работает без ключа LLM (fallback)
 
 ## Статус и заметки
-- Статус: не начато
+- Статус: **очередь вопросов v0** (25.10, Claude). Экрана Экстранета и разбора ответа ещё нет (макет — `mockups/hotelier.html`).
+- `backend/questions.py`: вопрос гостя → в очередь отеля. Тот же отель + та же тема (или тот же смысл фразы, если темы нет) → не новый вопрос, а `demand + 1`. Текст вопроса отелю — из каталога тем `features/knowledge/topics.json` (`ask_hotel`), без темы — фраза гостя. Хранение — SQLite `HOTELIER_DB` (по умолчанию `data/runtime/hotelier.db`, не в git).
+- API: `POST /api/hotelier/{hotel_id}/questions {"topic": "pets"}` или `{"text": "где купить сим-карту"}` → `{id, topic, text, demand, status: "open", created}`; `GET /api/hotelier/{hotel_id}/questions` → открытые вопросы, сначала самые спрашиваемые.
 - Владелец бэкенда: бэкенд · владелец фронта: фронт/продукт

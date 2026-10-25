@@ -1,0 +1,154 @@
+"""Ответ на вопрос гостя: понять тему → найти ответ → честно сказать «не знаем».
+
+Где ищем, по убыванию доверия:
+1. ответ отеля (база знаний, уровень отеля) — отель знает своё здание лучше любого расчёта;
+2. то, что система посчитала сама (факты: этажность, вид из окна, путь до пляжа, что рядом);
+3. общее знание выше: город → край → страна (налог, вода в море, тип пляжей).
+Ничего не нашли → status "unknown": интерфейс предлагает спросить у отеля. Ответ не придумываем.
+"""
+import json
+from functools import lru_cache
+from pathlib import Path
+
+from core.textmatch import best
+from features.facts.backend import facts_for
+from features.hotels.backend import hotel
+from features.nearby.backend import specs as nearby_specs
+
+from .store import get, hotel_path, lookup
+
+TOPICS = Path(__file__).resolve().parents[1] / "topics.json"
+SIDE = {"N": "север", "E": "восток", "S": "юг", "W": "запад"}
+MONTH_IN = ["", "январе", "феврале", "марте", "апреле", "мае", "июне", "июле", "августе", "сентябре",
+            "октябре", "ноябре", "декабре"]
+LEVEL_NOTE = {"hotel": "Так ответил отель", "computed": "Посчитали сами", "city": "Общее для Сочи",
+              "region": "Общее для Краснодарского края", "country": "Общее для России"}
+
+
+@lru_cache(maxsize=1)
+def topics() -> list[dict]:
+    return json.load(open(TOPICS, encoding="utf-8"))
+
+
+def topic(tid: str) -> dict | None:
+    return next((t for t in topics() if t["id"] == tid), None)
+
+
+def _fact(facts, char):
+    return [f for f in facts if f["characteristic"] == char and f["status"] == "active"]
+
+
+# --- ответы из посчитанных фактов -------------------------------------------------------------
+
+def _floors(h, facts, ctx):
+    if h and h.get("levels"):
+        return {"text": f"В корпусе {h['levels']} этажей", "value": {"floors": h["levels"]},
+                "source": "osm", "confidence": 0.7}
+
+
+def _sea_view(h, facts, ctx):
+    fs = _fact(facts, "sea_view")
+    if not fs:
+        return None
+    parts = []
+    for f in sorted(fs, key=lambda f: "WSNE".index(f["scope"][-1])):
+        v, side = f["value"], SIDE[f["scope"][-1]]
+        if v["from_floor"]:
+            floor = "с любого этажа" if v["from_floor"] == 1 else f"с {v['from_floor']}-го"
+            parts.append(f"на {side} — {floor}")
+        elif v["glimpse_from"]:
+            parts.append(f"на {side} — краешком с {v['glimpse_from']}-го")
+    text = ("Море видно из окон " + ", ".join(parts)) if parts else "Моря из окон не видно"
+    return {"text": text, "value": {"sides": {f["scope"][-1]: f["value"]["from_floor"] for f in fs}},
+            "source": fs[0]["source"], "confidence": min(f["confidence"] for f in fs)}
+
+
+def _beach(h, facts, ctx):
+    r = _fact(facts, "beach_route")
+    if r:
+        v = r[0]["value"]
+        back = f", обратно {v['back_minutes']} мин" + (f" в гору на {v['climb_back_m']} м" if v.get("climb_back_m", 0) >= 10 else "")
+        return {"text": f"До пляжа {v['minutes']} мин пешком{back}", "value": v,
+                "source": r[0]["source"], "confidence": r[0]["confidence"]}
+    d = _fact(facts, "beach_distance")
+    if d:
+        v = d[0]["value"]
+        return {"text": f"До пляжа около {v['walk_min']} мин пешком", "value": v,
+                "source": d[0]["source"], "confidence": d[0]["confidence"]}
+
+
+COMPUTED = {"floors": _floors, "sea_view": _sea_view, "beach": _beach}
+
+
+def _swim_text(k, ctx):
+    """Знание города «вода по месяцам» → ответ под месяц поездки."""
+    m = ctx.get("month")
+    t = k["value"]["sea_c"].get(str(m)) if m else None
+    if t is None:
+        return k["text"]
+    t = round(t)
+    feel = "тёплое" if t >= 22 else "можно купаться" if t >= 20 else "бодрит, купаются немногие" if t >= 17 else "холодное"
+    return f"В {MONTH_IN[m]} море около {t}°: {feel}"
+
+
+# --- поиск ответа --------------------------------------------------------------------------
+
+def resolve(hotel_id: str, tid: str, ctx: dict) -> dict:
+    t = topic(tid)
+    path = hotel_path(hotel_id)
+    base = {"topic": tid, "question": t["question"], "icon": t["icon"], "can_ask_hotel": bool(t.get("ask_hotel"))}
+    own = get(path, tid)                       # 1. ответ отеля
+    if own:
+        return {**base, "status": "answered", "level": "hotel", "note": LEVEL_NOTE["hotel"], "text": own["text"],
+                "value": own["value"], "source": own["source"], "confidence": own["confidence"],
+                "obtained_at": own["obtained_at"]}
+    if tid in COMPUTED:                        # 2. посчитали сами
+        h = hotel(hotel_id)
+        a = COMPUTED[tid](h, facts_for(hotel_id), ctx)
+        if a:
+            return {**base, "status": "answered", "level": "computed", "note": LEVEL_NOTE["computed"], **a}
+    k = lookup(path, tid)                      # 3. общее знание выше
+    if k:
+        text = _swim_text(k, ctx) if tid == "swim" else k["text"]
+        return {**base, "status": "answered", "level": k["level"], "note": LEVEL_NOTE[k["level"]], "text": text,
+                "value": k["value"], "source": k["source"], "confidence": k["confidence"],
+                "obtained_at": k["obtained_at"]}
+    return {**base, "status": "unknown", "text": "Этого мы пока не знаем :("}
+
+
+def _near(hotel_id: str, sid: str) -> dict | None:
+    s = next((x for x in nearby_specs() if x["id"] == sid), None)
+    f = next((f for f in facts_for(hotel_id) if f["characteristic"] == f"near:{sid}"), None)
+    if not s or not f:
+        return None
+    v = f["value"]
+    if v["meters"] is None:
+        text = f"{s['kind']}: на карте в {v['within_min']} мин пешком не нашли"
+    else:
+        name = f"{v['kind']} «{v['name']}»" if v.get("name") else v["kind"]
+        text = f"{name} в {v['walk_min']} мин пешком"
+    return {"topic": f"near:{sid}", "question": s["title"], "icon": s["icon"], "status": "answered",
+            "level": "computed", "note": LEVEL_NOTE["computed"], "text": text, "value": v,
+            "source": f["source"], "confidence": f["confidence"], "can_ask_hotel": False}
+
+
+def ask(hotel_id: str, text: str, ctx: dict) -> dict:
+    """Вопрос гостя об отеле своими словами → ответы по найденным темам или «не знаем»."""
+    found = [tid for tid, _ in best(text, topics())]
+    near = [sid for sid, _ in best(text, nearby_specs())] if not found else []
+    answers = [resolve(hotel_id, tid, ctx) for tid in found] + [a for a in (_near(hotel_id, s) for s in near) if a]
+    if not answers:
+        return {"status": "no_topic", "text": "Этого мы пока не знаем :(", "question": text.strip(),
+                "can_ask_hotel": True, "answers": []}
+    unknown = all(a["status"] == "unknown" for a in answers)
+    return {"status": "unknown" if unknown else "answered", "answers": answers,
+            "can_ask_hotel": any(a["status"] == "unknown" and a["can_ask_hotel"] for a in answers)}
+
+
+FAQ = ["sea_view", "beach", "swim", "floors", "checkin", "pets", "parking", "breakfast", "tourist_tax", "beach_type"]
+
+
+def faq(hotel_id: str, ctx: dict) -> list[dict]:
+    """Частые вопросы для карточки отеля: сначала то, на что есть ответ."""
+    items = [resolve(hotel_id, tid, ctx) for tid in FAQ]
+    return sorted(items, key=lambda a: a["status"] != "answered")

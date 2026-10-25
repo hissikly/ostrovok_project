@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { api } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import FactList from '@features/facts/frontend/FactList.jsx'
+import Faq from '@features/knowledge/frontend/Faq.jsx'
 import WindowPanel from '@features/okno/frontend/WindowPanel.jsx'
 
 function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
 }
 
-export default function HotelCard({ id, onBack, onCone, onPlace, onBeach, places, routeTitle, nearMeta }) {
+export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, places, routeTitle, nearMeta }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
 
@@ -39,6 +40,7 @@ export default function HotelCard({ id, onBack, onCone, onPlace, onBeach, places
       <WindowPanel hotelId={id} onCone={onCone} />
       <FactList facts={facts.filter(f => f.characteristic !== 'elevation')} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta} />
+      <Faq hotelId={id} month={month} />
     </div>
   )
 }

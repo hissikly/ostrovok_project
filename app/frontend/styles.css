@@ -3,7 +3,7 @@
   --brand: #0E41D2; --brand-hover: rgb(6, 54, 200); --sec: #E3EBFD;
   --ink: #2D3137; --muted: #868686; --line: #E5E5E5; --page: #F2F3F5; --chip: #F2F3F5;
   --ok: #53AF24; --ok-ink: #2E7D12; --ok-bg: #DDEFD3; --warn-bg: #FAE5CC;
-  --lime: linear-gradient(135deg, #E2F9C8 0%, #BDF19A 100%); --lime-ink: #2B5A0E;
+  --lime: #D0F4B2; --lime-ink: #2B5A0E;
   --r-md: 12px; --r-lg: 20px; --r-xl: 24px;
 }
 * { box-sizing: border-box }
@@ -157,3 +157,19 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .route-row i { font-style: normal; color: var(--muted); font-size: 13px }
 .route-notes { font-size: 13px; color: var(--ink); margin-top: 2px }
 .route-info > span { color: var(--muted); font-weight: 600 }
+
+/* частые вопросы в карточке (features/knowledge) */
+.faq-input { margin: 12px 0 6px }
+.faq-reply { background: var(--page); border-radius: 18px; padding: 2px 14px; margin: 10px 0 6px }
+.faq-reply .faq-row { border-top: 0 }
+.faq-row { padding: 12px 0; border-top: 1px solid var(--chip); cursor: pointer }
+.faq-row .fq { font-weight: 700 }
+.faq-row .fa { margin-top: 2px }
+.faq-row.unknown { cursor: default }
+.faq-row.unknown .fa { color: var(--muted) }
+.faq-note { font-size: 13px; color: var(--muted); margin-top: 6px }
+.faq-ask-btn { margin-top: 8px; border: 0; background: var(--sec); color: var(--brand); border-radius: 999px; padding: 7px 14px; font-weight: 700; font-size: 14px }
+.faq-ask-btn:hover { background: #D6E2FC }
+.faq-asked { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-top: 8px; color: var(--ok-ink); font-weight: 700; font-size: 14px }
+.faq-asked svg { color: var(--ok) }
+.faq-asked span { font-weight: 500; color: var(--muted) }

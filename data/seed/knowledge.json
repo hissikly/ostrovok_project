@@ -1,0 +1,81 @@
+[
+ {
+  "path": "ru/krd/sochi",
+  "topic": "tourist_tax",
+  "value": {
+   "rate_pct": 2,
+   "min_rub": 100
+  },
+  "text": "Туристический налог 2% от стоимости проживания, но не меньше 100 ₽ за сутки",
+  "source": "law",
+  "confidence": 0.8,
+  "obtained_at": "2026-10-25",
+  "valid_until": "2026-12-31",
+  "evidence": {
+   "law": "Налоговый кодекс РФ, гл. 33.1 «Туристический налог»: 2025 — 1%, 2026 — 2%, 2027 — 3%",
+   "links": [
+    "https://www.tourdom.ru/hotline/obzory-i-analitika/turisticheskiy-nalog-2026-gde-i-skolko-platit/",
+    "https://www.osnmedia.ru/obshhestvo/turisticheskij-nalog-v-sochi-prines-1-065-mlrd-rublej-v-2025-godu/"
+   ]
+  }
+ },
+ {
+  "path": "ru/krd/sochi",
+  "topic": "beach_type",
+  "value": {
+   "surface": "галька"
+  },
+  "text": "Пляжи в Сочи в основном галечные",
+  "source": "osm",
+  "confidence": 0.57,
+  "obtained_at": "2026-10-25",
+  "valid_until": "2027-10-25",
+  "evidence": {
+   "osm": "natural=beach + surface",
+   "beaches": 111,
+   "with_surface": 25,
+   "pebble": 23,
+   "sand": 1
+  }
+ },
+ {
+  "path": "ru/krd/sochi",
+  "topic": "swim",
+  "value": {
+   "sea_c": {
+    "1": 11.3,
+    "2": 10.3,
+    "3": 10.4,
+    "4": 12.9,
+    "5": 16.9,
+    "6": 22.8,
+    "7": 26.2,
+    "8": 27.9,
+    "9": 25.7,
+    "10": 20.9,
+    "11": 17.0,
+    "12": 13.6
+   },
+   "warm_months": [
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "text": "Море теплее 20° с июня по октябрь",
+  "source": "open-meteo",
+  "confidence": 0.85,
+  "obtained_at": "2026-10-25",
+  "valid_until": "2027-10-25",
+  "evidence": {
+   "api": "Open-Meteo Marine, sea_surface_temperature_mean",
+   "years": "2023–2025",
+   "point": [
+    43.58,
+    39.7
+   ]
+  }
+ }
+]

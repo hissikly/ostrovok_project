@@ -79,7 +79,7 @@ export default function App() {
         <aside className="panel">
           {error && <div className="chip warn">{error}</div>}
           {sel
-            ? <HotelCard id={sel.id} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach}
+            ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach}
               places={places} routeTitle={route?.title} nearMeta={nearMeta} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}

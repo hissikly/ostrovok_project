@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Экстранет — что о вас знают гости</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+/* Макет раздела Экстранета Островка. Токены — wiki/design-system.md */
+:root{
+  --brand:#0E41D2;--brand-hover:rgb(6,54,200);--sec:#E3EBFD;
+  --ink:#2D3137;--muted:#868686;--line:#E5E5E5;--page:#F2F3F5;--chip:#F2F3F5;
+  --ok:#53AF24;--ok-ink:#2E7D12;--ok-bg:#DDEFD3;--warn:#E77D00;--warn-bg:#FAE5CC;
+  --lime:linear-gradient(135deg,#E2F9C8 0%,#BDF19A 100%);--lime-ink:#2B5A0E;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font:400 15px/1.45 Manrope,system-ui,sans-serif;color:var(--ink);background:var(--page)}
+button{font:inherit;cursor:pointer;color:inherit}
+.ti{font-size:20px;line-height:1;vertical-align:-3px}
+
+.hdr{height:60px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 20px;position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:24px;color:var(--brand);letter-spacing:-.6px}
+.logo small{font-size:15px;color:var(--ink);font-weight:700;margin-left:6px;letter-spacing:0}
+.hotel-pick{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--chip);border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px}
+
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 60px)}
+.nav{background:#fff;border-right:1px solid var(--line);padding:16px 10px}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;color:var(--muted);font-weight:600;text-decoration:none;font-size:14px}
+.nav a.on{background:var(--sec);color:var(--brand)}
+.nav .new{margin-left:auto;background:var(--lime);color:var(--lime-ink);font-size:11px;font-weight:800;border-radius:999px;padding:2px 8px}
+.nav hr{border:0;border-top:1px solid var(--line);margin:10px 4px}
+
+.main{padding:24px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start;max-width:1260px}
+h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin:0 0 16px}
+.lead{color:var(--muted);margin:0 0 18px}
+.block{background:#fff;border-radius:24px;padding:20px;margin-bottom:16px}
+.block h2{font-size:20px;font-weight:800;margin:0 0 4px;letter-spacing:-.3px}
+.block h2 + .q,.block h2 + .fact{margin-top:12px}
+.block .sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stat{background:#fff;border-radius:20px;padding:16px 18px}
+.stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.5px}
+.stat span{color:var(--muted);font-size:13px}
+.stat.hot{background:var(--lime);color:var(--lime-ink)}
+.stat.hot b{color:var(--ink)}
+
+/* вопросы агента */
+.q{border:1px solid var(--line);border-radius:20px;padding:16px 18px;margin-top:12px}
+.q.done{border-color:var(--ok-bg);background:#FAFDF7}
+.q-top{display:flex;gap:12px;align-items:flex-start}
+.q-ic{width:40px;height:40px;border-radius:12px;background:var(--chip);display:grid;place-items:center;flex:none}
+.q-t{font-weight:800;font-size:17px}
+.why{color:var(--muted);font-size:14px;margin-top:2px}
+.demand{display:inline-flex;align-items:center;gap:6px;background:var(--sec);color:var(--brand);font-weight:700;font-size:13px;border-radius:999px;padding:4px 10px;margin-top:8px}
+.prio{margin-left:auto;flex:none;font-size:12px;font-weight:700;color:var(--muted)}
+textarea{width:100%;border:0;background:var(--page);border-radius:16px;padding:12px 14px;font:inherit;resize:vertical;min-height:70px;margin-top:12px;outline:none}
+textarea:focus{box-shadow:0 0 0 2px var(--sec)}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.quick button{border:0;background:var(--chip);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px}
+.quick button:hover{background:#E7E9EE}
+.actions{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:10px 18px;font-weight:700;font-size:14px}
+.btn.pri{background:var(--brand);color:#fff}
+.btn.pri:hover{background:var(--brand-hover)}
+.btn.sec{background:var(--sec);color:var(--brand)}
+.btn.ghost{background:none;color:var(--muted)}
+.hint{color:var(--muted);font-size:13px}
+
+.understood{margin-top:14px;background:var(--page);border-radius:16px;padding:14px 16px}
+.understood .ttl{font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.fields{display:grid;grid-template-columns:120px 1fr;gap:6px 16px;font-size:15px}
+.fields span{color:var(--muted)}
+.fields b{font-weight:700}
+.fields b.no{color:var(--muted);font-weight:600}
+.ok-line{display:flex;gap:10px;align-items:flex-start;color:var(--ok-ink);font-weight:700;margin-top:10px}
+.ok-line .ti{color:var(--ok)}
+
+/* что мы знаем */
+.fact{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--chip)}
+.fact:first-of-type{border-top:0}
+.fact .t{font-weight:700}
+.fact .s{color:var(--muted);font-size:14px;margin-top:2px}
+.fact .src{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin-top:6px}
+.sure{font-size:12px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.sure.mid{background:var(--sec);color:var(--brand)}
+.sure.hi{background:var(--ok-bg);color:var(--ok-ink)}
+.sure.lo{background:var(--chip);color:var(--muted)}
+.sure.warn{background:var(--warn-bg);color:#8A4A00}
+.fact-btns{margin-left:auto;display:flex;gap:6px;flex:none}
+.fact-btns button{border:0;background:var(--chip);border-radius:999px;padding:6px 12px;font-weight:700;font-size:13px}
+.fact-btns button.yes{background:var(--ok-bg);color:var(--ok-ink)}
+.fact-btns button:hover{filter:brightness(.97)}
+.confirmed{color:var(--ok-ink);font-weight:700;font-size:13px;display:flex;gap:6px;align-items:center}
+.dispute{margin-top:10px;background:var(--warn-bg);border-radius:14px;padding:12px 14px;font-size:14px}
+.dispute b{display:block;margin-bottom:4px}
+.dispute .two{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;margin:6px 0}
+.dispute .two span{color:#8A4A00}
+
+/* как видит гость */
+.aside{position:sticky;top:84px}
+.phone{background:#fff;border-radius:24px;padding:18px}
+.phone .cap{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.phone h3{font-size:19px;font-weight:800;margin:0 0 2px}
+.faq{border-top:1px solid var(--chip);padding:11px 0}
+.faq:first-of-type{border-top:0}
+.faq .fq{font-weight:700;font-size:14px}
+.faq .fa{font-size:14px;margin-top:2px}
+.faq .fa.unknown{color:var(--muted)}
+.faq .fs{font-size:12px;color:var(--muted);margin-top:3px}
+.faq.fresh{animation:flash 1.6s ease}
+@keyframes flash{0%{background:#EAF7DF}100%{background:transparent}}
+.ask{display:flex;gap:8px;align-items:center;background:var(--page);border-radius:999px;padding:0 6px 0 14px;height:44px;margin-top:10px;color:var(--muted);font-size:14px}
+.ask .ti{color:var(--brand)}
+.demo{font-size:12px;color:var(--muted);margin-top:12px;padding:0 6px}
+.hide{display:none!important}
+
+@media (max-width:1100px){.main{grid-template-columns:1fr}.aside{position:static}}
+@media (max-width:760px){.shell{grid-template-columns:1fr}.nav{display:none}.stats{grid-template-columns:1fr}.main{padding:14px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo">Островок!<small>Экстранет</small></div>
+  <div class="hotel-pick"><i class="ti ti-building"></i>Pullman Sochi Centre<i class="ti ti-chevron-down"></i></div>
+</header>
+
+<div class="shell">
+  <nav class="nav">
+    <a href="#"><i class="ti ti-calendar-event"></i>Бронирования</a>
+    <a href="#"><i class="ti ti-currency-rubel"></i>Цены и наличие</a>
+    <a href="#"><i class="ti ti-bed"></i>Номера</a>
+    <a href="#"><i class="ti ti-file-text"></i>Условия</a>
+    <a href="#"><i class="ti ti-message-circle"></i>Сообщения</a>
+    <a href="#"><i class="ti ti-star"></i>Отзывы</a>
+    <hr>
+    <a href="#" class="on"><i class="ti ti-sparkles"></i>Что о вас знают гости<span class="new">новое</span></a>
+  </nav>
+
+  <main class="main">
+    <div>
+      <h1>Что о вас знают гости</h1>
+
+      <div class="stats">
+        <div class="stat hot"><b id="st-guests">47</b><span>гостей на этой неделе искали то, о чём мы вас спрашиваем</span></div>
+        <div class="stat"><b id="st-q">3</b><span>вопроса ждут ответа</span></div>
+        <div class="stat"><b>14</b><span>фактов об отеле уже видят гости</span></div>
+      </div>
+
+      <!-- Вопросы агента -->
+      <section class="block">
+        <h2>Вопросы от гостей</h2>
+
+        <div class="q" id="q-pets">
+          <div class="q-top">
+            <div class="q-ic"><i class="ti ti-paw"></i></div>
+            <div>
+              <div class="q-t">Можно ли приехать с питомцем?</div>
+              <div class="why">Каких животных пускаете, до какого веса, сколько это стоит</div>
+              <div class="demand"><i class="ti ti-users"></i>47 гостей искали отель с собакой в центре Сочи</div>
+            </div>
+            <div class="prio">Важно</div>
+          </div>
+          <div id="pets-form">
+            <textarea id="pets-text" placeholder="Например: собак пускаем до 10 кг…">Собак пускаем, только небольших, до 10 кило. Доплата 1000 р в сутки. С кошками нельзя, извините</textarea>
+            <div class="actions">
+              <button class="btn pri" onclick="parsePets()">Отправить</button>
+              <span class="hint">Пишите как удобно — мы разложим ответ по полям и покажем, как поняли</span>
+            </div>
+          </div>
+          <div class="understood hide" id="pets-understood">
+            <div class="ttl"><i class="ti ti-checklist"></i>Как мы поняли</div>
+            <div class="fields" id="pets-fields"></div>
+            <div class="actions">
+              <button class="btn pri" onclick="confirmPets()">Всё верно</button>
+              <button class="btn sec" onclick="editPets()">Поправить</button>
+            </div>
+          </div>
+          <div class="ok-line hide" id="pets-ok"><i class="ti ti-circle-check"></i><span>Готово. Ответ уже видят гости, а вас покажут тем 47, кто искал отель с собакой.</span></div>
+        </div>
+
+        <div class="q" id="q-noise">
+          <div class="q-top">
+            <div class="q-ic"><i class="ti ti-volume"></i></div>
+            <div>
+              <div class="q-t">Слышно ли улицу в номерах на восток?</div>
+              <div class="why">С востока у вас улица Орджоникидзе и бар в 160 м. Мы не знаем, какие стоят окна</div>
+              <div class="demand"><i class="ti ti-users"></i>128 гостей искали тихий номер</div>
+            </div>
+            <div class="prio">Важно</div>
+          </div>
+          <div class="quick">
+            <button onclick="quick('noise','Не слышно: стеклопакеты с шумоизоляцией')">Не слышно</button>
+            <button onclick="quick('noise','Слышно днём, ночью тихо')">Днём слышно</button>
+            <button onclick="quick('noise','Слышно, лучше брать номера на запад')">Слышно</button>
+            <button onclick="quick('noise','Не знаю')" class="ghost">Не знаю</button>
+          </div>
+          <div class="ok-line hide" id="noise-ok"><i class="ti ti-circle-check"></i><span id="noise-msg"></span></div>
+        </div>
+
+        <div class="q" id="q-cot">
+          <div class="q-top">
+            <div class="q-ic"><i class="ti ti-baby-carriage"></i></div>
+            <div>
+              <div class="q-t">Есть ли детская кроватка?</div>
+              <div class="why">Бесплатно или за доплату, нужно ли заказывать заранее</div>
+              <div class="demand"><i class="ti ti-users"></i>19 гостей с детьми смотрели ваш отель</div>
+            </div>
+            <div class="prio">Можно позже</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Что мы знаем -->
+      <section class="block">
+        <h2>Что мы о вас узнали сами</h2>
+
+        <div class="fact" id="f-sea">
+          <div class="q-ic"><i class="ti ti-ripple"></i></div>
+          <div style="flex:1;min-width:0">
+            <div class="t">Вид на море</div>
+            <div class="s" id="sea-s">Окна на запад и юг — с любого этажа, на север — с 8-го, на восток моря не видно</div>
+            <div class="ok-line hide" id="sea-ok"><i class="ti ti-circle-check"></i><span>Спасибо, обновили. Гости видят ваш вариант</span></div>
+          </div>
+          <div class="fact-btns" id="sea-btns"><button class="yes" onclick="ok('sea')">Верно</button><button onclick="fix()">Исправить</button></div>
+        </div>
+        <div id="sea-fix" class="hide" style="margin:-4px 0 12px 52px">
+          <textarea id="sea-text" style="min-height:54px">С верхних этажей на восток тоже видно море, краешком</textarea>
+          <div class="actions"><button class="btn pri" onclick="correct()">Сохранить</button></div>
+        </div>
+
+        <div class="fact">
+          <div class="q-ic"><i class="ti ti-sunset-2"></i></div>
+          <div style="flex:1">
+            <div class="t">Закат над морем из окна</div>
+            <div class="s" id="sun-s">Из окон на запад — с апреля по октябрь</div>
+          </div>
+          <div class="fact-btns" id="sun-btns"><button class="yes" onclick="ok('sun')">Верно</button><button onclick="edit('sun')">Исправить</button></div>
+        </div>
+
+        <div class="fact">
+          <div class="q-ic"><i class="ti ti-beach"></i></div>
+          <div style="flex:1">
+            <div class="t">До пляжа 111 м</div>
+            <div class="s" id="beach-s">Около 2 минут пешком</div>
+          </div>
+          <div class="fact-btns" id="beach-btns"><button class="yes" onclick="ok('beach')">Верно</button><button onclick="edit('beach')">Исправить</button></div>
+        </div>
+
+        <div class="fact">
+          <div class="q-ic"><i class="ti ti-shopping-cart"></i></div>
+          <div style="flex:1">
+            <div class="t">Рядом пешком</div>
+            <div class="s" id="near-s">Продуктовый «Кайрос» 2 мин, кафе «Пирс» 2 мин, аптека «36,6» 3 мин, остановка 4 мин</div>
+          </div>
+          <div class="fact-btns" id="near-btns"><button class="yes" onclick="ok('near')">Верно</button><button onclick="edit('near')">Исправить</button></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Как увидит гость -->
+    <aside class="aside">
+      <div class="phone">
+        <div class="cap">Так увидит гость</div>
+        <h3>Pullman Sochi Centre</h3>
+        <div class="hint" style="margin-bottom:10px">Частые вопросы в карточке отеля</div>
+        <div class="faq" id="g-pets">
+          <div class="fq">Можно с питомцем?</div>
+          <div class="fa unknown" id="g-pets-a">Пока не знаем. Спросили у отеля</div>
+        </div>
+        <div class="faq" id="g-noise">
+          <div class="fq">Тихо ли в номерах на восток?</div>
+          <div class="fa unknown" id="g-noise-a">Пока не знаем. Спросили у отеля</div>
+        </div>
+        <div class="faq">
+          <div class="fq">Есть ли туристический налог?</div>
+          <div class="fa">2% от стоимости проживания, но не меньше 100 ₽ за сутки</div>
+        </div>
+        <div class="faq" id="g-sea">
+          <div class="fq">С какого этажа видно море?</div>
+          <div class="fa" id="g-sea-a">Окна на запад и юг — с любого этажа, на север — с 8-го</div>
+        </div>
+        <div class="ask"><i class="ti ti-sparkles"></i>Спросить об отеле</div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script>
+// Демо-разбор свободного ответа: набор вопросов с готовыми вариантами + числа шаблонами.
+// В прототипе — то же самое в features/hotelier (правила без ключа, LLM — если есть ключ).
+const $ = id => document.getElementById(id)
+let pets = null
+
+function parsePets() {
+  const t = $('pets-text').value.toLowerCase()
+  const no = w => new RegExp(`(без|нельзя|не (пускаем|берём|берем|принимаем))[^.]{0,25}${w}|${w}[^.]{0,25}(нельзя|не (пускаем|берём|берем|принимаем))`).test(t)
+  const dogs = /собак|пс[аы]|пёс/.test(t) ? (no('собак') ? 'нет' : 'да') : 'не сказано'
+  const cats = /кош|кот/.test(t) ? (no('(кош|кот)') ? 'нет' : 'да') : 'не сказано'
+  const kg = t.match(/(\d+)\s*(кг|кило)/)
+  const fee = t.match(/(\d[\d\s]*?)\s*(р(?![а-яё])|руб|₽)/)
+  pets = { dogs, cats, kg: kg ? kg[1] : null, fee: fee ? fee[1].replace(/\s/g, '') : null }
+  $('pets-fields').innerHTML = [
+    ['Собаки', dogs], ['Вес', pets.kg ? `до ${pets.kg} кг` : 'не сказано'],
+    ['Доплата', pets.fee ? `${Number(pets.fee).toLocaleString('ru-RU')} ₽ в сутки` : 'не сказано'], ['Кошки', cats],
+  ].map(([k, v]) => `<span>${k}</span><b class="${v === 'не сказано' ? 'no' : ''}">${v}</b>`).join('')
+  $('pets-form').classList.add('hide')
+  $('pets-understood').classList.remove('hide')
+}
+function editPets() { $('pets-understood').classList.add('hide'); $('pets-form').classList.remove('hide') }
+function confirmPets() {
+  $('pets-understood').classList.add('hide'); $('pets-ok').classList.remove('hide'); $('q-pets').classList.add('done')
+  const parts = []
+  if (pets.dogs === 'да') parts.push(`Собаки — да${pets.kg ? `, до ${pets.kg} кг` : ''}${pets.fee ? `, ${Number(pets.fee).toLocaleString('ru-RU')} ₽ в сутки` : ''}`)
+  if (pets.dogs === 'нет') parts.push('Собаки — нет')
+  if (pets.cats !== 'не сказано') parts.push(`кошки — ${pets.cats}`)
+  answer('g-pets', parts.join(', ') || 'Отель ответил', 'Так ответил отель, 25 октября')
+  left()
+}
+function quick(id, text) {
+  if (text === 'Не знаю') { $(`q-${id}`).style.opacity = .5; return }
+  $(`q-${id}`).classList.add('done'); $(`q-${id}`).querySelector('.quick').classList.add('hide')
+  $(`${id}-msg`).textContent = `Готово: «${text}». Ответ уже видят гости.`
+  $(`${id}-ok`).classList.remove('hide')
+  answer('g-noise', text, 'Так ответил отель, 25 октября')
+  left()
+}
+function answer(id, text, src) {
+  const a = $(`${id}-a`); a.textContent = text; a.classList.remove('unknown')
+  $(id).classList.remove('fresh'); void $(id).offsetWidth; $(id).classList.add('fresh')
+}
+function left() { $('st-q').textContent = document.querySelectorAll('.q:not(.done)').length }
+// «Исправить» у любого факта: поле с текущим текстом → «Сохранить» → факт заменяется словами отеля
+function edit(key) {
+  if ($(`${key}-form`)) return
+  const s = $(`${key}-s`)
+  s.insertAdjacentHTML('afterend', `<div id="${key}-form"><textarea id="${key}-text" style="min-height:54px">${s.textContent}</textarea>
+    <div class="actions"><button class="btn pri" onclick="save('${key}')">Сохранить</button><button class="btn ghost" onclick="$('${key}-form').remove()">Отмена</button></div></div>`)
+  $(`${key}-text`).focus()
+}
+function save(key) {
+  $(`${key}-s`).textContent = $(`${key}-text`).value
+  $(`${key}-form`).remove()
+  $(`${key}-s`).insertAdjacentHTML('afterend', '<div class="ok-line"><i class="ti ti-circle-check"></i><span>Спасибо, обновили. Гости видят ваш вариант</span></div>')
+  $(`${key}-btns`).outerHTML = '<div class="confirmed"><i class="ti ti-circle-check"></i>Уточнено отелем</div>'
+}
+function ok(key) { $(`${key}-btns`).outerHTML = '<div class="confirmed"><i class="ti ti-circle-check"></i>Подтверждено отелем</div>' }
+function fix() { $('sea-fix').classList.remove('hide') }
+// Отельер знает своё здание лучше расчёта: его поправка заменяет факт, а не спорит с ним.
+// Расчёт остаётся в истории; если гости после поездки ответят «не так» — вернёмся к вопросу.
+function correct() {
+  $('sea-fix').classList.add('hide'); $('sea-ok').classList.remove('hide')
+  $('sea-s').textContent = 'Окна на запад и юг — с любого этажа, на север — с 8-го, на восток — краешком с верхних этажей'
+  $('sea-btns').outerHTML = '<div class="confirmed"><i class="ti ti-circle-check"></i>Уточнено отелем</div>'
+  $('g-sea-a').textContent = 'Окна на запад и юг — с любого этажа, на север — с 8-го, на восток — краешком с верхних этажей'
+  $('g-sea').classList.remove('fresh'); void $('g-sea').offsetWidth; $('g-sea').classList.add('fresh')
+}
+</script>
+</body>
+</html>
