@@ -49,7 +49,6 @@ export default function InterestsButton() {
       {open && (
         <div className="trip-pop" role="dialog" aria-label="Чем хотите заняться">
           <h3>Чем хотите заняться?</h3>
-          <p>Соберём день у каждого отеля из ваших интересов</p>
           <div className="trip-ints">
             {catalog.map(i => (
               <button key={i.id} className={list.includes(i.id) ? 'on' : ''} onClick={() => toggle(i.id)} aria-pressed={list.includes(i.id)}>
@@ -58,7 +57,6 @@ export default function InterestsButton() {
             ))}
           </div>
           <button className="trip-done" onClick={() => setOpen(false)}>Готово</button>
-          <div className="trip-note"><Icon name="check" size={14} />Хранится только в этом браузере</div>
         </div>
       )}
     </span>

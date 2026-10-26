@@ -2,7 +2,9 @@
 .trip > span.trip-want.trip-want { position: relative; display: inline-flex; padding: 0; box-shadow: -1px 0 0 #D9DBE0 }
 .trip .trip-want-btn > span.lbl { display: inline; padding: 0; box-shadow: none; border-radius: 0 }
 .trip-want-btn { border: 0; background: none; display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px;
-  font: inherit; font-weight: 700; color: var(--ink); cursor: pointer; max-width: 260px }
+  font: inherit; font-weight: 700; color: var(--ink); cursor: pointer; max-width: 200px }
+/* длинный список интересов не должен переносить «12–19 мая» в две строки */
+.trip > span { white-space: nowrap }
 .trip-want-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 .trip-want-btn svg { color: var(--muted); flex: none }
 .trip-want-btn.on { color: var(--brand) }
@@ -10,8 +12,7 @@
 .trip-want-btn:hover { background: #fff }
 .trip-pop { position: absolute; right: 0; top: calc(100% + 10px); z-index: 30; width: 360px; background: #fff; border-radius: var(--r-xl);
   padding: 20px; box-shadow: 0 12px 40px rgba(20, 30, 60, .16); font-weight: 400 }
-.trip-pop h3 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -.3px }
-.trip-pop p { margin: 4px 0 14px; color: var(--muted); font-size: 14px }
+.trip-pop h3 { margin: 0 0 14px; font-size: 20px; font-weight: 800; letter-spacing: -.3px }
 .trip-ints { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
 .trip-ints button { border: 0; display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 14px; background: var(--chip);
   font: inherit; font-weight: 600; font-size: 14px; text-align: left; cursor: pointer; color: var(--ink); transition: background .15s, color .15s }
@@ -20,7 +21,6 @@
 .trip-ints button.on svg { color: var(--brand) }
 .trip-done { margin-top: 14px; width: 100%; border: 0; background: var(--brand); color: #fff; font: inherit; font-weight: 700; border-radius: 12px; padding: 12px; cursor: pointer }
 .trip-done:hover { background: var(--brand-hover) }
-.trip-note { margin-top: 10px; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px }
 @media (max-width: 640px) {
   .trip > span.trip-want.trip-want { box-shadow: none }
   .trip-want-btn { max-width: 170px }
