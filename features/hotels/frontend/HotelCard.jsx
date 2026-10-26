@@ -32,7 +32,8 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
         {elev && <div className="info"><Icon name="mountain" />{elev.value.meters} м над уровнем моря</div>}
         <div className="chips">
           <span className="chip">{h.kind_ru}</span>
-          {h.stars && <span className="chip">{'★'.repeat(h.stars)}</span>}
+          {h.stars && <span className="chip" title={h.stars_mock ? 'В открытых данных категории нет — показываем демо, как цену' : 'Категория из OpenStreetMap'}>
+            <span style={{ color: '#FFB800' }}>{'★'.repeat(h.stars)}</span>{h.stars_mock && <span className="muted">демо</span>}</span>}
           {h.levels && <span className="chip"><Icon name="building" size={16} />{h.levels} этажей</span>}
         </div>
         <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>

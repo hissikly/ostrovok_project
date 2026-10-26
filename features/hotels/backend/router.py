@@ -14,7 +14,7 @@ def list_hotels():
     for h in hotels():
         fs = facts_for(h["id"])
         out.append({"id": h["id"], "name": h["name"], "kind_ru": h["kind_ru"], "lat": h["lat"], "lon": h["lon"],
-                    "stars": h["stars"], "price_rub": h["mock"]["price_rub"], "facts": len(fs),
+                    "stars": h["stars"], "stars_mock": h.get("stars_mock", False), "price_rub": h["mock"]["price_rub"], "facts": len(fs),
                     "okno": any(f["characteristic"] == "sea_view" for f in fs)})
     return out
 

@@ -133,7 +133,8 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
   const [q, setQ] = useState('')
   const toggle = id => setOn(on.includes(id) ? on.filter(x => x !== id) : [...on, id])
   const apply = d => {
-    setOn(d.lenses)   // новая фраза — новый подбор: линзы прошлого запроса не тянем
+    // новая фраза дополняет подбор: уже включённые фильтры остаются, снять их можно кликом
+    setOn(prev => [...prev, ...d.lenses.filter(id => !prev.includes(id))])
     if (d.month) setMonth(d.month)
   }
 

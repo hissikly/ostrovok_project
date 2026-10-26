@@ -35,6 +35,23 @@ def center(el):
     return (b["minlat"] + b["maxlat"]) / 2, (b["minlon"] + b["maxlon"]) / 2
 
 
+def mock_stars(hid, kind, levels):
+    """Демо-категория для объектов, у которых в OSM нет звёзд (поле карточки Островка — мокать
+    разрешено). Детерминирована по id; апартаменты и хостелы без звёзд, как на Островке."""
+    if kind in ("apartment", "hostel"):
+        return None
+    h = int(hashlib.md5(f"stars:{hid}".encode()).hexdigest(), 16) % 100
+    try:
+        tall = float(levels or 0) >= 10
+    except ValueError:
+        tall = False
+    if tall:
+        return 4 if h < 70 else 5
+    if kind in ("guest_house", "motel"):
+        return 2 if h < 45 else 3
+    return 2 if h < 10 else 3 if h < 55 else 4 if h < 90 else 5
+
+
 def mock_card(hid, stars):
     h = int(hashlib.md5(hid.encode()).hexdigest(), 16)
     base = {None: 4500, 1: 2500, 2: 3200, 3: 4800, 4: 7500, 5: 14000}[stars]
@@ -57,12 +74,15 @@ def main():
             stars = int(float(t["stars"])) if t.get("stars") else None
         except ValueError:
             stars = None
+        stars_mock = stars is None
+        if stars_mock:
+            stars = mock_stars(hid, t["tourism"], t.get("building:levels"))
         addr = ", ".join(x for x in (t.get("addr:street"), t.get("addr:housenumber")) if x)
         hotels.append({
             "id": hid, "osm": f"{el['type']}/{el['id']}", "name": t["name"],
             "kind": t["tourism"], "kind_ru": KINDS[t["tourism"]],
             "lat": round(lat, 6), "lon": round(lon, 6),
-            "stars": stars, "address": addr or None, "levels": t.get("building:levels"),
+            "stars": stars, "stars_mock": stars_mock and stars is not None, "address": addr or None, "levels": t.get("building:levels"),
             "website": t.get("website") or t.get("contact:website"),
             "has_contour": el["type"] != "node",
             "mock": mock_card(hid, stars),
