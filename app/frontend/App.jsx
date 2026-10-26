@@ -5,6 +5,7 @@ import HotelMap from '@features/hotels/frontend/HotelMap.jsx'
 import SearchPanel from '@features/search/frontend/SearchPanel.jsx'
 import HotelCard from '@features/hotels/frontend/HotelCard.jsx'
 import Extranet from '@features/hotelier/frontend/Extranet.jsx'
+import AddCharacteristic from '@features/characteristics/frontend/AddCharacteristic.jsx'
 
 const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
@@ -65,6 +66,8 @@ export default function App() {
 
   const sel = useMemo(() => hotels.find(h => h.id === selected), [hotels, selected])
 
+  // «Научить О!кно»: новая характеристика описанием (#admin)
+  if (selected === 'admin') return <AddCharacteristic onExit={() => setSelected(null)} />
   // Экстранет отельера: #extranet/<id отеля>
   if (selected?.startsWith('extranet')) {
     const hid = selected.split('/')[1] || 'w201474333'

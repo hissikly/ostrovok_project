@@ -1,0 +1,13 @@
+# Путь до пляжа: features/beach_route, пешеходный граф и карта высот; без графа — по прямой
+id: beach_route
+title: Путь до пляжа
+question: Сколько идти до пляжа и придётся ли подниматься в гору?
+kind: computed
+icon: beach
+plan:
+  - tool: walk_route
+    params: {characteristic: beach_route}
+  - tool: walk_route
+    params: {characteristic: beach_distance}
+min_confidence: 0.5
+ttl_days: 365

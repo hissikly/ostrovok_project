@@ -1,0 +1,49 @@
+/* Агент-исследователь: экран «Научить О!кно» (#admin) и блок «Что ещё узнали» в карточке */
+.ch-main { padding: 24px; display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 20px; align-items: start; max-width: 1280px }
+.ch-main h1 { margin: 0 0 8px }
+.ch-aside { position: sticky; top: 84px }
+.ch-hero { background: var(--lime); color: var(--lime-ink) }
+.ch-hero .lead { color: var(--lime-ink) }
+.ch-input { background: #fff; margin-top: 4px }
+.ch-examples { margin-top: 12px }
+.ch-examples button { background: rgba(255, 255, 255, .7); color: var(--ink) }
+.ch-examples button:hover { background: #fff }
+.ch-cap { font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .6px }
+.ch-head { display: flex; gap: 14px; align-items: center; margin-top: 10px }
+.ch-ic { width: 44px; height: 44px; border-radius: 12px; background: var(--chip); display: grid; place-items: center; flex: none }
+.ch-ic.sm { width: 36px; height: 36px; border-radius: 10px }
+.ch-plan { list-style: none; counter-reset: step; margin: 10px 0 0; padding: 0; display: grid; gap: 8px }
+.ch-plan li { counter-increment: step; display: grid; grid-template-columns: 26px 20px 1fr; gap: 10px; align-items: center;
+  background: var(--page); border-radius: 14px; padding: 10px 14px; font-size: 15px }
+.ch-plan li::before { content: counter(step); width: 26px; height: 26px; border-radius: 50%; background: #fff; display: grid;
+  place-items: center; font-weight: 800; font-size: 13px; color: var(--brand) }
+.ch-warn { margin-top: 10px; background: var(--warn-bg); border-radius: 12px; padding: 10px 14px; font-size: 14px }
+.ch-warn.err { background: #FAE9E9; color: #CE2121 }
+.ch-by { margin-top: 12px; font-size: 13px; color: var(--muted) }
+.ch-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px }
+.ch-progress { margin-top: 8px }
+.ch-done { display: grid; gap: 4px; font-size: 15px; margin-top: 8px }
+.ch-done b { display: inline-block; min-width: 44px; font-size: 18px; font-weight: 800 }
+.ch-item { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--chip) }
+.ch-item:first-of-type { border-top: 0 }
+.ch-item .muted { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.ch-x { border: 0; background: var(--chip); border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; color: var(--muted); flex: none }
+.ch-x:hover { color: var(--ink) }
+.ch-tool { display: grid; grid-template-columns: 20px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--chip); font-size: 14px }
+.ch-tool .muted { font-size: 13px; margin-top: 2px }
+.ch-tool.off { opacity: .55 }
+.ch-soon { margin-left: 8px; background: var(--chip); border-radius: 999px; padding: 2px 8px; font-size: 11px; font-weight: 800; color: var(--muted) }
+/* карточка отеля: путь поиска */
+.ch-src { font-size: 13px; color: var(--muted); margin-top: 4px }
+.ch-trace { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; font-size: 13px }
+.ch-trace li { display: grid; grid-template-columns: 16px 1fr; gap: 8px; align-items: start }
+.ch-trace li b { display: block; font-size: 13px }
+.ch-trace li svg { margin-top: 2px; color: var(--muted) }
+.ch-trace li.ok svg { color: var(--ok) }
+.ch-trace li.no svg { color: #CE2121 }
+.ch-trace li.asked svg { color: var(--brand) }
+.ch-trace li.none { color: var(--muted) }
+@media (max-width: 900px) {
+  .ch-main { grid-template-columns: 1fr; padding: 16px }
+  .ch-aside { position: static }
+}

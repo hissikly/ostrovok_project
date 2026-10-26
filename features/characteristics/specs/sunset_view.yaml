@@ -1,0 +1,11 @@
+# Закат над морем из окна: features/okno, положение солнца по месяцам
+id: sunset_view
+title: Закат из окна
+question: Виден ли из окна закат над морем?
+kind: computed
+icon: sunset
+plan:
+  - tool: viewshed
+    params: {characteristic: sunset_view}
+min_confidence: 0.5
+ttl_days: 365

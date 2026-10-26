@@ -1,0 +1,22 @@
+# Пример характеристики «да / нет»: сначала отметки отеля на карте, потом его ответы, сайт, вопрос отелю.
+# Считается при старте сервиса без вопросов отелям; вопросы уходят только по кнопке «Посчитать для всех».
+id: wifi
+title: Wi-Fi в отеле
+question: Есть ли в отеле Wi-Fi?
+kind: yes_no
+icon: bolt
+group: Прочее
+synonyms: [wifi, wi-fi, вайфай, интернет, связь для работы]
+yes_text: Wi-Fi есть
+no_text: Wi-Fi нет
+plan:
+  - tool: hotel_osm
+    params: {key: internet_access, "yes": [wlan, "yes", wifi, wired, terminal], "no": ["no"]}
+  - tool: hotel_answers
+    params: {question: "Есть ли в отеле Wi-Fi?"}
+  - tool: web_text
+    params: {question: "Есть ли в отеле Wi-Fi и бесплатный ли он?"}
+  - tool: ask_hotelier
+    params: {question: "Есть ли в номерах Wi-Fi? Бесплатный ли он и какая скорость?"}
+min_confidence: 0.6
+ttl_days: 180

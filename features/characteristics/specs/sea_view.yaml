@@ -1,0 +1,13 @@
+# Вид на море: считает features/okno (профиль горизонта по рельефу и соседним домам)
+id: sea_view
+title: Вид на море
+question: С какого этажа видно море?
+kind: computed
+icon: waves
+plan:
+  - tool: viewshed
+    params: {characteristic: sea_view}
+  - tool: ask_hotelier
+    params: {question: "С какого этажа и с какой стороны из номеров видно море?"}
+min_confidence: 0.5
+ttl_days: 365
