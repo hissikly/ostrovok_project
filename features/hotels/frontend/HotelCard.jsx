@@ -11,7 +11,7 @@ function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
 }
 
-export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, places, routeTitle, nearMeta }) {
+export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
   const [failed, setFailed] = useState(false)
@@ -51,7 +51,7 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
         <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>
       </div>
       <WindowPanel key={id} hotelId={id} onCone={onCone} onPick={setView} />
-      <DayPanel hotelId={id} month={month} view={view} />
+      <DayPanel hotelId={id} month={month} view={view} onRoute={onDayRoute} routeShown={routeTitle === 'Маршрут дня'} />
       <FactList facts={facts.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta} />
       <AgentFacts hotelId={id} onPlace={onPlace} activePlace={places?.spec} />
