@@ -169,11 +169,12 @@ def ask(hotel_id: str, text: str, ctx: dict) -> dict:
                 "topic": "note", "question": text.strip(), "icon": "question", "status": "answered", "level": "hotel",
                 "note": LEVEL_NOTE["hotel"], "text": note["text"], "value": note["value"], "source": "hotelier",
                 "confidence": note["confidence"], "obtained_at": note["obtained_at"], "can_ask_hotel": False}]}
-        w = web_ask(hotel_id, text)            # нет в каталоге — ищем на сайте отеля, ответ с цитатой
+        trace = ["Ответы отеля и наши расчёты: такого вопроса нет"]
+        w = web_ask(hotel_id, text, trace=trace)   # нет в каталоге — ищем на сайте отеля, ответ с цитатой
         if w:
-            return {"status": "answered", "can_ask_hotel": False, "answers": [w]}
+            return {"status": "answered", "can_ask_hotel": False, "answers": [w], "trace": trace}
         return {"status": "no_topic", "text": "Этого мы пока не знаем :(", "question": text.strip(),
-                "can_ask_hotel": True, "answers": []}
+                "can_ask_hotel": True, "answers": [], "trace": trace + ["Остаётся спросить у отеля"]}
     unknown = all(a["status"] == "unknown" for a in answers)
     return {"status": "unknown" if unknown else "answered", "answers": answers,
             "can_ask_hotel": any(a["status"] == "unknown" and a["can_ask_hotel"] for a in answers)}

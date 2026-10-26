@@ -402,7 +402,8 @@ def llm_for(hotel_id: str, cache: dict, log: Counter) -> dict[str, dict]:
         p = prompt(t["question"], found, t["fields"])
         key = hashlib.sha1((llm.LLM_MODEL + p).encode()).hexdigest()
         if key not in cache:
-            r = llm.chat([{"role": "user", "content": p}], as_json=True, timeout=60)
+            # «размышления» модели не нужны — ответ всё равно проверяем цитатой, а так в 10 раз быстрее
+            r = llm.chat([{"role": "user", "content": p}], as_json=True, timeout=60, think=False)
             if r is None:                            # сеть/таймаут — не кэшируем, повторим в следующий раз
                 log["llm_error"] += 1
                 continue
@@ -448,10 +449,6 @@ def main():
     use_llm = a.llm and llm.enabled()
     if a.llm and not use_llm:
         print("LLM_API_KEY/LLM_MODEL не заданы — только правила", file=sys.stderr)
-    if use_llm:
-        # офлайн-прогон: «размышления» модели не нужны — ответ всё равно проверяем цитатой, а так в 10 раз быстрее
-        _post = llm._post
-        llm._post = lambda body, timeout: _post({**body, "reasoning": {"enabled": False}}, timeout)
     cache = json.load(open(CACHE, encoding="utf-8")) if use_llm and CACHE.exists() else {}
     cache = {k: v for k, v in cache.items() if v is not None}   # старые записи-ошибки переспросим
     rules = {hid: rules_for(cs) for hid, cs in sorted(by.items())}

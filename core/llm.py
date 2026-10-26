@@ -27,20 +27,25 @@ def _post(body: dict, timeout: int) -> dict:
         return json.loads(r.read().decode())
 
 
-def chat(messages: list[dict], *, as_json: bool = False, timeout: int = 40, temperature: float = 0) -> str | dict | None:
-    """Ответ модели текстом (или разобранный JSON при as_json); None — нет ключа или ошибка."""
+def chat(messages: list[dict], *, as_json: bool = False, timeout: int = 40, temperature: float = 0,
+         think: bool = True) -> str | dict | None:
+    """Ответ модели текстом (или разобранный JSON при as_json); None — нет ключа или ошибка.
+    think=False — без «размышлений» (qwen и др. через OpenRouter-совместимый API): 1–3 с вместо 10–40 с."""
     if not enabled():
         return None
     body = {"model": LLM_MODEL, "messages": messages, "temperature": temperature}
     if as_json:
         body["response_format"] = {"type": "json_object"}
+    if not think:
+        body["reasoning"] = {"enabled": False}
     try:
         try:
             data = _post(body, timeout)
         except urllib.error.HTTPError as e:
-            if e.code != 400 or "response_format" not in body:
+            if e.code != 400 or not ({"response_format", "reasoning"} & body.keys()):
                 raise
-            body.pop("response_format")            # не все совместимые API знают response_format
+            body.pop("response_format", None)      # не все совместимые API знают response_format и reasoning
+            body.pop("reasoning", None)
             data = _post(body, timeout)
         text = data["choices"][0]["message"]["content"]
     except (urllib.error.URLError, TimeoutError, KeyError, ValueError) as e:
