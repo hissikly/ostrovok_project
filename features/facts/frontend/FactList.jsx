@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Icon from '@app/icons.jsx'
 import { ConflictNote, ROW_TOPIC, useConflicts } from '@features/conflicts/frontend/ConflictNote.jsx'
 import { SiteFacts, SITE_ROW } from '@features/web_sources/frontend/SiteQuote.jsx'
+import './facts.css'
 
 const SIDE = { N: 'север', E: 'восток', S: 'юг', W: 'запад' }
 const ORDER = ['W', 'S', 'N', 'E']
@@ -36,6 +37,19 @@ const GROUPS = [['Магазины', 'cart'], ['Еда', 'cup'], ['Отдых', 
 const dist = m => (m < 1000 ? `${m} м` : `${(m / 1000).toFixed(1).replace('.', ',')} км`)
 
 // «Что рядом»: фильтр-иконки по группам и строки одинаковой высоты (иконка типа, что и как называется, минуты)
+// Свернуть / развернуть длинную строку; выбор помним в браузере гостя
+const FOLD = 'fold:near'
+const readFold = k => { try { return localStorage.getItem(k) === '1' } catch { return false } }
+const saveFold = (k, v) => { try { localStorage.setItem(k, v ? '1' : '0') } catch { /* без хранилища — просто не помним */ } }
+export function FoldButton({ folded, onClick }) {
+  return (
+    <button className={`fold ${folded ? 'folded' : ''}`} onClick={e => { e.stopPropagation(); onClick() }}
+      aria-expanded={!folded} aria-label={folded ? 'Развернуть' : 'Свернуть'} title={folded ? 'Развернуть' : 'Свернуть'}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6" /></svg>
+    </button>
+  )
+}
+
 function NearList({ facts, meta, onPlace, activePlace }) {
   const [groups, setGroups] = useState([])
   const [all, setAll] = useState(false)
@@ -152,6 +166,10 @@ function group(facts) {
 
 function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta, conflict }) {
   const [open, setOpen] = useState(false)
+  const [folded, setFolded] = useState(() => r.near && readFold(FOLD))
+  const fold = () => { saveFold(FOLD, !folded); setFolded(!folded) }
+  // свёрнутое «что рядом» — одной строкой: три ближайших места
+  const nearBrief = r.near && r.facts.slice(0, 3).map(f => `${f.value.kind.toLowerCase()} ${f.value.walk_min} мин`).join(', ')
   const lines = r.lines
   const c = Math.min(...r.facts.map(f => f.confidence))
   const f0 = r.facts[0]
@@ -161,31 +179,34 @@ function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta, conflict }) 
     <div className="fact" onClick={() => setOpen(!open)}>
       <div className="ic"><Icon name={r.icon} /></div>
       <div style={{ flex: 1 }}>
-        <div className="t">{r.title}</div>
+        <div className="t">{r.title}{r.near && <FoldButton folded={folded} onClick={fold} />}</div>
         {r.text && <div className="s">{r.text}</div>}
+        {r.near && folded && <div className="s">{nearBrief[0].toUpperCase() + nearBrief.slice(1)}</div>}
         {r.site && <SiteFacts facts={r.facts} />}
-        {r.near && <NearList facts={r.facts} meta={nearMeta} onPlace={onPlace} activePlace={activePlace} />}
+        {r.near && !folded && <NearList facts={r.facts} meta={nearMeta} onPlace={onPlace} activePlace={activePlace} />}
         {!r.near && lines && <div className="sides">{lines.map(([side, v]) =>
           <div key={side}><span>{side[0].toUpperCase() + side.slice(1)}</span><b className={v === 'не видно' || v.startsWith('шумно') || v.startsWith('очень') ? 'no' : ''}>{v}</b></div>)}</div>}
         {r.beach && onBeach && <div className={`more-link ${beachOn ? 'on' : ''}`}
           onClick={e => { e.stopPropagation(); onBeach() }}>Показать путь на карте</div>}
-        {open && !r.site && <div className="how">{HOW[f0.source] || f0.source}{NO_SURE.includes(f0.source) ? '' : ` ${sure}`}</div>}
+        {open && !r.site && !(r.near && folded) && <div className="how">{HOW[f0.source] || f0.source}{NO_SURE.includes(f0.source) ? '' : ` ${sure}`}</div>}
         <ConflictNote c={conflict} compact />
       </div>
     </div>
   )
 }
 
-export default function FactList({ facts, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
+// children — строки, которые дописывают другие фичи (ответы агента «Что ещё узнали»), внутри того же блока
+export default function FactList({ facts, onPlace, activePlace, onBeach, beachOn, nearMeta, children }) {
   const rows = group(facts)
   const conflicts = useConflicts(facts[0]?.hotel_id)
-  if (!rows.length) return null
+  if (!rows.length && !children) return null
   return (
     <div className="block">
       <h2>Что важно знать</h2>
       <p className="lead">Этого нет в описании отеля, мы проверили сами.</p>
       {rows.map(r => <Row key={r.key} r={r} onPlace={onPlace} activePlace={activePlace} onBeach={onBeach} beachOn={beachOn}
         nearMeta={nearMeta} conflict={conflicts[ROW_TOPIC[r.key]]} />)}
+      {children}
     </div>
   )
 }

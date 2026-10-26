@@ -1,0 +1,7 @@
+/* кнопка «свернуть / развернуть» у длинных строк и блоков карточки */
+.fold { width: 30px; height: 30px; border: 0; border-radius: 50%; background: var(--chip); color: var(--muted);
+  display: inline-grid; place-items: center; padding: 0; flex: none; cursor: pointer }
+.fold:hover { color: var(--ink) }
+.fold svg { transition: transform .15s }
+.fold.folded svg { transform: rotate(180deg) }
+.fact .t .fold { float: right; margin: -4px 0 0 8px }

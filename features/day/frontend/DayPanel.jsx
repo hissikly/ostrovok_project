@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '@app/api.js'
 import Icon from '@app/icons.jsx'
-import { HOW, sureWord } from '@features/facts/frontend/FactList.jsx'
+import { HOW, sureWord, FoldButton } from '@features/facts/frontend/FactList.jsx'
 import { SiteQuote } from '@features/web_sources/frontend/SiteQuote.jsx'
+import { outingColor } from './DayRoute.jsx'
 import './day.css'
 
-const MONTH_IN = ['', 'январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре']
-const SIDE_TO = { N: 'на север', E: 'на восток', S: 'на юг', W: 'на запад' }
 const SURE = { hi: 'Данные надёжные.', mid: 'Это расчёт: на месте может немного отличаться.', lo: 'Это примерная оценка.' }
 
 // Откуда мы это знаем: с сайта отеля — дословная цитата, иначе — как посчитали и насколько уверены
@@ -18,25 +17,27 @@ function How({ facts }) {
   return <div className="how">{HOW[f0.source] || 'Посчитали по открытым данным.'} {SURE[sureWord(c)[1]]}</div>
 }
 
-// Кружок справа у места вне отеля: в маршруте (номер остановки) или убрано
-function StopToggle({ on, n, onToggle }) {
+// Кружок справа у места вне отеля: идём (номер места за день) или не пойдём
+function StopToggle({ on, n, outing, onToggle }) {
   return (
-    <button className={`day-stop ${on ? 'on' : ''}`} onClick={e => { e.stopPropagation(); onToggle() }}
-      aria-label={on ? 'Убрать из маршрута дня' : 'Вернуть в маршрут дня'} title={on ? 'Убрать из маршрута' : 'Вернуть в маршрут'}>
+    <button className={`day-stop ${on ? 'on' : ''}`} style={on && outing ? { background: outingColor(outing), borderColor: outingColor(outing) } : null} onClick={e => { e.stopPropagation(); onToggle() }}
+      aria-label={on ? 'Не пойду сюда' : 'Пойду сюда'} title={on ? 'Не пойду сюда' : 'Пойду сюда'}>
       {on ? (n || <Icon name="check" size={14} />) : '+'}
     </button>
   )
 }
 
-// Одна сцена дня: время, что происходит, по клику — откуда мы это знаем
+// Одна сцена дня: время, что происходит, по клику — откуда мы это знаем.
+// Строка пути (kind=walk) — тоньше: когда вышли и сколько идти; у места, куда пришли, — «до скольких» там
 function Scene({ s, stop }) {
   const [open, setOpen] = useState(false)
   const toggle = () => setOpen(!open)
+  const walk = s.kind === 'walk'
   return (
-    <li className={`day-scene ${s.good ? '' : 'warn'} ${stop && !stop.on ? 'off' : ''}`} onClick={toggle} tabIndex={0} aria-expanded={open}
-      onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggle())}>
-      <time>{s.time}</time>
-      <span className="day-dot"><Icon name={s.icon} size={18} /></span>
+    <li className={`day-scene ${walk ? 'day-walk' : ''} ${s.good ? '' : 'warn'} ${stop && !stop.on ? 'off' : ''}`} onClick={toggle}
+      tabIndex={0} aria-expanded={open} onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggle())}>
+      <time>{s.time}{s.visit && <small>до {s.visit.until}</small>}</time>
+      {walk ? <span className="day-dot" style={{ background: outingColor(s.outing) }} /> : <span className="day-dot"><Icon name={s.icon} size={18} /></span>}
       <div className="day-body">
         <b>{s.title}</b>
         {s.note && <span>{s.note}</span>}
@@ -52,26 +53,21 @@ const plural = (n, one, few, many) => {
   return m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20) ? few : many
 }
 
+// Ночная аптека — «на всякий случай», в план дня по умолчанию не ставим
+const SKIP0 = ['night']
+
 // «Ваш день здесь»: лента одного дня из фактов, для стороны и этажа, выбранных в «О!кне».
-// Места вне отеля складываются в пеший маршрут дня на карте; лишние гость убирает кружком справа.
-// onRoute(маршрут|null) рисует его на карте, routeShown — он сейчас на карте (а не путь до пляжа и т.п.)
+// Места вне отеля — выходы из отеля: в ленте время в пути и на месте, на карте — линия на каждый выход.
+// Куда не пойдёт, гость убирает кружком справа. onRoute(маршрут|null) рисует выходы на карте,
+// routeShown — они сейчас на карте (а не путь до пляжа и т.п.)
 export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) {
   const [kids, setKids] = useState(false)
   const [d, setD] = useState(null)
-  const [skip, setSkip] = useState([])
-  const [r, setR] = useState(null)
+  const [skip, setSkip] = useState(SKIP0)
+  const [folded, setFolded] = useState(() => { try { return localStorage.getItem('fold:day') === '1' } catch { return false } })
+  const fold = () => { try { localStorage.setItem('fold:day', folded ? '0' : '1') } catch { /* не помним */ } setFolded(!folded) }
 
-  useEffect(() => { setD(null); setSkip([]); setR(null) }, [hotelId])  // не показываем день прошлого отеля, пока грузится новый
-
-  useEffect(() => {
-    const q = new URLSearchParams({ month })
-    if (view?.facade) q.set('facade', view.facade)
-    if (view?.floor) q.set('floor', view.floor)
-    if (kids) q.set('mode', 'kids')
-    let alive = true
-    api(`/api/hotels/${hotelId}/day?${q}`).then(x => alive && setD(x)).catch(() => alive && setD(false))
-    return () => { alive = false }
-  }, [hotelId, month, view?.facade, view?.floor, kids])
+  useEffect(() => { setD(null); setSkip(SKIP0) }, [hotelId])  // не показываем день прошлого отеля, пока грузится новый
 
   const q = () => {
     const p = new URLSearchParams({ month })
@@ -81,37 +77,43 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
     if (skip.length) p.set('skip', skip.join(','))
     return p
   }
+  const deps = [hotelId, month, view?.facade, view?.floor, kids, skip.join(',')]
+  useEffect(() => {
+    let alive = true
+    api(`/api/hotels/${hotelId}/day?${q()}`).then(x => alive && setD(x)).catch(() => alive && setD(false))
+    return () => { alive = false }
+  }, deps)
+
   const showRoute = () => api(`/api/hotels/${hotelId}/day/route?${q()}`)
-    .then(x => { setR(x); onRoute?.(x) }).catch(() => onRoute?.({ title: 'Маршрут дня', none: true }))
-  // маршрут уже на карте — пересобираем, когда гость убрал место, сменил сторону или режим
-  useEffect(() => { if (routeShown) showRoute() }, [skip.join(','), kids, month, view?.facade, view?.floor])
+    .then(x => onRoute?.(x)).catch(() => onRoute?.({ title: 'Маршрут дня', none: true }))
+  // выходы уже на карте — пересобираем, когда гость убрал место, сменил сторону или режим
+  useEffect(() => { if (routeShown) showRoute() }, deps)
 
   const toggleStop = id => setSkip(skip.includes(id) ? skip.filter(x => x !== id) : [...skip, id])
-  const num = id => routeShown && r?.stops.find(s => s.id === id)?.n
 
   if (d === false || (d && d.scenes.length < 2)) return null
   if (!d) return <div className="block muted">Собираем ваш день…</div>
   const stops = d.scenes.filter(s => s.stop)
+  const w = d.walk
   return (
     <div className="block day">
       <div className="day-head">
         <h2>Ваш день здесь</h2>
         <div className="pills"><button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
-          <Icon name="child" size={16} />С ребёнком</button></div>
+          <Icon name="child" size={16} />С ребёнком</button><FoldButton folded={folded} onClick={fold} /></div>
       </div>
-      <p className="lead">Один день в {MONTH_IN[d.month]}{d.facade ? `, окна ${SIDE_TO[d.facade]}, ${d.floor} этаж` : ''}. Нажмите на момент дня — расскажем, откуда мы это знаем.</p>
-      {stops.length > 0 && (routeShown && r
-        ? <div className="day-route on">
-            <Icon name="pin" size={18} />
-            <span>Пешком за день <b>{r.minutes} мин</b>{r.up_m >= 10 ? <>, в гору <b>{r.up_m} м</b></> : ', почти ровно'}</span>
-            <button onClick={() => onRoute?.(null)}>Скрыть</button>
-          </div>
-        : <div className="day-route">
-            <button className="go" onClick={showRoute}><Icon name="pin" size={16} />Маршрут дня на карте</button>
-            <span>{stops.length} {plural(stops.length, 'место', 'места', 'мест')} пешком. Лишние уберите кружком справа</span>
-          </div>)}
-      <ol className="day-line">{d.scenes.map(s => <Scene key={s.time + s.title} s={s}
-        stop={s.stop && { on: !skip.includes(s.stop.id), n: num(s.stop.id), onToggle: () => toggleStop(s.stop.id) }} />)}</ol>
+      {stops.length > 0 && (
+        <div className={`day-route ${routeShown ? 'on' : ''}`}>
+          <Icon name="pin" size={18} />
+          <span>{w.outings
+            ? <>{w.outings} {plural(w.outings, 'выход', 'выхода', 'выходов')} из отеля, пешком всего <b>{w.minutes} мин</b>{w.up_m >= 10 ? <>, в гору <b>{w.up_m} м</b></> : ''}</>
+            : 'Весь день у отеля. Отметьте кружком, куда пойдёте'}</span>
+          {w.outings > 0 && (routeShown
+            ? <button onClick={() => onRoute?.(null)}>Скрыть с карты</button>
+            : <button onClick={showRoute}>На карте</button>)}
+        </div>)}
+      {!folded && <ol className="day-line">{d.scenes.map(s => <Scene key={(s.kind || '') + s.time + s.title} s={s}
+        stop={s.stop && { on: !skip.includes(s.stop.id), n: s.visit?.n, outing: s.visit?.outing, onToggle: () => toggleStop(s.stop.id) }} />)}</ol>}
     </div>
   )
 }
