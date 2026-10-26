@@ -1,7 +1,7 @@
 """«Твой день здесь»: лента одного дня поездки, собранная только из готовых фактов.
 
 Сцена появляется, только если для неё есть факт; время — из фактов (восход в окне, закат)
-или из шаблона дня (кофе 08:30, пляж 10:00, обратно 13:00, ужин 20:00, ночь 23:00).
+или из шаблона дня (завтрак 08:30, пляж 10:00, обратно 13:00, ужин 20:30, ночь 23:00).
 Сцена: {time, icon, title, note, good, fact_ids, facts}. good=False — честный подвох.
 facts — сами факты сцены (источник, уверенность, дата), чтобы фронт показал «как узнали».
 """
@@ -87,29 +87,96 @@ def morning(hotel_id, d, side, floor, month):
         "obtained_at": (load("day_morning.json") or {}).get("obtained_at"), "valid_until": None, "status": "active",
     }
     if sun_in and sun_in < WAKE_BEFORE:
-        return _scene(sun_in, "sunset", f"Солнце заглянет в окно в {sun_in}",
-                      f"Рассвет в {rise}. Если любите поспать, пригодятся плотные шторы", False, [fact])
+        return _scene(sun_in, "sunset", "Солнце заглянет в окно рано",
+                      f"Рассвет в {rise}. Любите поспать — задёрните плотные шторы с вечера", False, [fact])
     if sun_in:
         return _scene("07:00", "sunset", "Солнце не разбудит",
-                      f"В окно оно заглянет только к {sun_in}", True, [fact])
-    return _scene("07:00", "sunset", "Солнце не разбудит",
-                  f"Окна {SIDE_TO[side]}: утром солнце с другой стороны здания", True, [fact])
+                      f"В окно оно заглянет только к {sun_in}, можно выспаться", True, [fact])
+    note = "Утром солнце с другой стороны здания" if side == "W" else "Прямого солнца в окне утром не будет"
+    return _scene("07:00", "sunset", "Солнце не разбудит", note, True, [fact])
 
 
-def near_scene(facts, spec, time, icon, title):
+def _near(facts, spec, limit=NEAR_OK):
     f = next((x for x in facts if x["characteristic"] == f"near:{spec}"), None)
-    if not f or f["value"].get("meters") is None or f["value"]["walk_min"] > NEAR_OK:
+    return f if f and f["value"].get("meters") is not None and f["value"]["walk_min"] <= limit else None
+
+
+def _none_near(facts, spec):
+    """Факт «в N минутах пешком такого нет» (поиск был, ничего не нашли)."""
+    f = next((x for x in facts if x["characteristic"] == f"near:{spec}"), None)
+    return f if f and f["value"].get("meters") is None and f["value"].get("within_min", 0) >= NEAR_OK else None
+
+
+def near_scene(facts, spec, time, icon, title, limit=NEAR_OK):
+    f = _near(facts, spec, limit)
+    if not f:
         return None
     v = f["value"]
     where = f"{_min_in(v['walk_min'])} пешком"
     return _scene(time, icon, title, f"{_quote(v['name'])}, {where}" if v.get("name") else where.capitalize(), True, [f])
 
 
+def _site(facts, topic):
+    """Факт с сайта отеля (web_sources): там дословная цитата и ссылка."""
+    return next((f for f in facts if f["characteristic"] == f"web:{topic}"), None)
+
+
+def breakfast(facts):
+    f = _site(facts, "breakfast")
+    if f and f["value"].get("breakfast") in ("есть", "включён"):
+        kind = f["value"].get("kind")
+        note = f"{kind.capitalize()}, по словам отеля" if kind else "По словам отеля"
+        if f["value"]["breakfast"] == "включён":
+            note = "Уже в цене, по словам отеля"
+        return _scene("08:30", "cup", "Завтрак в отеле", note, True, [f])
+    return near_scene(facts, "cafe", "08:30", "cup", "Кофе рядом")
+
+
+def pool(facts):
+    f = _site(facts, "pool")
+    if not f or f["value"].get("pool") != "есть":
+        return None
+    v = f["value"]
+    bits = [x for x in (v.get("kind"), v.get("heated") and "с подогревом") if x]
+    note = (", ".join(bits).capitalize() + ". " if bits else "") + "По словам отеля"
+    return _scene("15:00", "waves", "После обеда — бассейн", note, True, [f])
+
+
+def dinner(facts):
+    s = near_scene(facts, "restaurant", "20:30", "fork", "Ужин рядом") \
+        or near_scene(facts, "cafe", "20:30", "fork", "Поужинать есть где")
+    if s:
+        return s
+    gone = [f for f in (_none_near(facts, "restaurant"), _none_near(facts, "cafe")) if f]
+    if len(gone) == 2:
+        return _scene("20:30", "fork", "Ужинать придётся не за углом",
+                      "В 10 минутах пешком нет ни кафе, ни ресторана", False, gone)
+    return None
+
+
+def kids_afternoon(facts):
+    s = near_scene(facts, "playground", "17:00", "child", "Детская площадка рядом")
+    if s:
+        return s
+    return near_scene(facts, "waterpark", "17:00", "child", "Аквапарк недалеко", limit=20)
+
+
+def crib(facts):
+    f = _site(facts, "crib")
+    if not f or not f["value"].get("crib"):
+        return None
+    c = f["value"]["crib"]
+    if c == "нет":
+        return _scene("21:00", "child", "Детской кроватки нет", "По словам отеля. Уточните при брони", False, [f])
+    title = {"бесплатно": "Детская кроватка бесплатно", "за доплату": "Детская кроватка за доплату"}.get(c, "Детская кроватка есть")
+    return _scene("21:00", "child", title, "По словам отеля. Попросите при брони", True, [f])
+
+
 def _climate(h, month):
     """Погода и вода в месяц поездки — из фичи climate, когда она есть (бриф 4)."""
     try:
         from features.climate.backend import climate
-    except ImportError:
+    except Exception:  # noqa: BLE001 — фичи ещё нет или она сломана: лента живёт без неё
         return None
     try:
         return climate(h["lat"], h["lon"], month)
@@ -126,15 +193,16 @@ def beach(facts, h, month, kids):
     if route and straight and straight["value"]["meters"] <= 150 and route["value"]["minutes"] > straight["value"]["walk_min"] + 10:
         route = None
     cl = _climate(h, month)
-    water = cl and cl.get("water")
-    water_note = f"Вода в {MONTH_IN[month]} около {round(water)}°" if water else ""
+    water = cl.get("water") if isinstance(cl, dict) else None
+    water_note = f"Вода в {MONTH_IN[month]} около {round(water)}°" if isinstance(water, (int, float)) else ""
     out = []
     if route:
         v = route["value"]
-        down = f"вниз {v['down_m']} м" if v["down_m"] >= 10 else "почти ровно"
+        down = f"под горку {v['down_m']} м" if v["down_m"] >= 10 else "почти ровно"
         notes = [down] + [s for s in (v["steps"] and "лестницы", v["underpass"] and "подземный переход",
                                       v["rail"] and "переход через железную дорогу") if s]
-        out.append(_scene("10:00", "beach", f"На пляж {_min(v['minutes'])} пешком",
+        title = "Пляж в паре минут" if v["minutes"] <= 2 else f"На пляж {_min(v['minutes'])} пешком"
+        out.append(_scene("10:00", "beach", title,
                           ". ".join(x for x in ((", ".join(notes)).capitalize(), water_note) if x),
                           v["minutes"] <= 15, [route]))
         climb = v.get("climb_back_m", v["up_m"])
@@ -146,19 +214,20 @@ def beach(facts, h, month, kids):
                               why.capitalize(), False, [route]))
         elif climb >= 25:
             out.append(_scene("13:00", "mountain", f"Обратно {_min(v['back_minutes'])} в гору",
-                              f"Подъём {climb} м, как на {round(climb / FLOOR_M)}-й этаж пешком", False, [route]))
+                              f"Подъём {climb} м, будто на {round(climb / FLOOR_M)}-й этаж по лестнице", False, [route]))
         elif climb >= 10:
             out.append(_scene("13:00", "mountain", f"Обратно {_min(v['back_minutes'])}",
                               f"Небольшой подъём, {climb} м", v["back_minutes"] <= 15, [route]))
         else:
             out.append(_scene("13:00", "check", f"Обратно {_min(v['back_minutes'])}, почти ровно",
-                              "Можно сбегать в номер в обед", True, [route]))
+                              "Легко зайти в номер на обед", True, [route]))
     elif straight:
         v = straight["value"]
         dist = f"{v['meters']} м" if v["meters"] < 1000 else f"{v['meters'] / 1000:.1f} км".replace(".", ",")
         title = "Море прямо у отеля" if v["meters"] <= 150 else f"До пляжа {dist}"
+        walk = "Минута пешком" if v["walk_min"] <= 1 else f"{_min(v['walk_min'])} пешком".capitalize()
         out.append(_scene("10:00", "beach", title,
-                          ". ".join(x for x in (f"{_min(v['walk_min'])} пешком".capitalize(), water_note) if x),
+                          ". ".join(x for x in (walk, water_note) if x),
                           v["walk_min"] <= 15, [straight]))
     return out
 
@@ -172,20 +241,26 @@ def evening(hotel_id, d, side, floor, month, facts):
         or next((f for f in facts if f["characteristic"] == "sea_view" and _scope_side(f) == side), None)
     fs = [fact] if fact else []
     if s["sets_into_sea"]:
-        return _scene(s["sunset_astro"], "sunset", "Закат над морем прямо из окна",
-                      f"Солнце сядет в море в {s['sunset_astro']}", True, fs)
+        return _scene(s["sunset_astro"], "sunset", "Закат над морем из окна",
+                      "Солнце сядет прямо в море, ничего не заслонит", True, fs)
     if s["sun_hidden_at"] and s["minutes_earlier"] <= 3:
         return _scene(s["sunset_astro"], "sunset", "Закат виден из окна",
-                      "Солнце сядет за дальними домами у горизонта", True, fs)
+                      "Солнце уйдёт за дальние дома у самого горизонта", True, fs)
     if s["sun_hidden_at"] and s["hidden_by"] in ("building", "terrain"):
         what = "соседний дом" if s["hidden_by"] == "building" else "склон"
-        return _scene(s["sun_hidden_at"], "sunset", f"В {s['sun_hidden_at']} закат закроет {what}",
-                      f"За {_min(s['minutes_earlier'])} до заката в {s['sunset_astro']}", False, fs)
+        return _scene(s["sun_hidden_at"], "sunset", f"Закат закроет {what}",
+                      f"На {_min(s['minutes_earlier'])} раньше настоящего заката в {s['sunset_astro']}", False, fs)
     vp = next((f for f in facts if f["characteristic"] == "near:viewpoint" and f["value"].get("meters") is not None
                and f["value"]["walk_min"] <= NEAR_OK), None)
     note = (f"Смотреть его лучше со смотровой {_quote(vp['value']['name'])}, {_min_in(vp['value']['walk_min'])}"
             if vp and vp["value"].get("name") else "Солнце садится с другой стороны здания")
     return _scene(s["sunset_astro"], "sunset", "Заката из окна не видно", note, False, fs + ([vp] if vp else []))
+
+
+def _db(db):
+    like = ("в тихой комнате" if db <= 40 else "в тихом дворе" if db <= 50
+            else "при спокойном разговоре" if db <= 60 else "на оживлённой улице")
+    return f"около {db} дБ, как {like}"
 
 
 def night(facts, side):
@@ -195,33 +270,37 @@ def night(facts, side):
     v = f["value"]
     src = v.get("source") or {}
     if v["level"] == "quiet":
-        return _scene("23:00", "moon", "Ночью тихо", f"Около {v['night_db']} дБ, как в тихой комнате", True, [f])
+        return _scene("23:00", "moon", "Ночью тихо", "О" + _db(v['night_db'])[1:], True, [f])
     if v["level"] == "calm":
         return _scene("23:00", "moon", "Ночью спокойно", "Улицу почти не слышно", True, [f])
     kind, name = src.get("kind"), src.get("name")
     what = {"runway": "Слышны самолёты", "rail": "Слышны поезда"}.get(kind) or (
         f"Рядом {src.get('kind_ru', 'бар')} {_quote(name)}" if kind in ("bar", "pub", "nightclub")
         else f"Рядом {name}" if name else f"Рядом {src.get('kind_ru', 'улица')}")
-    note = f"{what.strip()}, ночью около {v['night_db']} дБ"
+    note = f"{what.strip()}, ночью {_db(v['night_db'])}"
     quieter = [x for x in facts if x["characteristic"] == "noise" and _scope_side(x)
                and x["value"]["level"] in ("quiet", "calm")]
     if quieter and _scope_side(f):
         best = min(quieter, key=lambda x: x["value"]["night_db"])
         note += f". Окна {SIDE_TO[_scope_side(best)]} тише"
         return _scene("23:00", "volume", "Ночью шумно", note, False, [f, best])
-    return _scene("23:00", "volume", "Ночью шумно", note + ". Возьмите беруши", False, [f])
+    return _scene("23:00", "volume", "Ночью шумно", note + ". Пригодятся беруши", False, [f])
 
 
 def _airport(h):
     """Первая сцена — прилёт, когда готова фича airport (бриф 5)."""
     try:
         from features.airport.backend import arrival
-    except ImportError:
+    except Exception:  # noqa: BLE001 — фичи ещё нет или она сломана: лента живёт без неё
         return None
     try:
-        return arrival(h)
+        s = arrival(h)
     except Exception:  # noqa: BLE001
         return None
+    # сцена должна быть по контракту ленты, иначе лучше без неё
+    if not isinstance(s, dict) or not all(isinstance(s.get(k), str) for k in ("time", "title")) or not s.get("facts"):
+        return None
+    return {"icon": "clock", "note": "", "good": True, "fact_ids": [f["id"] for f in s["facts"]], **s}
 
 
 def day(hotel_id: str, month: int, facade: str | None = None, floor: int | None = None, mode: str | None = None):
@@ -235,13 +314,14 @@ def day(hotel_id: str, month: int, facade: str | None = None, floor: int | None 
     scenes = [_airport(h)]
     if d:
         scenes.append(morning(hotel_id, d, side, fl, month))
-    scenes.append(near_scene(facts, "cafe", "08:30", "cup", "Кофе рядом"))
+    scenes.append(breakfast(facts))
     scenes += beach(facts, h, month, kids)
+    scenes.append(pool(facts))
     if kids:
-        scenes.append(near_scene(facts, "playground", "17:00", "child", "Детская площадка рядом"))
+        scenes += [kids_afternoon(facts), crib(facts)]
     if d:
         scenes.append(evening(hotel_id, d, side, fl, month, facts))
-    scenes.append(near_scene(facts, "restaurant", "20:00", "fork", "Ужин рядом"))
+    scenes.append(dinner(facts))
     scenes.append(night(facts, side))
     scenes.append(near_scene(facts, "pharmacy_24", "23:30", "cross", "Круглосуточная аптека рядом")
                   or near_scene(facts, "grocery_24", "23:30", "cart", "Магазин рядом работает ночью"))
