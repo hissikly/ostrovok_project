@@ -1,0 +1,10 @@
+/* features/web_sources: цитата с сайта отеля */
+.site-quote { margin-top: 6px; background: var(--page); border-radius: 10px; padding: 8px 10px; font-size: 13px; color: var(--muted); cursor: default }
+.site-quote .q { color: var(--ink); font-style: italic; margin-bottom: 4px }
+.site-quote a { color: var(--brand); font-weight: 700; text-decoration: none }
+.site-quote a:hover { text-decoration: underline }
+
+.site-facts { display: flex; flex-direction: column; gap: 2px; margin-top: 4px }
+.site-facts button { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; padding: 4px 0; text-align: left }
+.site-facts button svg { color: var(--muted); flex: none }
+.site-facts .on button { font-weight: 700 }

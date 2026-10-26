@@ -1,0 +1,1907 @@
+{
+ "sites": [
+  {
+   "hotel_id": "n10213051617",
+   "website": "https://t.me/housart",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 2,
+   "fetched_at": "2026-10-26T05:43:03+00:00"
+  },
+  {
+   "hotel_id": "n10759606594",
+   "website": "https://ranovsky-park.ru/",
+   "status": "ok",
+   "pages": 10,
+   "chunks": 51,
+   "fetched_at": "2026-10-26T05:42:16+00:00"
+  },
+  {
+   "hotel_id": "n10759606596",
+   "website": "https://ranovskypark.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n10759613919",
+   "website": "http://ararat-sochi.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n10759614063",
+   "website": "http://marinamall.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n10759614195",
+   "website": "https://goldentennisclub.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11016631786",
+   "website": "https://edelveis-sochi.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11016631787",
+   "website": "https://www.sochi-aerostar.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11016638369",
+   "website": "https://shagal-apartments.ru/",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 15,
+   "fetched_at": "2026-10-26T05:43:11+00:00"
+  },
+  {
+   "hotel_id": "n11016638373",
+   "website": "https://grand-gallery.net/",
+   "status": "ok",
+   "pages": 9,
+   "chunks": 45,
+   "fetched_at": "2026-10-26T05:42:04+00:00"
+  },
+  {
+   "hotel_id": "n11016638375",
+   "website": "https://veryhotel.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11067209447",
+   "website": "https://zebrahouse23.ru/",
+   "status": "http_404",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11067209459",
+   "website": "https://rpusadba.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11119611105",
+   "website": "http://www.retreatdom.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11138786325",
+   "website": "https://chernomor-sochi.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11138786328",
+   "website": "https://ranovskypark.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11138786368",
+   "website": "http://banara.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11138786395",
+   "website": "https://sochirentapart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11138786397",
+   "website": "https://briz53.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11138786401",
+   "website": "https://mamaikaplus.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11138788609",
+   "website": "https://palmresortsochi.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11190910581",
+   "website": "https://siriushotels.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 49,
+   "fetched_at": "2026-10-26T05:42:04+00:00"
+  },
+  {
+   "hotel_id": "n11304222978",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11304222979",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11304222981",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11304222982",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11304222983",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11304222984",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11304222985",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11304222987",
+   "website": "https://grandwayhotels.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11331531334",
+   "website": "https://adler.cosmosgroup.ru/ru",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 42,
+   "fetched_at": "2026-10-26T05:42:06+00:00"
+  },
+  {
+   "hotel_id": "n11521416444",
+   "website": "https://hotelrusalina.ru",
+   "status": "ok",
+   "pages": 4,
+   "chunks": 10,
+   "fetched_at": "2026-10-26T05:42:49+00:00"
+  },
+  {
+   "hotel_id": "n11637552371",
+   "website": "https://rodos-apart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11637558669",
+   "website": "https://rodos-lite.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11637558670",
+   "website": "https://geo-apart.ru/",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 1,
+   "fetched_at": "2026-10-26T05:42:56+00:00"
+  },
+  {
+   "hotel_id": "n11843545829",
+   "website": "https://www.adler-panorama.ru",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 24,
+   "fetched_at": "2026-10-26T05:43:07+00:00"
+  },
+  {
+   "hotel_id": "n11843545833",
+   "website": "https://adler-sirius.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843545854",
+   "website": "https://ellis-hotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843545856",
+   "website": "https://marcopolohotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843545860",
+   "website": "https://flora-adler.com",
+   "status": "http_401",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843545861",
+   "website": "https://adlerpanorama.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843553784",
+   "website": "https://sunnysochihostel.ru",
+   "status": "ok",
+   "pages": 3,
+   "chunks": 39,
+   "fetched_at": "2026-10-26T05:42:58+00:00"
+  },
+  {
+   "hotel_id": "n11843553789",
+   "website": "https://sochiaparts.ru",
+   "status": "ok",
+   "pages": 4,
+   "chunks": 22,
+   "fetched_at": "2026-10-26T05:42:09+00:00"
+  },
+  {
+   "hotel_id": "n11843553790",
+   "website": "https://vinogradniy.neolitapart.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843553791",
+   "website": "https://lissabon-hotel.ru",
+   "status": "ok",
+   "pages": 8,
+   "chunks": 82,
+   "fetched_at": "2026-10-26T05:42:45+00:00"
+  },
+  {
+   "hotel_id": "n11843553792",
+   "website": "https://park.neolitapart.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843553793",
+   "website": "https://pushkin.neolitapart.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843553838",
+   "website": "https://ofeliahotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843553839",
+   "website": "https://arcadiaplushotel.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11843553851",
+   "website": "https://insochi.apartments/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11958139262",
+   "website": "https://sochi-elbrus.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11958163711",
+   "website": "https://suncityhotels.ru",
+   "status": "ok",
+   "pages": 10,
+   "chunks": 72,
+   "fetched_at": "2026-10-26T05:42:17+00:00"
+  },
+  {
+   "hotel_id": "n11958163713",
+   "website": "https://markinn-sochi.ru",
+   "status": "ok",
+   "pages": 5,
+   "chunks": 12,
+   "fetched_at": "2026-10-26T05:42:07+00:00"
+  },
+  {
+   "hotel_id": "n11958163737",
+   "website": "https://villamariaclub.ru",
+   "status": "ok",
+   "pages": 8,
+   "chunks": 38,
+   "fetched_at": "2026-10-26T05:42:17+00:00"
+  },
+  {
+   "hotel_id": "n11958163769",
+   "website": "https://dolphin.adler.ooo",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11958163786",
+   "website": "https://sochi-hotel-alpyskaya27.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n11958163800",
+   "website": "https://70000001082488895.2gis.biz",
+   "status": "http_404",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12032893438",
+   "website": "https://hotelportofino.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12043534507",
+   "website": "https://bellagio-hotel.ru/",
+   "status": "ok",
+   "pages": 10,
+   "chunks": 90,
+   "fetched_at": "2026-10-26T05:42:29+00:00"
+  },
+  {
+   "hotel_id": "n12084515064",
+   "website": "https://panoramapart.ru",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 5,
+   "fetched_at": "2026-10-26T05:43:03+00:00"
+  },
+  {
+   "hotel_id": "n12084593369",
+   "website": "https://www.kudanamore.ru/adler/hotels/47598",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12183637632",
+   "website": "https://www.atmosferahotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12183637644",
+   "website": "https://mirror-hotel.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 46,
+   "fetched_at": "2026-10-26T05:42:13+00:00"
+  },
+  {
+   "hotel_id": "n12416060215",
+   "website": "https://seasunapart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12416060217",
+   "website": "https://seasunapart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12416060226",
+   "website": "https://seasunapart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12416060227",
+   "website": "https://seasunapart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12441295502",
+   "website": "http://Seasunapart.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12441295503",
+   "website": "http://Seasunapart.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12441295602",
+   "website": "http://Seasunapart.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12541096667",
+   "website": "https://alphapartments.ru",
+   "status": "ok",
+   "pages": 5,
+   "chunks": 39,
+   "fetched_at": "2026-10-26T05:43:01+00:00"
+  },
+  {
+   "hotel_id": "n12749552601",
+   "website": "https://www.marinayacht.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 31,
+   "fetched_at": "2026-10-26T05:42:06+00:00"
+  },
+  {
+   "hotel_id": "n12800893166",
+   "website": "https://grey-sochi.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12956582499",
+   "website": "https://sochi-thai.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n12958832506",
+   "website": "https://benefit-evopart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n1300620592",
+   "website": "http://хостахостел.рф/",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 2,
+   "fetched_at": "2026-10-26T05:42:56+00:00"
+  },
+  {
+   "hotel_id": "n13114325896",
+   "website": "https://lesamissochiru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n13301736402",
+   "website": "https://lavicon.ru/",
+   "status": "ok",
+   "pages": 9,
+   "chunks": 58,
+   "fetched_at": "2026-10-26T05:42:04+00:00"
+  },
+  {
+   "hotel_id": "n13301736501",
+   "website": "https://lavicon.ru/",
+   "status": "ok",
+   "pages": 9,
+   "chunks": 58,
+   "fetched_at": "2026-10-26T05:42:09+00:00"
+  },
+  {
+   "hotel_id": "n13408523534",
+   "website": "https://mondrian-sochi.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n13825065360",
+   "website": "https://siriushotels.ru/alpha/morskoy/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 25,
+   "fetched_at": "2026-10-26T05:42:19+00:00"
+  },
+  {
+   "hotel_id": "n13825076875",
+   "website": "https://siriushotels.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 49,
+   "fetched_at": "2026-10-26T05:42:18+00:00"
+  },
+  {
+   "hotel_id": "n1589583311",
+   "website": "https://отельанна.рф",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n1590577898",
+   "website": "https://adlerdavid.ru/",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 2,
+   "fetched_at": "2026-10-26T05:42:33+00:00"
+  },
+  {
+   "hotel_id": "n1599762387",
+   "website": "https://royal-aparts.ru",
+   "status": "ok",
+   "pages": 4,
+   "chunks": 22,
+   "fetched_at": "2026-10-26T05:42:16+00:00"
+  },
+  {
+   "hotel_id": "n2514339347",
+   "website": "https://www.genrihotel.com/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n3027830090",
+   "website": "https://irenahotel.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n3143192173",
+   "website": "https://www.otelrus.ru/185",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4118677615",
+   "website": "https://www.shine-hotel.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 62,
+   "fetched_at": "2026-10-26T05:42:24+00:00"
+  },
+  {
+   "hotel_id": "n4199103088",
+   "website": "https://m-otel.ru/",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 11,
+   "fetched_at": "2026-10-26T05:42:39+00:00"
+  },
+  {
+   "hotel_id": "n4258582089",
+   "website": "http://adler-elena.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4284096790",
+   "website": "https://elonahotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4323769893",
+   "website": "https://tornau-hotel.ru/",
+   "status": "ok",
+   "pages": 10,
+   "chunks": 23,
+   "fetched_at": "2026-10-26T05:43:11+00:00"
+  },
+  {
+   "hotel_id": "n4369173790",
+   "website": "https://www.alean.ru/rossiya/krasnodarskiy_kray/sochi_kurort/alean_family_resort_i_spa_sputnik_otel/",
+   "status": "ok",
+   "pages": 9,
+   "chunks": 160,
+   "fetched_at": "2026-10-26T05:42:36+00:00"
+  },
+  {
+   "hotel_id": "n4369348389",
+   "website": "https://www.sputnik-sochi.ru/",
+   "status": "ok",
+   "pages": 10,
+   "chunks": 37,
+   "fetched_at": "2026-10-26T05:42:51+00:00"
+  },
+  {
+   "hotel_id": "n4370780891",
+   "website": "https://familyholidayhotel.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 143,
+   "fetched_at": "2026-10-26T05:42:04+00:00"
+  },
+  {
+   "hotel_id": "n4370807729",
+   "website": "https://sochi-el.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 86,
+   "fetched_at": "2026-10-26T05:42:52+00:00"
+  },
+  {
+   "hotel_id": "n4393265790",
+   "website": "http://imperiasochi.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4398105389",
+   "website": "https://hotel-romanov.ru/",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 24,
+   "fetched_at": "2026-10-26T05:42:48+00:00"
+  },
+  {
+   "hotel_id": "n4422134889",
+   "website": "http://otel-goroda-sochi.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4426452245",
+   "website": "https://www.dagomys.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4465091491",
+   "website": "https://laura-hotel.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4467961989",
+   "website": "https://www.otel-zvezda.com/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4471252789",
+   "website": "http://озет.рф",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4706161636",
+   "website": "https://bluemarine-hotel.ru/",
+   "status": "http_402",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4708413656",
+   "website": "http://www.pihtadom.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4708413661",
+   "website": "http://www.fregat-adler.ru/korpus_2",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4894447733",
+   "website": "https://siriushotels.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 49,
+   "fetched_at": "2026-10-26T05:42:20+00:00"
+  },
+  {
+   "hotel_id": "n4931886321",
+   "website": "http://www.marina-sochi.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4986725623",
+   "website": "https://grasgroup.business.site/",
+   "status": "http_404",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n4993894323",
+   "website": "https://www.loft-apart-hotel.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n5539271424",
+   "website": "http://www.more-land.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n5625229727",
+   "website": "https://vk.com/id488274692",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 1,
+   "fetched_at": "2026-10-26T05:43:04+00:00"
+  },
+  {
+   "hotel_id": "n5789805853",
+   "website": "http://www.kurgorodok.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n6154749386",
+   "website": "https://gallahotel.ru/",
+   "status": "http_402",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n6181072994",
+   "website": "https://www.booking.com/hotel/ru/sovriemiennik.ru.html",
+   "status": "http_202",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n6308858786",
+   "website": "https://www.zapolarye.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n6403072085",
+   "website": "https://homeny.ru/city/sochi/",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 8,
+   "fetched_at": "2026-10-26T05:43:02+00:00"
+  },
+  {
+   "hotel_id": "n6496861086",
+   "website": "http://апартотельблизнецы.рф)",
+   "status": "error:InvalidURL",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n6590015485",
+   "website": "http://allure-sea.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n6807575685",
+   "website": "https://adlerapart.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7114965534",
+   "website": "https://hotel.forwardtower.com",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7115085741",
+   "website": "https://elparaiso.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7115162128",
+   "website": "https://centerplaza-sochi.ru/",
+   "status": "http_520",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7122559355",
+   "website": "https://lira-hotel.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7123898243",
+   "website": "https://zvetok35.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7123898244",
+   "website": "https://villavalentinahotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7147331768",
+   "website": "https://figurniy.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7151225626",
+   "website": "https://www.samshit-hosta.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7164284631",
+   "website": "https://www.oranjerei.com/",
+   "status": "empty",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7164437317",
+   "website": "http://www.hotelaquarium.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7164495092",
+   "website": "https://ekodom-hotels.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 30,
+   "fetched_at": "2026-10-26T05:42:54+00:00"
+  },
+  {
+   "hotel_id": "n7169680844",
+   "website": "https://www.fg-hotel.ru/",
+   "status": "http_520",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7366815134",
+   "website": "http://www.teremoksochi.ru",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 13,
+   "fetched_at": "2026-10-26T05:43:09+00:00"
+  },
+  {
+   "hotel_id": "n736694948",
+   "website": "https://mirror-hotel.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 46,
+   "fetched_at": "2026-10-26T05:42:04+00:00"
+  },
+  {
+   "hotel_id": "n736761646",
+   "website": "http://www.cph-sochi.com",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7434896532",
+   "website": "https://www.zolotaya-podkova.com/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7491729629",
+   "website": "https://www.forsage-sochi.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7494798983",
+   "website": "https://sattva-hotel.ru/",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 13,
+   "fetched_at": "2026-10-26T05:43:09+00:00"
+  },
+  {
+   "hotel_id": "n7659392485",
+   "website": "https://lotos.bz",
+   "status": "ok",
+   "pages": 6,
+   "chunks": 39,
+   "fetched_at": "2026-10-26T05:42:34+00:00"
+  },
+  {
+   "hotel_id": "n7810731627",
+   "website": "https://www.suncity100.maaaxi.com/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n7891121078",
+   "website": "https://www.san-kavkaz.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 29,
+   "fetched_at": "2026-10-26T05:42:35+00:00"
+  },
+  {
+   "hotel_id": "n8004162987",
+   "website": "https://module-hotel.ru/",
+   "status": "http_403",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n8114343379",
+   "website": "https://hotel-afalina.ru/",
+   "status": "empty",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n8198207017",
+   "website": "https://bh-s.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n8474990753",
+   "website": "https://dianapalace.ru/",
+   "status": "ok",
+   "pages": 6,
+   "chunks": 18,
+   "fetched_at": "2026-10-26T05:42:03+00:00"
+  },
+  {
+   "hotel_id": "n8504620920",
+   "website": "http://garden.garden-namaste.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n8541891228",
+   "website": "https://www.vesn.ru/",
+   "status": "ok",
+   "pages": 8,
+   "chunks": 30,
+   "fetched_at": "2026-10-26T05:42:29+00:00"
+  },
+  {
+   "hotel_id": "n8872412718",
+   "website": "https://grace-gorizont.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n8932134771",
+   "website": "https://black-sea-sochi.ru/",
+   "status": "ok",
+   "pages": 4,
+   "chunks": 19,
+   "fetched_at": "2026-10-26T05:42:03+00:00"
+  },
+  {
+   "hotel_id": "n8975796817",
+   "website": "https://terminal-hotel.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "n9393500818",
+   "website": "https://plantsandfriends.ru/",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 66,
+   "fetched_at": "2026-10-26T05:42:58+00:00"
+  },
+  {
+   "hotel_id": "n9727638558",
+   "website": "https://www.sochi.zvezdochka.com/",
+   "status": "ok",
+   "pages": 3,
+   "chunks": 48,
+   "fetched_at": "2026-10-26T05:43:06+00:00"
+  },
+  {
+   "hotel_id": "n9908709817",
+   "website": "https://sochigallerypark.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "r12821037",
+   "website": "https://www.sochipark.ru/bogatyr/",
+   "status": "empty",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "r1637714",
+   "website": "http://www.lazurnaya.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "r17699575",
+   "website": "https://spa.marine-garden-sochi.ru/",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 74,
+   "fetched_at": "2026-10-26T05:42:33+00:00"
+  },
+  {
+   "hotel_id": "r1949407",
+   "website": "https://luciano-sochi.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "r7447995",
+   "website": "https://www.radissonblu.com/ru/resort-spa-sochi/",
+   "status": "http_403",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "r8671648",
+   "website": "http://www.bh-s.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w101803398",
+   "website": "https://tvil.ru/entity/hotel/view/850",
+   "status": "empty",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w1083281215",
+   "website": "https://fordewind.life",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w1115133765",
+   "website": "https://sutochno.ru/front/searchapp/detail/976791",
+   "status": "robots_disallow",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w120859827",
+   "website": "https://www.sochihotel-greendeck.ru/",
+   "status": "ok",
+   "pages": 10,
+   "chunks": 13,
+   "fetched_at": "2026-10-26T05:42:33+00:00"
+  },
+  {
+   "hotel_id": "w124781616",
+   "website": "https://olymp.one",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 7,
+   "fetched_at": "2026-10-26T05:42:41+00:00"
+  },
+  {
+   "hotel_id": "w124781620",
+   "website": "https://sl-hotels.ru",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 19,
+   "fetched_at": "2026-10-26T05:42:03+00:00"
+  },
+  {
+   "hotel_id": "w124781622",
+   "website": "https://bogorodskhotel.ru",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 36,
+   "fetched_at": "2026-10-26T05:42:29+00:00"
+  },
+  {
+   "hotel_id": "w124781627",
+   "website": "http://evroshel.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w124781630",
+   "website": "https://www.hotelzvezda.info/",
+   "status": "ok",
+   "pages": 8,
+   "chunks": 22,
+   "fetched_at": "2026-10-26T05:43:13+00:00"
+  },
+  {
+   "hotel_id": "w124781631",
+   "website": "https://adler-hotel-admiral.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w131715059",
+   "website": "http://Adlerdomik.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w1467193596",
+   "website": "http://abhazbereg.ru/catalogcity/tproduct/356580411012-alma-domiki-u-morya-u-samoi-granitsi",
+   "status": "empty",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w147552216",
+   "website": "http://www.afina-sochi.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w149546296",
+   "website": "http://Maro-adler.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w150742817",
+   "website": "https://papayahotel.ru/",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 15,
+   "fetched_at": "2026-10-26T05:42:15+00:00"
+  },
+  {
+   "hotel_id": "w190714781",
+   "website": "https://sochi.cosmosgroup.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 43,
+   "fetched_at": "2026-10-26T05:42:05+00:00"
+  },
+  {
+   "hotel_id": "w207579132",
+   "website": "https://siriushotels.ru/omega",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 58,
+   "fetched_at": "2026-10-26T05:42:14+00:00"
+  },
+  {
+   "hotel_id": "w207637871",
+   "website": "https://manteracongress.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w209174472",
+   "website": "https://gallahotel.ru",
+   "status": "http_402",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w209174480",
+   "website": "http://aparthotelmirny.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w249762801",
+   "website": "http://www.baza.ps23.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w249762806",
+   "website": "https://sportinnhotel.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w250086713",
+   "website": "http://marianna-hotel.org",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w250086722",
+   "website": "https://adlanna-maria.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w26828207",
+   "website": "https://www.uvzmorie.ru/",
+   "status": "ok",
+   "pages": 10,
+   "chunks": 105,
+   "fetched_at": "2026-10-26T05:42:50+00:00"
+  },
+  {
+   "hotel_id": "w277803906",
+   "website": "https://sochipark-hotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w308905043",
+   "website": "https://www.otelrus.ru/185",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w309003085",
+   "website": "https://www.otelrus.ru/187",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w309004044",
+   "website": "https://www.otelrus.ru/245",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w333853733",
+   "website": "https://www.bh-s.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w333853734",
+   "website": "https://www.bh-s.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w333853735",
+   "website": "https://www.bh-s.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w368939444",
+   "website": "https://im-hotel.ru/",
+   "status": "error:ReadTimeout",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w369977305",
+   "website": "http://www.arfa-hotel.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w491664049",
+   "website": "http://privilegiya.h1n.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w51235456",
+   "website": "https://riverskij.navse360.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w51570675",
+   "website": "http://www.chernomorye.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w51679502",
+   "website": "http://hostel-lermontov.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w51764141",
+   "website": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 160,
+   "fetched_at": "2026-10-26T05:41:34+00:00"
+  },
+  {
+   "hotel_id": "w51847429",
+   "website": "https://www.zhem.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w52281823",
+   "website": "https://vekar-sochi.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w52501847",
+   "website": "https://hotel-chebotarev.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 69,
+   "fetched_at": "2026-10-26T05:42:54+00:00"
+  },
+  {
+   "hotel_id": "w52526314",
+   "website": "https://raduga-prestige.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w52572781",
+   "website": "https://www.ostrova-hotel.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 96,
+   "fetched_at": "2026-10-26T05:42:16+00:00"
+  },
+  {
+   "hotel_id": "w53056988",
+   "website": "https://lerond.cosmosgroup.ru/ru",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 87,
+   "fetched_at": "2026-10-26T05:42:07+00:00"
+  },
+  {
+   "hotel_id": "w53284165",
+   "website": "http://www.hotel-imperia.com",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w53290611",
+   "website": "https://yuzhnyj-raj.business.site",
+   "status": "http_404",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w53292014",
+   "website": "https://www.sochigreenhouse.ru/",
+   "status": "ok",
+   "pages": 5,
+   "chunks": 20,
+   "fetched_at": "2026-10-26T05:42:04+00:00"
+  },
+  {
+   "hotel_id": "w53301256",
+   "website": "http://www.adler-flamingo.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w53301283",
+   "website": "https://kiparis-stellarhotels.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 24,
+   "fetched_at": "2026-10-26T05:42:03+00:00"
+  },
+  {
+   "hotel_id": "w53498769",
+   "website": "https://www.greenhosta.ru/",
+   "status": "ok",
+   "pages": 7,
+   "chunks": 45,
+   "fetched_at": "2026-10-26T05:42:07+00:00"
+  },
+  {
+   "hotel_id": "w53549358",
+   "website": "https://www.morskaya-zvezda-sochi.ru/hotel/hosta/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w53579883",
+   "website": "https://www.zapolarye.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w53742370",
+   "website": "http://www.medovaya.ru",
+   "status": "http_404",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w53742422",
+   "website": "https://www.villa-rauza.ru",
+   "status": "ok",
+   "pages": 4,
+   "chunks": 10,
+   "fetched_at": "2026-10-26T05:42:31+00:00"
+  },
+  {
+   "hotel_id": "w54437496",
+   "website": "https://hotel777.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 25,
+   "fetched_at": "2026-10-26T05:40:27+00:00"
+  },
+  {
+   "hotel_id": "w55356580",
+   "website": "http://www.lazurhotel.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w700342790",
+   "website": "http://www.talisman-sochi.ru",
+   "status": "ok",
+   "pages": 6,
+   "chunks": 59,
+   "fetched_at": "2026-10-26T05:42:52+00:00"
+  },
+  {
+   "hotel_id": "w70080993",
+   "website": "https://crystal-resort.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w738110208",
+   "website": "https://www.hotelsonata.ru/",
+   "status": "http_404",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w765489866",
+   "website": "https://dveolivy.ru",
+   "status": "ok",
+   "pages": 1,
+   "chunks": 10,
+   "fetched_at": "2026-10-26T05:43:04+00:00"
+  },
+  {
+   "hotel_id": "w767510324",
+   "website": "http://www.hotelhosta.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w771002466",
+   "website": "https://akhtamar-sochi.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w80186692",
+   "website": "https://marinainn.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w80186747",
+   "website": "http://www.dubaisochi.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w80189202",
+   "website": "https://hotel-rodos.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w80189214",
+   "website": "https://morskoybrizhotel.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w80189237",
+   "website": "http://akvamarinpark.ru/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w80189244",
+   "website": "https://avallon-hotel.ru",
+   "status": "ok",
+   "pages": 2,
+   "chunks": 5,
+   "fetched_at": "2026-10-26T05:42:17+00:00"
+  },
+  {
+   "hotel_id": "w80192670",
+   "website": "https://citrushotel.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w81148580",
+   "website": "https://www.hoteldelfin.ru/",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w81153106",
+   "website": "https://www.sochi-zvezdochka.com/",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w906492116",
+   "website": "https://mantera-residence.ru",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w914302324",
+   "website": "https://mirror-hotel.ru/",
+   "status": "ok",
+   "pages": 11,
+   "chunks": 46,
+   "fetched_at": "2026-10-26T05:42:10+00:00"
+  },
+  {
+   "hotel_id": "w98219924",
+   "website": "http://mars-sochi.ru",
+   "status": "error:ConnectionError",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  },
+  {
+   "hotel_id": "w98646853",
+   "website": "https://adlergo.ru/sirius-gostevoi-dom-lider",
+   "status": "ssl_error",
+   "pages": 0,
+   "chunks": 0,
+   "fetched_at": null
+  }
+ ],
+ "stats": {
+  "ok": 72,
+  "error:ConnectionError": 67,
+  "ssl_error": 74,
+  "http_404": 6,
+  "http_401": 1,
+  "http_402": 3,
+  "http_202": 1,
+  "error:InvalidURL": 1,
+  "http_520": 2,
+  "empty": 5,
+  "http_403": 2,
+  "robots_disallow": 1,
+  "error:ReadTimeout": 1
+ }
+}
