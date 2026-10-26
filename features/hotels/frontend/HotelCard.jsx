@@ -53,7 +53,8 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
       <WindowPanel key={id} hotelId={id} onCone={onCone} onPick={setView} />
       <FactList facts={facts.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta}>
-        <AgentFacts inline hotelId={id} onPlace={onPlace} activePlace={places?.spec} />
+        <AgentFacts inline hotelId={id} onPlace={onPlace} activePlace={places?.spec}
+          skip={facts.filter(f => f.characteristic.startsWith('web:')).map(f => f.characteristic.slice(4))} />
       </FactList>
       <DayPanel hotelId={id} month={month} view={view} onRoute={onDayRoute} routeShown={routeTitle === 'Маршрут дня'} />
       <Faq hotelId={id} month={month} />
