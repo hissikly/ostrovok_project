@@ -75,7 +75,7 @@ function FloorStrip({ floors, shares, value, onPick }) {
   )
 }
 
-export default function WindowPanel({ hotelId, onCone }) {
+export default function WindowPanel({ hotelId, onCone, onPick }) {
   const [meta, setMeta] = useState(null)
   const [side, setSide] = useState(null)
   const [floor, setFloor] = useState(null)
@@ -98,6 +98,8 @@ export default function WindowPanel({ hotelId, onCone }) {
   }, [hotelId, side, floor])
 
   useEffect(() => () => onCone(null), [])
+  // выбранные сторона и этаж — для «Ваш день здесь»
+  useEffect(() => { if (w) onPick?.({ facade: w.facade, floor: w.floor }) }, [w?.facade, w?.floor])
 
   if (meta === false) return null
   if (!meta || !w) return <div className="block muted">Смотрим, что видно из окон…</div>

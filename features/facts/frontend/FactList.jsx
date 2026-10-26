@@ -5,7 +5,7 @@ import { ConflictNote, ROW_TOPIC, useConflicts } from '@features/conflicts/front
 const SIDE = { N: 'север', E: 'восток', S: 'юг', W: 'запад' }
 const ORDER = ['W', 'S', 'N', 'E']
 // Откуда мы это знаем — одной фразой, без дат и оговорок
-const HOW = {
+export const HOW = {
   'computed:dem': 'Посчитали по карте рельефа.',
   'computed:horizon': 'Посчитали по рельефу и высоте соседних домов.',
   'computed:horizon+sun': 'Посчитали по высоте домов вокруг и движению солнца.',

@@ -20,6 +20,7 @@ if [ -d data/raw/walk ]; then
 fi
 .venv/bin/python features/okno/pipeline/compute_all.py
 .venv/bin/python features/okno/pipeline/export_seed.py
+.venv/bin/python features/day/pipeline/morning_sun.py
 du -sh data/seed
 uv pip install -q -p .venv -r app/requirements.txt
 npm install --no-audit --no-fund
