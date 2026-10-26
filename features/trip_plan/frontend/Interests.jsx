@@ -3,11 +3,24 @@ import Icon from '@app/icons.jsx'
 import { useCatalog, useInterests } from './interests.js'
 import './trip.css'
 
+// Подсказку у кнопки показываем один раз — пока гость не выбрал интересы и не закрыл её
+const HINT = 'trip:hint'
+// ?hint в адресе — показать снова (для показа и записи видео)
+const hintSeen = () => { if (location.search.includes('hint')) return false; try { return localStorage.getItem(HINT) === '1' } catch { return true } }
+
 // Кнопка в плашке поездки рядом с датами и гостями: «Чем заняться» → окно с плитками интересов
 export default function InterestsButton() {
   const [list, setList] = useInterests()
   const catalog = useCatalog()
   const [open, setOpen] = useState(false)
+  const [hint, setHint] = useState(false)
+  useEffect(() => {
+    if ((list.length && !location.search.includes('hint')) || hintSeen()) return
+    const t = setTimeout(() => setHint(true), 900)   // после загрузки карты, чтобы не мигало
+    return () => clearTimeout(t)
+  }, [])
+  const closeHint = () => { try { localStorage.setItem(HINT, '1') } catch { /* покажем ещё раз */ } setHint(false) }
+  const openPop = () => { closeHint(); setOpen(!open) }
   const box = useRef(null)
   useEffect(() => {
     if (!open) return
@@ -23,9 +36,16 @@ export default function InterestsButton() {
 
   return (
     <span className="trip-want" ref={box}>
-      <button className={`trip-want-btn ${list.length ? 'on' : ''}`} onClick={() => setOpen(!open)} aria-expanded={open} title={label}>
+      <button className={`trip-want-btn ${list.length ? 'on' : ''} ${hint ? 'hinted' : ''}`} onClick={openPop} aria-expanded={open} title={label}>
         <Icon name="sparkle" size={17} /><span className="lbl">{label}</span>
       </button>
+      {hint && !open && (
+        <div className="trip-hint" role="status">
+          <b>Чем хотите заняться в Сочи?</b>
+          <span>Отметьте интересы — соберём ваш день у каждого отеля и покажем, где всё рядом</span>
+          <div><button className="go" onClick={openPop}>Выбрать</button><button onClick={closeHint}>Не сейчас</button></div>
+        </div>
+      )}
       {open && (
         <div className="trip-pop" role="dialog" aria-label="Чем хотите заняться">
           <h3>Чем хотите заняться?</h3>

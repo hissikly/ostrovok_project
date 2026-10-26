@@ -27,6 +27,22 @@
   .trip-pop { position: fixed; left: 16px; right: 16px; top: 70px; width: auto }
 }
 
+/* подсказка при первом входе: облачко под кнопкой со стрелкой вверх */
+.trip-hint { position: absolute; right: 0; top: calc(100% + 12px); z-index: 30; width: 300px; background: var(--brand); color: #fff;
+  border-radius: 16px; padding: 14px 16px; display: grid; gap: 4px; font-weight: 400; box-shadow: 0 10px 30px rgba(14, 65, 210, .25);
+  animation: trip-hint-in .3s ease }
+.trip-hint::before { content: ''; position: absolute; top: -6px; right: 60px; width: 14px; height: 14px; background: var(--brand); transform: rotate(45deg); border-radius: 3px }
+.trip-hint b { font-size: 15px; font-weight: 800 }
+.trip-hint span { font-size: 13px; line-height: 1.4; opacity: .9 }
+.trip-hint div { display: flex; gap: 8px; margin-top: 8px }
+.trip-hint button { border: 0; border-radius: 10px; padding: 7px 12px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+  background: rgba(255, 255, 255, .16); color: #fff }
+.trip-hint button.go { background: #fff; color: var(--brand) }
+.trip-want-btn.hinted { background: #fff; box-shadow: 0 0 0 2px var(--brand) }
+.trip-want-btn.hinted svg { color: var(--brand) }
+@keyframes trip-hint-in { from { opacity: 0; transform: translateY(-4px) } to { opacity: 1; transform: none } }
+@media (max-width: 480px) { .trip-hint { position: fixed; left: 16px; right: 16px; top: 66px; width: auto } .trip-hint::before { right: 112px } }
+
 /* строка в списке отелей: текст с иконкой, синий — цвет интересов (как кнопка в шапке) */
 .trip-fit { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--ink); flex-wrap: wrap }
 .trip-fit svg { color: var(--muted); flex: none }
