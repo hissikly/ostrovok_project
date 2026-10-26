@@ -6,6 +6,7 @@ import SearchPanel from '@features/search/frontend/SearchPanel.jsx'
 import HotelCard from '@features/hotels/frontend/HotelCard.jsx'
 import Extranet from '@features/hotelier/frontend/Extranet.jsx'
 import AddCharacteristic from '@features/characteristics/frontend/AddCharacteristic.jsx'
+import Trip from '@features/trip/frontend/Trip.jsx'
 
 const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
@@ -64,6 +65,10 @@ export default function App() {
   const showBeach = () => { setPlaces(null); showRoute(`/api/hotels/${selected}/beach-route`, 'До пляжа') }
   const closeMapBox = () => { setPlaces(null); setRoute(null) }
 
+  // «Моя поездка»: #trip/<id брони>, на карте — отель брони
+  const tripId = selected?.startsWith('trip/') ? selected.slice(5) : null
+  const [tripHotel, setTripHotel] = useState(null)
+  const mapSel = tripId ? tripHotel : selected
   const sel = useMemo(() => hotels.find(h => h.id === selected), [hotels, selected])
 
   // «Научить О!кно»: новая характеристика описанием (#admin)
@@ -90,14 +95,16 @@ export default function App() {
       <div className="main">
         <aside className="panel">
           {error && <div className="chip warn">{error}</div>}
-          {sel
-            ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach} onDayRoute={r => { setPlaces(null); setRoute(r) }}
+          {tripId
+            ? <Trip bookingId={tripId} onHotel={setTripHotel} onExit={id => setSelected(id)} onRoute={setRoute} routeShown={route?.title === 'Маршрут дня'} />
+            : sel
+            ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach}
               places={places} routeTitle={route?.title} nearMeta={nearMeta} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}
         </aside>
         <section className="map">
-          <HotelMap hotels={hotels} selected={selected} onSelect={setSelected} cone={route || places ? null : cone} fits={fits} pois={pois} places={places} route={route}
+          <HotelMap hotels={hotels} selected={mapSel} onSelect={setSelected} cone={route || places ? null : cone} fits={fits} pois={pois} places={places} route={route}
             onPlaceClick={routeTo} onCloseBox={closeMapBox} />
         </section>
       </div>

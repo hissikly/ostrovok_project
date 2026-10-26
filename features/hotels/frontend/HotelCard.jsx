@@ -6,17 +6,20 @@ import DayPanel from '@features/day/frontend/DayPanel.jsx'
 import Faq from '@features/knowledge/frontend/Faq.jsx'
 import WindowPanel from '@features/okno/frontend/WindowPanel.jsx'
 import AgentFacts from '@features/characteristics/frontend/AgentFacts.jsx'
+import BookBox from '@features/trip/frontend/BookBox.jsx'
+import TripConfirmed from '@features/trip/frontend/TripConfirmed.jsx'
 
 function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
 }
 
-export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta }) {
+export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, places, routeTitle, nearMeta }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
   const [failed, setFailed] = useState(false)
   const [attempt, setAttempt] = useState(0)
   const [view, setView] = useState(null)   // сторона и этаж из «О!кна»
+  const [tripId, setTripId] = useState(null)   // последняя бронь этого отеля — «Моя поездка»
 
   useEffect(() => {
     setH(null); setFacts([]); setFailed(false); setView(null)
@@ -33,6 +36,9 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
   )
   if (!h) return <div className="block muted">Загружаем…</div>
   const elev = facts.find(f => f.characteristic === 'elevation')
+  // ответы гостей «Так и было?» (features/trip): своей строкой и сдвигом уверенности исходных фактов
+  const fb = Object.fromEntries(facts.filter(f => f.characteristic === 'guest_feedback').map(f => [f.value.fact_id, f.value.confidence]))
+  const shown = facts.filter(f => f.characteristic !== 'guest_feedback').map(f => fb[f.id] ? { ...f, confidence: fb[f.id] } : f)
   return (
     <div>
       <div className="block">
@@ -51,11 +57,13 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
         <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>
       </div>
       <WindowPanel key={id} hotelId={id} onCone={onCone} onPick={setView} />
-      <FactList facts={facts.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
+      <BookBox hotelId={id} view={view} month={month} price={h.mock.price_rub} onBooking={setTripId} />
+      <FactList facts={shown.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta}>
         <AgentFacts inline hotelId={id} onPlace={onPlace} activePlace={places?.spec} />
+        <TripConfirmed facts={facts} />
       </FactList>
-      <DayPanel hotelId={id} month={month} view={view} onRoute={onDayRoute} routeShown={routeTitle === 'Маршрут дня'} />
+      <DayPanel brief hotelId={id} month={month} view={view} moreHref={tripId && `#trip/${tripId}`} />
       <Faq hotelId={id} month={month} />
     </div>
   )

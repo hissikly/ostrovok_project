@@ -55,13 +55,31 @@ const plural = (n, one, few, many) => {
 
 // Ночная аптека — «на всякий случай», в план дня по умолчанию не ставим
 const SKIP0 = ['night']
+// Коротко (в карточке отеля): без выходов из отеля, три главные сцены — подвохи и то, ради чего выбирают отель.
+// Полный день с выходами и картой — в «Моей поездке» (features/trip)
+const ALL_STOPS = ['coffee', 'beach', 'kids', 'sunset', 'dinner', 'night']
+const WEIGHT = { beach_route: 5, beach_distance: 5, sunset_view: 4, sea_view: 4, noise: 3, morning_sun: 2 }
+function mainScenes(scenes, n = 3) {
+  const score = s => (WEIGHT[s.facts[0]?.characteristic] || (s.facts[0]?.characteristic.startsWith('web:') ? 2 : 1)) + (s.good ? 0 : 3)
+  const best = {}
+  for (const s of scenes.filter(x => x.kind !== 'walk' && x.facts.length)) {
+    const c = s.facts[0].characteristic.replace('beach_distance', 'beach_route')
+    if (!best[c] || score(s) > score(best[c])) best[c] = s
+  }
+  const top = Object.values(best).sort((a, b) => score(b) - score(a)).slice(0, n)
+  return scenes.filter(s => top.includes(s))
+}
 
 // «Ваш день здесь»: лента одного дня из фактов, для стороны и этажа, выбранных в «О!кне».
 // Места вне отеля — выходы из отеля: в ленте время в пути и на месте, на карте — линия на каждый выход.
 // Куда не пойдёт, гость убирает кружком справа. onRoute(маршрут|null) рисует выходы на карте,
 // routeShown — они сейчас на карте (а не путь до пляжа и т.п.)
-export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) {
-  const [kids, setKids] = useState(false)
+// brief — коротко для карточки отеля, moreHref — ссылка на весь день в «Моей поездке» (если бронь уже есть);
+// kids/onKids — «С ребёнком» снаружи (в «Моей поездке» общий с чемоданом)
+export default function DayPanel({ hotelId, month, view, onRoute, routeShown, brief, moreHref, kids: kidsOut, onKids }) {
+  const [kidsIn, setKidsIn] = useState(false)
+  const kids = kidsOut ?? kidsIn
+  const setKids = onKids || setKidsIn
   const [d, setD] = useState(null)
   const [skip, setSkip] = useState(SKIP0)
   const [folded, setFolded] = useState(() => { try { return localStorage.getItem('fold:day') === '1' } catch { return false } })
@@ -74,10 +92,11 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
     if (view?.facade) p.set('facade', view.facade)
     if (view?.floor) p.set('floor', view.floor)
     if (kids) p.set('mode', 'kids')
-    if (skip.length) p.set('skip', skip.join(','))
+    const sk = brief ? ALL_STOPS : skip
+    if (sk.length) p.set('skip', sk.join(','))
     return p
   }
-  const deps = [hotelId, month, view?.facade, view?.floor, kids, skip.join(',')]
+  const deps = [hotelId, month, view?.facade, view?.floor, kids, brief ? 'brief' : skip.join(',')]
   useEffect(() => {
     let alive = true
     api(`/api/hotels/${hotelId}/day?${q()}`).then(x => alive && setD(x)).catch(() => alive && setD(false))
@@ -93,6 +112,19 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
 
   if (d === false || (d && d.scenes.length < 2)) return null
   if (!d) return <div className="block muted">Собираем ваш день…</div>
+  if (brief) return (
+    <div className="block day">
+      <div className="day-head">
+        <h2>Ваш день здесь</h2>
+        <div className="pills"><button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
+          <Icon name="child" size={16} />С ребёнком</button></div>
+      </div>
+      <ol className="day-line">{mainScenes(d.scenes).map(s => <Scene key={s.time + s.title} s={s} />)}</ol>
+      {moreHref
+        ? <a className="day-more" href={moreHref}>Весь день с выходами из отеля<Icon name="calendar" size={16} /></a>
+        : <div className="day-more muted">Весь день с выходами из отеля и маршрутом на карте — в вашей поездке после брони</div>}
+    </div>
+  )
   const stops = d.scenes.filter(s => s.stop)
   const w = d.walk
   return (
