@@ -17,7 +17,7 @@ from core.seed import load
 
 CITY = "ru/krd/sochi"
 DB = Path(os.getenv("KNOWLEDGE_DB", DATA / "runtime" / "knowledge.db"))
-_lock = threading.Lock()
+_lock = threading.RLock()   # одно соединение на все потоки: и чтение, и запись — под замком
 
 
 def hotel_path(hotel_id: str) -> str:
@@ -55,8 +55,9 @@ _con = None
 
 def con():
     global _con
-    if _con is None:
-        _con = _db()
+    with _lock:
+        if _con is None:
+            _con = _db()
     return _con
 
 
@@ -68,8 +69,9 @@ def _row(r) -> dict:
 
 def get(path: str, topic: str) -> dict | None:
     """Знание ровно этого уровня: сначала записанное на лету (ответ отеля), потом демо-данные."""
-    r = con().execute("select * from knowledge where path=? and topic=? and status='active' order by id desc limit 1",
-                      (path, topic)).fetchone()
+    with _lock:
+        r = con().execute("select * from knowledge where path=? and topic=? and status='active' order by id desc limit 1",
+                          (path, topic)).fetchone()
     if r:
         return _row(r)
     return _seed().get((path, topic))
@@ -105,5 +107,6 @@ def write(path: str, topic: str, value, text: str, source: str, confidence: floa
 
 
 def history(path: str, topic: str) -> list[dict]:
-    return [_row(r) for r in con().execute(
-        "select * from knowledge where path=? and topic=? order by id", (path, topic)).fetchall()]
+    with _lock:
+        rows = con().execute("select * from knowledge where path=? and topic=? order by id", (path, topic)).fetchall()
+    return [_row(r) for r in rows]

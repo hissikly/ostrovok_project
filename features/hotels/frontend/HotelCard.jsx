@@ -50,7 +50,7 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
         </div>
         <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>
       </div>
-      <WindowPanel hotelId={id} onCone={onCone} onPick={setView} />
+      <WindowPanel key={id} hotelId={id} onCone={onCone} onPick={setView} />
       <DayPanel hotelId={id} month={month} view={view} />
       <FactList facts={facts.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta} />

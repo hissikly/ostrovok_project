@@ -16,21 +16,28 @@ from core.textmatch import meaning_key
 from features.knowledge.backend import topics
 
 DB = Path(os.getenv("HOTELIER_DB", DATA / "runtime" / "hotelier.db"))
-_lock = threading.Lock()
+_lock = threading.RLock()   # одно соединение на все потоки: и чтение, и запись — под замком
 _con = None
 
 
 def con():
     global _con
-    if _con is None:
-        DB.parent.mkdir(parents=True, exist_ok=True)
-        _con = sqlite3.connect(DB, check_same_thread=False)
-        _con.row_factory = sqlite3.Row
-        _con.execute("""create table if not exists questions (
-            id integer primary key, hotel_id text, topic text, key text, text text, guest_text text,
-            demand integer, origin text, status text, created_at text, updated_at text)""")
-        _con.execute("create index if not exists q_hotel on questions(hotel_id, status)")
+    with _lock:
+        if _con is None:
+            DB.parent.mkdir(parents=True, exist_ok=True)
+            _con = sqlite3.connect(DB, check_same_thread=False)
+            _con.row_factory = sqlite3.Row
+            _con.execute("""create table if not exists questions (
+                id integer primary key, hotel_id text, topic text, key text, text text, guest_text text,
+                demand integer, origin text, status text, created_at text, updated_at text)""")
+            _con.execute("create index if not exists q_hotel on questions(hotel_id, status)")
     return _con
+
+
+def _fetch(sql: str, args: tuple, one: bool = False):
+    with _lock:
+        cur = con().execute(sql, args)
+        return cur.fetchone() if one else cur.fetchall()
 
 
 def _key(topic: str | None, text: str) -> str:
@@ -67,12 +74,17 @@ def ask_hotel(hotel_id: str, topic: str | None, guest_text: str, origin: str = "
 
 
 def open_questions(hotel_id: str) -> list[dict]:
-    return [dict(r) for r in con().execute(
-        "select * from questions where hotel_id=? and status='open' order by demand desc, id", (hotel_id,)).fetchall()]
+    return [dict(r) for r in _fetch(
+        "select * from questions where hotel_id=? and status='open' order by demand desc, id", (hotel_id,))]
+
+
+def asked(hotel_id: str, topic: str) -> bool:
+    """Вопрос по теме уже задавали (открыт или закрыт)."""
+    return bool(_fetch("select 1 from questions where hotel_id=? and topic=?", (hotel_id, topic), one=True))
 
 
 def get_question(qid: int) -> dict | None:
-    r = con().execute("select * from questions where id=?", (qid,)).fetchone()
+    r = _fetch("select * from questions where id=?", (qid,), one=True)
     return dict(r) if r else None
 
 
@@ -84,6 +96,6 @@ def close(qid: int) -> None:
 
 
 def demand_total(hotel_id: str) -> int:
-    r = con().execute("select coalesce(sum(demand), 0) from questions where hotel_id=? and status='open'",
-                      (hotel_id,)).fetchone()
+    r = _fetch("select coalesce(sum(demand), 0) from questions where hotel_id=? and status='open'",
+               (hotel_id,), one=True)
     return r[0]

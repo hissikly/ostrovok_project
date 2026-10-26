@@ -14,7 +14,7 @@ from features.knowledge.backend import hotel_path, resolve, topics, write
 from features.knowledge.backend.store import get
 
 from .parse import parse, summary
-from .questions import ask_hotel, close, con, demand_total, get_question, open_questions
+from .questions import ask_hotel, asked, close, demand_total, get_question, open_questions
 
 DEMO = Path(__file__).resolve().parents[1] / "demo_answers.json"
 KNOWN = ["sea_view", "beach", "floors"]   # что система узнала сама и просит подтвердить
@@ -54,8 +54,7 @@ def agent_questions(hotel_id: str) -> None:
     h = hotel(hotel_id)
     has_okno = any(f["characteristic"] == "sea_view" for f in facts_for(hotel_id))
     if h and has_okno and not h.get("levels") and not get(hotel_path(hotel_id), "floors"):
-        exists = con().execute("select 1 from questions where hotel_id=? and topic='floors'", (hotel_id,)).fetchone()
-        if not exists:
+        if not asked(hotel_id, "floors"):
             ask_hotel(hotel_id, "floors", "Вид из окна посчитали для 5 этажей: точной этажности нет на карте", origin="agent")
 
 
