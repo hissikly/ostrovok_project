@@ -25,7 +25,7 @@ def _sea_view(hotel_text: str, hotel_value: dict, computed: dict):
     if not sides:
         return None
     seen = {s: fl for s, fl in sides.items() if fl}
-    if ALL_ROOMS.search(hotel_text):
+    if ALL_ROOMS.search(hotel_text) or (hotel_value or {}).get("rooms") == "все номера":
         blind = [s for s, fl in sides.items() if not fl]
         high = {s: fl for s, fl in seen.items() if fl > 1}
         if blind:
@@ -81,9 +81,56 @@ def check(topic: str, hotel_answer: dict, computed: dict | None) -> dict | None:
     rule = RULES.get(topic)
     if not rule or not computed:
         return None
+    if (hotel_answer.get("evidence") or {}).get("action") == "adopted_computed":
+        return None   # отель принял расчёт: в value может остаться прежнее «все номера» / «5 минут»
     reason = rule(hotel_answer.get("text") or "", hotel_answer.get("value") or {}, computed)
     if not reason:
         return None
     return {"topic": topic, "hotel_text": hotel_answer.get("text"), "computed_text": computed.get("text"),
             "computed_source": computed.get("source"), "computed_confidence": computed.get("confidence"),
             "reason": reason}
+
+
+# --- сайт отеля ↔ расчёт ------------------------------------------------------------------------
+# Что отель обещает на своём сайте (features/web_sources: web:sea_view, web:beach_claim) сверяем
+# теми же правилами, что и ответ отеля. Сайт — тоже голос отеля, но не ответ на наш вопрос:
+# гость видит «Отель пишет иначе», отельер в Экстранете — цитату со своего сайта и расчёт.
+SITE_TOPIC = {"sea_view": "sea_view", "beach": "beach_claim"}
+FIRST_LINE_M = 350           # «первая линия», а до воды по прямой дальше — расхождение
+WALK_M_PER_MIN = 80          # «500 м до моря» → ~6 мин пешком (4,8 км/ч)
+
+
+def _site_beach_meters(v: dict, straight_m: float | None, computed: dict):
+    """«В 200 м от моря» / «первая линия» сверяем с расстоянием по прямой, а не с пешим маршрутом."""
+    if not straight_m:
+        return None
+    route = (computed.get("value") or {}).get("minutes")
+    tail = f", пешком {int(route)} мин" if route else ""
+    said = v.get("meters")
+    if said and straight_m - said >= 250 and straight_m >= 1.5 * said:
+        return f"По карте до моря {int(straight_m)} м по прямой{tail}"
+    if not said and v.get("first_line") and straight_m > FIRST_LINE_M:
+        return f"По карте до моря {int(straight_m)} м по прямой{tail} — это не первая линия"
+    return None
+
+
+def check_site(topic: str, site: dict | None, computed: dict | None, straight_m: float | None = None) -> dict | None:
+    """site — ответ с сайта отеля (web_sources.answer: text, value, quote, url, source);
+    straight_m — до моря по прямой (факт beach_distance) для заявлений в метрах."""
+    if not site or not computed or topic not in SITE_TOPIC:
+        return None
+    v = site.get("value") or {}
+    if topic == "beach":
+        reason = (_beach(site.get("quote") or "", {"minutes": v["walk_min"]}, computed) if v.get("walk_min")
+                  else _site_beach_meters(v, straight_m, computed))
+    else:
+        reason = RULES[topic](site.get("quote") or "", v, computed)
+        # «есть номера с видом на море», а по расчёту моря не видно ни с одной стороны
+        if not reason and v.get("rooms") and computed.get("text") == "Моря из окон не видно":
+            reason = "По расчёту моря из окон не видно ни с одной стороны"
+    if not reason:
+        return None
+    return {"topic": topic, "kind": "site", "hotel_text": site.get("quote"), "hotel_value": v,
+            "site_url": site.get("url"), "site_source": site.get("source"),
+            "computed_text": computed.get("text"), "computed_source": computed.get("source"),
+            "computed_confidence": computed.get("confidence"), "reason": reason}

@@ -13,9 +13,11 @@ import datetime as dt
 import gzip
 import json
 import os
+import hashlib
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -27,7 +29,7 @@ for _line in (ROOT / ".env").read_text(encoding="utf-8").splitlines() if (ROOT /
         _k, _v = _line.split("=", 1)
         os.environ.setdefault(_k.strip(), _v.strip().strip('"'))
 from core import llm  # noqa: E402
-from features.web_sources.backend.quote import ask_llm  # noqa: E402
+from features.web_sources.backend.quote import prompt, source_of  # noqa: E402
 from features.web_sources.backend.search import search  # noqa: E402
 from features.web_sources.topics import TOPICS  # noqa: E402
 
@@ -37,7 +39,7 @@ METHOD = "web-rules@0.1"
 
 # голос гостя: «отдыхали», «порадовало», «спасибо персоналу», смайлы — это отзыв, а не слова отеля
 GUEST = re.compile(r"\b(я|мы|нам|мне|нас)\b.{0,40}\b(жил|отдыха|был[иа]?|останавлив|приехал|понравил|заселил)|"
-                   r"понравил|порадовал|спасибо|рекомендую|отзыв|отдыхали|проживал[иа]?\b|\){2,}|!{2,}|"
+                   r"понравил|порадовал|спасибо|\bжил[иа]?\b|рекомендую|отзыв|отдыхали|проживал[иа]?\b|\){2,}|!{2,}|"
                    r"\b(минус|плюс)ы?\b|персонал\w* (вежлив|приветлив)|не смотря на|несмотря на хорош|вот только|"
                    r"\b\w{2,}(али|или|ыли)\b|не ?маловажно|хорош\w* (шумо|звуко)изоляц|[\U0001F300-\U0001FAFF\u2600-\u27BF]", re.I)
 # не про сам отель: «в 200 м от отеля платная парковка», «рядом пляж с бассейном»
@@ -66,14 +68,14 @@ def sentences(text: str):
 
 def _pets(s, m):
     neg = re.search(r"не (допуска|разреша|принима|предусмотр|размеща)|запрещ|невозможн|без (домашних )?(животн|питом)", s, re.I)
-    if re.search(r"дики\w+ животн", s, re.I):
-        return None
+    if re.search(r"дики\w+ животн|решени\w* о возможност", s, re.I):
+        return None   # «решение о размещении с животными принимает владелец» — это не «да»
     v = {"dogs": "нет" if neg else "да", "cats": "нет" if neg else "да"}
     if not neg:
-        kg = re.search(r"до\s*(\d{1,2})\s*кг", s)
+        kg = re.search(r"(до|не более|не больше)\s*(\d{1,2})\s*кг", s)
         rub = re.search(NUM + r"\s*(руб|₽|р\.)", s)
         if kg:
-            v["max_kg"] = int(kg.group(1))
+            v["max_kg"] = int(kg.group(2))
         if rub and re.search(r"сутк|ноч|день|дополнит|доплат|стоимост", s, re.I):
             v["fee_rub"] = num(rub.group(1))
     return v
@@ -122,7 +124,7 @@ def _breakfast(s, m):
 
 
 def _crib(s, m):
-    if re.search(r"не предоставля\w* .{0,20}кроватк|кроватк\w* (нет|не предоставля)", s, re.I):
+    if re.search(r"не (предоставля|предусмотр)\w* .{0,20}кроватк|кроватк\w* .{0,40}(нет|не предоставля|не предусмотр)", s, re.I):
         return {"crib": "нет"}
     v = {"crib": "бесплатно" if re.search(r"бесплатн", s, re.I) else
          "за доплату" if re.search(r"доплат|дополнительн\w* плат|руб|₽", s, re.I) else "есть"}
@@ -143,6 +145,8 @@ def _ac(s, m):
 def _balcony(s, m):
     if re.search(r"без балкон", s, re.I):
         return None
+    if re.search(r"\bнет балкон|балкон\w* (нет|отсутству)", s, re.I):
+        return {"balcony": "нет"}
     every = re.search(ALL_ROOMS, s, re.I) and not re.search(r"не (во|в|у) все|не кажд", s, re.I)
     return {"balcony": "во всех номерах" if every else "в части номеров"}
 
@@ -178,7 +182,7 @@ def _sea_view(s, m):
         return None
     if not re.search(r"номер|апартамент|студи|люкс|стандарт|делюкс|сюит|балкон|лоджи|окн|спальн", s, re.I):
         return None   # «терраса ресторана с видом на море» — не про номера
-    allr = re.search(r"(все|кажд\w+|любого)\s+(номер|апартамент)\w*|из всех номеров", s, re.I)
+    allr = re.search(r"(все|кажд\w+|любого)\s+(номер|апартамент)\w*|(из|со|с) всех (номер|апартамент|окон)", s, re.I)
     return {"rooms": "все номера" if allr else "часть номеров", "panoramic": bool(re.search(r"панорам", s, re.I))}
 
 
@@ -290,17 +294,129 @@ def rules_for(chunks: list[dict]) -> dict[str, dict]:
     return best
 
 
-# --- LLM: ответ строго по тексту сайта с дословной цитатой (backend/quote.py) --------------------
+# --- LLM: ответ строго по тексту сайта с дословной цитатой ---------------------------------------
+# Ответ модели принимаем, только если: цитата дословно есть в найденном куске сайта (quote.source_of),
+# цитата про тему вопроса, это не слова гостя и не вопрос из FAQ, значение укладывается в поля темы
+# и не спорит с тем, что правило видит в той же цитате. Иначе — отбрасываем и считаем, почему.
 
-def llm_for(hotel_id: str, cache: dict) -> dict[str, dict]:
+# цитата должна быть про тему: «Есть ли в номере стиральная машина? Нет.» — не ответ про кухню
+STEM = {"pets": r"животн|питом|собак|кош|pet", "checkin": r"заезд|засел|выезд|высел|расч[её]тн|check",
+        "parking": r"парков|паркинг|стоянк", "breakfast": r"завтрак", "crib": r"кроват|манеж",
+        "ac": r"кондиц|сплит|климат", "balcony": r"балкон|лодж", "transfer": r"трансфер",
+        "noise_rules": r"тишин|шум|вечерин", "quiet_rooms": r"шумо|звуко|тишин|не слышн",
+        "sea_view": r"вид\w* на .{0,15}мор|панорам\w* .{0,20}мор", "beach_claim": r"мор|пляж|берег|набережн",
+        "own_beach": r"пляж", "pool": r"бассейн", "kitchen": r"кухн", "wifi": r"wi-?fi|вай-?фай|интернет", "lift": r"лифт"}
+STEM = {k: re.compile(v, re.I) for k, v in STEM.items()}
+NEG = {"нет"}
+EVERY = re.compile(ALL_ROOMS + r"|(из|со|с|во|в) (всех|любого|каждого) (номер|апартамент|окон|окна|комнат)", re.I)
+NEAR_TOPICS = {"parking", "pool", "own_beach"}
+NEG_WORD = re.compile(r"\bнет\b|\bне\s|\bбез\b|запрещ|отсутств|невозможн|no\b", re.I)
+FREE = re.compile(r"бесплатн|не взима|без доплат|без дополнительн|free|включ|входит в стоимост", re.I)
+BY_ID = {t["id"]: t for t in TOPICS}
+RULE_OF = {tid: (rx, fn) for tid, rx, fn, _ in RULES}
+
+
+def clean_value(tid: str, value: dict) -> dict:
+    """Значение модели → только поля темы и допустимые варианты («до 15 кг» → 15, «15:00» → «15:00»)."""
+    out = {}
+    for f in BY_ID[tid]["fields"]:
+        v = value.get(f["id"])
+        if v in (None, "", []):
+            continue
+        typ = f["type"]
+        if f.get("options"):
+            if isinstance(v, bool) and "да" in f["options"]:
+                v = "да" if v else "нет"
+            v = str(v).strip().lower().replace("включен", "включён")
+            if v in f["options"]:
+                out[f["id"]] = v
+        elif typ.startswith("number"):
+            m = re.search(r"\d[\d\s ]*", str(v))
+            if m and not isinstance(v, bool):
+                out[f["id"]] = int(re.sub(r"\D", "", m.group(0)))
+        elif typ.startswith("time"):
+            t = time_of(str(v))
+            if t:
+                out[f["id"]] = t
+        elif typ == "bool" and isinstance(v, bool):
+            out[f["id"]] = v
+    return out
+
+
+def judge(tid: str, r: dict | None, chunks: list[dict]) -> tuple[str, dict | None]:
+    """Разбор ответа модели: (исход, принятый ответ). Исходы — для сравнения режимов."""
+    if not r or not r.get("found"):
+        return "not_found", None
+    quote = str(r.get("quote") or "").strip()
+    if not quote:
+        return "no_quote", None
+    src = source_of(quote, chunks)
+    if not src:
+        return "quote_not_in_text", None           # главное правило: цитаты нет на сайте дословно
+    if src.get("reviews") or quote.endswith("?") or GUEST.search(quote):
+        return "guest_or_faq", None
+    if not STEM[tid].search(quote) or (tid in NEAR_TOPICS and AROUND.search(quote)):
+        return "off_topic", None                     # «рядом можно найти парковку» — не про сам отель
+    value = clean_value(tid, r.get("value") if isinstance(r.get("value"), dict) else {})
+    if not value:
+        return "bad_value", None
+    # каждое число ответа должно быть в цитате: «тишина с 23:00» при цитате без времени — додумано
+    digits = set(re.findall(r"\d+", re.sub(r"(?<=\d)[\s ](?=\d{3})", "", quote)))
+    def stated(v):
+        if isinstance(v, bool) or not re.search(r"\d", str(v)):
+            return True
+        return all(d.lstrip("0") in {x.lstrip("0") for x in digits} for d in re.findall(r"\d+", str(v)))
+    value = {k: v for k, v in value.items() if stated(v)}
+    if not value:
+        return "number_not_in_quote", None
+    key = BY_ID[tid]["fields"][0]["id"]
+    if value.get(key) in NEG and not NEG_WORD.search(quote):
+        return "inferred_no", None                   # «нет» должно быть сказано, а не выведено из молчания
+    if not EVERY.search(quote):                      # «во всех номерах» — только если так и написано
+        value = {k: {"все номера": "часть номеров", "во всех номерах": "в части номеров"}.get(v, v) for k, v in value.items()}
+    if not FREE.search(quote):                       # «бесплатно», а в цитате об этом ни слова — убираем
+        opts = {f["id"]: f.get("options") or [] for f in BY_ID[tid]["fields"]}
+        value = {k: ("есть" if v == "бесплатно" else v) for k, v in value.items()
+                 if not (k == "price_rub" and v == 0) and not (v == "бесплатно" and "есть" not in opts[k])}
+        if not value:
+            return "bad_value", None
+    rx, fn = RULE_OF[tid]
+    m = rx.search(quote)
+    ruled = fn(quote, m) if m else None
+    if ruled and key in ruled and key in value and (ruled[key] in NEG) != (value[key] in NEG):
+        return "contradicts_quote", None             # модель сказала «да», а в цитате «нельзя»
+    try:
+        BY_ID[tid]["text"](value)
+    except Exception:  # noqa: BLE001 — после чисток не осталось главного поля («тишина с …» без времени)
+        return "bad_value", None
+    return "accepted", {"value": value, "quote": quote, "url": src["url"], "fetched_at": src["fetched_at"],
+                        "confidence": 0.7, "method": f"web-llm@0.2:{llm.LLM_MODEL}"}
+
+
+def llm_for(hotel_id: str, cache: dict, log: Counter) -> dict[str, dict]:
     out = {}
     for t in TOPICS:
-        r = ask_llm(t["question"], search(hotel_id, t["query"], k=4), t["fields"], cache)
-        if r and r["value"]:   # цитата уже проверена: есть в тексте сайта дословно
-            c = r["chunk"]
-            out[t["id"]] = {"value": r["value"], "quote": r["quote"], "url": c["url"], "fetched_at": c["fetched_at"],
-                            "confidence": 0.7, "method": f"web-llm@0.1:{llm.LLM_MODEL}"}
+        found = search(hotel_id, t["query"], k=4)
+        if not found:
+            continue
+        p = prompt(t["question"], found, t["fields"])
+        key = hashlib.sha1((llm.LLM_MODEL + p).encode()).hexdigest()
+        if key not in cache:
+            r = llm.chat([{"role": "user", "content": p}], as_json=True, timeout=60)
+            if r is None:                            # сеть/таймаут — не кэшируем, повторим в следующий раз
+                log["llm_error"] += 1
+                continue
+            cache[key] = r
+        verdict, ok = judge(t["id"], cache[key], found)
+        log[verdict] += 1
+        if ok:
+            out[t["id"]] = ok
+        elif verdict not in ("not_found",):
+            REJECTED.append({"hotel_id": hotel_id, "topic": t["id"], "why": verdict, "answer": cache[key]})
     return out
+
+
+REJECTED: list[dict] = []
 
 
 def to_fact(hotel_id: str, tid: str, r: dict) -> dict:
@@ -321,6 +437,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--llm", action="store_true", help="уточнить ответы моделью (нужен LLM_API_KEY)")
     ap.add_argument("--only", default="")
+    ap.add_argument("--workers", type=int, default=8)
     a = ap.parse_args()
     with gzip.open(SEED / "web_chunks.json.gz", "rt", encoding="utf-8") as f:
         by = defaultdict(list)
@@ -331,23 +448,49 @@ def main():
     use_llm = a.llm and llm.enabled()
     if a.llm and not use_llm:
         print("LLM_API_KEY/LLM_MODEL не заданы — только правила", file=sys.stderr)
+    if use_llm:
+        # офлайн-прогон: «размышления» модели не нужны — ответ всё равно проверяем цитатой, а так в 10 раз быстрее
+        _post = llm._post
+        llm._post = lambda body, timeout: _post({**body, "reasoning": {"enabled": False}}, timeout)
     cache = json.load(open(CACHE, encoding="utf-8")) if use_llm and CACHE.exists() else {}
+    cache = {k: v for k, v in cache.items() if v is not None}   # старые записи-ошибки переспросим
+    rules = {hid: rules_for(cs) for hid, cs in sorted(by.items())}
+    found = {hid: dict(r) for hid, r in rules.items()}
+    log, by_llm = Counter(), {}
+    if use_llm:
+        try:
+            with ThreadPoolExecutor(a.workers) as ex:
+                by_llm = dict(zip(rules, ex.map(lambda h: llm_for(h, cache, log), rules)))
+        finally:                          # ответы модели не теряем, даже если прогон упал
+            json.dump(dict(cache), open(CACHE, "w", encoding="utf-8"), ensure_ascii=False)
+        for hid, got in by_llm.items():
+            found[hid].update(got)        # модель с проверенной цитатой точнее правил
     facts, per_topic = [], defaultdict(int)
-    for hid, cs in sorted(by.items()):
-        found = rules_for(cs)
-        if use_llm:
-            found.update(llm_for(hid, cache))   # модель с проверенной цитатой точнее правил
-            json.dump(cache, open(CACHE, "w", encoding="utf-8"), ensure_ascii=False)
-        for tid, r in found.items():
+    for hid, got in found.items():
+        for tid, r in got.items():
             facts.append(to_fact(hid, tid, r))
             per_topic[tid] += 1
     if not a.only:
         json.dump(facts, open(SEED / "facts_web.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     hotels = len({f["hotel_id"] for f in facts})
-    print(f"фактов {len(facts)} у {hotels} отелей, тем {len(per_topic)}: {dict(sorted(per_topic.items(), key=lambda x: -x[1]))}")
+    n_rules = sum(len(r) for r in rules.values())
+    print(f"правила: фактов {n_rules} у {sum(1 for r in rules.values() if r)} отелей")
+    print(f"итого: фактов {len(facts)} у {hotels} отелей, тем {len(per_topic)}: {dict(sorted(per_topic.items(), key=lambda x: -x[1]))}")
+    if use_llm:
+        both = [(h, t) for h in by_llm for t in by_llm[h] if t in rules[h]]
+        same = sum(1 for h, t in both if by_llm[h][t]["quote"] == rules[h][t]["quote"]
+                   or to_fact(h, t, by_llm[h][t])["value"]["text"] == to_fact(h, t, rules[h][t])["value"]["text"])
+        new = sum(1 for h in by_llm for t in by_llm[h] if t not in rules[h])
+        print(f"модель: {dict(log)}; приняли {sum(len(x) for x in by_llm.values())}, из них новых {new}, "
+              f"там же, где правила, — {len(both)} (тот же ответ {same})")
+        report = {"log": dict(log), "rejected": REJECTED,
+                  "pairs": [{"hotel_id": h, "topic": t, "llm": by_llm[h].get(t), "rules": rules[h].get(t)}
+                            for h in by_llm for t in set(by_llm[h]) | set(rules[h])]}
+        json.dump(report, open(ROOT / "data/raw/web/_llm_report.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1,
+                  default=str)
     if a.only:
         for f in facts:
-            print(f"{f['characteristic']:<18} {f['value']['text']:<40} «{f['evidence']['quote'][:150]}»")
+            print(f"{f['characteristic']:<18} {f['method_version'][:10]:<10} {f['value']['text']:<40} «{f['evidence']['quote'][:150]}»")
 
 
 if __name__ == "__main__":

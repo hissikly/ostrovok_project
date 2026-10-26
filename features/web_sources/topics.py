@@ -51,12 +51,12 @@ def _crib(v):
     return t + (", по запросу заранее" if v.get("preorder") == "нужно" else "")
 
 
-def _rooms(word):
+def _rooms(word, none=None):
     def f(v):
         key = next(iter(v))
         w = v.get(key)
         if w == "нет":
-            return f"{word} нет"
+            return none or f"{word} нет"
         return f"{word} во всех номерах" if w == "во всех номерах" else f"{word} в части номеров" if w == "в части номеров" else f"Есть {word.lower()}"
     return f
 
@@ -108,9 +108,9 @@ TOPICS = [
      "fields": [{"id": "crib", "type": "choice", "options": ["бесплатно", "за доплату", "есть", "нет"]},
                 {"id": "preorder", "type": "choice", "options": ["нужно", "не нужно"]}], "text": _crib},
     {"id": "ac", "question": "Есть ли кондиционер?", "query": "кондиционер сплит-система номер",
-     "fields": [{"id": "ac", "type": "choice", "options": ["во всех номерах", "в части номеров", "есть", "нет"]}], "text": _rooms("Кондиционер")},
+     "fields": [{"id": "ac", "type": "choice", "options": ["во всех номерах", "в части номеров", "есть", "нет"]}], "text": _rooms("Кондиционер", "Кондиционера нет")},
     {"id": "balcony", "question": "Есть ли балкон?", "query": "балкон лоджия терраса номер",
-     "fields": [{"id": "balcony", "type": "choice", "options": ["во всех номерах", "в части номеров", "нет"]}], "text": _rooms("Балкон")},
+     "fields": [{"id": "balcony", "type": "choice", "options": ["во всех номерах", "в части номеров", "нет"]}], "text": _rooms("Балкон", "В номерах нет балконов")},
     {"id": "transfer", "question": "Есть ли трансфер из аэропорта?", "query": "трансфер аэропорт вокзал встреча",
      "fields": [{"id": "transfer", "type": "choice", "options": ["бесплатно", "за доплату", "есть", "нет"]}, {"id": "price_rub", "type": "number"}],
      "text": _transfer},
@@ -131,7 +131,7 @@ TOPICS = [
      "fields": [{"id": "pool", "icon": "waves", "synonyms": ["бассейн", "поплавать", "подогрев бассейна", "крытый бассейн", "открытый бассейн"], "type": "choice", "options": ["есть", "нет"]}, {"id": "kind", "type": "choice", "options": ["открытый", "крытый"]},
                 {"id": "heated", "type": "bool"}], "text": _pool},
     {"id": "kitchen", "icon": "fork", "synonyms": ["кухня", "кухонька", "плита", "готовить", "приготовить еду", "посуда"], "question": "Есть ли кухня в номере?", "query": "кухня мини-кухня апартаменты плита",
-     "fields": [{"id": "kitchen", "icon": "fork", "synonyms": ["кухня", "кухонька", "плита", "готовить", "приготовить еду", "посуда"], "type": "choice", "options": ["во всех номерах", "в части номеров", "нет"]}], "text": _rooms("Кухня")},
+     "fields": [{"id": "kitchen", "icon": "fork", "synonyms": ["кухня", "кухонька", "плита", "готовить", "приготовить еду", "посуда"], "type": "choice", "options": ["во всех номерах", "в части номеров", "нет"]}], "text": _rooms("Кухня", "Кухни в номерах нет")},
     {"id": "wifi", "icon": "bolt", "synonyms": ["wi-fi", "wifi", "вайфай", "вай-фай", "интернет", "вай фай"], "question": "Есть ли Wi-Fi?", "query": "wi-fi интернет вайфай бесплатный",
      "fields": [{"id": "wifi", "icon": "bolt", "synonyms": ["wi-fi", "wifi", "вайфай", "вай-фай", "интернет", "вай фай"], "type": "choice", "options": ["бесплатно", "есть", "нет"]}],
      "text": lambda v: "Wi-Fi нет" if v.get("wifi") == "нет" else "Бесплатный Wi-Fi" if v.get("wifi") == "бесплатно" else "Есть Wi-Fi"},

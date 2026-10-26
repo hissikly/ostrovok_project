@@ -13,7 +13,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from core.textmatch import best, meaning_key
-from features.conflicts.backend import check as check_conflict
+from features.conflicts.backend import check as check_conflict, site_conflict
 from features.facts.backend import facts_for
 from features.hotels.backend import hotel
 from features.nearby.backend import specs as nearby_specs
@@ -121,7 +121,11 @@ def resolve(hotel_id: str, tid: str, ctx: dict) -> dict:
         h = hotel(hotel_id)
         a = COMPUTED[tid](h, facts_for(hotel_id), ctx)
         if a:
-            return {**base, "status": "answered", "level": "computed", "note": LEVEL_NOTE["computed"], **a}
+            out = {**base, "status": "answered", "level": "computed", "note": LEVEL_NOTE["computed"], **a}
+            c = site_conflict(hotel_id, tid, a)     # на своём сайте отель обещает иное — гость видит обе версии
+            if c:
+                out.update(conflict=c, note="Отель пишет иначе — уточняем", confidence=min(a["confidence"], 0.6))
+            return out
     w = web_answer(hotel_id, tid)              # 2½. с сайта отеля
     if w:
         return {**base, "status": "answered", "level": "web", "note": LEVEL_NOTE["web"], **w}

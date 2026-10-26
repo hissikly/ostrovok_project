@@ -2,7 +2,8 @@
 .cf { margin-top: 8px; background: var(--warn-bg); border-radius: 14px; padding: 10px 12px; font-size: 14px; color: var(--ink); cursor: default }
 .cf-t { display: flex; align-items: center; gap: 6px; font-weight: 800; color: #8A4A00; margin-bottom: 4px }
 .cf-row { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 2px 0 }
-.cf-row span { color: var(--muted) }
+.cf-row > span:first-child { color: var(--muted) }
+.cf-v a { color: var(--brand); white-space: nowrap }
 .cf-foot { margin-top: 6px; font-size: 13px; color: #8A4A00 }
 .cf-explained { background: var(--page); display: grid; gap: 2px }
 .cf-explained b { font-weight: 700 }
