@@ -166,11 +166,11 @@ def _coffee_fact(hotel_id):
 
 def breakfast(hotel_id, facts):
     f = _site(facts, "breakfast")
-    if f and f["value"].get("breakfast") in ("есть", "включён"):
-        kind = f["value"].get("kind")
-        note = f"{kind.capitalize()}, по словам отеля" if kind else "По словам отеля"
-        if f["value"]["breakfast"] == "включён":
-            note = "Уже в цене, по словам отеля"
+    if f and f["value"].get("breakfast") in ("есть", "включён", "за доплату"):
+        b, kind = f["value"]["breakfast"], f["value"].get("kind")
+        price = {"включён": "уже в цене", "за доплату": "за доплату"}.get(b)
+        bits = [x for x in (price, kind) if x]
+        note = (", ".join(bits).capitalize() + ", по словам отеля") if bits else "По словам отеля"
         return _scene("08:30", "cup", "Завтрак в отеле", note, True, [f])
     f = _coffee_fact(hotel_id)
     if not f:
@@ -219,7 +219,8 @@ def crib(facts):
     if c == "нет":
         return _scene("21:00", "child", "Детской кроватки нет", "По словам отеля. Уточните при брони", False, [f])
     title = {"бесплатно": "Детская кроватка бесплатно", "за доплату": "Детская кроватка за доплату"}.get(c, "Детская кроватка есть")
-    return _scene("21:00", "child", title, "По словам отеля. Попросите при брони", True, [f])
+    ask = "Закажите заранее, при брони" if f["value"].get("preorder") == "нужно" else "Попросите при брони"
+    return _scene("21:00", "child", title, f"По словам отеля. {ask}", True, [f])
 
 
 def _climate(h, month):
