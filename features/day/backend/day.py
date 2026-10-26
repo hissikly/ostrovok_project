@@ -4,7 +4,12 @@
 или из шаблона дня (завтрак 08:30, пляж 10:00, обратно 13:00, ужин 20:30, ночь 23:00).
 Сцена: {time, icon, title, note, good, fact_ids, facts, stop?}. good=False — честный подвох.
 facts — сами факты сцены (источник, уверенность, дата), чтобы фронт показал «как узнали».
-stop — место вне отеля {id, name, lat, lon}: из таких сцен route() собирает пеший маршрут дня.
+stop — место вне отеля {id, name, lat, lon, at, stay, to}: куда гость выходит из отеля.
+
+Выходы из отеля (_outings): остановки по времени; между близкими по времени идём сразу, иначе
+сначала возвращаемся в отель. В ленту добавляются строки пути (kind="walk": когда вышли, сколько
+идти, подъём), у посещённых мест — время прихода и «до скольких» (visit). Убранные гостем места
+(skip) остаются в ленте справкой, без пути.
 """
 import datetime as dt
 
@@ -61,11 +66,13 @@ def _scene(time, icon, title, note, good, facts, stop=None):
     return s
 
 
-def _stop(sid, v):
-    """Остановка маршрута из факта near:* (у него есть координаты места)."""
+def _stop(sid, v, at, stay, to, here):
+    """Место вне отеля: координаты, когда там быть (at), сколько минут там (stay),
+    куда идём («до кофейни») и как сцена звучит, когда гость там (here: title, note)."""
     if v.get("lat") is None or v.get("lon") is None:
         return None
-    return {"id": sid, "name": v.get("name") or v.get("kind") or "", "lat": v["lat"], "lon": v["lon"]}
+    return {"id": sid, "name": v.get("name") or v.get("kind") or "", "lat": v["lat"], "lon": v["lon"],
+            "at": at, "stay": stay, "to": to, "here": here}
 
 
 # ---------- сцены ----------
@@ -118,14 +125,25 @@ def _none_near(facts, spec):
     return f if f and f["value"].get("meters") is None and f["value"].get("within_min", 0) >= NEAR_OK else None
 
 
+# куда идём и что там: id остановки → (минут на месте, «до …», заголовок на месте)
+VISIT = {
+    "kids": (90, {"playground": "до площадки", "waterpark": "до аквапарка"}, {"playground": "На детской площадке", "waterpark": "В аквапарке"}),
+    "dinner": (90, {"restaurant": "до ресторана", "cafe": "до кафе"}, {"restaurant": "Ужин", "cafe": "Ужин"}),
+    "night": (10, {"pharmacy_24": "до аптеки", "grocery_24": "до магазина"}, {"pharmacy_24": "Аптека работает ночью", "grocery_24": "Магазин работает ночью"}),
+}
+
+
 def near_scene(facts, spec, time, icon, title, limit=NEAR_OK, stop=None):
     f = _near(facts, spec, limit)
     if not f:
         return None
     v = f["value"]
     where = f"{_min_in(v['walk_min'])} пешком"
-    return _scene(time, icon, title, f"{_quote(v['name'])}, {where}" if v.get("name") else where.capitalize(), True, [f],
-                  _stop(stop, v) if stop else None)
+    st = None
+    if stop:
+        stay, to, here = VISIT[stop]
+        st = _stop(stop, v, time, stay, to[spec], {"title": here[spec], "note": _quote(v.get("name"))})
+    return _scene(time, icon, title, f"{_quote(v['name'])}, {where}" if v.get("name") else where.capitalize(), True, [f], st)
 
 
 def _site(facts, topic):
@@ -133,7 +151,20 @@ def _site(facts, topic):
     return next((f for f in facts if f["characteristic"] == f"web:{topic}"), None)
 
 
-def breakfast(facts):
+def _coffee_fact(hotel_id):
+    """Утреннее кафе из pipeline/morning_cafes.py: по часам и кухне OSM, а не любое amenity=cafe."""
+    seed = load("day_cafes.json") or {}
+    c = (seed.get("hotels") or {}).get(hotel_id)
+    if not c or c["walk_min"] > NEAR_OK:
+        return None
+    return {"id": f"{hotel_id}:morning_coffee", "hotel_id": hotel_id, "scope": "hotel", "characteristic": "morning_coffee",
+            "value": {k: c[k] for k in ("name", "lat", "lon", "walk_min", "meters", "opens", "why")},
+            "confidence": c["confidence"], "source": "computed:osm-poi+walk", "method_version": "morning-cafe@0.1",
+            "evidence": {"osm": c["osm"], "why": c["why"]}, "obtained_at": seed.get("obtained_at"),
+            "valid_until": None, "status": "active"}
+
+
+def breakfast(hotel_id, facts):
     f = _site(facts, "breakfast")
     if f and f["value"].get("breakfast") in ("есть", "включён"):
         kind = f["value"].get("kind")
@@ -141,7 +172,14 @@ def breakfast(facts):
         if f["value"]["breakfast"] == "включён":
             note = "Уже в цене, по словам отеля"
         return _scene("08:30", "cup", "Завтрак в отеле", note, True, [f])
-    return near_scene(facts, "cafe", "08:30", "cup", "Кофе рядом", stop="coffee")
+    f = _coffee_fact(hotel_id)
+    if not f:
+        return None
+    v = f["value"]
+    what = f"открыто с {v['opens']}" if v.get("opens") else v["why"]
+    here = {"title": f"Кофе в {_quote(v['name'])}", "note": what.capitalize()}
+    return _scene("08:30", "cup", "Кофе утром", f"{_quote(v['name'])}, {what}, {_min_in(v['walk_min'])} пешком", True, [f],
+                  _stop("coffee", v, "08:30", 30, "до кофейни", here))
 
 
 def pool(facts):
@@ -196,14 +234,15 @@ def _climate(h, month):
         return None
 
 
-def _beach_stop(h):
-    """Куда именно выходим к морю — конец того же пути, что в факте beach_route."""
+def _beach_stop(h, water_note):
+    """Куда именно выходим к морю — конец того же пути, что в факте beach_route. На пляже — до 13:00."""
     from core.walk import to_beach
     r = to_beach(h["lat"], h["lon"])
     if not r or not r["coords"]:
         return None
     lon, lat = r["coords"][-1]
-    return {"id": "beach", "name": "Пляж", "lat": lat, "lon": lon}
+    return _stop("beach", {"name": "Пляж", "lat": lat, "lon": lon}, "10:00", 180, "до пляжа",
+                 {"title": "На пляже до обеда", "note": water_note or "Купаться и загорать"})
 
 
 def beach(facts, h, month, kids):
@@ -226,7 +265,7 @@ def beach(facts, h, month, kids):
         title = "Пляж в паре минут" if v["minutes"] <= 2 else f"На пляж {_min(v['minutes'])} пешком"
         out.append(_scene("10:00", "beach", title,
                           ". ".join(x for x in ((", ".join(notes)).capitalize(), water_note) if x),
-                          v["minutes"] <= 15, [route], _beach_stop(h)))
+                          v["minutes"] <= 15, [route], _beach_stop(h, water_note)))
         climb = v.get("climb_back_m", v["up_m"])
         stairs = v["steps"] or v["underpass"] or v["bridge"]
         if kids and (climb >= KIDS_CLIMB or stairs):
@@ -251,6 +290,8 @@ def beach(facts, h, month, kids):
         out.append(_scene("10:00", "beach", title,
                           ". ".join(x for x in (walk, water_note) if x),
                           v["walk_min"] <= 15, [straight]))
+    if len(out) == 2:
+        out[1]["with"] = "beach"   # справка «обратно»: не нужна, когда в ленте есть путь с пляжа
     return out
 
 
@@ -276,8 +317,12 @@ def evening(hotel_id, d, side, floor, month, facts):
                and f["value"]["walk_min"] <= NEAR_OK), None)
     note = (f"Смотреть его лучше со смотровой {_quote(vp['value']['name'])}, {_min_in(vp['value']['walk_min'])}"
             if vp and vp["value"].get("name") else "Солнце садится с другой стороны здания")
-    return _scene(s["sunset_astro"], "sunset", "Заката из окна не видно", note, False, fs + ([vp] if vp else []),
-                  _stop("sunset", vp["value"]) if vp else None)
+    st = None
+    if vp:
+        at = _hm(_t(s["sunset_astro"]) - 20)
+        st = _stop("sunset", vp["value"], at, 30, "до смотровой",
+                   {"title": "Закат со смотровой", "note": _quote(vp["value"].get("name")) or "Смотровая площадка"})
+    return _scene(s["sunset_astro"], "sunset", "Заката из окна не видно", note, False, fs + ([vp] if vp else []), st)
 
 
 def _db(db):
@@ -326,7 +371,126 @@ def _airport(h):
     return {"icon": "clock", "note": "", "good": True, "fact_ids": [f["id"] for f in s["facts"]], **s}
 
 
-def day(hotel_id: str, month: int, facade: str | None = None, floor: int | None = None, mode: str | None = None):
+def _t(hhmm):
+    h, m = hhmm.split(":")
+    return int(h) * 60 + int(m)
+
+
+def _hm(minutes):
+    minutes = max(0, min(int(minutes), 24 * 60 - 1))
+    return f"{minutes // 60:02d}:{minutes % 60:02d}"
+
+
+CHAIN = 60  # минут свободного времени, при которых идём к следующему месту сразу, не заходя в отель
+WALK_SOURCE = "computed:walk-graph"
+
+
+def _walk_fact(hotel_id, a, b, r):
+    return {"id": f"{hotel_id}:walk:{a['id']}-{b['id']}", "hotel_id": hotel_id, "scope": "hotel",
+            "characteristic": "walk_leg", "value": {k: r[k] for k in ("minutes", "meters", "up_m", "down_m")},
+            "confidence": 0.7, "source": WALK_SOURCE, "method_version": "walk-graph@0.1",
+            "evidence": {"from": a["name"], "to": b["name"]}, "obtained_at": dt.date.today().isoformat(),
+            "valid_until": None, "status": "active"}
+
+
+def _walk_row(hotel_id, a, b, r, depart, kids, outing):
+    """Строка пути в ленте: когда выходим, сколько идти и что по дороге (подъём, лестницы)."""
+    up, down, f = r["up_m"], r["down_m"], r["flags"]
+    home = b["id"] == "hotel"
+    title = f"{_min(r['minutes'])} обратно в отель" if home else f"{_min(r['minutes'])} пешком {b['to']}"
+    stairs = f.get("steps") or f.get("underpass") or f.get("bridge")
+    bits = []
+    if up >= 25:
+        bits.append(f"в гору {up} м, как подняться на {round(up / FLOOR_M)}-й этаж")
+    elif up >= 10:
+        bits.append(f"небольшой подъём, {up} м")
+    elif down >= 10:
+        bits.append(f"под горку {down} м")
+    else:
+        bits.append("почти ровно")
+    bits += [x for x in (f.get("steps") and "есть лестницы", f.get("underpass") and "подземный переход",
+                         f.get("rail") and "переход через железную дорогу") if x]
+    if kids and (up >= KIDS_CLIMB or stairs):
+        bits.append("с коляской тяжело")
+    arrive = _hm(_t(depart) + r["minutes"])
+    note = ", ".join(bits).capitalize() + (f". В отеле в {arrive}" if home else "")
+    good = up < 25 and not (kids and (up >= KIDS_CLIMB or stairs))
+    return {"kind": "walk", "time": depart, "icon": "pin", "title": title, "note": note, "good": good,
+            "outing": outing, "to": b["id"], "minutes": r["minutes"], "arrive": arrive,
+            "fact_ids": [], "facts": [_walk_fact(hotel_id, a, b, r)]}
+
+
+def _outings(hotel_id, h, scenes, skip, kids):
+    """Выходы из отеля по местам ленты (кроме skip): строки пути, отметки «здесь до …» и линии для карты."""
+    from core.walk import route as walk
+    home = {"id": "hotel", "name": h["name"], "lat": h["lat"], "lon": h["lon"], "to": "в отель"}
+    places = sorted((s for s in scenes if s.get("stop") and s["stop"]["id"] not in skip), key=lambda s: s["stop"]["at"])
+    rows, outings = [], []
+    cur, end, out = home, None, None
+
+    def go(a, b, depart):
+        r = walk(a["lat"], a["lon"], b["lat"], b["lon"])
+        if r is None:
+            return None
+        rows.append(_walk_row(hotel_id, a, b, r, _hm(depart), kids, len(outings)))
+        out["legs"].append({"from": a["id"], "to": b["id"], "minutes": r["minutes"], "meters": r["meters"],
+                            "up_m": r["up_m"], "down_m": r["down_m"]})
+        out["coords"] += r["coords"] if not out["coords"] else r["coords"][1:]
+        return r
+
+    def close():
+        nonlocal cur
+        if out and cur is not home and go(cur, home, end):
+            out["back"] = rows[-1]["arrive"]
+        cur = home
+
+    for s in places:
+        st = s["stop"]
+        at = _t(st["at"])
+        if cur is not home:
+            r = walk(cur["lat"], cur["lon"], st["lat"], st["lon"])
+            if r is None or at - (end + r["minutes"]) > CHAIN:
+                close()
+        if cur is home:
+            r0 = walk(home["lat"], home["lon"], st["lat"], st["lon"])
+            if r0 is None:   # до места нет пешего пути по графу — оставляем справкой, без прямых линий
+                continue
+            out = {"n": len(outings) + 1, "depart": _hm(at - r0["minutes"]), "legs": [], "coords": [], "stops": []}
+            outings.append(out)
+            go(home, st, at - r0["minutes"])
+            arrive = at
+        else:
+            go(cur, st, end)
+            arrive = end + rows[-1]["minutes"]
+        until = max(_t("13:00"), arrive + 30) if st["id"] == "beach" else arrive + st["stay"]
+        s["visit"] = {"arrive": _hm(arrive), "until": _hm(until), "outing": out["n"]}
+        out["stops"].append(st["id"])
+        cur, end = st, until
+    close()
+    n = 0
+    for s in sorted(places, key=lambda s: s["stop"]["at"]):
+        if "visit" in s:
+            n += 1
+            s["visit"]["n"] = n
+    for o in outings:
+        o["minutes"] = sum(x["minutes"] for x in o["legs"])
+        o["meters"] = sum(x["meters"] for x in o["legs"])
+        o["up_m"] = sum(x["up_m"] for x in o["legs"])
+        dep = _t(o["depart"])
+        o["name"] = "Утром" if dep < 12 * 60 else "Днём" if dep < 17 * 60 else "Вечером" if dep < 22 * 60 else "Ночью"
+    return rows, outings
+
+
+def day(hotel_id: str, month: int, facade: str | None = None, floor: int | None = None, mode: str | None = None,
+        skip=frozenset()):
+    """Лента дня (для API): выходы — без линий, линии отдаёт route()."""
+    d = _day(hotel_id, month, facade, floor, mode, skip)
+    if d:
+        d["outings"] = [{k: v for k, v in o.items() if k != "coords"} for o in d["outings"]]
+    return d
+
+
+def _day(hotel_id, month, facade=None, floor=None, mode=None, skip=frozenset()):
     h = hotel(hotel_id)
     if h is None:
         return None
@@ -337,7 +501,7 @@ def day(hotel_id: str, month: int, facade: str | None = None, floor: int | None 
     scenes = [_airport(h)]
     if d:
         scenes.append(morning(hotel_id, d, side, fl, month))
-    scenes.append(breakfast(facts))
+    scenes.append(breakfast(hotel_id, facts))
     scenes += beach(facts, h, month, kids)
     scenes.append(pool(facts))
     if kids:
@@ -348,58 +512,38 @@ def day(hotel_id: str, month: int, facade: str | None = None, floor: int | None 
     scenes.append(night(facts, side))
     scenes.append(near_scene(facts, "pharmacy_24", "23:30", "cross", "Круглосуточная аптека рядом", stop="night")
                   or near_scene(facts, "grocery_24", "23:30", "cart", "Магазин рядом работает ночью", stop="night"))
-    scenes = sorted((s for s in scenes if s), key=lambda s: s["time"])
+    scenes = [s for s in scenes if s]
+    rows, outings = _outings(hotel_id, h, scenes, set(skip), kids)
+    for s in scenes:   # гость на месте: время прихода и что там, а не «в 4 минутах»
+        if "visit" in s:
+            s["time"], s["title"], s["note"] = s["visit"]["arrive"], s["stop"]["here"]["title"], s["stop"]["here"]["note"]
+            s["good"] = True   # трудности дороги — в строках пути, само место — хорошее
+    gone = {s["with"] for s in scenes if s.get("with")} & {s["stop"]["id"] for s in scenes if "visit" in s}
+    scenes = [s for s in scenes if s.get("with") not in gone] + rows
+    # строка пути идёт перед местом, куда ведёт (вышли в 08:26 → кофе в 08:30)
+    scenes.sort(key=lambda s: (s["time"], 0 if s.get("kind") == "walk" else 1))
+    for s in scenes:
+        if s.get("stop"):
+            s["stop"] = {k: s["stop"][k] for k in ("id", "name", "lat", "lon")}
+    walk_total = {"outings": len(outings), "minutes": sum(o["minutes"] for o in outings),
+                  "meters": sum(o["meters"] for o in outings), "up_m": sum(o["up_m"] for o in outings)}
     return {"hotel_id": hotel_id, "month": month, "facade": side if d else None, "floor": fl,
-            "mode": "kids" if kids else None, "scenes": scenes, "built_at": dt.date.today().isoformat()}
+            "mode": "kids" if kids else None, "scenes": scenes, "skip": sorted(skip), "walk": walk_total,
+            "outings": outings, "built_at": dt.date.today().isoformat()}
 
 
-# ---------- маршрут дня ----------
-
-HOME_GAP = 120  # минут между остановками, после которых сначала заходим в отель
-
-
-def _t(hhmm):
-    h, m = hhmm.split(":")
-    return int(h) * 60 + int(m)
-
+# ---------- маршрут дня на карте ----------
 
 def route(hotel_id: str, month: int, facade: str | None = None, floor: int | None = None,
-          mode: str | None = None, skip: set[str] = frozenset()):
-    """Пеший маршрут дня по остановкам ленты (кроме skip): по времени, с заходами в отель.
-
-    Если до следующей остановки больше HOME_GAP минут — между ними возвращаемся в отель;
-    в конце дня — всегда в отель. Каждый участок — путь по графу улиц (core.walk).
-    """
-    from core.walk import route as walk
-    d = day(hotel_id, month, facade, floor, mode)
+          mode: str | None = None, skip=frozenset()):
+    """Выходы из отеля для карты: по линии на выход, остановки с номерами, итог за день."""
+    d = _day(hotel_id, month, facade, floor, mode, skip)
     if d is None:
         return None
-    h = hotel(hotel_id)
-    home = {"id": "hotel", "name": h["name"], "lat": h["lat"], "lon": h["lon"]}
-    stops = [dict(s["stop"], time=s["time"], icon=s["icon"]) for s in d["scenes"]
-             if s.get("stop") and s["stop"]["id"] not in skip]
-    plan, prev = [], None
-    for st in stops:
-        if prev and _t(st["time"]) - _t(prev["time"]) > HOME_GAP:
-            plan.append(home)
-        plan.append(st)
-        prev = st
-    plan.append(home)
-    legs, coords, cur, lost = [], [], home, []
-    for nxt in plan:
-        if nxt is cur:
-            continue
-        r = walk(cur["lat"], cur["lon"], nxt["lat"], nxt["lon"])
-        if r is None:  # до места нет пешего пути по графу — выкидываем его, а не рисуем прямую
-            lost.append(nxt["id"])
-            continue
-        legs.append({"from": cur["id"], "to": nxt["id"], "minutes": r["minutes"], "meters": r["meters"],
-                     "up_m": r["up_m"], "down_m": r["down_m"]})
-        coords += r["coords"] if not coords else r["coords"][1:]
-        cur = nxt
-    shown = [s for s in stops if s["id"] not in lost]
-    return {"hotel_id": hotel_id, "title": "Маршрут дня",
-            "stops": [dict(s, n=i + 1) for i, s in enumerate(shown)], "skipped": sorted(skip),
-            "legs": legs, "coords": coords,
-            "minutes": sum(x["minutes"] for x in legs), "meters": sum(x["meters"] for x in legs),
-            "up_m": sum(x["up_m"] for x in legs), "home_visits": sum(1 for x in legs if x["to"] == "hotel")}
+    stops = sorted(({**s["stop"], "n": s["visit"]["n"], "time": s["visit"]["arrive"], "outing": s["visit"]["outing"]}
+                    for s in d["scenes"] if s.get("visit")), key=lambda x: x["n"])
+    return {"hotel_id": hotel_id, "title": "Маршрут дня", "stops": stops, "skipped": d["skip"],
+            "outings": [{k: o[k] for k in ("n", "name", "depart", "back", "minutes", "meters", "up_m", "stops") if k in o}
+                        for o in d["outings"]],
+            "lines": [o["coords"] for o in d["outings"] if o["coords"]],
+            **{k: v for k, v in d["walk"].items() if k != "outings"}}
