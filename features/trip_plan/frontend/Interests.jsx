@@ -45,14 +45,15 @@ export default function InterestsButton() {
   )
 }
 
-// Строка в списке отелей: «Всё пешком» или «2 из 3 пешком» и что далеко
+// Строка в списке отелей — текстом с иконкой интересов, без плашки: салатовая плашка в строке уже у «О!кна»
 export function FitLine({ fit }) {
   if (!fit || !fit.all) return null
   const full = fit.good === fit.all
   const far = fit.far[0]
   return (
-    <div className="trip-fit">
-      <span className={full ? 'all' : ''}>{full ? 'Ваш день — всё пешком' : `${fit.good} из ${fit.all} пешком`}</span>
+    <div className={`trip-fit ${full ? 'all' : ''}`}>
+      <Icon name="sparkle" size={15} />
+      <span>{full ? 'Ваш день — всё пешком' : `Ваш день: ${fit.good} из ${fit.all} пешком`}</span>
       {!full && far?.title && <small>{far.title}</small>}
     </div>
   )

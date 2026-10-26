@@ -27,11 +27,12 @@
   .trip-pop { position: fixed; left: 16px; right: 16px; top: 70px; width: auto }
 }
 
-/* строка в списке отелей */
-.trip-fit { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 13px; flex-wrap: wrap }
-.trip-fit span { border-radius: 999px; padding: 3px 10px; background: var(--chip); font-weight: 700 }
-.trip-fit span.all { background: var(--lime); color: var(--lime-ink) }
-.trip-fit small { color: var(--muted); font-size: 13px }
+/* строка в списке отелей: текст с иконкой, синий — цвет интересов (как кнопка в шапке) */
+.trip-fit { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--ink); flex-wrap: wrap }
+.trip-fit svg { color: var(--muted); flex: none }
+.trip-fit.all { color: var(--brand) }
+.trip-fit.all svg { color: var(--brand) }
+.trip-fit small { color: var(--muted); font-size: 13px; font-weight: 500 }
 
 /* «Ваш день здесь»: подпись интереса, булавка, сюрприз */
 .day-body .trip-for { font-size: 12px; font-weight: 700; color: var(--brand); line-height: 1.2 }
