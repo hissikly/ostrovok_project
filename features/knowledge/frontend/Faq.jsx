@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
+import { SiteQuote } from '@features/web_sources/frontend/SiteQuote.jsx'
 
 const ASK_HINT = 'Обычно отвечают за 1–3 дня'
 
@@ -34,6 +35,7 @@ function Answer({ a, hotelId, asked, onAsked }) {
       <div className="fq">{a.question}</div>
       <div className="fa">{a.text}</div>
       {open && <div className="faq-note">{a.note}</div>}
+      {open && a.level === 'web' && <SiteQuote quote={a.quote} url={a.url} date={a.obtained_at} />}
     </div>
   )
 }

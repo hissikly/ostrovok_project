@@ -12,3 +12,4 @@ status: draft
 Формат: `- YYYY-MM-DD · кто · фича · что`
 
 <!-- новые записи ниже -->
+- 2026-10-26 · Claude · web_sources · RAG по сайтам отелей v0: 72 из 236 сайтов ответили (с зарубежного IP — перезапустить без VPN), 321 факт с дословной цитатой у 61 отеля, 16 тем. Факты `web:<тема>` (source `web:<домен>`, evidence.quote/url) в `data/seed/facts_web.json`; в knowledge новый уровень `web` «С сайта отеля» между расчётом и городом; `web:sea_view`/`web:beach_claim` — обещания отеля для conflicts. Новое в core: `core/llm.py` (OpenAI-совместимый, urllib, без новых зависимостей). Инструмент `web_text` = `features.web_sources.backend.search`.

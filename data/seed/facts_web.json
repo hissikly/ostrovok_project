@@ -1,0 +1,6884 @@
+[
+ {
+  "hotel_id": "n10759606594",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:ranovsky-park.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ranovsky-park.ru/",
+   "quote": "Делюкс видовой с балконом и террасой",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n10759606594",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:ranovsky-park.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ranovsky-park.ru/breakfast",
+   "quote": "При бронировании номера, можно выбрать тариф с завтраком.",
+   "fetched_at": "2026-10-26T05:42:22+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n10759606594",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "walk_min": 10,
+   "text": "До моря 10 мин"
+  },
+  "confidence": 0.6,
+  "source": "web:ranovsky-park.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ranovsky-park.ru/",
+   "quote": "10 минут пешком до пляжа",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n10759606594",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:ranovsky-park.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ranovsky-park.ru/about",
+   "quote": "панорамный бассейн с подогревом",
+   "fetched_at": "2026-10-26T05:42:19+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n10759606594",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:ranovsky-park.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ranovsky-park.ru/",
+   "quote": "В каждом номере предусмотрен Wi-Fi, а на территории отеля работает кафе, где подают свежие блюда.",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n10759606594",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:ranovsky-park.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ranovsky-park.ru/",
+   "quote": "Также мы предлагаем услуги трансфера из аэропорта Сочи.",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11016638369",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:shagal-apartments.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shagal-apartments.ru/",
+   "quote": "ванными комнатами, кухнями и бесплатным wi-fi",
+   "fetched_at": "2026-10-26T05:43:11+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11016638369",
+  "scope": "hotel",
+  "characteristic": "web:noise_rules",
+  "value": {
+   "quiet_from": "21:00",
+   "text": "Тишина с 21:00"
+  },
+  "confidence": 0.75,
+  "source": "web:shagal-apartments.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shagal-apartments.ru/rools",
+   "quote": "Проживающие в апартаментах должны соблюдать тишину с 21.00 - до 8.00 и с 13.00 - до 15.00 на основании ФЗ от 2020г., и быть взаимно вежливыми к остальным.⠀",
+   "fetched_at": "2026-10-26T05:43:12+00:00",
+   "topic": "noise_rules"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11016638373",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:grand-gallery.net",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://grand-gallery.net/about",
+   "quote": "Апарт-отель Гранд Гэлери by Provence предлагает современные номера и апартаменты с кухней в центре Сочи.",
+   "fetched_at": "2026-10-26T05:42:05+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11016638373",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "text": "Есть детская кроватка"
+  },
+  "confidence": 0.7,
+  "source": "web:grand-gallery.net",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://grand-gallery.net/",
+   "quote": "Наши детские кроватки обеспечат вашего малыша безопасным и уютным местом для сна и отдыха.",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11016638373",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:grand-gallery.net",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://grand-gallery.net/about",
+   "quote": "Гостям доступны вкусные завтраки, бесплатный Wi-Fi, ежедневная уборка номеров, прачечная и помощь на стойке регистрации.",
+   "fetched_at": "2026-10-26T05:42:05+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11016638373",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:grand-gallery.net",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://grand-gallery.net/rooms/standart",
+   "quote": "Стандартный номер оснащен всеми необходимыми удобствами, включая кондиционер, телевизор с плоским экраном, мини-бар, сейф для хранения ценных вещей.",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/hotel-rules/",
+   "quote": "Правила пользования подземным паркингом",
+   "fetched_at": "2026-10-26T05:42:05+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/faq/",
+   "quote": "Трансфер по городу/встреча в аэропорту",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "text": "Есть бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/faq/",
+   "quote": "На территории Морского квартала «Альфа Сириус» расположено несколько бассейнов с подогревом и без с зоной отдыха, оборудованной шезлонгами и зонтами, а также два детских бассейна без подогрева.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/about/",
+   "quote": "Возможно проживание с животными.",
+   "fetched_at": "2026-10-26T05:42:08+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "во всех номерах",
+   "text": "Балкон во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/about/",
+   "quote": "В каждом номере есть балкон, а на первом этаже — просторная терраса.",
+   "fetched_at": "2026-10-26T05:42:08+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/rooms/",
+   "quote": "Полулюкс комфорт с видом на море",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/delta/rooms/",
+   "quote": "В отеле Delta Sirius номера от стандарта до президентского люкса, есть номера с кухней и двухкомнатные на 8 гостей.",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11190910581",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/restaurants/",
+   "quote": "Ресторан в отеле Omega Sirius предлагает гостям завтраки обеды и ужины в формате «шведский стол» или «сет-меню».",
+   "fetched_at": "2026-10-26T05:42:15+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11331531334",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:adler.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adler.cosmosgroup.ru",
+   "quote": "На территории всех отелей предоставляется Wi-Fi",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11331531334",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:adler.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adler.cosmosgroup.ru",
+   "quote": "Современный и оборудованный всем необходимым номер с видом на море.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11331531334",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:adler.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adler.cosmosgroup.ru",
+   "quote": "Завтрак в формате «шведской линии»",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11331531334",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:adler.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adler.cosmosgroup.ru",
+   "quote": "В отеле представлены номера различных категорий, оснащённые кондиционером, бесплатным интернетом и рабочей зоной.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11331531334",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:adler.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adler.cosmosgroup.ru/additional-services",
+   "quote": "Для наших гостей открылся бар прямо у открытого подогреваемого бассейна.",
+   "fetched_at": "2026-10-26T05:42:21+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11331531334",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "max_kg": 5,
+   "text": "Можно с питомцем до 5 кг"
+  },
+  "confidence": 0.7,
+  "source": "web:adler.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adler.cosmosgroup.ru",
+   "quote": "В нашем отеле возможно размещение с питомцами до 5 кг.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11331531334",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:adler.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adler.cosmosgroup.ru",
+   "quote": "Да, в отеле есть наземная платная охраняемая парковка.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11521416444",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:hotelrusalina.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotelrusalina.ru/",
+   "quote": "ДВУХКОМНАТНЫЙ ЛЮКС С 2 БАЛКОНАМИ БЕЗ КУХНИ",
+   "fetched_at": "2026-10-26T05:42:49+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11521416444",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:hotelrusalina.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotelrusalina.ru/",
+   "quote": "Большие, уютные номера с видом на море, роскошные ванные комнаты и комфортабельные кухни - все это возможно с отелем Сочи Русалина.",
+   "fetched_at": "2026-10-26T05:42:49+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "walk_min": 8,
+   "text": "До моря 8 мин"
+  },
+  "confidence": 0.6,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "Подогреваемый бассейн круглый год, панорамная терраса на крыше с видом на море и город, 8 минут пешком до моря.",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "круглогодичный подогреваемый бассейн с комфортной температурой воды для плавания в любую погоду",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "Кухонная зона на летней террасе",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "Светлая комната площадью 18 кв.м. оборудована современной техникой (кондиционер, телевизор, холодильник, фен) и бесплатным Wi-Fi.",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "Светлая комната площадью 20 кв.м. оборудована современной техникой (кондиционер, телевизор).",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "Из номера есть выход на балкон.",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "price_rub": 0,
+   "text": "Есть парковка, бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "Бесплатная парковка",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "нет",
+   "cats": "нет",
+   "text": "С питомцами нельзя"
+  },
+  "confidence": 0.7,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "К сожалению, проживание с домашними животными не предусмотрено.",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843545829",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "text": "Есть детская кроватка"
+  },
+  "confidence": 0.7,
+  "source": "web:adler-panorama.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.adler-panorama.ru/",
+   "quote": "Детские кроватки и дополнительные спальные места не предусмотрены.",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553784",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "walk_min": 5,
+   "text": "До моря 5 мин"
+  },
+  "confidence": 0.6,
+  "source": "web:sunnysochihostel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sunnysochihostel.ru/",
+   "quote": "В САМОМ ЦЕНТРЕ КУРОРТНОГО ГОРОДА СОЧИ, В 5 МИНУТАХ ХОДЬБЫ ДО МОРЯ.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553784",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:sunnysochihostel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sunnysochihostel.ru/",
+   "quote": "Кондиционер, телевизор, платяной шкаф и туалетный столик — всё необходимое для комфортного отдыха.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553784",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:sunnysochihostel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sunnysochihostel.ru/",
+   "quote": "С кухни и, практически, с каждого номера открывается вид на живописную центральную улицу города Сочи - Навагинскую.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553784",
+  "scope": "hotel",
+  "characteristic": "web:noise_rules",
+  "value": {
+   "quiet_from": "00:00",
+   "text": "Тишина с 00:00"
+  },
+  "confidence": 0.75,
+  "source": "web:sunnysochihostel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sunnysochihostel.ru/",
+   "quote": "Но просим соблюдать режим тишины с 24:00 до 07:00 для поддержания комфортного отдыха.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "noise_rules"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553784",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkout": "12:00",
+   "text": "Выезд до 12:00"
+  },
+  "confidence": 0.75,
+  "source": "web:sunnysochihostel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sunnysochihostel.ru/",
+   "quote": "Время заселения в хостел — 14:00, выселение — 12:00.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553789",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:sochiaparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochiaparts.ru/",
+   "quote": "От лыж до экскурсий, от завтраков до Wi-Fi — всё, что нужно для незабываемого отдыха",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553789",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:sochiaparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochiaparts.ru/",
+   "quote": "Комфорт двухместный с балконом",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553789",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:sochiaparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochiaparts.ru/",
+   "quote": "Возможность воспользоваться подогреваемым бассейном на территории отеля",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553789",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:sochiaparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochiaparts.ru/",
+   "quote": "Выбор номеров — от компактной студии до просторных 2х комнатных с кухонной зоной",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553789",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:sochiaparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochiaparts.ru/",
+   "quote": "Pet Friendly",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553789",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:sochiaparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochiaparts.ru/",
+   "quote": "Охраняемая парковка на территории комплекса",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553789",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "за доплату",
+   "text": "Трансфер за доплату из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:sochiaparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochiaparts.ru/",
+   "quote": "От аэропорта и ЖД вокзала вы можете заказать трансфер, водитель заранее вас встретит.",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/",
+   "quote": "Возможность проживания с питомцем.",
+   "fetched_at": "2026-10-26T05:42:45+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/",
+   "quote": "Номера с балконом и видом на море",
+   "fetched_at": "2026-10-26T05:42:45+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/",
+   "quote": "Номера с балконом и видом на море",
+   "fetched_at": "2026-10-26T05:42:45+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/",
+   "quote": "Просторные номера с кухней позволяют комфортно разместиться семье с детьми",
+   "fetched_at": "2026-10-26T05:42:45+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/",
+   "quote": "Быстрый и безопасный трансфер из аэропорта г.",
+   "fetched_at": "2026-10-26T05:42:45+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/korporativnym-klientam",
+   "quote": "Бесплатный Wi-Fi, сканирование и печать документов",
+   "fetched_at": "2026-10-26T05:42:55+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "крытый",
+   "text": "Крытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/pool",
+   "quote": "Крытый бассейн с морской водой",
+   "fetched_at": "2026-10-26T05:42:47+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/dlitelnoe-prozhivanie",
+   "quote": "Современный телевизор с Алисой и индивидуальная система климат-контроля для комфортного отдыха в любое время года",
+   "fetched_at": "2026-10-26T05:42:51+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11843553791",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 500,
+   "text": "До моря 500 м"
+  },
+  "confidence": 0.6,
+  "source": "web:lissabon-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lissabon-hotel.ru/dlitelnoe-prozhivanie",
+   "quote": "Апарт-отель расположен всего в 500 метрах от моря в одном из удобных районов Сочи — Бытхе, жк кислород сочи снять квартиру длительно, 1 квартира снять Сочи длительно.",
+   "fetched_at": "2026-10-26T05:42:51+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163711",
+  "scope": "hotel",
+  "characteristic": "web:lift",
+  "value": {
+   "lift": "есть",
+   "text": "Есть лифт"
+  },
+  "confidence": 0.7,
+  "source": "web:suncityhotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://suncityhotels.ru/",
+   "quote": "Для вашего удобства комфортабельные просторные номера, современный пассажирский лифт, круглосуточная стойка регистрации, кафе, бар, столовая, круглосуточная охрана и видеонаблюдение.",
+   "fetched_at": "2026-10-26T05:42:17+00:00",
+   "topic": "lift"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163713",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:markinn-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://markinn-sochi.ru/service",
+   "quote": "Услуги беспроводного Интернета.",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163713",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:markinn-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://markinn-sochi.ru/about",
+   "quote": "Все комнаты оснащены современной мебелью, сплит-системами, холодильниками, телевизорами с плоским экраном, электрическими чайниками и сушилками для вещей.",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163713",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 300,
+   "text": "До моря 300 м"
+  },
+  "confidence": 0.6,
+  "source": "web:markinn-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://markinn-sochi.ru/about",
+   "quote": "Домовладение \"Mark Inn\" расположен в 300м от моря, в 8 км от международного аэропорта г.",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163713",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "text": "Есть детская кроватка"
+  },
+  "confidence": 0.7,
+  "source": "web:markinn-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://markinn-sochi.ru/service",
+   "quote": "Предоставление детской кроватки и горшка для нужд ребенка.",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163737",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:villamariaclub.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villamariaclub.ru/",
+   "quote": "Улучшенный стандарт с кухней и балконом",
+   "fetched_at": "2026-10-26T05:42:17+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163737",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:villamariaclub.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villamariaclub.ru/",
+   "quote": "Семейный двухкомнатный номер с кухней и балконом",
+   "fetched_at": "2026-10-26T05:42:17+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163737",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:villamariaclub.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villamariaclub.ru/about",
+   "quote": "Бесплатный Wi-Fi на всей территории отеля",
+   "fetched_at": "2026-10-26T05:42:18+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163737",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:villamariaclub.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villamariaclub.ru/services",
+   "quote": "Подогреваемый бассейн",
+   "fetched_at": "2026-10-26T05:42:21+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n11958163737",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:villamariaclub.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villamariaclub.ru/r1",
+   "quote": "Телевизор с плоским экраном, Кондиционер, Wi-Fi, Теплый пол, Чайник, Фен.",
+   "fetched_at": "2026-10-26T05:42:23+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12043534507",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:bellagio-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bellagio-hotel.ru/",
+   "quote": "СТАНДАРТ С БАЛКОНОМ",
+   "fetched_at": "2026-10-26T05:42:29+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12043534507",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:bellagio-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bellagio-hotel.ru/pravilaSPA",
+   "quote": "Изменять сроки открытия бассейна или отдельных зон СПА-комплекса и ограничивать посетителей в использовании оборудования бассейна при проведении ремонтных и/или профилактических работ;",
+   "fetched_at": "2026-10-26T05:42:30+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12183637644",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 800,
+   "text": "До моря 800 м"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "800 метров до моря",
+   "fetched_at": "2026-10-26T05:42:13+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12183637644",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "номера с кухнями",
+   "fetched_at": "2026-10-26T05:42:13+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12183637644",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "Можно с питомцами",
+   "fetched_at": "2026-10-26T05:42:13+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12183637644",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/servise",
+   "quote": "Семейный отель с подогреваемым бассейном, сауной и детской анимацией в центре Адлера.",
+   "fetched_at": "2026-10-26T05:42:19+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12183637644",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/servise",
+   "quote": "Апартаменты с роскошным видом на море.",
+   "fetched_at": "2026-10-26T05:42:19+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12541096667",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:alphapartments.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://alphapartments.ru/",
+   "quote": "Полностью оборудованная кухня",
+   "fetched_at": "2026-10-26T05:43:01+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12541096667",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:alphapartments.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://alphapartments.ru/",
+   "quote": "шустрый Wi-Fi, большой TV",
+   "fetched_at": "2026-10-26T05:43:01+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12541096667",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:alphapartments.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://alphapartments.ru/rules",
+   "quote": "Решение о возможности размещения с домашними животными принимают Альфа Апартаменты.",
+   "fetched_at": "2026-10-26T05:43:02+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12541096667",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "15:00",
+   "checkout": "12:00",
+   "text": "Заезд с 15:00, выезд до 12:00"
+  },
+  "confidence": 0.75,
+  "source": "web:alphapartments.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://alphapartments.ru/vopros",
+   "quote": "Заезды с 15:00, Выезды до 12:00",
+   "fetched_at": "2026-10-26T05:43:03+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12541096667",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "price_rub": 0,
+   "text": "Есть парковка, бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:alphapartments.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://alphapartments.ru/kapsulnyj-otel-v-sochi",
+   "quote": "Бесплатная парковка.",
+   "fetched_at": "2026-10-26T05:43:06+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12749552601",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:marinayacht.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.marinayacht.ru/services/plyazh-mayak",
+   "quote": "На всей территории пространства действует бесплатный Wi-Fi.",
+   "fetched_at": "2026-10-26T05:42:15+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12749552601",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:marinayacht.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.marinayacht.ru/",
+   "quote": "Суперлюкс с джакузи и балконом",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12749552601",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:marinayacht.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.marinayacht.ru/",
+   "quote": "Номер с кроватью \"queen-size\" и видом на парк, боковой вид на море.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12749552601",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:marinayacht.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.marinayacht.ru/",
+   "quote": "Номер площадью 28 кв. м с кроватью \"queen-size\" и кондиционером.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n12749552601",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:marinayacht.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.marinayacht.ru/services",
+   "quote": "Для удобства рекомендуем воспользоваться платной парковкой в...",
+   "fetched_at": "2026-10-26T05:42:11+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736402",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/",
+   "quote": "От 9 000 ₽ - тариф с завтраком;",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736402",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/dom-gordona/",
+   "quote": "Оборудованные кухня и столовая",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736402",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "first_line": true,
+   "text": "Первая линия у моря"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/adler-hotel/",
+   "quote": "Клубная резиденция и апарт‑отель 4 звезды в Адлере на первой береговой линии для тех, кто ценит премиальный отдых у моря и современные апартаменты с сервисом отеля.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736402",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/dagomys-hotel/",
+   "quote": "Открытый подогреваемый бассейн",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736402",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/fregat-hotel/",
+   "quote": "Двухместный номер с балконом — сочетает удобство и живописные виды.",
+   "fetched_at": "2026-10-26T05:42:08+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736402",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": true,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/agoy-park/",
+   "quote": "Панорамные окна и потрясающий вид на море и горы.",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736402",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "15:00",
+   "text": "Заезд с 15:00"
+  },
+  "confidence": 0.75,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/legal_information/",
+   "quote": "Заезд с 15:00",
+   "fetched_at": "2026-10-26T05:42:12+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736501",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/",
+   "quote": "От 9 000 ₽ - тариф с завтраком;",
+   "fetched_at": "2026-10-26T05:42:09+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736501",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/dom-gordona/",
+   "quote": "Оборудованные кухня и столовая",
+   "fetched_at": "2026-10-26T05:42:20+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736501",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "first_line": true,
+   "text": "Первая линия у моря"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/adler-hotel/",
+   "quote": "Клубная резиденция и апарт‑отель 4 звезды в Адлере на первой береговой линии для тех, кто ценит премиальный отдых у моря и современные апартаменты с сервисом отеля.",
+   "fetched_at": "2026-10-26T05:42:12+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736501",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/dagomys-hotel/",
+   "quote": "Открытый подогреваемый бассейн",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736501",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/fregat-hotel/",
+   "quote": "Двухместный номер с балконом — сочетает удобство и живописные виды.",
+   "fetched_at": "2026-10-26T05:42:13+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736501",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": true,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/agoy-park/",
+   "quote": "Панорамные окна и потрясающий вид на море и горы.",
+   "fetched_at": "2026-10-26T05:42:19+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13301736501",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "15:00",
+   "text": "Заезд с 15:00"
+  },
+  "confidence": 0.75,
+  "source": "web:lavicon.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lavicon.ru/legal_information/",
+   "quote": "Заезд с 15:00",
+   "fetched_at": "2026-10-26T05:42:17+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825065360",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/alpha/morskoy/rooms/apartamenty-s-3-spalnyami-s-vidom-na-more/",
+   "quote": "С балкона открывается панорамный вид на море.",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825065360",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/alpha/morskoy/",
+   "quote": "Разрешено проживание с домашними животными.",
+   "fetched_at": "2026-10-26T05:42:19+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825065360",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/alpha/morskoy/rooms/apartamenty-s-1-spalney/",
+   "quote": "Просторный современный номер с кухней-гостиной и спальней.",
+   "fetched_at": "2026-10-26T05:42:20+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825065360",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/alpha/morskoy/",
+   "quote": "Для вашего удобства также предусмотрены парковка, круглосуточный ресепшен, багажная комната, бесплатный вайфай",
+   "fetched_at": "2026-10-26T05:42:19+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825065360",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/alpha/morskoy/",
+   "quote": "Апартаменты с 1 спальней с видом на море",
+   "fetched_at": "2026-10-26T05:42:19+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825065360",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "за доплату",
+   "text": "Трансфер за доплату из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/alpha/morskoy/infrastructure/transfer/",
+   "quote": "Гости отеля могут воспользоваться услугами трансфера по городу, заказать встречу в аэропорту.",
+   "fetched_at": "2026-10-26T05:42:27+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/hotel-rules/",
+   "quote": "Правила пользования подземным паркингом",
+   "fetched_at": "2026-10-26T05:42:20+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/faq/",
+   "quote": "Трансфер по городу/встреча в аэропорту",
+   "fetched_at": "2026-10-26T05:42:21+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "text": "Есть бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/faq/",
+   "quote": "На территории Морского квартала «Альфа Сириус» расположено несколько бассейнов с подогревом и без с зоной отдыха, оборудованной шезлонгами и зонтами, а также два детских бассейна без подогрева.",
+   "fetched_at": "2026-10-26T05:42:21+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/about/",
+   "quote": "Возможно проживание с животными.",
+   "fetched_at": "2026-10-26T05:42:22+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "во всех номерах",
+   "text": "Балкон во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/about/",
+   "quote": "В каждом номере есть балкон, а на первом этаже — просторная терраса.",
+   "fetched_at": "2026-10-26T05:42:22+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/rooms/",
+   "quote": "Полулюкс комфорт с видом на море",
+   "fetched_at": "2026-10-26T05:42:28+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/delta/rooms/",
+   "quote": "В отеле Delta Sirius номера от стандарта до президентского люкса, есть номера с кухней и двухкомнатные на 8 гостей.",
+   "fetched_at": "2026-10-26T05:42:25+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n13825076875",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/restaurants/",
+   "quote": "Ресторан в отеле Omega Sirius предлагает гостям завтраки обеды и ужины в формате «шведский стол» или «сет-меню».",
+   "fetched_at": "2026-10-26T05:42:29+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n1590577898",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "бесплатно",
+   "text": "Бесплатный трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:adlerdavid.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://adlerdavid.ru/",
+   "quote": "Уважаемые Гости, при бронировании номера от 5 дней Вы сможете воспользоваться бесплатной услугой трансфера от ЖД вокзала или Аэропорта Адлера.",
+   "fetched_at": "2026-10-26T05:42:33+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n1599762387",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "крытый",
+   "text": "Крытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:royal-aparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://royal-aparts.ru/",
+   "quote": "Семейные апартаменты у моря с тёплым крытым бассейном",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n1599762387",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "14:00",
+   "checkout": "12:00",
+   "text": "Заезд с 14:00, выезд до 12:00"
+  },
+  "confidence": 0.75,
+  "source": "web:royal-aparts.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://royal-aparts.ru/",
+   "quote": "Заселение после 14:00, выезд до 12:00.",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4118677615",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:shine-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shine-hotel.ru/",
+   "quote": "Отель с бассейном на крыше с подогревом!",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4118677615",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "walk_min": 7,
+   "text": "До моря 7 мин"
+  },
+  "confidence": 0.6,
+  "source": "web:shine-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shine-hotel.ru/",
+   "quote": "Отель Shine House находится в Адлере, в 7 минутах ходьбы от набережной.",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4118677615",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:shine-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shine-hotel.ru/",
+   "quote": "Номера располагают кондиционером, телевизором с плоским экраном и собственной ванной комнатой с душем и бесплатными туалетно-косметическими принадлежностями.",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4118677615",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:shine-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shine-hotel.ru/",
+   "quote": "доступ к Интернету, бесплатный Wi-Fi;",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4118677615",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:shine-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shine-hotel.ru/",
+   "quote": "Из номеров с видом на море открываются живописные пейзажи.",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4118677615",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:shine-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://shine-hotel.ru/transfer-v-otel-sochi/",
+   "quote": "Отель предоставляет трансфер из аэропорта или ЖД станции «Адлер» в отель и обратно по специальной цене.",
+   "fetched_at": "2026-10-26T05:42:37+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4323769893",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "во всех номерах",
+   "text": "Кондиционер во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:tornau-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://tornau-hotel.ru/",
+   "quote": "Все номера отеля оснащены кондиционером, холодильником, телевизором с плоским экраном, душем.",
+   "fetched_at": "2026-10-26T05:43:11+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4323769893",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "price_rub": 0,
+   "text": "Есть парковка, бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:tornau-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://tornau-hotel.ru/",
+   "quote": "К услугам гостей бесплатная парковка, открытый бассейн с лежаками и зонтами, WI-FI, помещение для размещения лыж, сноубордов, аквалангов и т.п.",
+   "fetched_at": "2026-10-26T05:43:11+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4323769893",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:tornau-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://tornau-hotel.ru/",
+   "quote": "К услугам гостей бесплатная парковка, открытый бассейн с лежаками и зонтами, WI-FI, помещение для размещения лыж, сноубордов, аквалангов и т.п.",
+   "fetched_at": "2026-10-26T05:43:11+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4323769893",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:tornau-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://tornau-hotel.ru/",
+   "quote": "К услугам гостей бесплатная парковка, открытый бассейн с лежаками и зонтами, WI-FI, помещение для размещения лыж, сноубордов, аквалангов и т.п.",
+   "fetched_at": "2026-10-26T05:43:11+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4323769893",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:tornau-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://tornau-hotel.ru/",
+   "quote": "Мы организовываем трансфер в аэропорт, ЖД вокзал, горнолыжный курорт и предлагаем экскурсии на любой вкус на комфортабельном микроавтобусе.",
+   "fetched_at": "2026-10-26T05:43:11+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369173790",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:alean.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.alean.ru/hotels/rossiya/krasnodarskiy_kray/sochi_gorod-kurort/sochi_tsentralnyy_rayon/alean_family_resort_i_spa_sputnik_otel/",
+   "quote": "В «Alean Family Sputnik» есть открытый подогреваемый бассейн и Термальный комплекс с джакузи, СПА-кабинетами, лаунж-зоной, крытым детским бассейном и аквагорками в стиле пиратского корабля.",
+   "fetched_at": "2026-10-26T05:42:36+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369173790",
+  "scope": "hotel",
+  "characteristic": "web:own_beach",
+  "value": {
+   "own_beach": "есть",
+   "text": "Есть свой пляж"
+  },
+  "confidence": 0.6,
+  "source": "web:alean.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.alean.ru/hotels/rossiya/krasnodarskiy_kray/sochi_gorod-kurort/sochi_tsentralnyy_rayon/alean_family_resort_i_spa_sputnik_otel/",
+   "quote": "Собственные оборудованные пляжи с организацией питания и прокатом инвентаря",
+   "fetched_at": "2026-10-26T05:42:36+00:00",
+   "topic": "own_beach"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369173790",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "first_line": true,
+   "text": "Первая линия у моря"
+  },
+  "confidence": 0.6,
+  "source": "web:alean.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.alean.ru/hotels/rossiya/krasnodarskiy_kray/sochi_gorod-kurort/sochi_tsentralnyy_rayon/alean_family_resort_i_spa_sputnik_otel/",
+   "quote": "«ALEAN FAMILY SPUTNIK» - четырехзвёздочный семейный курорт площадью 59 000 квадратных метров с собственным пляжем расположен на первой береговой линии Сочи и предоставляет услуги по системе Ультра все включено.",
+   "fetched_at": "2026-10-26T05:42:36+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369173790",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:alean.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.alean.ru/hotels/rossiya/krasnodarskiy_kray/sochi_gorod-kurort/sochi_tsentralnyy_rayon/alean_family_resort_i_spa_sputnik_otel/",
+   "quote": "Здесь установлены шезлонги, кабинки для переодевания и туалеты, есть точка доступа Wi-Fi и всегда можно перекусить во время отдыха у моря в снек-баре и выпить прохладительные напитки в коктейль-баре.",
+   "fetched_at": "2026-10-26T05:42:36+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369173790",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "за доплату",
+   "text": "Трансфер за доплату из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:alean.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.alean.ru/hotels/rossiya/krasnodarskiy_kray/sochi_gorod-kurort/sochi_tsentralnyy_rayon/alean_family_resort_i_spa_sputnik_otel/",
+   "quote": "заказ трансфера в аэропорт, город, ж/д вокзал",
+   "fetched_at": "2026-10-26T05:42:36+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369173790",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "text": "Есть детская кроватка"
+  },
+  "confidence": 0.7,
+  "source": "web:alean.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.alean.ru/hotels/rossiya/krasnodarskiy_kray/sochi_gorod-kurort/sochi_tsentralnyy_rayon/alean_family_resort_i_spa_sputnik_otel/",
+   "quote": "детские кроватки",
+   "fetched_at": "2026-10-26T05:42:36+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369173790",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:alean.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.alean.ru/hotels/rossiya/",
+   "quote": "Принимаются с животными",
+   "fetched_at": "2026-10-26T05:42:44+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369348389",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:sputnik-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sputnik-sochi.ru/service/",
+   "quote": "Трансфер аэропорт/вокзал-Спутник,",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369348389",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:sputnik-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sputnik-sochi.ru/placement/",
+   "quote": "Wi-Fi-доступ в холлах корпуса №1 \"Семейный\" на каждом этаже, в холле корпуса №3 \"Высотный\", в номерах категории \"Премиум\" и \"Апартамент\", в кафе \"Рандеву\".",
+   "fetched_at": "2026-10-26T05:43:01+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369348389",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:sputnik-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sputnik-sochi.ru/placement/",
+   "quote": "НДС 18 %: завтрак - 250 рублей, обед 500 рублей, ужин - 500 рублей.",
+   "fetched_at": "2026-10-26T05:43:01+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369348389",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:sputnik-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sputnik-sochi.ru/placement/",
+   "quote": "С балконов открывается панорамный вид на море.",
+   "fetched_at": "2026-10-26T05:43:01+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4369348389",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": true,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:sputnik-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sputnik-sochi.ru/placement/",
+   "quote": "С балконов открывается панорамный вид на море.",
+   "fetched_at": "2026-10-26T05:43:01+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370780891",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:familyholidayhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://familyholidayhotel.ru/",
+   "quote": "Люкс с двумя комнатами и балконом",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370780891",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:familyholidayhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://familyholidayhotel.ru/pravila-prozhivaniya",
+   "quote": "Через 3 – 5 минуты работа кондиционера прекратится.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370780891",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:familyholidayhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://familyholidayhotel.ru/",
+   "quote": "Всем гостям доступны услуги прачечной, сеть wi-fi.",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370780891",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "14:00",
+   "text": "Заезд с 14:00"
+  },
+  "confidence": 0.75,
+  "source": "web:familyholidayhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://familyholidayhotel.ru/",
+   "quote": "Обращаем Ваше внимание, что расчетное время заселения с 14:00, выезда с номера до 12:00.",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370780891",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "за доплату",
+   "text": "Трансфер за доплату из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:familyholidayhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://familyholidayhotel.ru/",
+   "quote": "С аэропорта или жд вокзала Адлер можно заказать трансфер до отеля.",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370807729",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "12:00",
+   "checkout": "10:00",
+   "text": "Заезд с 12:00, выезд до 10:00"
+  },
+  "confidence": 0.75,
+  "source": "web:sochi-el.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochi-el.ru/price/gostinichnyy-tarif.php",
+   "quote": "(заезд с 12:00, выезд до 10:00)",
+   "fetched_at": "2026-10-26T05:42:56+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370807729",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "включён",
+   "text": "Завтрак включён"
+  },
+  "confidence": 0.7,
+  "source": "web:sochi-el.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochi-el.ru/price/gostinichnyy-tarif.php",
+   "quote": "Проживание + Завтрак",
+   "fetched_at": "2026-10-26T05:42:56+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4370807729",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:sochi-el.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochi-el.ru/price/sanatorno-kurortnaya-putyevka.php",
+   "quote": "местный (с балконом)",
+   "fetched_at": "2026-10-26T05:43:03+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4398105389",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel-romanov.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-romanov.ru/hotel-rules",
+   "quote": "На территории отеля имеется открытый бассейн.",
+   "fetched_at": "2026-10-26T05:42:49+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4398105389",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel-romanov.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-romanov.ru/hotel-rules",
+   "quote": "Уходя из номера, оставлять включенным телевизор, освещение, кондиционер.",
+   "fetched_at": "2026-10-26T05:42:49+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4398105389",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "text": "Есть детская кроватка"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel-romanov.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-romanov.ru/hotel-rules",
+   "quote": "Если с Вами отдыхает ребенок в возрасте до 2 лет, Вы можете обратиться на стойку регистрации и сотрудники отеля предоставят Вам детскую кроватку в номер.",
+   "fetched_at": "2026-10-26T05:42:49+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4398105389",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "меню",
+   "text": "Есть завтрак, меню"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel-romanov.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-romanov.ru/hotel-rules",
+   "quote": "Завтрак сервируется ежедневно с 8:00 до 10:00 по комплексному меню.",
+   "fetched_at": "2026-10-26T05:42:49+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4398105389",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel-romanov.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-romanov.ru/hotel-rules",
+   "quote": "На всей территории отеля доступен беспроводной Интернет (Wi-Fi).",
+   "fetched_at": "2026-10-26T05:42:49+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/hotel-rules/",
+   "quote": "Правила пользования подземным паркингом",
+   "fetched_at": "2026-10-26T05:42:21+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/faq/",
+   "quote": "Трансфер по городу/встреча в аэропорту",
+   "fetched_at": "2026-10-26T05:42:22+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "text": "Есть бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/faq/",
+   "quote": "На территории Морского квартала «Альфа Сириус» расположено несколько бассейнов с подогревом и без с зоной отдыха, оборудованной шезлонгами и зонтами, а также два детских бассейна без подогрева.",
+   "fetched_at": "2026-10-26T05:42:22+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/about/",
+   "quote": "Возможно проживание с животными.",
+   "fetched_at": "2026-10-26T05:42:23+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "во всех номерах",
+   "text": "Балкон во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/about/",
+   "quote": "В каждом номере есть балкон, а на первом этаже — просторная терраса.",
+   "fetched_at": "2026-10-26T05:42:23+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/rooms/",
+   "quote": "Полулюкс комфорт с видом на море",
+   "fetched_at": "2026-10-26T05:42:29+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/delta/rooms/",
+   "quote": "В отеле Delta Sirius номера от стандарта до президентского люкса, есть номера с кухней и двухкомнатные на 8 гостей.",
+   "fetched_at": "2026-10-26T05:42:26+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n4894447733",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/restaurants/",
+   "quote": "Ресторан в отеле Omega Sirius предлагает гостям завтраки обеды и ужины в формате «шведский стол» или «сет-меню».",
+   "fetched_at": "2026-10-26T05:42:30+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/",
+   "quote": "Круглогодичный подогреваемый бассейн",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 200,
+   "text": "До моря 200 м"
+  },
+  "confidence": 0.6,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/",
+   "quote": "200 м до моря",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/",
+   "quote": "Все номера комплекса прекрасно подходят для отдыха и для работы: бесплатный Wi-Fi, внимательный персонал, удобное расположение, близость транспортных развязок и одновременно красивый тихий зелёный район.",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/",
+   "quote": "Разместились в номере на пятом этаже с балконом.",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:lift",
+  "value": {
+   "lift": "есть",
+   "text": "Есть лифт"
+  },
+  "confidence": 0.7,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/",
+   "quote": "Лифт ходит до четвертого.",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "lift"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/",
+   "quote": "В номере изогнутая плазма, огромная кровать, диван, кондиционер, чайник, капсульная кофе машина (конечно же 2 капсулы есть, 2 вида чая, сахар, кружки, ложки), так же вам фай, к телевизору тоже вай фай подключен.( иви, кинопоиск пожалуйста если у Вас есть своя подписка.",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "max_kg": 10,
+   "text": "Можно с питомцем до 10 кг"
+  },
+  "confidence": 0.7,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/akciya-pitomcy",
+   "quote": "В нашем отеле возможно размещение с животными до 10 кг.",
+   "fetched_at": "2026-10-26T05:43:00+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7164495092",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:ekodom-hotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://ekodom-hotels.ru/ranee_bron",
+   "quote": "Тариф: «Проживание + Завтрак».",
+   "fetched_at": "2026-10-26T05:43:05+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7366815134",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "во всех номерах",
+   "text": "Кондиционер во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:teremoksochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "http://www.teremoksochi.ru/",
+   "quote": "Сплит-система, отопление и вентиляция в каждом номере.",
+   "fetched_at": "2026-10-26T05:43:09+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7366815134",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:teremoksochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "http://www.teremoksochi.ru/",
+   "quote": "Можно пользоваться Wi-Fi, общей кухней, лаунж-зоной и верандой.",
+   "fetched_at": "2026-10-26T05:43:09+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7366815134",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:teremoksochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "http://www.teremoksochi.ru/",
+   "quote": "Оборудованная кухня",
+   "fetched_at": "2026-10-26T05:43:09+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n736694948",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 800,
+   "text": "До моря 800 м"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "800 метров до моря",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n736694948",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "номера с кухнями",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n736694948",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "Можно с питомцами",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n736694948",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/servise",
+   "quote": "Семейный отель с подогреваемым бассейном, сауной и детской анимацией в центре Адлера.",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n736694948",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/servise",
+   "quote": "Апартаменты с роскошным видом на море.",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7494798983",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.5,
+  "source": "web:sattva-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sattva-hotel.ru/",
+   "quote": "В качестве приятного бонуса своим клиентам Гостевой дом «Саттва» предлагает не только бассейн, но также целый комплекс других приятных семейных услуг, например: зону отдыха с трёхместными качелями, детскую площадку, зону для барбекю, обеденную зону на улице и дополнительную полностью оборудованную кухню общего пользования со стиральными машинами в свободном пользовании.",
+   "fetched_at": "2026-10-26T05:43:09+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7494798983",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "бесплатно",
+   "text": "Бесплатный трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:sattva-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sattva-hotel.ru/",
+   "quote": "Забронируйте номер от 10 ночей и получите трансфер от аэропорта или ж/д вокзала Адлера бесплатно",
+   "fetched_at": "2026-10-26T05:43:09+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7659392485",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:lotos.bz",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lotos.bz/",
+   "quote": "WiFi Интернет",
+   "fetched_at": "2026-10-26T05:42:34+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7659392485",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "нет",
+   "cats": "нет",
+   "text": "С питомцами нельзя"
+  },
+  "confidence": 0.7,
+  "source": "web:lotos.bz",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lotos.bz/nomer-standart-s-2-odnospalnymi-krovatyami/",
+   "quote": "Размещение животных не допускается.",
+   "fetched_at": "2026-10-26T05:42:35+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7659392485",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "preorder": "нужно",
+   "text": "Есть детская кроватка, по запросу заранее"
+  },
+  "confidence": 0.7,
+  "source": "web:lotos.bz",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lotos.bz/nomer-standart-s-2-odnospalnymi-krovatyami/",
+   "quote": "Детская кроватка при бронировании по запросу",
+   "fetched_at": "2026-10-26T05:42:35+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7659392485",
+  "scope": "hotel",
+  "characteristic": "web:noise_rules",
+  "value": {
+   "quiet_from": "23:00",
+   "text": "Тишина с 23:00"
+  },
+  "confidence": 0.75,
+  "source": "web:lotos.bz",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lotos.bz/document/house-rules/",
+   "quote": "уважать покой других гостей и соблюдать тишину с 23:00 до 08:00;",
+   "fetched_at": "2026-10-26T05:42:39+00:00",
+   "topic": "noise_rules"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7891121078",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "все номера",
+   "panoramic": false,
+   "text": "Вид на море из всех номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:san-kavkaz.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.san-kavkaz.ru/rooms/",
+   "quote": "Все номера с потрясающим видом на море.",
+   "fetched_at": "2026-10-26T05:42:37+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7891121078",
+  "scope": "hotel",
+  "characteristic": "web:own_beach",
+  "value": {
+   "own_beach": "есть",
+   "text": "Есть свой пляж"
+  },
+  "confidence": 0.6,
+  "source": "web:san-kavkaz.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.san-kavkaz.ru/",
+   "quote": "Корпус имеет три этажа, номера разных категорий с видом на море, собственный пляж, на котором предоставляется пляжный инвентарь (шезлонги, качели, зонты).",
+   "fetched_at": "2026-10-26T05:42:35+00:00",
+   "topic": "own_beach"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7891121078",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:san-kavkaz.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.san-kavkaz.ru/rooms/2-mestnyy_2_etazh/",
+   "quote": "Телевизор, Унитаз, Wi-Fi, Сплит-система, Банные полотенца, Душ, Туалетные средства, Пляжные полотенца, Кондиционер, Водонагреватель, Раковина, Холодильник",
+   "fetched_at": "2026-10-26T05:42:41+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7891121078",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:san-kavkaz.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.san-kavkaz.ru/",
+   "quote": "Улучшенный двухместный номер с лоджией (3⠀этаж)",
+   "fetched_at": "2026-10-26T05:42:35+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7891121078",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 10,
+   "text": "До моря 10 м"
+  },
+  "confidence": 0.6,
+  "source": "web:san-kavkaz.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.san-kavkaz.ru/about/",
+   "quote": "Корпус находится в 10 метрах от пляжа.",
+   "fetched_at": "2026-10-26T05:42:38+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7891121078",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkout": "12:00",
+   "text": "Выезд до 12:00"
+  },
+  "confidence": 0.75,
+  "source": "web:san-kavkaz.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.san-kavkaz.ru/about/",
+   "quote": "Расчетный час 12.00",
+   "fetched_at": "2026-10-26T05:42:38+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n7891121078",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:san-kavkaz.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.san-kavkaz.ru/rooms/2-mestnyy_2_etazh/",
+   "quote": "Телевизор, Унитаз, Wi-Fi, Сплит-система, Банные полотенца, Душ, Туалетные средства, Пляжные полотенца, Кондиционер, Водонагреватель, Раковина, Холодильник",
+   "fetched_at": "2026-10-26T05:42:41+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8474990753",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:dianapalace.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dianapalace.ru/",
+   "quote": "На крыше нашего семиэтажного отеля находится открытый бассейн и кафе-бар.",
+   "fetched_at": "2026-10-26T05:42:03+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8474990753",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:dianapalace.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dianapalace.ru/uslugi.html",
+   "quote": "беспроводной WI-FI;",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8474990753",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:dianapalace.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dianapalace.ru/uslugi.html",
+   "quote": "Трансфер в отель из аэропорта и ж/д вокзала «Адлер» предоставляется всем Гостям нашего отеля комплементарно .",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8541891228",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:vesn.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.vesn.ru/ceny",
+   "quote": "Люкс (джакузи,туалет,телевизор,кондиционер)",
+   "fetched_at": "2026-10-26T05:42:30+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8541891228",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:vesn.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.vesn.ru/ceny",
+   "quote": "Некоторые номера имеют собственный балкон.",
+   "fetched_at": "2026-10-26T05:42:30+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8541891228",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:vesn.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.vesn.ru/ceny",
+   "quote": "Завтрак для взрослых - 300 рублей.",
+   "fetched_at": "2026-10-26T05:42:30+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8541891228",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:vesn.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.vesn.ru/kontakty",
+   "quote": "К их услугам охраняемая автостоянка.",
+   "fetched_at": "2026-10-26T05:42:35+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8932134771",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": true,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:black-sea-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://black-sea-sochi.ru/rooms/",
+   "quote": "Номера с панорамными окнами, панорамный вид на море.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8932134771",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:black-sea-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://black-sea-sochi.ru/rooms/",
+   "quote": "Номер категории \"Стандарт четырехместный\": 2 двухспальных кровати (возможен вариант односпальных кроватей), прикроватные тумбочки, диван, шкаф, журнальный столик, стул, кондиционер (сплит-система), телефон, плазменный телевизор, зеркало, холодильник.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n8932134771",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:black-sea-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://black-sea-sochi.ru/rooms/",
+   "quote": "В номерах нет балконов.",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n9393500818",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:plantsandfriends.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://plantsandfriends.ru/",
+   "quote": "В номере есть кондиционер, вытяжка и приточка воздуха, живые растения, гладильная доска и",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n9393500818",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:plantsandfriends.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://plantsandfriends.ru/",
+   "quote": "Мы подаем завтраки с 8 утра, по будням готовим ланчи, а основные блюда, салаты с 13 до 21 каждый день.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n9393500818",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:plantsandfriends.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://plantsandfriends.ru/",
+   "quote": "Wi-Fi во всех зонах мини-отеля.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n9393500818",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "нет",
+   "text": "Детской кроватки нет"
+  },
+  "confidence": 0.7,
+  "source": "web:plantsandfriends.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://plantsandfriends.ru/",
+   "quote": "Не предоставляем кроватки, т.к. в номерах будет тесно и неуютно.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "n9393500818",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "14:00",
+   "text": "Заезд с 14:00"
+  },
+  "confidence": 0.75,
+  "source": "web:plantsandfriends.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://plantsandfriends.ru/",
+   "quote": "Капсульный мини-отель работает 24/7, время заезда после 14:00.",
+   "fetched_at": "2026-10-26T05:42:58+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "r17699575",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.5,
+  "source": "web:spa.marine-garden-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://spa.marine-garden-sochi.ru/",
+   "quote": "Marine Garden Sochi Hotels & Spa 5* - гостиничный комплекс с уникальной архитектурой, впечатляющим природным ландшафтом, красивейшими видами на море и горы, высоким качеством отделки, оригинальным освещением и дизайнерскими номерами, отвечающие международным стандартам комфорта первоклассного отеля.",
+   "fetched_at": "2026-10-26T05:42:33+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "r17699575",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:spa.marine-garden-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://spa.marine-garden-sochi.ru/",
+   "quote": "Геометрическая форма балконов с панорамными окнами идеальна, в окружении зеленого массива и бескрайнего морского простора наш экстерьер безупречен.",
+   "fetched_at": "2026-10-26T05:42:33+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "r17699575",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:spa.marine-garden-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://spa.marine-garden-sochi.ru/",
+   "quote": "2 открытых бассейна с детской зоной для купания и современной системой фильтрации;",
+   "fetched_at": "2026-10-26T05:42:33+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w120859827",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:sochihotel-greendeck.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sochihotel-greendeck.ru/%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F/%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%B0/",
+   "quote": "Балкон с местом для отдыха",
+   "fetched_at": "2026-10-26T05:42:39+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w120859827",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:sochihotel-greendeck.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sochihotel-greendeck.ru/%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F/%D0%BD%D0%BE%D0%BC%D0%B5%D1%80%D0%B0/",
+   "quote": "Беспроводной интернет",
+   "fetched_at": "2026-10-26T05:42:39+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w120859827",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "вокзал",
+   "transfer": "бесплатно",
+   "text": "Бесплатный трансфер с вокзала"
+  },
+  "confidence": 0.7,
+  "source": "web:sochihotel-greendeck.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.sochihotel-greendeck.ru/%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F/%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8/",
+   "quote": "Бесплатный Трансфер (ж/д вокзал, пляж, центр города)",
+   "fetched_at": "2026-10-26T05:42:40+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/trehmestnyj-nomer-delyuks-s-vidom-na-more",
+   "quote": "Комфортный номер с видом на море.",
+   "fetched_at": "2026-10-26T05:42:40+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/trehmestnyj-nomer-delyuks-s-vidom-na-more",
+   "quote": "В номере есть большой балкон, мебель (стол, стулья, сушилка для белья).",
+   "fetched_at": "2026-10-26T05:42:40+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/",
+   "quote": "Апартаменты трехместные с кухней",
+   "fetched_at": "2026-10-26T05:42:29+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/",
+   "quote": "Разрешено проживание с домашними питомцами (за дополнительную плату)",
+   "fetched_at": "2026-10-26T05:42:29+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:lift",
+  "value": {
+   "lift": "есть",
+   "text": "Есть лифт"
+  },
+  "confidence": 0.7,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/dvuhmestnyj-nomer-s-balkonom-bokovoj-vid-na-more",
+   "quote": "В номера с третьего по пятый этажи возможен подъем на лифте.",
+   "fetched_at": "2026-10-26T05:42:41+00:00",
+   "topic": "lift"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 30,
+   "text": "До моря 30 м"
+  },
+  "confidence": 0.6,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/",
+   "quote": "Шикарный отель, безупречные люкс и полулюкс номера) очень красиво внутри, 30м до моря)",
+   "fetched_at": "2026-10-26T05:42:29+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/standartnyj-trehmestnyj-nomer",
+   "quote": "Номер оснащен индивидуальным кондиционером и имеет доступ к сети Wi-Fi.",
+   "fetched_at": "2026-10-26T05:42:38+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/standartnyj-trehmestnyj-nomer",
+   "quote": "Номер оснащен индивидуальным кондиционером и имеет доступ к сети Wi-Fi.",
+   "fetched_at": "2026-10-26T05:42:38+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781622",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:bogorodskhotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://bogorodskhotel.ru/standartnyj-trehmestnyj-nomer",
+   "quote": "Тариф с завтраком включен на 3х гостей, на доп место завтрак оплачивается дополнительно согласно прайсу на момент проживания.",
+   "fetched_at": "2026-10-26T05:42:38+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781630",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:hotelzvezda.info",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.hotelzvezda.info/penthouse",
+   "quote": "в каждой из спален имеется санузел, кондиционер и ТВ",
+   "fetched_at": "2026-10-26T05:43:19+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781630",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:hotelzvezda.info",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.hotelzvezda.info/penthouse",
+   "quote": "трёх спален с отдельными балконами с видами на горы",
+   "fetched_at": "2026-10-26T05:43:19+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781630",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "бесплатно",
+   "price_rub": 700,
+   "text": "Бесплатный трансфер из аэропорта, 700 ₽"
+  },
+  "confidence": 0.7,
+  "source": "web:hotelzvezda.info",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.hotelzvezda.info/nomera",
+   "quote": "ТРАНСФЕР предоставляется бесплатно при проживании свыше 15 дней (стоимость трансфера при проживании менее 15 дней — ж/д станция «Адлер»/ аэропорт — от 700 руб.)",
+   "fetched_at": "2026-10-26T05:43:17+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781630",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "за доплату",
+   "preorder": "нужно",
+   "text": "Детская кроватка за доплату, по запросу заранее"
+  },
+  "confidence": 0.7,
+  "source": "web:hotelzvezda.info",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.hotelzvezda.info/nomera",
+   "quote": "По запросу и за дополнительную плату может быть предоставлено одно дополнительное место в номере (еврораскладушка или детская кроватка для ребёнка до двух лет).",
+   "fetched_at": "2026-10-26T05:43:17+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w124781630",
+  "scope": "hotel",
+  "characteristic": "web:lift",
+  "value": {
+   "lift": "есть",
+   "text": "Есть лифт"
+  },
+  "confidence": 0.7,
+  "source": "web:hotelzvezda.info",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.hotelzvezda.info/penthouse",
+   "quote": "К услугам гостей предоставляются апартаменты площадью 120 квадратных метров на последнем этаже здания с отдельным лифтом.",
+   "fetched_at": "2026-10-26T05:43:19+00:00",
+   "topic": "lift"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w150742817",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "15:00",
+   "checkout": "12:00",
+   "text": "Заезд с 15:00, выезд до 12:00"
+  },
+  "confidence": 0.75,
+  "source": "web:papayahotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://papayahotel.ru/",
+   "quote": "Заселение в 15:00 выселение 12:00",
+   "fetched_at": "2026-10-26T05:42:15+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w150742817",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:papayahotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://papayahotel.ru/",
+   "quote": "К услугам гостей «Рарауa Park Hotel» — широкий выбор услуг и развлечений: круглогодичный бассейн с подогревом, зона отдыха для загара с шезлонгами и тропическим душем, уютное кафе с летней террасой и мангальной зоной.",
+   "fetched_at": "2026-10-26T05:42:15+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w150742817",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:papayahotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://papayahotel.ru/",
+   "quote": "С балкона открывается потрясающий вид на взлетно-посадочную полосу аэропорта, за взлетающими воздушными лайнерами можно наблюдать вечно.",
+   "fetched_at": "2026-10-26T05:42:15+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w190714781",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:sochi.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochi.cosmosgroup.ru/offers/vygodnyj-tarif-10-v-cosmos-sochi-hotel",
+   "quote": "Wi-Fi на всей территории отеля",
+   "fetched_at": "2026-10-26T05:42:22+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w190714781",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:sochi.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochi.cosmosgroup.ru/",
+   "quote": "Улучшенный с балконом - это отличный выбор для семейного отдыха.",
+   "fetched_at": "2026-10-26T05:42:05+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w190714781",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "max_kg": 5,
+   "text": "Можно с питомцем до 5 кг"
+  },
+  "confidence": 0.7,
+  "source": "web:sochi.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochi.cosmosgroup.ru/",
+   "quote": "В нашем отеле возможно размещение с питомцами до 5 кг.",
+   "fetched_at": "2026-10-26T05:42:05+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w190714781",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "text": "Есть детская кроватка"
+  },
+  "confidence": 0.7,
+  "source": "web:sochi.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochi.cosmosgroup.ru/residence-children",
+   "quote": "В нашем отеле созданы все условия для семейного отдыха: просторные номера, оборудованные детскими кроватками и удобствами, а также безопасная и уютная атмосфера.",
+   "fetched_at": "2026-10-26T05:42:12+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/",
+   "quote": "Балкон с ротанговой мебелью и шезлонгом",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "price_rub": 0,
+   "text": "Есть парковка, бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/",
+   "quote": "Есть бесплатная парковка, трансфер на пляж летом и в горы зимой, лыжная комната для спортивного инвентаря.",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/",
+   "quote": "Обратите внимание: отель Omega Sirius принимает гостей с домашними питомцами.",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/",
+   "quote": "Индивидуальная система климат-контроля",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/",
+   "quote": "Бесплатный вайфай действует на всей территории отеля.",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/",
+   "quote": "Полулюкс комфорт с видом на море",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/",
+   "quote": "Ресторан «Атлас» предлагает гостям завтраки, обеды и ужины в формате «шведский стол» или «сет-меню».",
+   "fetched_at": "2026-10-26T05:42:14+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w207579132",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "за доплату",
+   "text": "Трансфер за доплату из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:siriushotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://siriushotels.ru/omega/infrastructure/transfer/",
+   "quote": "Гости отеля могут воспользоваться услугами трансфера по городу, заказать встречу в аэропорту.",
+   "fetched_at": "2026-10-26T05:42:17+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/",
+   "quote": "7 корпусов и 5 вилл, более 760 номеров от стандарта до апартаментов с видом на море и парк.",
+   "fetched_at": "2026-10-26T05:42:50+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:own_beach",
+  "value": {
+   "own_beach": "есть",
+   "text": "Есть свой пляж"
+  },
+  "confidence": 0.6,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/",
+   "quote": "Собственный пляж протяжённостью более 380 метров, бассейны, СПА-центр, фитнес центр, концертный зал, конференц-зал, спортивная инфраструктура, детский центр с детским клубом.",
+   "fetched_at": "2026-10-26T05:42:50+00:00",
+   "topic": "own_beach"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/room",
+   "quote": "С балкона открывается живописный вид на горы.",
+   "fetched_at": "2026-10-26T05:42:52+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/room",
+   "quote": "На первом и втором этажах коттеджа №2 гостиные дополнительно оборудованы кухонной зоной.",
+   "fetched_at": "2026-10-26T05:42:52+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/rest/pools",
+   "quote": "Открытый бассейн с подогреваемой водой является одним из самых больших и красивых в городе Сочи.",
+   "fetched_at": "2026-10-26T05:42:56+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "бесплатно",
+   "text": "Бесплатный трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/room",
+   "quote": "Гостям, которые приобрели путевки в номера категорий люкс бесплатно предоставляется трансфер встреча и проводы Аэропорт/ЖД Вокзал Адлерского р-на (по предварительной заявке оформленной не позднее 3-х рабочих дней до даты заезда/выезда).",
+   "fetched_at": "2026-10-26T05:42:52+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkin": "15:00",
+   "checkout": "12:00",
+   "text": "Заезд с 15:00, выезд до 12:00"
+  },
+  "confidence": 0.75,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/room",
+   "quote": "Заселение в 15.00 с предоставлением обеда с 13:00 до 15:00, выезд до 12.00 с завтраком.",
+   "fetched_at": "2026-10-26T05:42:52+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/room",
+   "quote": "Выезд до 12.00 с завтраком с 08:00 до 10:00)",
+   "fetched_at": "2026-10-26T05:42:52+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w26828207",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:uvzmorie.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://uvzmorie.ru/documents",
+   "quote": "Правила посещения режима и парковки на территории",
+   "fetched_at": "2026-10-26T05:42:59+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "price_rub": 0,
+   "text": "Есть парковка, бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Бесплатная парковка, круглосуточный ресепшен.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "открытый подогреваемый бассейн;",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": true,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "К услугам гостей отеля в Сочи – комфортабельные номера с роскошными панорамными видами на Чёрное море.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "max_kg": 15,
+   "fee_rub": 1500,
+   "text": "Можно с питомцем до 15 кг, доплата 1500 ₽"
+  },
+  "confidence": 0.7,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Проживание с питомцами возможно при предварительном согласовании с администрацией отеля, за дополнительную плату – 1 500 рублей в сутки за животного весом до 15 кг.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Да, в категориях Стандарт улучшенный, Бизнес с балконом и Люкс с балконом.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Сеть AZIMUT WiFi Free, регистрация через браузер по номеру телефона.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "за доплату",
+   "price_rub": 2600,
+   "text": "Трансфер за доплату из аэропорта, 2600 ₽"
+  },
+  "confidence": 0.7,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Стоимость трансфера из аэропорта Сочи до AZIMUT Парк Отель Виноградная Сочи начинается от 2 600 рублей.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "завтрак шведский стол 07:30–10:30;",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:lift",
+  "value": {
+   "lift": "есть",
+   "text": "Есть лифт"
+  },
+  "confidence": 0.7,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Да, 4 гостевых лифта.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "lift"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "во всех номерах",
+   "text": "Кондиционер во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Да, все номера отеля оборудованы кондиционерами.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w51764141",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "бесплатно",
+   "text": "Детская кроватка бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:azimuthotels.com",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://azimuthotels.com/ru/sochi/azimut-hotel-vinogradnaya-sochi",
+   "quote": "Детская кроватка-манеж (до 2‑х лет) предоставляется бесплатно.",
+   "fetched_at": "2026-10-26T05:41:34+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52501847",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel-chebotarev.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-chebotarev.ru/",
+   "quote": "Забронируйте Студио с балконом и отдохните, забыв о заботах!",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52501847",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel-chebotarev.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-chebotarev.ru/",
+   "quote": "Завтрак шведский стол",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52501847",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel-chebotarev.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-chebotarev.ru/services/bassein",
+   "quote": "ПОДОГРЕВАЕМЫЙ ОТКРЫТЫЙ БАССЕЙН",
+   "fetched_at": "2026-10-26T05:43:02+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52501847",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "price_rub": 0,
+   "text": "Есть парковка, бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel-chebotarev.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-chebotarev.ru/services/wedding",
+   "quote": "Удобная бесплатная парковка.",
+   "fetched_at": "2026-10-26T05:43:07+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52501847",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel-chebotarev.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-chebotarev.ru/",
+   "quote": "Изящный светлый номер для двоих площадью 25 м2 с удобной мебелью и балконом, с которого открываются потрясающие виды на море, горы и Сочи.",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52501847",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel-chebotarev.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-chebotarev.ru/services/transportnoe-obslujivanie",
+   "quote": "Мы готовы отправить трансфер и встретить Вас в аэропорту или на железнодорожном вокзале Сочи.",
+   "fetched_at": "2026-10-26T05:43:05+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52501847",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel-chebotarev.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel-chebotarev.ru/services/biliard",
+   "quote": "Климат-контроль помещения;",
+   "fetched_at": "2026-10-26T05:43:06+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52572781",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:ostrova-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.ostrova-hotel.ru/about/",
+   "quote": "В уютном и атмосферном отеле 42 номера с видом на море или парк и четыре роскошные",
+   "fetched_at": "2026-10-26T05:42:20+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52572781",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:ostrova-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.ostrova-hotel.ru/offers/gostevoe-poseshchenie-spa-tsentra/",
+   "quote": "Вам доступны: подогреваемый открытый бассейн с возможностью выплыва из SPA-центра, комплекс бань: сауна, хаммам и парная с купелью.",
+   "fetched_at": "2026-10-26T05:42:26+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52572781",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "first_line": true,
+   "text": "Первая линия у моря"
+  },
+  "confidence": 0.6,
+  "source": "web:ostrova-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.ostrova-hotel.ru/about/contacts/",
+   "quote": "Мы находимся в Центре Сочи на первой береговой линии",
+   "fetched_at": "2026-10-26T05:42:18+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52572781",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:ostrova-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.ostrova-hotel.ru/razmeshenie/",
+   "quote": "Комфортабельный двухместный 1-комнатный номер со всеми удобствами с балконом, оборудован двумя раздельными кроватями.",
+   "fetched_at": "2026-10-26T05:42:28+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w52572781",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:ostrova-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.ostrova-hotel.ru/razmeshenie/",
+   "quote": "Комфортабельный двухместный 2-х комнатный номер со всеми удобствами с балконом, с кухонным уголком: гостиная с мягкой мебелью и спальня с одной двуспальной кроватью.",
+   "fetched_at": "2026-10-26T05:42:28+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:own_beach",
+  "value": {
+   "own_beach": "есть",
+   "text": "Есть свой пляж"
+  },
+  "confidence": 0.6,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "Собственный оборудованный пляж",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "own_beach"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "kind": "открытый",
+   "text": "Открытый бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "Открытый подогреваемый бассейн для наших гостей",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "preorder": "нужно",
+   "text": "Есть детская кроватка, по запросу заранее"
+  },
+  "confidence": 0.7,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "По запросу предоставляются детская кроватка, халат, принадлежности для ванной, стульчик для кормления.",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru/rooms/studia",
+   "quote": "Студия с балконом и видом на парк",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru/rooms/studia",
+   "quote": "Студия с балконом и видом на море",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "Уважаемые гости, мы всегда готовы предоставить вам трансфер из аэропорта, а также других необходимых Вам локаций.",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "На территории всех отелей предоставляется Wi-Fi",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "Отель принимает гостей с детьми и домашними питомцами.",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "включён",
+   "text": "Завтрак включён"
+  },
+  "confidence": 0.7,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "Завтраки включены.",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "price_rub": 0,
+   "text": "Есть парковка, бесплатно"
+  },
+  "confidence": 0.7,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru",
+   "quote": "Да, в нашем отеле есть бесплатная открытая парковка для гостей на все время пребывания.",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru/rooms/studia",
+   "quote": "Индивидуальная система климат-контроля",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53056988",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:lerond.cosmosgroup.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://lerond.cosmosgroup.ru/rooms/studia",
+   "quote": "КУХОННЫЙ УГОЛОК",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53292014",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:sochigreenhouse.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochigreenhouse.ru/rooms_and_prices/",
+   "quote": "Номер полулюкс с видом на море.",
+   "fetched_at": "2026-10-26T05:42:05+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53292014",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "first_line": true,
+   "text": "Первая линия у моря"
+  },
+  "confidence": 0.6,
+  "source": "web:sochigreenhouse.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochigreenhouse.ru/",
+   "quote": "Уютный отель расположенный на первой береговой линии.",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53292014",
+  "scope": "hotel",
+  "characteristic": "web:lift",
+  "value": {
+   "lift": "есть",
+   "text": "Есть лифт"
+  },
+  "confidence": 0.7,
+  "source": "web:sochigreenhouse.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochigreenhouse.ru/",
+   "quote": "6 этажей, есть лифт.",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "lift"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53292014",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "во всех номерах",
+   "text": "Балкон во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:sochigreenhouse.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochigreenhouse.ru/",
+   "quote": "Во всех номерах есть балкон с креслами и столом.",
+   "fetched_at": "2026-10-26T05:42:04+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53292014",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:sochigreenhouse.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://sochigreenhouse.ru/services/",
+   "quote": "Сплит-система",
+   "fetched_at": "2026-10-26T05:42:06+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53301283",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:kiparis-stellarhotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://kiparis-stellarhotels.ru/",
+   "quote": "Люкс с балконом",
+   "fetched_at": "2026-10-26T05:42:03+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53301283",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:kiparis-stellarhotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://kiparis-stellarhotels.ru/",
+   "quote": "Улучшенный Люкс с видом на море",
+   "fetched_at": "2026-10-26T05:42:03+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53301283",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:kiparis-stellarhotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://kiparis-stellarhotels.ru/services/otkrytyy-basseyn",
+   "quote": "Насладитесь возможностью непринужденно поплавать в открытом бассейне с зоной для детей в любое время года.",
+   "fetched_at": "2026-10-26T05:42:13+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53301283",
+  "scope": "hotel",
+  "characteristic": "web:transfer",
+  "value": {
+   "from": "аэропорт",
+   "transfer": "есть",
+   "text": "Есть трансфер из аэропорта"
+  },
+  "confidence": 0.7,
+  "source": "web:kiparis-stellarhotels.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://kiparis-stellarhotels.ru/services/transfer",
+   "quote": "Мы предлагаем трансферы от/до аэропорта, железнодорожного вокзала.",
+   "fetched_at": "2026-10-26T05:42:05+00:00",
+   "topic": "transfer"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53498769",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:greenhosta.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.greenhosta.ru/",
+   "quote": "«Стандарт-Комфорт» (с балконом)",
+   "fetched_at": "2026-10-26T05:42:07+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53498769",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:greenhosta.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.greenhosta.ru/stoimost-prozhivaniya-v-green-hosta/",
+   "quote": "открытый бассейн без подогрева;",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53498769",
+  "scope": "hotel",
+  "characteristic": "web:checkin",
+  "value": {
+   "checkout": "12:00",
+   "text": "Выезд до 12:00"
+  },
+  "confidence": 0.75,
+  "source": "web:greenhosta.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://www.greenhosta.ru/stoimost-prozhivaniya-v-green-hosta/",
+   "quote": "проживание согласно выбранной категории (расчетный час — 12.00);",
+   "fetched_at": "2026-10-26T05:42:24+00:00",
+   "topic": "checkin"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53742422",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 200,
+   "text": "До моря 200 м"
+  },
+  "confidence": 0.6,
+  "source": "web:villa-rauza.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villa-rauza.ru/",
+   "quote": "200 метров до моря , очень удобное расположение.",
+   "fetched_at": "2026-10-26T05:42:31+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53742422",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:villa-rauza.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villa-rauza.ru/",
+   "quote": "Открытый бассейн, кафе, охраняемая парковка,wi-fi",
+   "fetched_at": "2026-10-26T05:42:31+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53742422",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "kind": "открытый",
+   "text": "Открытый бассейн"
+  },
+  "confidence": 0.7,
+  "source": "web:villa-rauza.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villa-rauza.ru/",
+   "quote": "Открытый бассейн, кафе, охраняемая парковка,wi-fi",
+   "fetched_at": "2026-10-26T05:42:31+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53742422",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:villa-rauza.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villa-rauza.ru/",
+   "quote": "Открытый бассейн, кафе, охраняемая парковка,wi-fi",
+   "fetched_at": "2026-10-26T05:42:31+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53742422",
+  "scope": "hotel",
+  "characteristic": "web:own_beach",
+  "value": {
+   "own_beach": "есть",
+   "text": "Есть свой пляж"
+  },
+  "confidence": 0.6,
+  "source": "web:villa-rauza.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villa-rauza.ru/uslughi",
+   "quote": "Собственный пляж ( зонты, лежаки и пр.",
+   "fetched_at": "2026-10-26T05:42:33+00:00",
+   "topic": "own_beach"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w53742422",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "text": "Есть завтрак"
+  },
+  "confidence": 0.7,
+  "source": "web:villa-rauza.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://villa-rauza.ru/uslughi",
+   "quote": "Мы предлагаем завтрак, обед и ужин по системе 3-х разового питания.",
+   "fetched_at": "2026-10-26T05:42:33+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w54437496",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel777.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel777.ru/2-kh-mestnyj-s-2-kh-spalnoj-krovatyu.html",
+   "quote": "В номере : двухспальная кровать, санузел с ванной, ж/к телевизор, WiFi интернет (бесплатный), холодильник, кондиционер.",
+   "fetched_at": "2026-10-26T05:40:31+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w54437496",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel777.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel777.ru/2-kh-mestnyj-s-2-kh-spalnoj-krovatyu.html",
+   "quote": "В номере : двухспальная кровать, санузел с ванной, ж/к телевизор, WiFi интернет (бесплатный), холодильник, кондиционер.",
+   "fetched_at": "2026-10-26T05:40:31+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w54437496",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:hotel777.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel777.ru/o-nas.html",
+   "quote": "В распоряжении гостей большой подогреваемый бассейн.",
+   "fetched_at": "2026-10-26T05:40:33+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w54437496",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "во всех номерах",
+   "text": "Балкон во всех номерах"
+  },
+  "confidence": 0.6,
+  "source": "web:hotel777.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://hotel777.ru/o-nas.html",
+   "quote": "Номера оснащены всем необходимым: современная и качественная мебель, санузел с ванной, ж/к телевизор, холодильник, кондиционер, бесплатный WIFI, все номера с балконами.",
+   "fetched_at": "2026-10-26T05:40:33+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w700342790",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "есть",
+   "text": "Есть Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:talisman-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://talisman-sochi.ru/",
+   "quote": "Wi-fi, бар, ресторан, удобная парковка, магазины под боком, озон, банкомат сбера.",
+   "fetched_at": "2026-10-26T05:42:52+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w700342790",
+  "scope": "hotel",
+  "characteristic": "web:breakfast",
+  "value": {
+   "breakfast": "есть",
+   "kind": "шведский стол",
+   "text": "Есть завтрак, шведский стол"
+  },
+  "confidence": 0.7,
+  "source": "web:talisman-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://talisman-sochi.ru/",
+   "quote": "Завтрак шведский стол, ужин на заказ по меню.",
+   "fetched_at": "2026-10-26T05:42:52+00:00",
+   "topic": "breakfast"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w700342790",
+  "scope": "hotel",
+  "characteristic": "web:parking",
+  "value": {
+   "parking": "есть",
+   "text": "Есть парковка"
+  },
+  "confidence": 0.7,
+  "source": "web:talisman-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://talisman-sochi.ru/services/",
+   "quote": "Для вашего удобства на территории отеля располагается собственная парковка.",
+   "fetched_at": "2026-10-26T05:42:54+00:00",
+   "topic": "parking"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w700342790",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:talisman-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://talisman-sochi.ru/nomera/",
+   "quote": "В номере вас ждёт мягкая полутораспальная кровать, современная LED-панель, сплит-система и рабочий стол.",
+   "fetched_at": "2026-10-26T05:42:56+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w700342790",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:talisman-sochi.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://talisman-sochi.ru/nomera/",
+   "quote": "В ванной комнате - отдельная кабина с ливневым душем, также в номере небольшой, но приятный балкон.",
+   "fetched_at": "2026-10-26T05:42:56+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w765489866",
+  "scope": "hotel",
+  "characteristic": "web:ac",
+  "value": {
+   "ac": "есть",
+   "text": "Есть кондиционер"
+  },
+  "confidence": 0.6,
+  "source": "web:dveolivy.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dveolivy.ru/",
+   "quote": "чайник, мини-холодильник, кондиционер, телевизор со Smart TV",
+   "fetched_at": "2026-10-26T05:43:04+00:00",
+   "topic": "ac"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w765489866",
+  "scope": "hotel",
+  "characteristic": "web:wifi",
+  "value": {
+   "wifi": "бесплатно",
+   "text": "Бесплатный Wi-Fi"
+  },
+  "confidence": 0.6,
+  "source": "web:dveolivy.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dveolivy.ru/",
+   "quote": "лифт, бесплатный wi-fi, прачечная, гладильная доска с утюгом",
+   "fetched_at": "2026-10-26T05:43:04+00:00",
+   "topic": "wifi"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w765489866",
+  "scope": "hotel",
+  "characteristic": "web:balcony",
+  "value": {
+   "balcony": "в части номеров",
+   "text": "Балкон в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:dveolivy.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dveolivy.ru/",
+   "quote": "большой балкон с двумя выходами из номера —7 м2;",
+   "fetched_at": "2026-10-26T05:43:04+00:00",
+   "topic": "balcony"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w765489866",
+  "scope": "hotel",
+  "characteristic": "web:crib",
+  "value": {
+   "crib": "есть",
+   "preorder": "нужно",
+   "text": "Есть детская кроватка, по запросу заранее"
+  },
+  "confidence": 0.7,
+  "source": "web:dveolivy.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dveolivy.ru/",
+   "quote": "Предоставляем кроватку-манеж по предварительному запросу.",
+   "fetched_at": "2026-10-26T05:43:04+00:00",
+   "topic": "crib"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w765489866",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "walk_min": 5,
+   "text": "До моря 5 мин"
+  },
+  "confidence": 0.6,
+  "source": "web:dveolivy.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://dveolivy.ru/",
+   "quote": "5 минут до пляжа",
+   "fetched_at": "2026-10-26T05:43:04+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w914302324",
+  "scope": "hotel",
+  "characteristic": "web:beach_claim",
+  "value": {
+   "meters": 800,
+   "text": "До моря 800 м"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "800 метров до моря",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "beach_claim"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w914302324",
+  "scope": "hotel",
+  "characteristic": "web:kitchen",
+  "value": {
+   "kitchen": "в части номеров",
+   "text": "Кухня в части номеров"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "номера с кухнями",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "kitchen"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w914302324",
+  "scope": "hotel",
+  "characteristic": "web:pets",
+  "value": {
+   "dogs": "да",
+   "cats": "да",
+   "text": "Можно с питомцем"
+  },
+  "confidence": 0.7,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/",
+   "quote": "Можно с питомцами",
+   "fetched_at": "2026-10-26T05:42:10+00:00",
+   "topic": "pets"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w914302324",
+  "scope": "hotel",
+  "characteristic": "web:pool",
+  "value": {
+   "pool": "есть",
+   "heated": true,
+   "text": "Есть бассейн с подогревом"
+  },
+  "confidence": 0.7,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/servise",
+   "quote": "Семейный отель с подогреваемым бассейном, сауной и детской анимацией в центре Адлера.",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "pool"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ },
+ {
+  "hotel_id": "w914302324",
+  "scope": "hotel",
+  "characteristic": "web:sea_view",
+  "value": {
+   "rooms": "часть номеров",
+   "panoramic": false,
+   "text": "Есть номера с видом на море"
+  },
+  "confidence": 0.6,
+  "source": "web:mirror-hotel.ru",
+  "method_version": "web-rules@0.1",
+  "evidence": {
+   "url": "https://mirror-hotel.ru/servise",
+   "quote": "Апартаменты с роскошным видом на море.",
+   "fetched_at": "2026-10-26T05:42:16+00:00",
+   "topic": "sea_view"
+  },
+  "obtained_at": "2026-10-26",
+  "valid_until": "2027-01-24",
+  "status": "active"
+ }
+]

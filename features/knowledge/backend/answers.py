@@ -3,6 +3,7 @@
 Где ищем, по убыванию доверия:
 1. ответ отеля (база знаний, уровень отеля) — отель знает своё здание лучше любого расчёта;
 2. то, что система посчитала сама (факты: этажность, вид из окна, путь до пляжа, что рядом);
+2½. что отель пишет на своём сайте — с дословной цитатой и ссылкой (features/web_sources);
 3. общее знание выше: город → край → страна (налог, вода в море, тип пляжей).
 Ничего не нашли → status "unknown": интерфейс предлагает спросить у отеля. Ответ не придумываем.
 """
@@ -14,6 +15,7 @@ from core.textmatch import best, meaning_key
 from features.facts.backend import facts_for
 from features.hotels.backend import hotel
 from features.nearby.backend import specs as nearby_specs
+from features.web_sources.backend import answer as web_answer, ask as web_ask, topics_for as web_topics
 
 from .store import get, hotel_path, lookup
 
@@ -21,7 +23,7 @@ TOPICS = Path(__file__).resolve().parents[1] / "topics.json"
 SIDE = {"N": "север", "E": "восток", "S": "юг", "W": "запад"}
 MONTH_IN = ["", "январе", "феврале", "марте", "апреле", "мае", "июне", "июле", "августе", "сентябре",
             "октябре", "ноябре", "декабре"]
-LEVEL_NOTE = {"hotel": "Так ответил отель", "computed": "Посчитали сами", "city": "Общее для Сочи",
+LEVEL_NOTE = {"hotel": "Так ответил отель", "computed": "Посчитали сами", "web": "С сайта отеля", "city": "Общее для Сочи",
               "region": "Общее для Краснодарского края", "country": "Общее для России"}
 
 
@@ -108,6 +110,9 @@ def resolve(hotel_id: str, tid: str, ctx: dict) -> dict:
         a = COMPUTED[tid](h, facts_for(hotel_id), ctx)
         if a:
             return {**base, "status": "answered", "level": "computed", "note": LEVEL_NOTE["computed"], **a}
+    w = web_answer(hotel_id, tid)              # 2½. с сайта отеля
+    if w:
+        return {**base, "status": "answered", "level": "web", "note": LEVEL_NOTE["web"], **w}
     k = lookup(path, tid)                      # 3. общее знание выше
     if k:
         text = _swim_text(k, ctx) if tid == "swim" else k["text"]
@@ -136,8 +141,10 @@ def _near(hotel_id: str, sid: str) -> dict | None:
 def ask(hotel_id: str, text: str, ctx: dict) -> dict:
     """Вопрос гостя об отеле своими словами → ответы по найденным темам или «не знаем»."""
     found = [tid for tid, _ in best(text, topics())]
-    near = [sid for sid, _ in best(text, nearby_specs())] if not found else []
+    site = web_ask(hotel_id, text, quotes=False) if not found else None   # «есть ли бассейн» — тема сайта отеля
+    near = [sid for sid, _ in best(text, nearby_specs())] if not found and not site else []
     answers = [resolve(hotel_id, tid, ctx) for tid in found] + [a for a in (_near(hotel_id, s) for s in near) if a]
+    answers += [site] if site else []
     if not answers:
         # вопрос не из каталога, но отель на него уже отвечал (по смыслу фразы)
         note = get(hotel_path(hotel_id), "note:" + meaning_key(text))
@@ -146,6 +153,9 @@ def ask(hotel_id: str, text: str, ctx: dict) -> dict:
                 "topic": "note", "question": text.strip(), "icon": "question", "status": "answered", "level": "hotel",
                 "note": LEVEL_NOTE["hotel"], "text": note["text"], "value": note["value"], "source": "hotelier",
                 "confidence": note["confidence"], "obtained_at": note["obtained_at"], "can_ask_hotel": False}]}
+        w = web_ask(hotel_id, text)            # нет в каталоге — ищем на сайте отеля, ответ с цитатой
+        if w:
+            return {"status": "answered", "can_ask_hotel": False, "answers": [w]}
         return {"status": "no_topic", "text": "Этого мы пока не знаем :(", "question": text.strip(),
                 "can_ask_hotel": True, "answers": []}
     unknown = all(a["status"] == "unknown" for a in answers)
@@ -158,5 +168,6 @@ FAQ = ["sea_view", "beach", "swim", "floors", "checkin", "pets", "parking", "bre
 
 def faq(hotel_id: str, ctx: dict) -> list[dict]:
     """Частые вопросы для карточки отеля: сначала то, на что есть ответ."""
-    items = [resolve(hotel_id, tid, ctx) for tid in FAQ]
+    extra = [t for t in dict.fromkeys(web_topics(hotel_id)) if t not in FAQ and topic(t)]  # ещё ответы с сайта
+    items = [resolve(hotel_id, tid, ctx) for tid in FAQ + extra]
     return sorted(items, key=lambda a: a["status"] != "answered")

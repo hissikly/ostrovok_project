@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Icon from '@app/icons.jsx'
+import { SiteFacts, SITE_ROW } from '@features/web_sources/frontend/SiteQuote.jsx'
 
 const SIDE = { N: 'север', E: 'восток', S: 'юг', W: 'запад' }
 const ORDER = ['W', 'S', 'N', 'E']
@@ -138,8 +139,11 @@ function group(facts) {
   const near = facts.filter(f => f.characteristic.startsWith('near:') && f.value.meters != null)
     .sort((a, b) => a.value.walk_min - b.value.walk_min)
   if (near.length) rows.push({ key: 'near', icon: 'pin', title: 'Что рядом пешком', near: true, facts: near })
+  // с сайта отеля — одной строкой с цитатами; ответы на частые вопросы — в «Частых вопросах»
+  const site = facts.filter(f => f.characteristic.startsWith('web:') && SITE_ROW.includes(f.evidence?.topic))
+  if (site.length) rows.push({ key: 'site', icon: 'building', title: 'На сайте отеля пишут', site: true, facts: site })
   for (const f of facts.filter(f => !['sea_view', 'sunset_view', 'beach_distance', 'beach_route', 'noise'].includes(f.characteristic)
-    && !f.characteristic.startsWith('near:'))) {
+    && !f.characteristic.startsWith('near:') && !f.characteristic.startsWith('web:'))) {
     rows.push({ key: f.id, icon: 'window', title: f.value?.text || f.characteristic, text: '', facts: [f] })
   }
   return rows
@@ -158,12 +162,13 @@ function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
       <div style={{ flex: 1 }}>
         <div className="t">{r.title}</div>
         {r.text && <div className="s">{r.text}</div>}
+        {r.site && <SiteFacts facts={r.facts} />}
         {r.near && <NearList facts={r.facts} meta={nearMeta} onPlace={onPlace} activePlace={activePlace} />}
         {!r.near && lines && <div className="sides">{lines.map(([side, v]) =>
           <div key={side}><span>{side[0].toUpperCase() + side.slice(1)}</span><b className={v === 'не видно' || v.startsWith('шумно') || v.startsWith('очень') ? 'no' : ''}>{v}</b></div>)}</div>}
         {r.beach && onBeach && <div className={`more-link ${beachOn ? 'on' : ''}`}
           onClick={e => { e.stopPropagation(); onBeach() }}>Показать путь на карте</div>}
-        {open && <div className="how">{HOW[f0.source] || f0.source}{NO_SURE.includes(f0.source) ? '' : ` ${sure}`}</div>}
+        {open && !r.site && <div className="how">{HOW[f0.source] || f0.source}{NO_SURE.includes(f0.source) ? '' : ` ${sure}`}</div>}
       </div>
     </div>
   )

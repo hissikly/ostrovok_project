@@ -14,11 +14,12 @@ from features.knowledge.backend.router import router as knowledge_router
 from features.okno.backend.router import router as okno_router
 from features.nearby.backend.router import router as nearby_router
 from features.search.backend.router import router as search_router
+from features.web_sources.backend.router import router as web_router
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 app = FastAPI(title="О!кно", version="0.1.0")
 
-for r in (hotels_router, facts_router, okno_router, search_router, nearby_router, routes_router, knowledge_router, hotelier_router):
+for r in (hotels_router, facts_router, okno_router, search_router, nearby_router, routes_router, knowledge_router, hotelier_router, web_router):
     app.include_router(r)
 
 
