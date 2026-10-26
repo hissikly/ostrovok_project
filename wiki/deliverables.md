@@ -1,7 +1,7 @@
 ---
 title: Что должно быть в итоговом решении
-updated: 2026-10-25
-sources: [raw/organizers/track2.md, raw/organizers/tech_rules.md, raw/chat/2026-10-24-evening-track2.md, raw/chat/2026-10-25-track2-log-23-25.md]
+updated: 2026-10-27
+sources: [raw/organizers/track2.md, raw/organizers/tech_rules.md, raw/chat/2026-10-24-evening-track2.md, raw/chat/2026-10-25-track2-log-23-25.md, raw/chat/2026-10-26-track2-log-25-26.md]
 status: draft
 ---
 
@@ -33,6 +33,7 @@ status: draft
 - [ ] `README.md` по шаблону: что делает · ссылка на видео · быстрый старт · ресурсы и переменные · данные/сидирование · маршруты
 - [ ] **Видео-скринкаст** 2–3 мин, открывается в инкогнито
 - [ ] Демо-данные в репозитории + описание, **как они получены** (и скрипт, который это воспроизводит)
+- [ ] **Проверка зависимостей на безопасность** — иначе риск дисквалификации (Timur, 25.10): `pip-audit -r app/requirements.txt`, `npm audit --omit=dev`, базовые образы с фиксированными версиями; в README раздел «Сторонние компоненты»: список (FastAPI, uvicorn, pymorphy3, PyYAML, React, Vite, MapLibre, тайлы OpenFreeMap, данные OSM/Copernicus), лицензии, дата и результат проверки
 - [ ] (опц.) ссылка на развёрнутый сервис, Makefile
 
 ## B. Обязательный результат трека

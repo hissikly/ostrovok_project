@@ -1,7 +1,7 @@
 ---
 title: Требования трека и правила сдачи
-updated: 2026-10-24
-sources: [raw/organizers/track2.md, raw/organizers/tech_rules.md, raw/organizers/checkpoints.md, raw/chat/2026-10-24-chats.md, raw/chat/2026-10-24-evening-track2.md, raw/slides/track2-slide.png]
+updated: 2026-10-27
+sources: [raw/organizers/track2.md, raw/organizers/tech_rules.md, raw/organizers/checkpoints.md, raw/chat/2026-10-24-chats.md, raw/chat/2026-10-24-evening-track2.md, raw/slides/track2-slide.png, raw/chat/2026-10-26-track2-log-25-26.md]
 status: agreed
 ---
 
@@ -39,12 +39,14 @@ status: agreed
 - **Видео-скринкаст обязателен** (доступен в инкогнито).
 - README по шаблону: описание, ссылка на видео, быстрый старт, ресурсы/переменные, сидирование, маршруты (`/`, `/health`).
 - Допустимо дополнительно: ссылка на развёрнутый сервис / доступ к серверу.
+- **Open source (MIT и т. п.) можно, только проверенный на безопасность; небезопасное решение — дисквалификация** (Timur Firsakov, 25.10 19:29, [источник](../raw/chat/2026-10-26-track2-log-25-26.md)). Что делаем — [deliverables](deliverables.md#a-формальная-сдача-из-правил-по-технике).
+- CI (docker build + линтер) — только «рекомендуется»; на 26.10 GitHub Actions в орге, похоже, не работают (участники спрашивают, отключены ли раннеры, ответа нет) — на CI не рассчитываем.
 
 ## Сроки
 | Когда | Что |
 |---|---|
 | 25.10 14:00 | Q&A с экспертами |
-| 26.10 | Ориентировочно ответ организаторов про ключи LLM |
+| 26.10 | ~~Ответ про ключи LLM~~ — на 26.10 20:41 ответа нет («еще нет», Timur 12:34); ждём на Q&A 27.10 |
 | 27.10 14:00 | Q&A с экспертами |
 | **29.10 10:00 МСК** | Сдача: тег `submission` на последнем коммите основной ветки |
 | 29.10 после 19:00 | Финалисты |
