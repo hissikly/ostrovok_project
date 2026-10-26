@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '@app/api.js'
 import Icon from '@app/icons.jsx'
-import { HOW, sureWord } from '@features/facts/frontend/FactList.jsx'
+import { HOW, sureWord, FoldButton } from '@features/facts/frontend/FactList.jsx'
 import { SiteQuote } from '@features/web_sources/frontend/SiteQuote.jsx'
 import { outingColor } from './DayRoute.jsx'
 import './day.css'
@@ -64,6 +64,8 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
   const [kids, setKids] = useState(false)
   const [d, setD] = useState(null)
   const [skip, setSkip] = useState(SKIP0)
+  const [folded, setFolded] = useState(() => { try { return localStorage.getItem('fold:day') === '1' } catch { return false } })
+  const fold = () => { try { localStorage.setItem('fold:day', folded ? '0' : '1') } catch { /* не помним */ } setFolded(!folded) }
 
   useEffect(() => { setD(null); setSkip(SKIP0) }, [hotelId])  // не показываем день прошлого отеля, пока грузится новый
 
@@ -98,7 +100,7 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
       <div className="day-head">
         <h2>Ваш день здесь</h2>
         <div className="pills"><button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
-          <Icon name="child" size={16} />С ребёнком</button></div>
+          <Icon name="child" size={16} />С ребёнком</button><FoldButton folded={folded} onClick={fold} /></div>
       </div>
       {stops.length > 0 && (
         <div className={`day-route ${routeShown ? 'on' : ''}`}>
@@ -110,8 +112,8 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
             ? <button onClick={() => onRoute?.(null)}>Скрыть с карты</button>
             : <button onClick={showRoute}>На карте</button>)}
         </div>)}
-      <ol className="day-line">{d.scenes.map(s => <Scene key={(s.kind || '') + s.time + s.title} s={s}
-        stop={s.stop && { on: !skip.includes(s.stop.id), n: s.visit?.n, outing: s.visit?.outing, onToggle: () => toggleStop(s.stop.id) }} />)}</ol>
+      {!folded && <ol className="day-line">{d.scenes.map(s => <Scene key={(s.kind || '') + s.time + s.title} s={s}
+        stop={s.stop && { on: !skip.includes(s.stop.id), n: s.visit?.n, outing: s.visit?.outing, onToggle: () => toggleStop(s.stop.id) }} />)}</ol>}
     </div>
   )
 }

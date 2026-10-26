@@ -31,7 +31,8 @@ function Item({ it, onPlace, activePlace }) {
   )
 }
 
-export default function AgentFacts({ hotelId, onPlace, activePlace }) {
+// inline — строками внутри «Что важно знать» (без своего блока, заголовка и пояснения)
+export default function AgentFacts({ hotelId, onPlace, activePlace, inline }) {
   const [items, setItems] = useState([])
   useEffect(() => {
     setItems([])
@@ -39,6 +40,7 @@ export default function AgentFacts({ hotelId, onPlace, activePlace }) {
   }, [hotelId])
   if (!items.length) return null
   const sorted = [...items].sort((a, b) => !!b.fact - !!a.fact)
+  if (inline) return sorted.map(it => <Item key={it.id} it={it} onPlace={onPlace} activePlace={activePlace} />)
   return (
     <div className="block">
       <h2>Что ещё узнали</h2>
