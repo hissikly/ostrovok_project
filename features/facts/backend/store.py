@@ -21,6 +21,11 @@ def register_provider(fn) -> None:
     _index.cache_clear()
 
 
+def refresh() -> None:
+    """Пересобрать индекс: провайдер посчитал новые факты (например, агент прогнал новую характеристику)."""
+    _index.cache_clear()
+
+
 @lru_cache(maxsize=1)
 def _index():
     by_hotel = defaultdict(list)

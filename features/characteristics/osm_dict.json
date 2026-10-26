@@ -1,0 +1,812 @@
+[
+ {
+  "id": "cycleway",
+  "kind": "Велодорожка",
+  "osm": [
+   "highway=cycleway",
+   "bicycle=designated",
+   "cycleway=lane"
+  ],
+  "synonyms": [
+   "велодорожка",
+   "велодорожки",
+   "велосипедная дорожка",
+   "велодорога",
+   "покататься на велосипеде",
+   "кататься на велосипеде",
+   "велосипед",
+   "самокат"
+  ],
+  "icon": "bike",
+  "group": "Отдых",
+  "match_min": 7,
+  "partial_min": 15
+ },
+ {
+  "id": "promenade",
+  "kind": "Пешеходная улица или набережная",
+  "osm": [
+   "highway=pedestrian"
+  ],
+  "synonyms": [
+   "набережная",
+   "пешеходная улица",
+   "прогулочная улица",
+   "променад",
+   "гулять вечером"
+  ],
+  "icon": "pin",
+  "group": "Отдых",
+  "match_min": 7,
+  "partial_min": 15
+ },
+ {
+  "id": "construction",
+  "kind": "Стройка",
+  "osm": [
+   "landuse=construction",
+   "building=construction"
+  ],
+  "synonyms": [
+   "стройка",
+   "стройки",
+   "строительство",
+   "стройплощадка",
+   "строят",
+   "кран"
+  ],
+  "icon": "building",
+  "group": "Прочее",
+  "match_min": 3,
+  "partial_min": 7,
+  "far_title": "Стройки рядом нет"
+ },
+ {
+  "id": "industrial",
+  "kind": "Промзона",
+  "osm": [
+   "landuse=industrial"
+  ],
+  "synonyms": [
+   "промзона",
+   "завод",
+   "промышленная зона",
+   "склады"
+  ],
+  "icon": "building",
+  "group": "Прочее",
+  "match_min": 3,
+  "partial_min": 7,
+  "far_title": "Промзоны рядом нет"
+ },
+ {
+  "id": "cemetery",
+  "kind": "Кладбище",
+  "osm": [
+   "landuse=cemetery",
+   "amenity=grave_yard"
+  ],
+  "synonyms": [
+   "кладбище"
+  ],
+  "icon": "cross",
+  "group": "Прочее",
+  "match_min": 3,
+  "partial_min": 7,
+  "far_title": "Кладбища рядом нет"
+ },
+ {
+  "id": "power_line",
+  "kind": "Линия электропередачи",
+  "osm": [
+   "power=line",
+   "power=substation"
+  ],
+  "synonyms": [
+   "лэп",
+   "линия электропередачи",
+   "высоковольтная линия",
+   "подстанция"
+  ],
+  "icon": "bolt",
+  "group": "Прочее",
+  "match_min": 2,
+  "partial_min": 5,
+  "far_title": "ЛЭП рядом нет"
+ },
+ {
+  "id": "railway_line",
+  "kind": "Железная дорога",
+  "osm": [
+   "railway=rail"
+  ],
+  "synonyms": [
+   "железная дорога",
+   "железнодорожные пути",
+   "поезда",
+   "электрички",
+   "рельсы"
+  ],
+  "icon": "train",
+  "group": "Прочее",
+  "match_min": 3,
+  "partial_min": 7,
+  "far_title": "Железной дороги рядом нет"
+ },
+ {
+  "id": "landfill",
+  "kind": "Свалка",
+  "osm": [
+   "landuse=landfill"
+  ],
+  "synonyms": [
+   "свалка",
+   "мусорный полигон"
+  ],
+  "icon": "x",
+  "group": "Прочее",
+  "match_min": 5,
+  "partial_min": 10,
+  "far_title": "Свалки рядом нет"
+ },
+ {
+  "id": "military",
+  "kind": "Военная часть",
+  "osm": [
+   "landuse=military"
+  ],
+  "synonyms": [
+   "военная часть",
+   "воинская часть",
+   "военный объект"
+  ],
+  "icon": "x",
+  "group": "Прочее",
+  "match_min": 3,
+  "partial_min": 7,
+  "far_title": "Военных объектов рядом нет"
+ },
+ {
+  "id": "sauna",
+  "kind": "Баня или сауна",
+  "osm": [
+   "leisure=sauna",
+   "amenity=sauna",
+   "amenity=public_bath"
+  ],
+  "synonyms": [
+   "баня",
+   "сауна",
+   "хаммам",
+   "попариться"
+  ],
+  "icon": "health",
+  "group": "Отдых",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "laundry",
+  "kind": "Прачечная",
+  "osm": [
+   "shop=laundry",
+   "shop=dry_cleaning"
+  ],
+  "synonyms": [
+   "прачечная",
+   "постирать",
+   "химчистка",
+   "стирка"
+  ],
+  "icon": "box",
+  "group": "Прочее",
+  "match_min": 7,
+  "partial_min": 15
+ },
+ {
+  "id": "coworking",
+  "kind": "Коворкинг",
+  "osm": [
+   "amenity=coworking_space",
+   "office=coworking"
+  ],
+  "synonyms": [
+   "коворкинг",
+   "где поработать",
+   "рабочее место"
+  ],
+  "icon": "building",
+  "group": "Прочее",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "hookah",
+  "kind": "Кальянная",
+  "osm": [
+   "amenity=hookah_lounge"
+  ],
+  "synonyms": [
+   "кальян",
+   "кальянная"
+  ],
+  "icon": "glass",
+  "group": "Ночью",
+  "match_min": 7,
+  "partial_min": 15
+ },
+ {
+  "id": "karaoke",
+  "kind": "Караоке",
+  "osm": [
+   "amenity=karaoke_box",
+   "leisure=karaoke"
+  ],
+  "synonyms": [
+   "караоке",
+   "попеть"
+  ],
+  "icon": "volume",
+  "group": "Ночью",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "tennis",
+  "kind": "Теннисный корт",
+  "osm": [
+   "sport=tennis"
+  ],
+  "synonyms": [
+   "теннис",
+   "теннисный корт",
+   "корт"
+  ],
+  "icon": "dumbbell",
+  "group": "Отдых",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "football",
+  "kind": "Футбольное поле",
+  "osm": [
+   "sport=soccer"
+  ],
+  "synonyms": [
+   "футбол",
+   "футбольное поле",
+   "погонять мяч"
+  ],
+  "icon": "dumbbell",
+  "group": "Отдых",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "basketball",
+  "kind": "Баскетбольная площадка",
+  "osm": [
+   "sport=basketball"
+  ],
+  "synonyms": [
+   "баскетбол",
+   "баскетбольная площадка"
+  ],
+  "icon": "dumbbell",
+  "group": "Отдых",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "volleyball",
+  "kind": "Волейбольная площадка",
+  "osm": [
+   "sport=volleyball",
+   "sport=beachvolleyball"
+  ],
+  "synonyms": [
+   "волейбол",
+   "пляжный волейбол"
+  ],
+  "icon": "dumbbell",
+  "group": "Отдых",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "yoga",
+  "kind": "Йога",
+  "osm": [
+   "sport=yoga"
+  ],
+  "synonyms": [
+   "йога",
+   "йоги",
+   "заняться йогой"
+  ],
+  "icon": "dumbbell",
+  "group": "Отдых",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "climbing",
+  "kind": "Скалодром",
+  "osm": [
+   "sport=climbing"
+  ],
+  "synonyms": [
+   "скалодром",
+   "скалолазание"
+  ],
+  "icon": "mountain",
+  "group": "Отдых",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "diving",
+  "kind": "Дайвинг",
+  "osm": [
+   "shop=scuba_diving",
+   "sport=scuba_diving"
+  ],
+  "synonyms": [
+   "дайвинг",
+   "дайв центр",
+   "понырять"
+  ],
+  "icon": "waves",
+  "group": "Отдых",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "surfing",
+  "kind": "Сёрфинг",
+  "osm": [
+   "sport=surfing",
+   "sport=sup"
+  ],
+  "synonyms": [
+   "серфинг",
+   "сап",
+   "сапборд",
+   "сап-борд"
+  ],
+  "icon": "waves",
+  "group": "Отдых",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "boat",
+  "kind": "Прокат лодок и яхт",
+  "osm": [
+   "amenity=boat_rental",
+   "leisure=marina"
+  ],
+  "synonyms": [
+   "яхта",
+   "яхты",
+   "лодка",
+   "катер",
+   "прокат лодок",
+   "марина",
+   "яхт клуб"
+  ],
+  "icon": "waves",
+  "group": "Отдых",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "pier",
+  "kind": "Пирс",
+  "osm": [
+   "man_made=pier"
+  ],
+  "synonyms": [
+   "пирс",
+   "причал"
+  ],
+  "icon": "waves",
+  "group": "Отдых",
+  "match_min": 7,
+  "partial_min": 15
+ },
+ {
+  "id": "cable_car",
+  "kind": "Канатная дорога",
+  "osm": [
+   "aerialway=cable_car",
+   "aerialway=gondola",
+   "aerialway=chair_lift"
+  ],
+  "synonyms": [
+   "канатная дорога",
+   "канатка",
+   "фуникулер",
+   "подъемник"
+  ],
+  "icon": "mountain",
+  "group": "Отдых",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "waterfall",
+  "kind": "Водопад",
+  "osm": [
+   "waterway=waterfall",
+   "natural=waterfall"
+  ],
+  "synonyms": [
+   "водопад"
+  ],
+  "icon": "waves",
+  "group": "Отдых",
+  "match_min": 20,
+  "partial_min": 40
+ },
+ {
+  "id": "river",
+  "kind": "Река",
+  "osm": [
+   "waterway=river"
+  ],
+  "synonyms": [
+   "река",
+   "речка",
+   "у реки"
+  ],
+  "icon": "waves",
+  "group": "Отдых",
+  "match_min": 7,
+  "partial_min": 15
+ },
+ {
+  "id": "forest",
+  "kind": "Лес",
+  "osm": [
+   "natural=wood",
+   "landuse=forest"
+  ],
+  "synonyms": [
+   "лес",
+   "в лесу",
+   "роща",
+   "деревья",
+   "зелень"
+  ],
+  "icon": "tree",
+  "group": "Отдых",
+  "match_min": 5,
+  "partial_min": 10
+ },
+ {
+  "id": "bowling",
+  "kind": "Боулинг",
+  "osm": [
+   "leisure=bowling_alley"
+  ],
+  "synonyms": [
+   "боулинг"
+  ],
+  "icon": "star",
+  "group": "Отдых",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "library",
+  "kind": "Библиотека",
+  "osm": [
+   "amenity=library"
+  ],
+  "synonyms": [
+   "библиотека",
+   "почитать"
+  ],
+  "icon": "star",
+  "group": "Прочее",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "school",
+  "kind": "Школа",
+  "osm": [
+   "amenity=school"
+  ],
+  "synonyms": [
+   "школа"
+  ],
+  "icon": "child",
+  "group": "Дети",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "mosque",
+  "kind": "Мечеть",
+  "osm": [
+   "religion=muslim"
+  ],
+  "synonyms": [
+   "мечеть",
+   "намаз"
+  ],
+  "icon": "church",
+  "group": "Прочее",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "synagogue",
+  "kind": "Синагога",
+  "osm": [
+   "religion=jewish"
+  ],
+  "synonyms": [
+   "синагога"
+  ],
+  "icon": "church",
+  "group": "Прочее",
+  "match_min": 20,
+  "partial_min": 40
+ },
+ {
+  "id": "taxi",
+  "kind": "Стоянка такси",
+  "osm": [
+   "amenity=taxi"
+  ],
+  "synonyms": [
+   "такси",
+   "стоянка такси"
+  ],
+  "icon": "car",
+  "group": "Транспорт",
+  "match_min": 5,
+  "partial_min": 10
+ },
+ {
+  "id": "car_wash",
+  "kind": "Автомойка",
+  "osm": [
+   "amenity=car_wash"
+  ],
+  "synonyms": [
+   "автомойка",
+   "помыть машину",
+   "мойка"
+  ],
+  "icon": "car",
+  "group": "Транспорт",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "car_repair",
+  "kind": "Автосервис",
+  "osm": [
+   "shop=car_repair",
+   "shop=tyres"
+  ],
+  "synonyms": [
+   "автосервис",
+   "шиномонтаж",
+   "починить машину"
+  ],
+  "icon": "car",
+  "group": "Транспорт",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "bike_parking",
+  "kind": "Велопарковка",
+  "osm": [
+   "amenity=bicycle_parking"
+  ],
+  "synonyms": [
+   "велопарковка",
+   "оставить велосипед"
+  ],
+  "icon": "bike",
+  "group": "Транспорт",
+  "match_min": 5,
+  "partial_min": 10
+ },
+ {
+  "id": "scooter",
+  "kind": "Прокат самокатов",
+  "osm": [
+   "amenity=kick-scooter_rental"
+  ],
+  "synonyms": [
+   "прокат самокатов",
+   "электросамокат",
+   "самокаты"
+  ],
+  "icon": "bike",
+  "group": "Транспорт",
+  "match_min": 5,
+  "partial_min": 10
+ },
+ {
+  "id": "exchange",
+  "kind": "Обмен валюты",
+  "osm": [
+   "amenity=bureau_de_change"
+  ],
+  "synonyms": [
+   "обмен валюты",
+   "обменник",
+   "поменять деньги"
+  ],
+  "icon": "card",
+  "group": "Магазины",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "alcohol",
+  "kind": "Алкомаркет",
+  "osm": [
+   "shop=alcohol",
+   "shop=wine",
+   "shop=beverages"
+  ],
+  "synonyms": [
+   "алкоголь",
+   "вино",
+   "винный",
+   "алкомаркет",
+   "красное и белое"
+  ],
+  "icon": "glass",
+  "group": "Магазины",
+  "match_min": 7,
+  "partial_min": 15
+ },
+ {
+  "id": "souvenir",
+  "kind": "Сувениры",
+  "osm": [
+   "shop=gift",
+   "shop=souvenir"
+  ],
+  "synonyms": [
+   "сувениры",
+   "сувенир",
+   "подарки"
+  ],
+  "icon": "bag",
+  "group": "Магазины",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "clothes",
+  "kind": "Одежда",
+  "osm": [
+   "shop=clothes",
+   "shop=shoes"
+  ],
+  "synonyms": [
+   "одежда",
+   "обувь",
+   "купить купальник",
+   "купальник"
+  ],
+  "icon": "bag",
+  "group": "Магазины",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "beauty",
+  "kind": "Салон красоты",
+  "osm": [
+   "shop=beauty",
+   "shop=hairdresser",
+   "shop=massage"
+  ],
+  "synonyms": [
+   "салон красоты",
+   "парикмахерская",
+   "маникюр",
+   "массаж",
+   "стрижка"
+  ],
+  "icon": "star",
+  "group": "Прочее",
+  "match_min": 10,
+  "partial_min": 20
+ },
+ {
+  "id": "police",
+  "kind": "Полиция",
+  "osm": [
+   "amenity=police"
+  ],
+  "synonyms": [
+   "полиция",
+   "отделение полиции"
+  ],
+  "icon": "landmark",
+  "group": "Прочее",
+  "match_min": 15,
+  "partial_min": 30
+ },
+ {
+  "id": "toilets",
+  "kind": "Общественный туалет",
+  "osm": [
+   "amenity=toilets"
+  ],
+  "synonyms": [
+   "туалет",
+   "общественный туалет"
+  ],
+  "icon": "pin",
+  "group": "Прочее",
+  "match_min": 5,
+  "partial_min": 10
+ },
+ {
+  "id": "water",
+  "kind": "Питьевая вода",
+  "osm": [
+   "amenity=drinking_water",
+   "natural=spring"
+  ],
+  "synonyms": [
+   "питьевая вода",
+   "фонтанчик",
+   "родник"
+  ],
+  "icon": "waves",
+  "group": "Прочее",
+  "match_min": 5,
+  "partial_min": 10
+ },
+ {
+  "id": "steps",
+  "kind": "Лестницы",
+  "osm": [
+   "highway=steps"
+  ],
+  "synonyms": [
+   "лестница",
+   "лестницы",
+   "ступеньки"
+  ],
+  "icon": "mountain",
+  "group": "Прочее",
+  "match_min": 2,
+  "partial_min": 5,
+  "far_title": "Лестниц рядом нет"
+ },
+ {
+  "id": "nightclub",
+  "kind": "Ночной клуб",
+  "osm": [
+   "amenity=nightclub"
+  ],
+  "synonyms": [
+   "ночной клуб",
+   "клуб",
+   "дискотека",
+   "потусить"
+  ],
+  "icon": "moon",
+  "group": "Ночью",
+  "match_min": 10,
+  "partial_min": 20,
+  "far_title": "Ночного клуба рядом нет"
+ }
+]

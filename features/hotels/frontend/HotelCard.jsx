@@ -4,6 +4,7 @@ import Icon from '@app/icons.jsx'
 import FactList from '@features/facts/frontend/FactList.jsx'
 import Faq from '@features/knowledge/frontend/Faq.jsx'
 import WindowPanel from '@features/okno/frontend/WindowPanel.jsx'
+import AgentFacts from '@features/characteristics/frontend/AgentFacts.jsx'
 
 function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
@@ -48,8 +49,9 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
         <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>
       </div>
       <WindowPanel hotelId={id} onCone={onCone} />
-      <FactList facts={facts.filter(f => f.characteristic !== 'elevation')} activePlace={places?.spec}
+      <FactList facts={facts.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta} />
+      <AgentFacts hotelId={id} onPlace={onPlace} activePlace={places?.spec} />
       <Faq hotelId={id} month={month} />
     </div>
   )

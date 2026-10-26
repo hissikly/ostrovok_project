@@ -1,0 +1,13 @@
+# Тишина ночью: features/noise, источники шума по карте и стороны здания
+id: noise
+title: Тихо ночью
+question: Будет ли тихо ночью?
+kind: computed
+icon: mute
+plan:
+  - tool: noise_model
+    params: {characteristic: noise}
+  - tool: ask_hotelier
+    params: {question: "Слышно ли в номерах улицу ночью? С какой стороны тише?"}
+min_confidence: 0.5
+ttl_days: 180
