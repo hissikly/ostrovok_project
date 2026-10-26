@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import Faq from '@features/knowledge/frontend/Faq.jsx'
+import ConflictsPanel from '@features/conflicts/frontend/ConflictsPanel.jsx'
 
 // Раздел Экстранета Островка «Что о вас знают гости» (макет — mockups/hotelier.html)
 const NAV = [['calendar', 'Бронирования'], ['card', 'Цены и наличие'], ['building', 'Номера'],
@@ -137,6 +138,7 @@ export default function Extranet({ hotelId, hotels, onHotel, onExit }) {
                 <div className="ext-stat"><b>{data.questions.length}</b><span>{plural(data.questions.length, 'вопрос', 'вопроса', 'вопросов')} от гостей и от нас</span></div>
                 <div className="ext-stat"><b>{data.known.length}</b><span>{plural(data.known.length, 'факт', 'факта', 'фактов')} мы узнали сами</span></div>
               </div>
+              <ConflictsPanel key={`${hotelId}-${tick}`} hotelId={hotelId} onDone={refresh} />
               <section className="block">
                 <h2>Вопросы от гостей</h2>
                 {data.questions.length

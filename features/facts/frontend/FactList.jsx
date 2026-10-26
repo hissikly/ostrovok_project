@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Icon from '@app/icons.jsx'
+import { ConflictNote, ROW_TOPIC, useConflicts } from '@features/conflicts/frontend/ConflictNote.jsx'
 
 const SIDE = { N: 'север', E: 'восток', S: 'юг', W: 'запад' }
 const ORDER = ['W', 'S', 'N', 'E']
@@ -145,7 +146,7 @@ function group(facts) {
   return rows
 }
 
-function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
+function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta, conflict }) {
   const [open, setOpen] = useState(false)
   const lines = r.lines
   const c = Math.min(...r.facts.map(f => f.confidence))
@@ -164,6 +165,7 @@ function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
         {r.beach && onBeach && <div className={`more-link ${beachOn ? 'on' : ''}`}
           onClick={e => { e.stopPropagation(); onBeach() }}>Показать путь на карте</div>}
         {open && <div className="how">{HOW[f0.source] || f0.source}{NO_SURE.includes(f0.source) ? '' : ` ${sure}`}</div>}
+        <ConflictNote c={conflict} compact />
       </div>
     </div>
   )
@@ -171,12 +173,14 @@ function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
 
 export default function FactList({ facts, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
   const rows = group(facts)
+  const conflicts = useConflicts(facts[0]?.hotel_id)
   if (!rows.length) return null
   return (
     <div className="block">
       <h2>Что важно знать</h2>
       <p className="lead">Этого нет в описании отеля, мы проверили сами.</p>
-      {rows.map(r => <Row key={r.key} r={r} onPlace={onPlace} activePlace={activePlace} onBeach={onBeach} beachOn={beachOn} nearMeta={nearMeta} />)}
+      {rows.map(r => <Row key={r.key} r={r} onPlace={onPlace} activePlace={activePlace} onBeach={onBeach} beachOn={beachOn}
+        nearMeta={nearMeta} conflict={conflicts[ROW_TOPIC[r.key]]} />)}
     </div>
   )
 }

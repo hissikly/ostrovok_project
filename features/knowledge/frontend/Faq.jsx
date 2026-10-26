@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
+import { ConflictNote } from '@features/conflicts/frontend/ConflictNote.jsx'
 
 const ASK_HINT = 'Обычно отвечают за 1–3 дня'
 
@@ -32,8 +33,11 @@ function Answer({ a, hotelId, asked, onAsked }) {
   return (
     <div className="faq-row" onClick={() => setOpen(!open)}>
       <div className="fq">{a.question}</div>
-      <div className="fa">{a.text}</div>
-      {open && <div className="faq-note">{a.note}</div>}
+      {a.conflict?.status === 'open'
+        ? <ConflictNote c={a.conflict} />
+        : <div className="fa">{a.text}</div>}
+      {a.conflict?.status === 'explained' && <ConflictNote c={a.conflict} />}
+      {open && a.conflict?.status !== 'open' && <div className="faq-note">{a.note}</div>}
     </div>
   )
 }

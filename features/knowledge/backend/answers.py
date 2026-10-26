@@ -1,7 +1,8 @@
 """Ответ на вопрос гостя: понять тему → найти ответ → честно сказать «не знаем».
 
 Где ищем, по убыванию доверия:
-1. ответ отеля (база знаний, уровень отеля) — отель знает своё здание лучше любого расчёта;
+1. ответ отеля (база знаний, уровень отеля); если он расходится с расчётом — показываем обе версии
+   («мнения расходятся», features/conflicts), пока отель не поправит ответ или не объяснит его;
 2. то, что система посчитала сама (факты: этажность, вид из окна, путь до пляжа, что рядом);
 3. общее знание выше: город → край → страна (налог, вода в море, тип пляжей).
 Ничего не нашли → status "unknown": интерфейс предлагает спросить у отеля. Ответ не придумываем.
@@ -11,6 +12,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from core.textmatch import best, meaning_key
+from features.conflicts.backend import check as check_conflict
 from features.facts.backend import facts_for
 from features.hotels.backend import hotel
 from features.nearby.backend import specs as nearby_specs
@@ -99,10 +101,20 @@ def resolve(hotel_id: str, tid: str, ctx: dict) -> dict:
     base = {"topic": tid, "question": t["question"], "icon": t["icon"], "can_ask_hotel": bool(t.get("ask_hotel"))}
     own = get(path, tid)                       # 1. ответ отеля
     if own:
-        return {**base, "status": "answered", "level": "hotel",
-                "note": LEVEL_NOTE["hotel"] + (" (демо)" if (own.get("evidence") or {}).get("demo") else ""), "text": own["text"],
-                "value": own["value"], "source": own["source"], "confidence": own["confidence"],
-                "obtained_at": own["obtained_at"]}
+        demo = " (демо)" if (own.get("evidence") or {}).get("demo") else ""
+        out = {**base, "status": "answered", "level": "hotel", "note": LEVEL_NOTE["hotel"] + demo, "text": own["text"],
+               "value": own["value"], "source": own["source"], "confidence": own["confidence"],
+               "obtained_at": own["obtained_at"]}
+        # ответ отеля сверяем с расчётом: расходятся — гость видит обе версии, пока отель не объяснит
+        comp = COMPUTED[tid](hotel(hotel_id), facts_for(hotel_id), ctx) if tid in COMPUTED else None
+        c = check_conflict(tid, own, comp)
+        if c:
+            explained = (own.get("evidence") or {}).get("explanation")
+            out["conflict"] = {**c, "status": "explained" if explained else "open", "explanation": explained}
+            if not explained:
+                out["note"] = "Мнения расходятся — уточняем у отеля" + demo
+                out["confidence"] = min(own["confidence"], comp.get("confidence") or 1)
+        return out
     if tid in COMPUTED:                        # 2. посчитали сами
         h = hotel(hotel_id)
         a = COMPUTED[tid](h, facts_for(hotel_id), ctx)
