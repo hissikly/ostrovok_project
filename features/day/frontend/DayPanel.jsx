@@ -38,11 +38,11 @@ function Scene({ s, stop, pin }) {
   return (
     <li className={`day-scene ${walk ? 'day-walk' : ''} ${s.good ? '' : 'warn'} ${stop && !stop.on ? 'off' : ''} ${s.interest === 'surprise' ? 'surprise' : ''}`} onClick={toggle}
       tabIndex={0} aria-expanded={open} onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggle())}>
-      <time>{s.time}{s.visit && <small>до {s.visit.until}</small>}</time>
+      <time>{s.time}</time>
       {walk ? <span className="day-dot" style={{ background: outingColor(s.outing) }} /> : <span className="day-dot"><Icon name={s.icon} size={18} /></span>}
       <div className="day-body">
         {s.interest_title && !walk && <span className="trip-for">{s.interest_title}</span>}
-        <b>{s.title}</b>
+        <b>{s.title}{s.visit && !walk && <em className="day-until">до {s.visit.until}</em>}</b>
         {s.note && <span>{s.note}</span>}
         {open && s.facts.length > 0 && <How facts={s.facts} />}
       </div>
@@ -128,7 +128,7 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
       {!folded && <ol key={trip ? `v${variant}` : 'day'} className={`day-line ${trip ? 'trip-fade' : ''}`}>{d.scenes.map(s => <Scene key={(s.kind || '') + s.time + s.title} s={s}
         stop={s.stop && { on: !skip.includes(s.stop.id), n: s.visit?.n, outing: s.visit?.outing, onToggle: () => toggleStop(s.stop.id) }}
         pin={s.alts > 1 && s.kind !== 'walk' && { on: pins[s.interest] === s.place, onClick: () => togglePin(s) }} />)}</ol>}
-      {!folded && d.plan && <TripFooter plan={d.plan} pinned={Object.keys(pins).length > 0} onAgain={() => setVariant(variant + 1)} />}
+      {!folded && d.plan && <TripFooter plan={d.plan} onAgain={() => setVariant(variant + 1)} />}
     </div>
   )
 }

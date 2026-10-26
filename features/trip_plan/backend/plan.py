@@ -239,7 +239,7 @@ def plan(h, facts, month, interests, variant=0, pins=None):
             trace.append({"kind": "none", "text": f"{it['title']}: {it['none']} в {LIMIT} минутах пешком на карте не нашли",
                           "source": "места OpenStreetMap, путь по улицам"})
             scenes.append({"time": it["slot"], "icon": it["icon"], "title": it["none_title"],
-                           "note": "Честно: пешком не дойти. Дальше — на такси или автобусе", "good": False,
+                           "note": f"Честно: в пределах {it.get('limit', LIMIT)} минут пешком таких мест не нашли", "good": False,
                            "fact_ids": [], "facts": [], "interest": iid, "interest_title": it["title"], "alts": 0})
             continue
         order = _order(cands, f"{hid}:{iid}")
