@@ -11,10 +11,13 @@ const HOW = {
   'computed:osm-poi': 'Нашли на открытой карте ближайшее место каждого типа и посчитали путь пешком по прямой: настоящий путь может быть длиннее.',
   'computed:osm-poi+walk': 'Нашли на открытой карте ближайшее место каждого типа и посчитали путь пешком по улицам, с учётом подъёмов.',
   'computed:walk-graph': 'Проложили путь пешком по улицам и тропам открытой карты, подъём — по карте высот.',
-  'computed:noise-model': 'Оценили по карте: какие дороги, железная дорога, бары и аэропорт рядом и с какой стороны здания они. Это не замер, соседние дома как экран не учтены.',
+  'computed:noise-model': 'Оценили по карте: какие дороги, железная дорога, бары и аэропорт рядом и с какой стороны здания они.',
   'computed:osm-beach': 'Измерили по открытой карте до ближайшего пляжа, по прямой: настоящий путь может быть длиннее.',
   hotelier: 'Так ответил отель.', osm: 'Взяли с открытой карты.',
 }
+
+// где фраза об уверенности лишняя: пояснение и так говорит, что это оценка по карте
+const NO_SURE = ['computed:noise-model']
 
 // Уверенность — словами, без процентов (wiki/design-system.md)
 export function sureWord(c) {
@@ -160,7 +163,7 @@ function Row({ r, onPlace, activePlace, onBeach, beachOn, nearMeta }) {
           <div key={side}><span>{side[0].toUpperCase() + side.slice(1)}</span><b className={v === 'не видно' || v.startsWith('шумно') || v.startsWith('очень') ? 'no' : ''}>{v}</b></div>)}</div>}
         {r.beach && onBeach && <div className={`more-link ${beachOn ? 'on' : ''}`}
           onClick={e => { e.stopPropagation(); onBeach() }}>Показать путь на карте</div>}
-        {open && <div className="how">{HOW[f0.source] || f0.source} {sure}</div>}
+        {open && <div className="how">{HOW[f0.source] || f0.source}{NO_SURE.includes(f0.source) ? '' : ` ${sure}`}</div>}
       </div>
     </div>
   )
