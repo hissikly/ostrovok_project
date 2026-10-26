@@ -64,13 +64,11 @@ const SKIP0 = ['night']
 // Куда не пойдёт, гость убирает кружком справа. onRoute(маршрут|null) рисует выходы на карте,
 // routeShown — они сейчас на карте (а не путь до пляжа и т.п.)
 export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) {
-  const [kids, setKids] = useState(false)
   // день по интересам (features/trip_plan): номер варианта и закреплённые гостем места {интерес: место}
   const [interests] = useInterests()
-  const [byInt, setByInt] = useState(true)
   const [variant, setVariant] = useState(0)
   const [pins, setPins] = useState({})
-  const trip = byInt && interests.length > 0
+  const trip = interests.length > 0   // интересы выбраны — день всегда по ним («с детьми» — один из интересов)
   const [d, setD] = useState(null)
   const [skip, setSkip] = useState(SKIP0)
   const [folded, setFolded] = useState(() => { try { return localStorage.getItem('fold:day') === '1' } catch { return false } })
@@ -83,7 +81,6 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
     const p = new URLSearchParams({ month })
     if (view?.facade) p.set('facade', view.facade)
     if (view?.floor) p.set('floor', view.floor)
-    if (kids) p.set('mode', 'kids')
     if (skip.length) p.set('skip', skip.join(','))
     if (trip) {
       p.set('interests', interests.join(','))
@@ -93,7 +90,7 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
     }
     return p
   }
-  const deps = [hotelId, month, view?.facade, view?.floor, kids, skip.join(','), trip, interests.join(','), variant, JSON.stringify(pins)]
+  const deps = [hotelId, month, view?.facade, view?.floor, skip.join(','), trip, interests.join(','), variant, JSON.stringify(pins)]
   useEffect(() => {
     let alive = true
     api(`/api/hotels/${hotelId}/day?${q()}`).then(x => alive && setD(x)).catch(() => alive && setD(false))
@@ -116,10 +113,7 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
     <div className="block day">
       <div className="day-head">
         <h2>Ваш день здесь</h2>
-        <div className="pills">{interests.length > 0 && <button className={byInt ? 'on' : ''} onClick={() => setByInt(!byInt)}>
-          <Icon name="sparkle" size={16} />По интересам</button>}
-          {!trip && <button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
-          <Icon name="child" size={16} />С ребёнком</button>}<FoldButton folded={folded} onClick={fold} /></div>
+        <div className="pills"><FoldButton folded={folded} onClick={fold} /></div>
       </div>
       {stops.length > 0 && (
         <div className={`day-route ${routeShown ? 'on' : ''}`}>
