@@ -6,8 +6,6 @@ import { SiteQuote } from '@features/web_sources/frontend/SiteQuote.jsx'
 import { outingColor } from './DayRoute.jsx'
 import './day.css'
 
-const MONTH_IN = ['', 'январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре']
-const SIDE_TO = { N: 'на север', E: 'на восток', S: 'на юг', W: 'на запад' }
 const SURE = { hi: 'Данные надёжные.', mid: 'Это расчёт: на месте может немного отличаться.', lo: 'Это примерная оценка.' }
 
 // Откуда мы это знаем: с сайта отеля — дословная цитата, иначе — как посчитали и насколько уверены
@@ -102,7 +100,6 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
         <div className="pills"><button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
           <Icon name="child" size={16} />С ребёнком</button></div>
       </div>
-      <p className="lead">Один день в {MONTH_IN[d.month]}{d.facade ? `, окна ${SIDE_TO[d.facade]}, ${d.floor} этаж` : ''}. Нажмите на момент — расскажем, откуда знаем. Кружком справа отметьте, куда пойдёте.</p>
       {stops.length > 0 && (
         <div className={`day-route ${routeShown ? 'on' : ''}`}>
           <Icon name="pin" size={18} />

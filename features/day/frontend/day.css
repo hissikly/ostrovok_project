@@ -1,8 +1,7 @@
 /* «Ваш день здесь»: вертикальная лента, подвохи — мягким оранжевым, как предупреждения Островка */
-.day-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap }
+.day-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px }
 .day-head h2 { margin: 0 }
 .day-head .pills button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 13px }
-.day .lead { margin-top: 4px }
 .day-line { list-style: none; margin: 0; padding: 0; position: relative }
 .day-scene { display: grid; grid-template-columns: 46px 34px 1fr auto; gap: 10px; align-items: start; padding: 6px 0; cursor: pointer; position: relative }
 /* линия дня проходит через кружки */
