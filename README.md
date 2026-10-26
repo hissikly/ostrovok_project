@@ -38,6 +38,30 @@ docker compose up --build
 | Туристический налог | Налоговый кодекс РФ, гл. 33.1 | там же, с ссылками |
 | Ответы отелей | **имитация для демо** (17 ответов 7 отелей, `features/hotelier/demo_answers.json`) | проходят тот же разбор, что и настоящие; в интерфейсе — «Так ответил отель (демо)» |
 
+## Сторонние компоненты
+Только открытые библиотеки с разрешительными лицензиями. Все версии зафиксированы: Python — вместе с транзитивными (`app/requirements.txt`), JS — в `package-lock.json`, базовые образы — по точному тегу.
+
+| Где | Компонент | Версия | Лицензия |
+|---|---|---|---|
+| Сервер (в образе) | FastAPI · Starlette · Uvicorn · Pydantic | 0.143.0 · 1.8.0 · 0.34.0 · 2.14.1 | MIT · BSD-3 · BSD-3 · MIT |
+| | pymorphy3 + словари ru (морфология без LLM) · PyYAML | 2.0.2 · 6.0.2 | MIT · MIT |
+| Интерфейс (в браузере) | React · MapLibre GL JS | 18.3.1 · 6.14.0 | MIT · BSD-3 |
+| Только сборка | Vite · @vitejs/plugin-react | 6.4.4 · 4.3.4 | MIT · MIT |
+| Базовые образы | `node:24.21.0-alpine` (сборка фронта) · `python:3.12.14-slim` (рантайм) | | |
+| Офлайн-пайплайн (не в образе) | numpy · rasterio · shapely · pyproj · requests · astral · osmium | см. `features/data_sources/pipeline/requirements.txt` | BSD/MIT/Apache-2.0 |
+| Внешние сервисы во время работы | тайлы карты OpenFreeMap · шрифт Manrope (Google Fonts) · LLM — только если задан ключ | | данные карты © OpenStreetMap (ODbL) |
+
+Данные: OpenStreetMap — ODbL (атрибуция на карте), Copernicus DEM GLO-30 — © DLR/Airbus, лицензия Copernicus, Open-Meteo — CC BY 4.0.
+
+**Проверка безопасности — 27.10.2026:** `uvx pip-audit -r app/requirements.txt`, `uvx pip-audit -r features/data_sources/pipeline/requirements.txt`, `npm audit` — **0 известных уязвимостей**. Что нашли и исправили:
+- `starlette 0.41.3` (тянулась `fastapi 0.115.6`) — 7 уязвимостей → FastAPI 0.143.0 + Starlette 1.8.0;
+- `maplibre-gl 4.7.1` — критичная XSS в санитайзере HTML (GHSA-jrc7-96c5-q579; у нас подписи выводятся через `setText`, но всё равно обновили) → 6.14.0;
+- `vite 5.4.11` / `esbuild` — уязвимости dev-сервера (в образ не попадают) → Vite 6.4.4;
+- `setuptools 84.0.0` (тянется pymorphy3) → 84.1.0; `requests 2.32.3` в пайплайне → 2.34.2;
+- базовые образы: Node 20 (поддержка закончилась в апреле 2026) → Node 24 LTS, Python 3.12.8 → 3.12.14.
+
+Новые версии берём не моложе двух недель (защита от скомпрометированных свежих релизов); исключение — патч безопасности.
+
 ## Метрики
 - Разбор свободного ответа отельера по полям (без LLM): `python features/hotelier/pipeline/eval_parse.py` — 55/55 полей на 25 размеченных ответах. Правила подбирались на этой же выборке, поэтому на новых ответах точность будет ниже; ошибку разбора ловит отельер на шаге «как мы поняли».
 

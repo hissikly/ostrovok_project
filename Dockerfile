@@ -1,5 +1,5 @@
 # --- 1. сборка фронта ---
-FROM --platform=linux/amd64 node:20.18.1-alpine AS web
+FROM --platform=linux/amd64 node:24.21.0-alpine AS web
 WORKDIR /src
 COPY package.json package-lock.json* ./
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
@@ -9,7 +9,7 @@ COPY features features
 RUN npm run build
 
 # --- 2. рантайм: только Python и готовые данные, без dev-инструментов ---
-FROM --platform=linux/amd64 python:3.12.8-slim AS runtime
+FROM --platform=linux/amd64 python:3.12.14-slim AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 APP_PORT=8080
 WORKDIR /app
 COPY app/requirements.txt app/requirements.txt

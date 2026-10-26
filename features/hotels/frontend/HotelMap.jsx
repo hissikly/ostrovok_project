@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react'
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl'
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import DayRouteInfo, { OUTING_COLORS } from '@features/day/frontend/DayRoute.jsx'
 
+maplibregl.setWorkerUrl(workerUrl)   // MapLibre 6 ищет воркер рядом с бандлом — Vite его туда сам не кладёт
 const STYLE = 'https://tiles.openfreemap.org/styles/liberty'   // цветной стиль OpenFreeMap, без ключей
 const SOCHI = [39.73, 43.585]
 const RAY_COLOR = ['match', ['get', 'k'], 's', '#3D8BFD', '#CE2121']
