@@ -57,7 +57,7 @@ def site_chunks(site: dict) -> list[dict]:
 
 def main():
     sites, all_chunks, stats = [], [], Counter()
-    for path in sorted(RAW.glob("*.json")):
+    for path in sorted(p for p in RAW.glob("*.json") if not p.name.startswith("_")):   # _llm_cache и отчёты
         s = json.load(open(path, encoding="utf-8"))
         stats[s["status"]] += 1
         cs = site_chunks(s) if s["pages"] else []

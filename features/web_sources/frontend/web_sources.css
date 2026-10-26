@@ -8,3 +8,16 @@
 .site-facts button { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; padding: 4px 0; text-align: left }
 .site-facts button svg { color: var(--muted); flex: none }
 .site-facts .on button { font-weight: 700 }
+
+/* агент ищет ответ на вопрос гостя */
+.agent-busy { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 12px 14px; border-radius: 14px; background: var(--sec); color: var(--brand); font-weight: 700; font-size: 14px }
+.agent-dots { display: inline-flex; gap: 4px }
+.agent-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); animation: agent-dot 1s infinite ease-in-out }
+.agent-dots i:nth-child(2) { animation-delay: .15s }
+.agent-dots i:nth-child(3) { animation-delay: .3s }
+@keyframes agent-dot { 0%, 80%, 100% { opacity: .25; transform: translateY(0) } 40% { opacity: 1; transform: translateY(-3px) } }
+@media (prefers-reduced-motion: reduce) { .agent-dots i { animation: none; opacity: .6 } }
+.agent-trace { margin-top: 6px; font-size: 13px; color: var(--muted) }
+.faq-reply > .agent-trace { margin-top: -4px; padding-bottom: 12px }   /* такой же отступ снизу, как у ответа (.faq-row) */
+.agent-trace button { border: 0; background: none; padding: 0; color: var(--brand); font-weight: 700; font-size: 13px }
+.agent-trace ol { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 2px }

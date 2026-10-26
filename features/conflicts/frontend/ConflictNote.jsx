@@ -32,7 +32,8 @@ export function ConflictNote({ c, compact }) {
   return (
     <div className="cf" onClick={e => e.stopPropagation()}>
       <div className="cf-t"><Icon name="question" size={16} />Мнения расходятся</div>
-      <div className="cf-row"><span>Отель</span>«{c.hotel_text}»</div>
+      <div className="cf-row"><span>{c.kind === 'site' ? 'Сайт отеля' : 'Отель'}</span>
+        <span className="cf-v">«{c.hotel_text}»{c.site_url && <> <a href={c.site_url} target="_blank" rel="noreferrer">открыть страницу</a></>}</span></div>
       <div className="cf-row"><span>Наш расчёт</span>{c.computed_text}</div>
       <div className="cf-foot">Уточняем у отеля. Пока ответа нет, советуем проверить при бронировании</div>
     </div>

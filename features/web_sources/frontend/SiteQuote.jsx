@@ -37,3 +37,30 @@ export function SiteFacts({ facts }) {
     </div>
   )
 }
+
+// Пока агент ищет ответ: где ищет, по очереди (порядок как в knowledge.ask — от ответа отеля к сайту)
+const STEPS = ['Смотрим ответы отеля', 'Сверяем с нашими расчётами', 'Читаем сайт отеля']
+export function AgentSearching() {
+  const [i, setI] = React.useState(0)
+  React.useEffect(() => {
+    const t = setInterval(() => setI(x => Math.min(x + 1, STEPS.length - 1)), 700)
+    return () => clearInterval(t)
+  }, [])
+  return (
+    <div className="agent-busy" role="status">
+      <span className="agent-dots"><i /><i /><i /></span>{STEPS[i]}…
+    </div>
+  )
+}
+
+// Что агент на самом деле проверил — по клику, коротко
+export function AgentTrace({ steps }) {
+  const [open, setOpen] = React.useState(false)
+  if (!steps?.length) return null
+  return (
+    <div className="agent-trace" onClick={e => e.stopPropagation()}>
+      <button onClick={() => setOpen(!open)}>{open ? 'Скрыть, как искали' : 'Как искали'}</button>
+      {open && <ol>{steps.map((s, i) => <li key={i}>{s}</li>)}</ol>}
+    </div>
+  )
+}

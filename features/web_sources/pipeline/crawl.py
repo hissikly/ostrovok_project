@@ -129,11 +129,13 @@ def robots(sess, base):
     return rp
 
 
-def crawl(hotel: dict) -> dict:
+def crawl(hotel: dict, plain_http: bool = False) -> dict:
     site = hotel["website"].strip()
     if not site.startswith("http"):
         site = "http://" + site
     site = re.sub(r"\?utm_[^#]*$", "", site)
+    if plain_http:
+        site = re.sub(r"^https://", "http://", site)
     now = lambda: dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")  # noqa: E731
     res = {"hotel_id": hotel["id"], "name": hotel["name"], "website": site, "pages": [], "status": "ok"}
     sess = requests.Session()
@@ -191,6 +193,9 @@ def crawl(hotel: dict) -> dict:
                         cand.append((-score, len(u), u))
                 queue += [u for _, _, u in sorted(cand)[:MAX_PAGES]]
     except requests.exceptions.SSLError:
+        # чаще всего сертификат хостинга не на этот домен — тот же сайт открывается по http
+        if not plain_http and site.startswith("https://") and not res["pages"]:
+            return crawl(hotel, plain_http=True)
         res["status"] = "ssl_error"
     except requests.RequestException as e:
         res["status"] = "error:" + type(e).__name__

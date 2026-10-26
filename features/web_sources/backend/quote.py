@@ -48,7 +48,7 @@ def ask_llm(question: str, chunks: list[dict], fields: list[dict] | None = None,
     if cache is not None:
         key = hashlib.sha1((llm.LLM_MODEL + p).encode()).hexdigest()
         if key not in cache:
-            cache[key] = llm.chat([{"role": "user", "content": p}], as_json=True)
+            cache[key] = llm.chat([{"role": "user", "content": p}], as_json=True, think=False)
         r = cache[key]
     else:
         r = _cached(p)
@@ -64,7 +64,8 @@ def ask_llm(question: str, chunks: list[dict], fields: list[dict] | None = None,
 
 @lru_cache(maxsize=512)
 def _cached(p: str):
-    return llm.chat([{"role": "user", "content": p}], as_json=True, timeout=20)
+    # гость ждёт ответа: без «размышлений» модели (1–3 с), ответ всё равно проверяем цитатой
+    return llm.chat([{"role": "user", "content": p}], as_json=True, timeout=12, think=False)
 
 
 def best_sentence(question: str, chunk: dict) -> str | None:

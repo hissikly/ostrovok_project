@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import { ConflictNote } from '@features/conflicts/frontend/ConflictNote.jsx'
-import { SiteQuote } from '@features/web_sources/frontend/SiteQuote.jsx'
+import { AgentSearching, AgentTrace, SiteQuote } from '@features/web_sources/frontend/SiteQuote.jsx'
 
 const ASK_HINT = 'Обычно отвечают за 1–3 дня'
 
@@ -49,6 +49,7 @@ export default function Faq({ hotelId, month }) {
   const [asked, setAsked] = useState({})        // topic | текст вопроса → вопрос в очереди
   const [q, setQ] = useState('')
   const [reply, setReply] = useState(null)       // ответ на вопрос из поля
+  const [busy, setBusy] = useState(false)         // агент ищет ответ (сайт отеля с моделью — до нескольких секунд)
 
   useEffect(() => {
     setItems([]); setReply(null); setQ('')
@@ -60,8 +61,12 @@ export default function Faq({ hotelId, month }) {
   const onAsked = qn => setAsked(s => ({ ...s, [qn.topic || qn.key]: qn }))
   const submit = async e => {
     e.preventDefault()
-    if (!q.trim()) return
-    setReply({ question: q.trim(), ...(await post(`/api/hotels/${hotelId}/ask`, { text: q, month })) })
+    if (!q.trim() || busy) return
+    setReply(null)
+    setBusy(true)
+    try {
+      setReply({ question: q.trim(), ...(await post(`/api/hotels/${hotelId}/ask`, { text: q, month })) })
+    } finally { setBusy(false) }
   }
 
   // в списке — только то, на что есть ответ; остальное гость спросит сам в поле выше
@@ -72,8 +77,10 @@ export default function Faq({ hotelId, month }) {
       <form className="describe faq-input" onSubmit={submit}>
         <Icon name="sparkle" />
         <input placeholder="Спросить об отеле" value={q} onChange={e => { setQ(e.target.value); if (!e.target.value) setReply(null) }} />
-        {q.trim() && <button className="go">Спросить</button>}
+        {q.trim() && <button className="go" disabled={busy}>Спросить</button>}
       </form>
+
+      {busy && <AgentSearching />}
 
       {reply && (
         <div className="faq-reply">
@@ -91,6 +98,7 @@ export default function Faq({ hotelId, month }) {
                   <div className="fa">Этого мы пока не знаем :( {a.can_ask_hotel ? `Спросить у отеля? ${ASK_HINT}` : ''}</div>
                   {a.can_ask_hotel && <AskHotel hotelId={hotelId} topic={a.topic} asked={asked[a.topic]} onAsked={onAsked} />}
                 </div>)}
+          <AgentTrace steps={reply.trace} />
         </div>
       )}
 
