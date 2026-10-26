@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import maplibregl from 'maplibre-gl'
+import DayRouteInfo from '@features/day/frontend/DayRoute.jsx'
 
 const STYLE = 'https://tiles.openfreemap.org/styles/liberty'   // цветной стиль OpenFreeMap, без ключей
 const SOCHI = [39.73, 43.585]
@@ -27,6 +28,7 @@ const toGeo = (hotels, fits) => ({
 // Путь словами: туда/обратно с подъёмом и то, что встретится по дороге
 function RouteInfo({ r }) {
   if (r.none) return <div className="route-info"><b>{r.title}</b><span>Пешеходный путь не нашли</span></div>
+  if (r.stops) return <DayRouteInfo r={r} />   // маршрут дня из «Ваш день здесь»
   const f = r.flags
   const notes = [
     f.steps > 0 && 'есть лестницы',
@@ -78,6 +80,8 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
     const m = map.current, { route, places } = props.current
     const c = route?.coords
     m.getSource('route').setData(c ? { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: c } } : EMPTY)
+    m.getSource('day-stops').setData({ type: 'FeatureCollection', features: (route?.stops || []).map(s => ({ type: 'Feature',
+      properties: { n: String(s.n), name: s.name }, geometry: { type: 'Point', coordinates: [s.lon, s.lat] } })) })
     if (c && !places?.items?.length) {
       const b = new maplibregl.LngLatBounds(c[0], c[0])
       c.forEach(p => b.extend(p))
@@ -115,6 +119,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
       m.addSource('poi', { type: 'geojson', data: EMPTY })
       m.addSource('places', { type: 'geojson', data: EMPTY })
       m.addSource('route', { type: 'geojson', data: EMPTY })
+      m.addSource('day-stops', { type: 'geojson', data: EMPTY })
       m.addLayer({ id: 'cone', type: 'line', source: 'cone', filter: ['==', ['geometry-type'], 'LineString'],
         paint: { 'line-color': RAY_COLOR, 'line-width': 1.6, 'line-opacity': 0.75 } })
       // мягкое кольцо вокруг выбранного отеля
@@ -132,6 +137,12 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
         paint: { 'line-color': '#fff', 'line-width': 8 } })
       m.addLayer({ id: 'route', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' },
         paint: { 'line-color': SELECTED, 'line-width': 4.5 } })   // путь — цветом выбранного отеля: «от вашего отеля»
+      // остановки маршрута дня — номера по порядку, как в ленте
+      m.addLayer({ id: 'day-stops', type: 'circle', source: 'day-stops', paint: {
+        'circle-radius': 11, 'circle-color': SELECTED, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } })
+      m.addLayer({ id: 'day-stops-n', type: 'symbol', source: 'day-stops', layout: {
+        'text-field': ['get', 'n'], 'text-font': ['Noto Sans Bold'], 'text-size': 12, 'text-allow-overlap': true },
+        paint: { 'text-color': '#fff' } })
       m.addLayer({ id: 'places', type: 'circle', source: 'places', paint: {
         'circle-radius': ['case', ['==', ['get', 'first'], 1], 9, 7], 'circle-color': '#53AF24',
         'circle-stroke-color': '#fff', 'circle-stroke-width': 2.5 } })
