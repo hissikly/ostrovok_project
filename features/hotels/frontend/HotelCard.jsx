@@ -12,13 +12,22 @@ function ratingWord(r) {
 export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, places, routeTitle, nearMeta }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
+  const [failed, setFailed] = useState(false)
+  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
-    setH(null); setFacts([])
-    api(`/api/hotels/${id}`).then(setH)
-    api(`/api/hotels/${id}/facts`).then(setFacts)
-  }, [id])
+    setH(null); setFacts([]); setFailed(false)
+    api(`/api/hotels/${id}`).then(setH).catch(() => setFailed(true))
+    api(`/api/hotels/${id}/facts`).then(setFacts).catch(() => setFacts([]))
+  }, [id, attempt])
 
+  if (failed) return (
+    <div className="block">
+      <button className="back" onClick={onBack}>← Все отели</button>
+      <p style={{ margin: '8px 0 12px' }}>Не получилось загрузить отель — похоже, пропала связь с сервером.</p>
+      <button className="pills-retry" onClick={() => setAttempt(a => a + 1)}>Повторить</button>
+    </div>
+  )
   if (!h) return <div className="block muted">Загружаем…</div>
   const elev = facts.find(f => f.characteristic === 'elevation')
   return (
