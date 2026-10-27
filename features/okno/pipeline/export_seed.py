@@ -9,11 +9,33 @@
 import datetime as dt
 import json
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+from astral import Observer
+from astral.sun import azimuth, sunset
 
 ROOT = Path(__file__).resolve().parents[3]
 SEED = ROOT / "data/seed"
 SIDE_RU = {"N": "северная", "E": "восточная", "S": "южная", "W": "западная"}
 SIDE_GEN = {"N": "северной", "E": "восточной", "S": "южной", "W": "западной"}
+TZ = ZoneInfo("Europe/Moscow")
+# Окно видно из комнаты примерно на ±60° от его оси: солнце дальше — только если прижаться к стеклу.
+# Такой закат не «из окна»: sets_into_sea снимаем, hidden_by = "aside"
+ASIDE_DEG = 60
+
+
+def aside(sun: list, normal_az: float, lat: float, lon: float) -> list:
+    """Добавляет к закату по месяцам азимут солнца и угол от оси окна (минус — левее, если смотреть из окна)."""
+    obs = Observer(latitude=lat, longitude=lon, elevation=0)
+    out = []
+    for s in sun:
+        az = azimuth(obs, sunset(obs, dt.date(2026, s["month"], 15), tzinfo=TZ))
+        off = (az - normal_az + 540) % 360 - 180
+        s = {**s, "sunset_az": round(az), "off_window": round(off)}
+        if ASIDE_DEG < abs(off) <= 90 and s["sun_hidden_at"]:   # дальше 90° — за стеной, это «не видно»
+            s.update(sets_into_sea=False, hidden_by="aside", side="left" if off < 0 else "right")
+        out.append(s)
+    return out
 
 
 def confidence(nearby: dict) -> float:
@@ -46,7 +68,8 @@ def main():
             floors = {}
             for fl, v in f["floors"].items():
                 floors[fl] = {"eye_m": v["eye_m"], "sea_share": v["sea_share"],
-                              "blocked_by_buildings": v["blocked_by_buildings"], "sun": v["sun"]}
+                              "blocked_by_buildings": v["blocked_by_buildings"],
+                              "sun": aside(v["sun"], f["normal_az"], f["eye_lat"], f["eye_lon"])}
                 if "profile" in v:   # лучи для карты — только у нескольких этажей
                     floors[fl]["profile"] = [[int(az), p["kind"][0], int(round(p["dist"] / 5) * 5), int(p["sea"])]
                                              for az, p in sorted(v["profile"].items(), key=lambda x: int(x[0]))]
@@ -64,7 +87,7 @@ def main():
                 "evidence": evidence_base, "obtained_at": today.isoformat(),
                 "valid_until": (today + dt.timedelta(days=180)).isoformat(), "status": "active",
             })
-            top = f["floors"][max(f["floors"], key=int)]
+            top = floors[max(floors, key=int)]
             sea_months = [s["month"] for s in top["sun"] if s["sets_into_sea"]]
             if sea_months:
                 facts.append({

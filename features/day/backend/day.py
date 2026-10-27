@@ -307,6 +307,10 @@ def evening(hotel_id, d, side, floor, month, facts):
     if s["sets_into_sea"]:
         return _scene(s["sunset_astro"], "sunset", "Закат над морем из окна",
                       "Солнце сядет прямо в море, ничего не заслонит", True, fs)
+    if s["hidden_by"] == "aside":   # далеко сбоку от оси окна (features/okno export_seed: ASIDE_DEG)
+        where = "слева" if s.get("side") == "left" else "справа"
+        return _scene(s["sunset_astro"], "sunset", "Закат сбоку от окна",
+                      f"Солнце сядет далеко {where}, видно только у самого стекла", False, fs)
     if s["sun_hidden_at"] and s["minutes_earlier"] <= 3:
         return _scene(s["sunset_astro"], "sunset", "Закат виден из окна",
                       "Солнце уйдёт за дальние дома у самого горизонта", True, fs)
