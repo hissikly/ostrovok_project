@@ -4,7 +4,6 @@ import Icon from '@app/icons.jsx'
 import { FitLine } from '@features/trip_plan/frontend/Interests.jsx'
 import { useFit, useInterests } from '@features/trip_plan/frontend/interests.js'
 import CompareButton from '@features/compare/frontend/CompareButton.jsx'
-import { BaselineList, ModeSwitch, useBaseline } from '@features/compare/frontend/Baseline.jsx'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
 const STATE_ICON = { match: 'check', partial: 'half', no: 'x', unknown: 'question' }
@@ -157,9 +156,6 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
     return s ? rows.filter(x => x.h.name.toLowerCase().includes(s)) : rows
   }, [hotels, result, on, q, byId, fit])
 
-  // «было / стало»: обычная выдача сайта рядом с нашей (features/compare)
-  const [mode, setMode] = useState('okno')
-  const bs = useBaseline(on, month)
   const c = result?.counts
   const count = !on.length || !c ? `${list.length.toLocaleString('ru-RU')} вариантов в Сочи`
     : c.all ? `${c.all} ${plural(c.all, 'отель подходит', 'отеля подходят', 'отелей подходят')} по всем пожеланиям`
@@ -173,8 +169,6 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
         <Lenses lenses={lenses} on={on} toggle={toggle} reset={() => setOn([])} />
       </div>
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
-      {on.length > 0 && <ModeSwitch mode={mode} setMode={setMode} />}
-      {on.length > 0 && mode === 'base' ? <BaselineList data={bs} byId={byId} onSelect={onSelect} /> : <>
       <div className="count">{count}</div>
       {list.slice(0, 120).map(({ h, info }) => info
         ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} />
@@ -192,7 +186,6 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
             <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small><CompareButton id={h.id} /></div>
           </div>
         ))}
-      </>}
     </div>
   )
 }
