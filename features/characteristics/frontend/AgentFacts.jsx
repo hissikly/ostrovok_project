@@ -31,15 +31,17 @@ function Item({ it, onPlace, activePlace }) {
   )
 }
 
-// inline — строками внутри «Что важно знать» (без своего блока, заголовка и пояснения)
-export default function AgentFacts({ hotelId, onPlace, activePlace, inline }) {
+// inline — строками внутри «Что важно знать» (без своего блока, заголовка и пояснения);
+// skip — характеристики, которые карточка уже показала из другого источника (Wi-Fi со слов сайта): без дублей
+export default function AgentFacts({ hotelId, onPlace, activePlace, inline, skip = [] }) {
   const [items, setItems] = useState([])
   useEffect(() => {
     setItems([])
     api(`/api/hotels/${hotelId}/agent`).then(setItems).catch(() => setItems([]))
   }, [hotelId])
-  if (!items.length) return null
-  const sorted = [...items].sort((a, b) => !!b.fact - !!a.fact)
+  const shown = items.filter(it => !skip.includes(it.id))
+  if (!shown.length) return null
+  const sorted = [...shown].sort((a, b) => !!b.fact - !!a.fact)
   if (inline) return sorted.map(it => <Item key={it.id} it={it} onPlace={onPlace} activePlace={activePlace} />)
   return (
     <div className="block">

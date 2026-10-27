@@ -7,6 +7,7 @@ import HotelCard from '@features/hotels/frontend/HotelCard.jsx'
 import Extranet from '@features/hotelier/frontend/Extranet.jsx'
 import AddCharacteristic from '@features/characteristics/frontend/AddCharacteristic.jsx'
 import Trip from '@features/trip/frontend/Trip.jsx'
+import InterestsButton from '@features/trip_plan/frontend/Interests.jsx'
 
 const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
@@ -89,6 +90,7 @@ export default function App() {
           <span><Icon name="pin" size={17} />Сочи</span>
           <span><Icon name="calendar" size={17} />{month === 5 ? '12–19 мая' : MONTH[month]}</span>
           <span><Icon name="user" size={17} />2 взрослых</span>
+          <InterestsButton />
         </div>
         <button className="for-hotels" onClick={() => setSelected(`extranet/${sel?.id || 'w201474333'}`)}>Для отелей</button>
       </header>
@@ -96,9 +98,9 @@ export default function App() {
         <aside className="panel">
           {error && <div className="chip warn">{error}</div>}
           {tripId
-            ? <Trip bookingId={tripId} onHotel={setTripHotel} onExit={id => setSelected(id)} onRoute={setRoute} routeShown={route?.title === 'Маршрут дня'} />
+            ? <Trip bookingId={tripId} onHotel={setTripHotel} onExit={id => setSelected(id)} onRoute={r => { setPlaces(null); setRoute(r) }} routeShown={route?.title === 'Маршрут дня'} />
             : sel
-            ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach}
+            ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach} onDayRoute={r => { setPlaces(null); setRoute(r) }}
               places={places} routeTitle={route?.title} nearMeta={nearMeta} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}

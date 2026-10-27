@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import DayPanel from '@features/day/frontend/DayPanel.jsx'
+import { useInterests } from '@features/trip_plan/frontend/interests.js'
 import { HowKnown, guestsWord, tripDates, NIGHTS } from './common.jsx'
 import './trip.css'
 
@@ -134,7 +135,10 @@ function Feedback({ t, onSent }) {
 // onHotel(id) — показать отель на карте; onRoute / routeShown — выходы из отеля на карте, как в карточке
 export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }) {
   const [t, setT] = useState(null)
-  const [kids, setKids] = useState(false)
+  // «С ребёнком» — интерес «С детьми» из «Чем хотите заняться?» (features/trip_plan): общий для чемодана, дня и шапки
+  const [interests, setInterests] = useInterests()
+  const kids = interests.includes('kids')
+  const setKids = on => setInterests(on ? [...interests, 'kids'] : interests.filter(x => x !== 'kids'))
   const [failed, setFailed] = useState(false)
 
   const load = () => api(`/api/bookings/${bookingId}?kids=${kids}`).then(x => { setT(x); onHotel?.(x.hotel_id) }).catch(() => setFailed(true))
@@ -188,7 +192,7 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
 
       {t.packing.length > 0 && <Packing items={t.packing} kids={kids} setKids={setKids} />}
 
-      <DayPanel hotelId={t.hotel_id} month={t.month} view={view} kids={kids} onKids={setKids} onRoute={onRoute} routeShown={routeShown} />
+      <DayPanel hotelId={t.hotel_id} month={t.month} view={view} onRoute={onRoute} routeShown={routeShown} />
 
       <Feedback key={t.id} t={t} onSent={load} />
     </div>

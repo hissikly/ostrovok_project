@@ -22,6 +22,7 @@ fi
 .venv/bin/python features/okno/pipeline/export_seed.py
 .venv/bin/python features/day/pipeline/morning_sun.py
 [ -f data/raw/osm_poi.json ] && .venv/bin/python features/day/pipeline/morning_cafes.py
+[ -f data/raw/osm_poi.json ] && .venv/bin/python features/trip_plan/pipeline/hours.py
 du -sh data/seed
 uv pip install -q -p .venv -r app/requirements.txt
 npm install --no-audit --no-fund

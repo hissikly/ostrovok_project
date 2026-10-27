@@ -482,34 +482,52 @@ def _outings(hotel_id, h, scenes, skip, kids):
     return rows, outings
 
 
+def _trip(h, facts, month, interests, variant, pins):
+    """День по интересам гостя (features/trip_plan): сцены мест, что они заменяют в обычной ленте, трасса."""
+    if not interests:
+        return None
+    try:
+        from features.trip_plan.backend import plan
+    except Exception:  # noqa: BLE001 — фичи нет: обычная лента
+        return None
+    return plan(h, facts, month, interests, variant, pins)
+
+
 def day(hotel_id: str, month: int, facade: str | None = None, floor: int | None = None, mode: str | None = None,
-        skip=frozenset()):
+        skip=frozenset(), interests=(), variant=0, pins=None):
     """Лента дня (для API): выходы — без линий, линии отдаёт route()."""
-    d = _day(hotel_id, month, facade, floor, mode, skip)
+    d = _day(hotel_id, month, facade, floor, mode, skip, interests, variant, pins)
     if d:
         d["outings"] = [{k: v for k, v in o.items() if k != "coords"} for o in d["outings"]]
     return d
 
 
-def _day(hotel_id, month, facade=None, floor=None, mode=None, skip=frozenset()):
+def _day(hotel_id, month, facade=None, floor=None, mode=None, skip=frozenset(), interests=(), variant=0, pins=None):
     h = hotel(hotel_id)
     if h is None:
         return None
     facts = facts_for(hotel_id)
-    kids = mode == "kids"
+    trip = _trip(h, facts, month, interests, variant, pins)
+    off = set(trip["replaces"]) if trip else set()   # что в ленте заменили места по интересам
+    kids = mode == "kids" or bool(trip and trip["kids"])
     d, side, fl = _window(hotel_id, facade, floor)
     side = side or facade
     scenes = [_airport(h)]
     if d:
         scenes.append(morning(hotel_id, d, side, fl, month))
     scenes.append(breakfast(hotel_id, facts))
-    scenes += beach(facts, h, month, kids)
-    scenes.append(pool(facts))
+    if "beach" not in off:
+        scenes += beach(facts, h, month, kids)
+    if "pool" not in off:
+        scenes.append(pool(facts))
     if kids:
-        scenes += [kids_afternoon(facts), crib(facts)]
+        scenes += [None if "kids_afternoon" in off else kids_afternoon(facts), crib(facts)]
     if d:
         scenes.append(evening(hotel_id, d, side, fl, month, facts))
-    scenes.append(dinner(facts))
+    if "dinner" not in off:
+        scenes.append(dinner(facts))
+    if trip:
+        scenes += trip["scenes"]
     scenes.append(night(facts, side))
     scenes.append(near_scene(facts, "pharmacy_24", "23:30", "cross", "Круглосуточная аптека рядом", stop="night")
                   or near_scene(facts, "grocery_24", "23:30", "cart", "Магазин рядом работает ночью", stop="night"))
@@ -530,15 +548,16 @@ def _day(hotel_id, month, facade=None, floor=None, mode=None, skip=frozenset()):
                   "meters": sum(o["meters"] for o in outings), "up_m": sum(o["up_m"] for o in outings)}
     return {"hotel_id": hotel_id, "month": month, "facade": side if d else None, "floor": fl,
             "mode": "kids" if kids else None, "scenes": scenes, "skip": sorted(skip), "walk": walk_total,
-            "outings": outings, "built_at": dt.date.today().isoformat()}
+            "outings": outings, "built_at": dt.date.today().isoformat(),
+            "plan": trip and {k: trip[k] for k in ("interests", "trace", "variants")} | {"variant": variant}}
 
 
 # ---------- маршрут дня на карте ----------
 
 def route(hotel_id: str, month: int, facade: str | None = None, floor: int | None = None,
-          mode: str | None = None, skip=frozenset()):
+          mode: str | None = None, skip=frozenset(), interests=(), variant=0, pins=None):
     """Выходы из отеля для карты: по линии на выход, остановки с номерами, итог за день."""
-    d = _day(hotel_id, month, facade, floor, mode, skip)
+    d = _day(hotel_id, month, facade, floor, mode, skip, interests, variant, pins)
     if d is None:
         return None
     stops = sorted(({**s["stop"], "n": s["visit"]["n"], "time": s["visit"]["arrive"], "outing": s["visit"]["outing"]}

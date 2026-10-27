@@ -13,13 +13,12 @@ function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
 }
 
-export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, places, routeTitle, nearMeta }) {
+export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
   const [failed, setFailed] = useState(false)
   const [attempt, setAttempt] = useState(0)
   const [view, setView] = useState(null)   // сторона и этаж из «О!кна»
-  const [tripId, setTripId] = useState(null)   // последняя бронь этого отеля — «Моя поездка»
 
   useEffect(() => {
     setH(null); setFacts([]); setFailed(false); setView(null)
@@ -57,13 +56,14 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
         <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>
       </div>
       <WindowPanel key={id} hotelId={id} onCone={onCone} onPick={setView} />
-      <BookBox hotelId={id} view={view} month={month} price={h.mock.price_rub} onBooking={setTripId} />
+      <BookBox hotelId={id} view={view} month={month} price={h.mock.price_rub} />
       <FactList facts={shown.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta}>
-        <AgentFacts inline hotelId={id} onPlace={onPlace} activePlace={places?.spec} />
+        <AgentFacts inline hotelId={id} onPlace={onPlace} activePlace={places?.spec}
+          skip={facts.filter(f => f.characteristic.startsWith('web:')).map(f => f.characteristic.slice(4))} />
         <TripConfirmed facts={facts} />
       </FactList>
-      <DayPanel brief hotelId={id} month={month} view={view} moreHref={tripId && `#trip/${tripId}`} />
+      <DayPanel brief hotelId={id} month={month} view={view} onRoute={onDayRoute} routeShown={routeTitle === 'Маршрут дня'} />
       <Faq hotelId={id} month={month} />
     </div>
   )

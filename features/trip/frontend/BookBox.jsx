@@ -6,8 +6,7 @@ import './trip.css'
 
 // Бронь с пожеланием в карточке отеля: пожелание собирается само из выбранного в «О!кне» и фактов,
 // гость может убрать пункт. Бронь — демо: сохраняем выбор и открываем «Мою поездку» (#trip/<id брони>).
-// onBooking(id|null) — последняя бронь этого отеля, чтобы карточка могла сослаться на поездку
-export default function BookBox({ hotelId, view, month, price, onBooking }) {
+export default function BookBox({ hotelId, view, month, price }) {
   const [w, setW] = useState(null)
   const [drop, setDrop] = useState([])
   const [last, setLast] = useState(null)
@@ -15,7 +14,7 @@ export default function BookBox({ hotelId, view, month, price, onBooking }) {
 
   useEffect(() => {
     setLast(null)
-    api(`/api/bookings?hotel_id=${hotelId}`).then(bs => { setLast(bs[0] || null); onBooking?.(bs[0]?.id || null) }).catch(() => {})
+    api(`/api/bookings?hotel_id=${hotelId}`).then(bs => { setLast(bs[0] || null) }).catch(() => {})
   }, [hotelId])
   useEffect(() => {
     setDrop([])
