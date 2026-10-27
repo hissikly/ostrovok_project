@@ -4,7 +4,7 @@ import Icon from '@app/icons.jsx'
 import { FitLine } from '@features/trip_plan/frontend/Interests.jsx'
 import { useFit, useInterests } from '@features/trip_plan/frontend/interests.js'
 import CompareButton from '@features/compare/frontend/CompareButton.jsx'
-import { BaselineList, ModeSwitch, MovedUp, RiseNote, useBaseline } from '@features/compare/frontend/Baseline.jsx'
+import { BaselineList, ModeSwitch, RiseNote, useBaseline } from '@features/compare/frontend/Baseline.jsx'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
 const STATE_ICON = { match: 'check', partial: 'half', no: 'x', unknown: 'question' }
@@ -109,13 +109,13 @@ function Lenses({ lenses, on, toggle }) {
   )
 }
 
-function Row({ h, info, fit, onSelect, rank, ours }) {
+function Row({ h, info, fit, onSelect }) {
   const shown = info.reasons.filter(r => r.state !== 'unknown')
   const unknown = info.reasons.length - shown.length
   return (
     <div className="row result" onClick={() => onSelect(h.id)}>
       <div style={{ minWidth: 0, flex: 1 }}>
-        <div className="nm">{h.name}{rank !== undefined && <MovedUp rank={rank} ours={ours} />}</div>
+        <div className="nm">{h.name}</div>
         <div className="sub">
           <span>{h.kind_ru}</span>
           {h.stars && <span style={{ color: '#FFB800' }}>{'★'.repeat(h.stars)}</span>}
@@ -176,8 +176,8 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
       {on.length > 0 && mode === 'base' ? <BaselineList data={bs} byId={byId} onSelect={onSelect} /> : <>
       {on.length > 0 && !q.trim() && <RiseNote data={bs} list={list} />}
       <div className="count">{count}</div>
-      {list.slice(0, 120).map(({ h, info }, k) => info
-        ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} rank={bs ? bs.rank[h.id] ?? null : undefined} ours={k + 1} />
+      {list.slice(0, 120).map(({ h, info }) => info
+        ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} />
         : (
           <div key={h.id} className="row" onClick={() => onSelect(h.id)}>
             <div style={{ minWidth: 0 }}>

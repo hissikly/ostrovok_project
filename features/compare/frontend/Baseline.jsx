@@ -33,12 +33,6 @@ export function ModeSwitch({ mode, setMode }) {
   )
 }
 
-// куда отель переехал относительно обычной выдачи — только для поднявшихся снизу в нашу десятку
-export function MovedUp({ rank, ours }) {
-  if (ours > 10 || (rank && rank <= 10)) return null
-  return <span className="bs-move up">↑ в обычном поиске {rank ? `${rank}-й` : 'его нет'}</span>
-}
-
 // плашка над нашей выдачей: кто поднялся, хотя на сайте был бы глубоко внизу
 export function RiseNote({ data, list }) {
   if (!data) return null
@@ -47,7 +41,7 @@ export function RiseNote({ data, list }) {
   const r = data.rank[up.h.id]
   return (
     <div className="bs-banner good"><Icon name="sparkle" size={22} />
-      <div><b>{up.h.name}</b> {r ? `в обычном поиске был бы ${r}-м` : 'в обычном поиске не попал бы в выдачу'}, а здесь подходит по всем вашим условиям.</div>
+      <div><b>«{up.h.name.replace(/^[«"]|[»"]$/g, '')}»</b> {r ? `в обычном поиске — на ${r}-м месте` : 'в обычный поиск не попадает'}, а здесь подходит по всем вашим условиям.</div>
     </div>
   )
 }
