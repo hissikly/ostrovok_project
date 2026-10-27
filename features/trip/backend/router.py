@@ -57,9 +57,10 @@ def bookings(hotel_id: str | None = None):
 
 
 @router.get("/bookings/{booking_id}")
-def get_trip(booking_id: str, kids: bool = False):
-    """«Моя поездка»: бронь, пожелание и ответ отеля, обещание с ответами гостей, чемодан."""
-    t = trip(booking_id, kids)
+def get_trip(booking_id: str, kids: bool = False, ages: str = ""):
+    """«Моя поездка»: бронь, пожелание и ответ отеля, обещание с ответами гостей, чемодан.
+    ages — возраст детей через запятую: чемодан для малыша и подростка разный."""
+    t = trip(booking_id, kids, [int(a) for a in ages.split(",") if a.strip().isdigit()])
     return t if t is not None else _404("booking", booking_id)
 
 

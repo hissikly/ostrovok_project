@@ -37,11 +37,11 @@ def _short(b: dict) -> dict:
                               "replied_at", "finished_at", "created_at")} | {"status_text": STATUS[b["status"]]}
 
 
-def trip(bid: str, kids: bool = False) -> dict | None:
+def trip(bid: str, kids: bool = False, ages: list[int] | None = None) -> dict | None:
     b = store.get_booking(bid)
     if b is None:
         return None
-    ctx = context(b["hotel_id"], b["month"], b["facade"], b["floor"], kids)
+    ctx = {**context(b["hotel_id"], b["month"], b["facade"], b["floor"], kids), "ages": ages or []}
     summ = summary(b["hotel_id"])
     mine = {r["fact_id"]: r["answer"] for r in store.feedback_rows(booking_id=bid)}
     prom = [{**it, "guests": summ.get(it["id"])} for it in b["promise"]]
