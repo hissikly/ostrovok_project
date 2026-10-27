@@ -4,6 +4,7 @@ import Icon from '@app/icons.jsx'
 import { FitLine } from '@features/trip_plan/frontend/Interests.jsx'
 import { useFit, useInterests } from '@features/trip_plan/frontend/interests.js'
 import CompareButton from '@features/compare/frontend/CompareButton.jsx'
+import PriceFilter, { NO_PRICE, applyPrice } from '@features/price/frontend/PriceFilter.jsx'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
 const STATE_ICON = { match: 'check', partial: 'half', no: 'x', unknown: 'question' }
@@ -136,6 +137,7 @@ function Row({ h, info, fit, onSelect }) {
 
 export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth, result, onSelect }) {
   const [q, setQ] = useState('')
+  const [price, setPrice] = useState(NO_PRICE)
   const toggle = id => setOn(on.includes(id) ? on.filter(x => x !== id) : [...on, id])
   const apply = d => {
     // новая фраза дополняет подбор: уже включённые фильтры остаются, снять их можно кликом
@@ -153,10 +155,12 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
       ? result.hotels.map(r => ({ h: byId[r.id], info: r })).filter(x => x.h && x.info.fit !== 'none')
       : hotels.slice().sort((a, b) => (fit ? (fit[b.id]?.score ?? -1e9) - (fit[a.id]?.score ?? -1e9) : 0) || b.okno - a.okno || b.facts - a.facts)
         .map(h => ({ h, info: null }))
-    return s ? rows.filter(x => x.h.name.toLowerCase().includes(s)) : rows
-  }, [hotels, result, on, q, byId, fit])
+    return applyPrice(s ? rows.filter(x => x.h.name.toLowerCase().includes(s)) : rows, price)
+  }, [hotels, result, on, q, byId, fit, price])
+  const prices = useMemo(() => hotels.map(h => h.price_rub), [hotels])
 
-  const c = result?.counts
+  // счётчик «подходят по всем» — по уже отфильтрованной ценой выдаче
+  const c = result?.counts && { all: list.filter(x => x.info?.fit === 'all').length }
   const count = !on.length || !c ? `${list.length.toLocaleString('ru-RU')} вариантов в Сочи`
     : c.all ? `${c.all} ${plural(c.all, 'отель подходит', 'отеля подходят', 'отелей подходят')} по всем пожеланиям`
       : `По всем пожеланиям сразу не нашли. Ближе всего — ${list.length}`
@@ -169,7 +173,10 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
         <Lenses lenses={lenses} on={on} toggle={toggle} reset={() => setOn([])} />
       </div>
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
-      <div className="count">{count}</div>
+      <div className="count-row">
+        <div className="count">{count}</div>
+        {prices.length > 0 && <PriceFilter prices={prices} value={price} onChange={setPrice} />}
+      </div>
       {list.slice(0, 120).map(({ h, info }) => info
         ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} />
         : (
