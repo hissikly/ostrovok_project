@@ -54,7 +54,6 @@ export default function City({ on, onLive, onExit }) {
         {soon && <div className="sg-soon">{soon} — скоро. Пока факты об отелях собраны только по Большому Сочи</div>}
       </div>
       <h1>Что посмотреть в Сочи</h1>
-      <p className="sg-lead">Выберите место — подберём отели, откуда до него ближе всего. Время пешком считаем по реальным улицам и лестницам, с подъёмами.</p>
       {tags.length > 0 && (
         <div className="lenses sg-filter">
           <button className={!tag ? 'on' : ''} onClick={() => setTag(null)}>Все</button>

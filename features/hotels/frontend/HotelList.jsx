@@ -1,3 +1,4 @@
+import Icon from '@app/icons.jsx'
 import React, { useMemo, useState } from 'react'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
@@ -13,7 +14,7 @@ export default function HotelList({ hotels, onSelect }) {
 
   return (
     <div>
-      <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
+      <label className="search"><Icon name="building" size={18} /><input placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} /></label>
       <div className="count">{list.length.toLocaleString('ru-RU')} вариантов в Сочи</div>
       {list.slice(0, 200).map(h => (
         <div key={h.id} className="row" onClick={() => onSelect(h.id)}>
