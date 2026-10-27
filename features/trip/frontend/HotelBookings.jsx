@@ -13,7 +13,7 @@ function Booking({ b, hotelId, onDone }) {
     <div className="ext-q">
       <div className="tr-ext-meta">{tripDates(b.month)}, {NIGHTS} ночей, {guestsText(b.guests, true)}</div>
       <div className="tr-ext-wish">{b.wish.text || 'Без особых пожеланий'}</div>
-      {b.wish.items.length > 0 && <ul className="tr-ext-why">{b.wish.items.map(it => <li key={it.id}><b>{it.text}.</b> {it.reason}</li>)}</ul>}
+      {b.wish.items.length > 0 && <ul className="tr-ext-why">{b.wish.items.map(it => <li key={it.id}><b>{it.text}.</b> {it.own ? 'Гость написал сам' : it.reason}</li>)}</ul>}
       {b.status !== 'sent'
         ? <div className="ext-ok" style={b.status === 'declined' ? { color: '#8A4A00' } : null}>
             <Icon name={b.status === 'confirmed' ? 'check' : 'mail'} size={18} />

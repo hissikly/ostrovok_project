@@ -16,6 +16,23 @@
 .tr-wish li span { display: block; font-size: 14px; color: var(--muted) }
 .tr-wish li.off b, .tr-wish li.off span { text-decoration: line-through; color: var(--muted) }
 .tr-wish li.off > svg { color: var(--line) }
+.tr-wish li.own > svg { color: var(--brand) }
+/* своё пожелание: ссылка «+ Своё пожелание» → строка ввода с подсказками */
+.tr-add { border: 0; background: none; padding: 2px 0; margin: -6px 0 14px; font: inherit; font-weight: 700; color: var(--brand);
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px }
+.tr-add span { width: 22px; height: 22px; border-radius: 50%; background: var(--sec); display: grid; place-items: center; font-size: 17px; line-height: 1 }
+.tr-add:hover { color: var(--brand-hover) }
+.tr-own { margin: -4px 0 14px; display: grid; gap: 8px; animation: tr-own-in .2s ease-out }
+@keyframes tr-own-in { from { opacity: 0; transform: translateY(-4px) } }
+.tr-own-row { display: flex; gap: 8px }
+.tr-own-row input { flex: 1; min-width: 0; font: inherit; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; color: var(--ink); background: #fff; outline: none }
+.tr-own-row input:focus { border-color: var(--brand) }
+.tr-own-row button { border: 0; border-radius: 12px; padding: 0 14px; font: inherit; font-weight: 700; background: var(--sec); color: var(--brand); cursor: pointer }
+.tr-own-row button:disabled { color: var(--muted); background: var(--chip); cursor: default }
+.tr-own-hints { display: flex; flex-wrap: wrap; gap: 6px }
+.tr-own-hints button { border: 0; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 13px; font-weight: 600; background: var(--chip); color: var(--ink); cursor: pointer }
+.tr-own-hints button:hover { background: var(--sec); color: var(--brand) }
+@media (prefers-reduced-motion: reduce) { .tr-own { animation: none } }
 .tr-x { width: 28px; height: 28px; border-radius: 50%; border: 0; background: var(--chip); color: var(--muted); display: grid; place-items: center; padding: 0 }
 .tr-x:hover { color: var(--ink) }
 .tr-link { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--brand); font-weight: 700; font-size: 14px; text-decoration: none }
