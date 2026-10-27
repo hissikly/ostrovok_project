@@ -1,7 +1,8 @@
 import React from 'react'
 
 // Пожелание к номеру картинкой: дом сбоку, окна смотрят на выбранную сторону (всегда влево),
-// подсвечены этажи «N и выше», ваш этаж — точка с конусом взгляда, как в «О!кне» на карте.
+// подсвечены этажи «N и выше», ваш этаж — точка с конусом взгляда, как в «О!кне» на карте:
+// синяя часть конуса и ширина моря — по доле моря в окне, остальное закрывает соседний дом.
 // Море и закат — только если они есть в пожелании; справа улица с шумом, если просили тихую сторону.
 const SIDE = { N: 'север', E: 'восток', S: 'юг', W: 'запад' }
 // где шумнее — из причины пункта «Тихая сторона»: «На северной стороне ночью громче…»
@@ -9,12 +10,17 @@ const LOUD = { северной: 'на севере', южной: 'на юге',
 const BRAND = '#0E41D2'
 const W = 340, H = 168, GROUND = 140, TOP = 18
 const BX = 150, BW = 72   // дом
+const FAR = 18, NX = 96, NW = 30   // дальний край взгляда; соседний дом, который закрывает вид
 
 export default function WishPicture({ facade, floor, levels, items }) {
   const by = Object.fromEntries(items.map(it => [it.id, it]))
   const side = by.side, fl = by.floor, quiet = by.quiet
-  const sea = side && /мор/i.test(side.reason)
   const sunset = side && /закат/i.test(side.reason)
+  // сколько моря в окне на вашем этаже — из факта sea_view (как на карте: синие лучи — море, остальное закрывают дома)
+  const seaFact = side?.facts?.find(f => f.characteristic === 'sea_view')
+  const share = seaFact?.value?.share_by_floor?.[floor] ?? (sunset ? 0.05 : 0)
+  const sea = share > 0.02
+  const seaWord = share >= 0.6 ? 'море во всё окно' : share >= 0.3 ? 'видно море' : 'море краешком'
   const loud = quiet && LOUD[(quiet.reason.match(/^На (\S+) стороне/) || [])[1]]
   const n = Math.max(levels || 0, floor || 0, fl?.min_floor || 0, 3)
   const fh = (GROUND - TOP) / n
@@ -22,6 +28,13 @@ export default function WishPicture({ facade, floor, levels, items }) {
   const want = i => fl ? i >= fl.min_floor : i === floor
   const my = floor ? yOf(floor) + fh / 2 : null
   const cols = BW > 60 ? 5 : 4
+  const seaW = 34 + 102 * Math.min(share / 0.6, 1)
+  // конус взгляда: доля моря — нижняя часть (к морю), не меньше тонкого луча; at(x) — край закрытой части на x
+  const cone = my != null && (() => {
+    const top = my - 34, bottom = Math.min(my + 40, GROUND - 2)
+    const split = bottom - (bottom - top) * Math.max(Math.min(share, 1), sea ? 0.06 : 0)
+    return { top, bottom, split, at: x => my + (split - my) * (BX - x) / (BX - FAR) }
+  })()
 
   return (
     <svg className="tr-pic" viewBox={`0 0 ${W} ${H}`} role="img"
@@ -30,6 +43,10 @@ export default function WishPicture({ facade, floor, levels, items }) {
         <linearGradient id="trsky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor={sunset ? '#FFE9CF' : '#E3EBFD'} />
           <stop offset="1" stopColor="#FFFFFF" />
+        </linearGradient>
+        <linearGradient id="trblock" x1="1" y1="0" x2="0" y2="0">
+          <stop offset="0" stopColor="#8A93A6" stopOpacity=".22" />
+          <stop offset="1" stopColor="#8A93A6" stopOpacity="0" />
         </linearGradient>
         <linearGradient id="trcone" x1="1" y1="0" x2="0" y2="0">
           <stop offset="0" stopColor={BRAND} stopOpacity=".28" />
@@ -47,16 +64,23 @@ export default function WishPicture({ facade, floor, levels, items }) {
             x2={46 + Math.sin(r) * 27} y2={GROUND - 20 - Math.cos(r) * 27} stroke="#FFB547" strokeWidth="2.4" strokeLinecap="round" />
         })}
       </g>}
-      {sea
-        ? <g>
-            <path d={`M0 ${GROUND - 14} H128 L136 ${GROUND} H0 Z`} fill="#8FB0FF" />
-            {[0, 1].map(k => <path key={k} d={`M${10 + k * 22} ${GROUND - 8 + k * 4} q8 -5 16 0 t16 0 t16 0`} fill="none"
-              stroke="#fff" strokeWidth="1.8" strokeLinecap="round" opacity=".85" />)}
-          </g>
-        : <rect x="0" y={GROUND - 4} width={BX} height="4" fill="#DDE3EA" />}
+      <rect x="0" y={GROUND - 4} width={BX} height="4" fill="#DDE3EA" />
+      {sea && <g>
+        <path d={`M0 ${GROUND - 14} H${seaW - 8} L${seaW} ${GROUND} H0 Z`} fill="#8FB0FF" />
+        {[0, 1].map(k => seaW > 40 + k * 22 && <path key={k} d={`M${8 + k * 18} ${GROUND - 8 + k * 4} q6 -5 12 0 t12 0`} fill="none"
+          stroke="#fff" strokeWidth="1.8" strokeLinecap="round" opacity=".85" />)}
+      </g>}
 
-      {/* взгляд из вашего окна */}
-      {my != null && <path d={`M${BX} ${my} L18 ${my - 34} Q8 ${my + 4} 18 ${Math.min(my + 40, GROUND)} Z`} fill="url(#trcone)" />}
+      {/* взгляд из вашего окна: синяя часть — море, серая — закрывают соседние дома */}
+      {cone && <g>
+        <path d={`M${BX} ${my} L${FAR} ${cone.top} L${FAR} ${cone.split} Z`} fill="url(#trblock)" />
+        {sea && <path d={`M${BX} ${my} L${FAR} ${cone.split} L${FAR} ${cone.bottom} Z`} fill="url(#trcone)" />}
+      </g>}
+      {cone && share < 0.6 && <g>
+        <rect x={NX} y={cone.at(NX + NW / 2)} width={NW} height={GROUND - cone.at(NX + NW / 2)} rx="2" fill="#C9CDD4" />
+        {Array.from({ length: Math.floor((GROUND - cone.at(NX + NW / 2) - 6) / 9) }, (_, k) =>
+          <path key={k} d={`M${NX + 5} ${GROUND - 9 - k * 9}h7M${NX + NW - 12} ${GROUND - 9 - k * 9}h7`} stroke="#EEF0F3" strokeWidth="3" />)}
+      </g>}
 
       {/* дом: этажи, подходящие — синим */}
       <rect x={BX} y={TOP} width={BW} height={GROUND - TOP} rx="3" fill="#EEF0F3" />
@@ -87,8 +111,7 @@ export default function WishPicture({ facade, floor, levels, items }) {
           transform={`translate(${-r * .4} 0)`} />)}
       </g>}
 
-      <text x="64" y={H - 8} textAnchor="middle" className="tr-pic-lbl">{SIDE[facade] ? `окна на ${SIDE[facade]}` : ''}{sea ? ', море' : ''}</text>
-      <text x={BX + BW / 2} y={H - 8} textAnchor="middle" className="tr-pic-lbl">{levels ? `${levels} этажей` : ''}</text>
+      <text x="8" y={H - 8} className="tr-pic-lbl">{SIDE[facade] ? `окна на ${SIDE[facade]}` : ''}{sea ? `, ${seaWord}` : ''}</text>
       {quiet && <text x={W - 8} y={H - 8} textAnchor="end" className="tr-pic-lbl">{loud ? `${loud} шумнее` : 'шумнее'}</text>}
     </svg>
   )
