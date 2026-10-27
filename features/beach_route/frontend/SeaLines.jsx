@@ -1,8 +1,8 @@
 import React from 'react'
 
-// Линия от моря (1–4, считает backend/lines.py) — бирюзовым ореолом под точкой отеля:
+// Линия от моря (1–4, считает backend/lines.py) — песочным ореолом под точкой отеля (песок = пляж; на голубом море и зелёных парках не теряется):
 // чем ближе к морю, тем ярче. Цвет самих точек не трогаем — он занят подбором и «О!кном»
-export const SEA_COLOR = '#12BFB0'
+export const SEA_COLOR = '#F2A93B'
 export const SEA_OPACITY = ['match', ['get', 'line'], 1, 0.7, 2, 0.42, 3, 0.2, 0]
 export const SEA_RADIUS = ['interpolate', ['linear'], ['zoom'], 11, 10, 14, 18, 17, 28]
 const STEPS = [[1, '1-я'], [2, '2-я'], [3, '3-я']]
