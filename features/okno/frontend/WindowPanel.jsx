@@ -89,7 +89,7 @@ function Sunset({ sun }) {
     kind = trip.hidden_by
   } else {
     title = 'Заката из этих окон не видно'
-    text = 'Солнце садится с другой стороны здания'
+    text = ''
   }
   return <div className={`sunset ${good ? '' : 'off'}`}><SunsetArt kind={kind} /><div><b>{title}</b>{text}</div></div>
 }
