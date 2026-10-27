@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сравнение и «было / стало»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+/* Макет брифа 10: сравнение отелей + «было / стало». Токены — wiki/design-system.md.
+   Все цифры — настоящие данные сервиса на 27.10 (запрос «тихо, вид на море, близко к пляжу», май). */
+:root{
+  --brand:#0E41D2;--sec:#E3EBFD;--ink:#2D3137;--muted:#868686;--line:#E5E5E5;--page:#F2F3F5;--chip:#F2F3F5;
+  --ok:#53AF24;--ok-ink:#2E7D12;--lime:#D0F4B2;--lime-ink:#2B5A0E;
+  --warn:#E77D00;--warn-bg:#FAE5CC;--warn-soft:#FFF4E8;--sel:#FF6B1A;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font:400 15px/1.45 Manrope,system-ui,sans-serif;color:var(--ink);background:var(--page)}
+button{font:inherit;cursor:pointer;color:inherit;border:0;background:none}
+.ti{font-size:20px;line-height:1;vertical-align:-3px}
+
+/* шапка как в приложении */
+.hdr{height:56px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 20px;position:sticky;top:0;z-index:20}
+.logo{font-weight:800;font-size:24px;color:var(--brand);letter-spacing:-.6px}
+.okno{background:var(--lime);color:var(--lime-ink);font-weight:800;font-size:12px;border-radius:999px;padding:3px 10px}
+.trip{margin-left:auto;display:flex;gap:4px;background:var(--chip);border-radius:999px;padding:4px;font-weight:700;font-size:13px}
+.trip span{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px}
+.trip span+span{background:#fff}
+
+/* переключатель экранов макета — не часть продукта */
+.mock-nav{display:flex;gap:8px;align-items:center;justify-content:center;padding:10px 16px;background:#FFFBE6;border-bottom:1px dashed #E8D27A;font-size:13px;color:#6B5A10;flex-wrap:wrap}
+.mock-nav button{border-radius:999px;padding:5px 12px;font-weight:700;background:#fff;border:1px solid #E8D27A}
+.mock-nav button.on{background:#6B5A10;color:#fff;border-color:#6B5A10}
+
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 120px}
+h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin:0}
+.back{color:var(--brand);font-weight:700;font-size:14px;padding:0;margin-bottom:10px;display:inline-flex;gap:4px;align-items:center}
+.lead{color:var(--muted);margin:6px 0 0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700}
+.chip.on{background:var(--brand);color:#fff}
+.block{background:#fff;border-radius:24px;padding:20px}
+
+/* ===== ЭКРАН 1: было / стало ===== */
+.seg{display:inline-flex;background:#fff;border-radius:999px;padding:4px;margin-top:16px;gap:2px}
+.seg button{padding:9px 18px;border-radius:999px;font-weight:800;font-size:14px;color:var(--muted)}
+.seg button.on{background:var(--ink);color:#fff}
+.seg button.on.ok{background:var(--brand)}
+.banner{margin-top:14px;border-radius:20px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.banner.warn{background:var(--warn-bg);color:#7A3F00}
+.banner.good{background:var(--lime);color:var(--lime-ink)}
+.banner b{color:var(--ink)}
+.banner .ti{font-size:24px;margin-top:1px}
+.list{margin-top:14px;display:grid;gap:10px}
+.row{background:#fff;border-radius:20px;padding:14px 16px;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;align-items:start}
+.row.trap{box-shadow:inset 4px 0 0 var(--warn)}
+.rank{width:34px;height:34px;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-weight:800;font-size:14px}
+.name{font-weight:800;font-size:17px;letter-spacing:-.2px}
+.meta{display:flex;gap:6px 12px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:2px;align-items:center}
+.rt{background:var(--ok);color:#fff;font-weight:800;border-radius:8px;padding:1px 7px;font-size:13px}
+.why{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{display:inline-flex;align-items:center;gap:5px;border-radius:10px;padding:4px 9px;font-size:13px;font-weight:600;background:var(--chip)}
+.tag.ok{background:#EEF9E6;color:var(--ok-ink)}
+.tag.bad{background:var(--warn-bg);color:#8A4500}
+.tag.unk{background:var(--chip);color:var(--muted)}
+.tag .ti{font-size:16px}
+.move{font-size:12px;font-weight:800;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px}
+.move.up{background:#EEF9E6;color:var(--ok-ink)}
+.move.down{background:var(--warn-bg);color:#8A4500}
+.side{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.price b{font-size:17px;font-weight:800}
+.price small{display:block;color:var(--muted);font-size:12px}
+.cmp{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:5px 11px;font-size:13px;font-weight:700;background:var(--sec);color:var(--brand)}
+.cmp.on{background:var(--brand);color:#fff}
+
+/* корзинка сравнения */
+.tray{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:30;background:var(--ink);color:#fff;border-radius:20px;padding:10px 10px 10px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.18);max-width:calc(100% - 32px)}
+.tray .pills{display:flex;gap:6px;overflow:auto}
+.tray .pill{white-space:nowrap;background:rgba(255,255,255,.12);border-radius:999px;padding:5px 6px 5px 11px;font-size:13px;font-weight:700;display:inline-flex;gap:4px;align-items:center}
+.tray .pill button{color:#fff;opacity:.7;padding:0 2px}
+.tray .go{background:#fff;color:var(--brand);font-weight:800;border-radius:14px;padding:9px 14px;white-space:nowrap}
+
+/* ===== ЭКРАН 2: сравнение ===== */
+.verdicts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.vd{background:#fff;border-radius:20px;padding:16px}
+.vd.best{background:var(--lime)}
+.vd h3{margin:0;font-size:17px;font-weight:800}
+.vd .badge{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:2px 9px;background:#fff;color:var(--lime-ink);margin-bottom:6px}
+.vd ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:5px;font-size:14px}
+.vd li{display:flex;gap:7px;align-items:flex-start}
+.vd li .ti{font-size:17px;margin-top:1px}
+.vd .plus .ti{color:var(--ok)}
+.vd .minus .ti{color:var(--warn)}
+
+.tbl-wrap{margin-top:16px;background:#fff;border-radius:24px;overflow:hidden}
+.tbl-scroll{overflow-x:auto}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:760px;table-layout:fixed}
+th,td{padding:12px 14px;vertical-align:top;text-align:left;border-bottom:1px solid var(--line)}
+thead th{position:sticky;top:0;background:#fff;z-index:2}
+th.rowh,td.rowh{position:sticky;left:0;background:#fff;z-index:1;width:190px;min-width:150px;font-weight:700;font-size:14px}
+thead th.rowh{z-index:3}
+.hh{display:flex;flex-direction:column;gap:4px}
+.hh .n{font-weight:800;font-size:16px;letter-spacing:-.2px;display:flex;gap:6px;align-items:flex-start;justify-content:space-between}
+.hh .n button{color:var(--muted);padding:0}
+.hh .m{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.hh .p{font-weight:800}
+.group td{background:var(--page);font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:8px 14px;border-bottom:0}
+.group td.rowh{background:var(--page)}
+.rowh .ti{color:var(--muted);margin-right:6px}
+.rowh small{display:block;color:var(--muted);font-weight:500;font-size:12px;margin-top:2px;padding-left:26px}
+td.c{font-size:14px;cursor:pointer;min-width:190px}
+td.c:hover{background:#FAFBFC}
+td.c.win{background:#F1FBE9}
+td.c.win:hover{background:#E8F7DC}
+td.c .v{font-weight:700}
+td.c .s{color:var(--muted);font-size:13px}
+td.c.bad .v{color:#B35A00}
+td.c.unk .v{color:var(--muted);font-weight:600}
+td.c .crown{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:800;color:var(--ok-ink);background:var(--lime);border-radius:999px;padding:1px 7px;margin-bottom:4px}
+td.c .ask{display:inline-block;margin-top:4px;color:var(--brand);font-weight:700;font-size:13px}
+td.c .how{display:none;margin-top:8px;padding:8px 10px;border-radius:12px;background:var(--chip);color:var(--ink);font-size:12.5px;line-height:1.4}
+td.c.open .how{display:block}
+.split{display:grid;gap:4px;margin-top:2px}
+.split div{font-size:13px}
+.split b{font-weight:700}
+.diff{display:inline-flex;gap:4px;align-items:center;font-size:12px;font-weight:800;color:#8A4500;background:var(--warn-bg);border-radius:999px;padding:1px 8px;margin-bottom:4px}
+.note{color:var(--muted);font-size:13px;margin:12px 4px 0}
+
+.notes{margin-top:28px;background:#fff;border:1px dashed #E8D27A;border-radius:20px;padding:16px 18px;font-size:14px;color:#5A4B0A}
+.notes h4{margin:0 0 6px;font-size:14px}
+.notes ul{margin:0;padding-left:18px;display:grid;gap:4px}
+
+.screen{display:none}.screen.on{display:block}
+
+@media (max-width:820px){
+  .verdicts{grid-template-columns:1fr}
+  .row{grid-template-columns:28px minmax(0,1fr)}
+  .rank{width:28px;height:28px;font-size:13px;border-radius:10px}
+  .side{grid-column:2;flex-direction:row;justify-content:space-between;align-items:center;text-align:left}
+  .trip{display:none}
+  h1{font-size:24px}
+  th.rowh,td.rowh{width:120px;min-width:120px;font-size:13px}
+  .rowh small{display:none}
+  td.c{min-width:160px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo">Островок!</div><span class="okno">О!кно</span>
+  <div class="trip"><span><i class="ti ti-map-pin"></i>Сочи</span><span><i class="ti ti-calendar"></i>12–19 мая</span></div>
+</header>
+
+<nav class="mock-nav">Экран макета:
+  <button data-s="s1" class="on">1. Выдача: «было / стало» + корзинка</button>
+  <button data-s="s2">2. Сравнение отелей</button>
+</nav>
+
+<!-- ============ ЭКРАН 1 ============ -->
+<section class="screen on" id="s1"><div class="wrap">
+  <h1>Отели в Сочи</h1>
+  <div class="chips">
+    <span class="chip on"><i class="ti ti-volume-off"></i>Тихо ночью</span>
+    <span class="chip on"><i class="ti ti-ripple"></i>Вид на море</span>
+    <span class="chip on"><i class="ti ti-beach"></i>Рядом пляж</span>
+  </div>
+  <div class="seg" id="seg">
+    <button data-m="base">Обычный поиск</button>
+    <button data-m="okno" class="on ok">С О!кном</button>
+  </div>
+  <div id="banner"></div>
+  <div class="list" id="list"></div>
+
+  <div class="notes">
+    <h4>Как читать макет</h4>
+    <ul>
+      <li><b>«Обычный поиск»</b> — как сортирует сайт: рейтинг, затем «до моря по прямой». Оранжевые подвохи — из наших фактов (шум по карте, вид из окна, пеший путь с подъёмом).</li>
+      <li><b>«С О!кном»</b> — наш подбор; пометка ↑ / ↓ показывает, куда отель переехал относительно обычной выдачи.</li>
+      <li>«⊕ Сравнить» у любого отеля — снизу появляется корзинка (до 4 отелей). Попробуйте нажать — или откройте экран 2.</li>
+      <li>Цифры настоящие: данные сервиса на 27.10, май. Рейтинг и цена — демо (как в приложении).</li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- ============ ЭКРАН 2 ============ -->
+<section class="screen" id="s2"><div class="wrap">
+  <button class="back" data-go="s1"><i class="ti ti-chevron-left"></i>К выдаче</button>
+  <h1>Сравнение: 3 отеля</h1>
+  <p class="lead">Сначала — то, что вы искали. Лучшее в строке подсвечено. Нажмите на любую клетку — покажем, откуда мы это знаем.</p>
+  <div class="chips">
+    <span class="chip on"><i class="ti ti-volume-off"></i>Тихо ночью</span>
+    <span class="chip on"><i class="ti ti-ripple"></i>Вид на море</span>
+    <span class="chip on"><i class="ti ti-beach"></i>Рядом пляж</span>
+    <span class="chip"><i class="ti ti-calendar"></i>Май</span>
+  </div>
+
+  <div class="verdicts">
+    <div class="vd">
+      <h3>Pullman Sochi Centre</h3>
+      <ul>
+        <li class="plus"><i class="ti ti-circle-check"></i>Море из окон на запад с любого этажа и закат в мае</li>
+        <li class="plus"><i class="ti ti-circle-check"></i>Круглосуточная аптека в 7 мин</li>
+        <li class="minus"><i class="ti ti-alert-circle"></i>До пляжа 8 мин, обратно 9 мин в гору</li>
+      </ul>
+    </div>
+    <div class="vd">
+      <h3>Azimut Парк Отель Виноградная</h3>
+      <ul>
+        <li class="plus"><i class="ti ti-circle-check"></i>Дешевле всех и бесплатная парковка</li>
+        <li class="plus"><i class="ti ti-circle-check"></i>Закат над морем с 4-го этажа</li>
+        <li class="minus"><i class="ti ti-alert-circle"></i>Обратно с пляжа 27 мин в гору, подъём 101 м</li>
+        <li class="minus"><i class="ti ti-alert-circle"></i>За 10 минут пешком нет ни кафе, ни аптеки</li>
+      </ul>
+    </div>
+    <div class="vd best">
+      <span class="badge">Лучше всех под ваш запрос</span>
+      <h3>Адмирал</h3>
+      <ul>
+        <li class="plus"><i class="ti ti-circle-check"></i>Пляж в минуте, обратно ровно</li>
+        <li class="plus"><i class="ti ti-circle-check"></i>Ночью тихо, море с 2-го этажа</li>
+        <li class="minus"><i class="ti ti-alert-circle"></i>Закат в мае не увидеть; про завтрак и парковку не знаем</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tbl-wrap"><div class="tbl-scroll"><table id="tbl"></table></div></div>
+  <p class="note">Победителя строки выбираем по фактам, а не по рейтингу; если данных нет — «не знаем», и можно спросить отель.</p>
+
+  <div class="notes">
+    <h4>Как читать макет</h4>
+    <ul>
+      <li>Строки берутся из тех же расчётов, что и поиск: сравнение и выдача не могут разойтись.</li>
+      <li>Блок «Лучше всех под ваш запрос» — один салатовый вывод на экран, как в дизайн-системе.</li>
+      <li>Azimut, «Завтрак»: отель ответил «включён» (ответ — демо), а на сайте отеля — «за доплату». Это предложение: показывать расхождение источников прямо в клетке.</li>
+      <li>На телефоне колонки листаются вбок, названия строк закреплены слева.</li>
+    </ul>
+  </div>
+</div></section>
+
+<div class="tray" id="tray" hidden></div>
+
+<script>
+// ---------- данные (сервис О!кно, 27.10) ----------
+const BASE = [ // обычная выдача: рейтинг ↓, потом «до моря по прямой» ↑
+  {b:1,o:21,n:'Sanremo',r:9.8,p:5100,line:19,why:[['ok','До пляжа 1 мин'],['ok','Море видно'],['soft','Ночью спокойно']]},
+  {b:2,o:65,n:'Пансионат «Охотник»',r:9.8,p:8300,line:26,why:[['ok','До пляжа 3 мин'],['ok','Море видно'],['soft','Ночью спокойно']]},
+  {b:3,o:1,n:'Dolphin resort Hotel',r:9.8,p:8900,line:29,why:[['ok','До пляжа 2 мин'],['ok','Море с любого этажа'],['ok','Ночью тихо']]},
+  {b:4,o:4,n:'Адмирал',r:9.8,p:4600,line:81,why:[['ok','До пляжа 1 мин'],['ok','Море с 2-го этажа'],['ok','Ночью тихо']]},
+  {b:5,o:357,n:'Военный санаторий «Сочи»',r:9.8,p:6800,line:81,trap:true,why:[['bad','Ночью шумно: оживлённая улица в 108 м'],['unk','Вид из окон ещё не посчитали']]},
+  {b:6,o:232,n:'Black Sea',r:9.8,p:2800,line:96,trap:true,why:[['bad','Ночью очень шумно: железная дорога в 74 м'],['unk','Вид из окон ещё не посчитали']]},
+  {b:7,o:40,n:'Парадиз',r:9.8,p:7600,line:100,why:[['ok','До пляжа 3 мин'],['ok','Море с 3-го этажа'],['soft','Ночью спокойно']]},
+  {b:8,o:60,n:'Санаторий «Адлер»',r:9.8,p:17600,line:132,why:[['ok','До пляжа 1 мин'],['ok','Море видно'],['soft','Ночью спокойно']]},
+  {b:9,o:305,n:'Райский уголок',r:9.8,p:3900,line:133,trap:true,why:[['bad','Ночью шумно: аэропорт в 1,7 км'],['unk','Вид из окон ещё не посчитали']]},
+  {b:10,o:175,n:'Абрис',r:9.8,p:6200,line:142,why:[['ok','До пляжа 3 мин'],['unk','Вид из окон ещё не посчитали'],['soft','Ночью спокойно']]},
+];
+const OURS = [ // наш подбор по тем же линзам
+  {o:1,b:3,n:'Dolphin resort Hotel',r:9.8,p:8900,why:['Море из окон на запад с любого этажа','До пляжа 2 мин, 167 м','Окна на юг — ночью тихо']},
+  {o:2,b:null,n:'Жемчужина',r:9.6,p:9200,why:['Море из окон на запад с любого этажа','До пляжа 2 мин, 144 м','Окна на запад — ночью тихо']},
+  {o:3,b:4,n:'Адмирал',r:9.8,p:4600,why:['Море из окон на юг с 2-го этажа','До пляжа 1 мин, 95 м','Окна на юг — ночью тихо']},
+  {o:4,b:null,n:'Анна Мария',r:7.7,p:5300,why:['Море из окон на юг с любого этажа','До пляжа 1 мин, 62 м','Окна на юг — ночью тихо']},
+  {o:5,b:null,n:'Ольга',r:9.7,p:6300,why:['Море из окон на запад с 4-го этажа','До пляжа 3 мин, 240 м','Окна на юг — ночью тихо']},
+  {o:6,b:null,n:'Олимп Первая Линия',r:8.3,p:4000,why:['Море из окон на запад с 3-го этажа','До пляжа 2 мин, 139 м','Окна на юг — ночью тихо']},
+  {o:7,b:15,n:'Севан',r:9.8,p:5200,why:['Море из окон на восток с 3-го этажа','До пляжа 4 мин, 352 м','Окна на запад — ночью тихо']},
+];
+const H = [
+  {id:'pullman',n:'Pullman Sochi Centre',st:4,r:8.7,p:6600},
+  {id:'azimut',n:'Azimut Парк Отель Виноградная',st:3,r:8.4,p:4100},
+  {id:'admiral',n:'Адмирал',st:3,r:9.8,p:4600},
+];
+// клетка: [значение, пояснение, класс(win|bad|unk|''), как узнали]
+const HOW_GEO='Посчитали по рельефу (Copernicus DEM) и высоте соседних домов из OpenStreetMap — для каждой стороны и этажа. По расчёту, 25.10.';
+const HOW_WALK='Пеший путь по улицам и лестницам OpenStreetMap, подъём — по карте высот. По расчёту, 25.10.';
+const HOW_NOISE='Оценили по карте: класс дорог, железная дорога, бары, аэропорт рядом, сторона здания. Примерно, 25.10.';
+const HOW_POI='Места из OpenStreetMap, время — пешком по улицам. По расчёту, 25.10.';
+const ROWS = [
+  {g:'По вашему запросу'},
+  {t:'Вид на море',i:'ripple',sub:'с какого этажа',c:[
+    ['С любого этажа','окна на запад','win',HOW_GEO],
+    ['С 4-го этажа','окна на запад','',HOW_GEO],
+    ['Со 2-го этажа','окна на юг','',HOW_GEO]]},
+  {t:'Тихо ночью',i:'volume-off',c:[
+    ['Спокойно','окна на юг','',HOW_NOISE],
+    ['Спокойно','окна на запад','',HOW_NOISE],
+    ['Тихо','окна на юг','win',HOW_NOISE]]},
+  {t:'До пляжа',i:'beach',sub:'пешком',c:[
+    ['8 мин','528 м','',HOW_WALK],
+    ['23 мин','1,6 км','bad',HOW_WALK],
+    ['1 мин','95 м','win',HOW_WALK]]},
+  {g:'Ещё важно'},
+  {t:'Обратно с пляжа',i:'mountain',c:[
+    ['9 мин в гору','подъём 29 м, лестницы','',HOW_WALK],
+    ['27 мин в гору','подъём 101 м — как на 34-й этаж','bad',HOW_WALK],
+    ['1 мин, почти ровно','','win',HOW_WALK]]},
+  {t:'Закат из окна',i:'sunset',sub:'в мае',c:[
+    ['Над морем','окна на запад','win',HOW_GEO+' Положение солнца — на май.'],
+    ['Над морем','окна на запад, с 4-го этажа','win',HOW_GEO+' Положение солнца — на май.'],
+    ['Не в мае','бывает в другие месяцы','bad',HOW_GEO+' Положение солнца — на май.']]},
+  {t:'Продуктовый',i:'shopping-cart',c:[
+    ['3 мин','«Кайрос»','',HOW_POI],['4 мин','','',HOW_POI],['2 мин','«Продукты»','win',HOW_POI]]},
+  {t:'Кафе',i:'coffee',c:[
+    ['4 мин','«Мясной синдикат»','',HOW_POI],['Не нашли','за 10 мин пешком','bad',HOW_POI],['1 мин','«Адмирал»','win',HOW_POI]]},
+  {t:'Аптека 24 часа',i:'first-aid-kit',c:[
+    ['7 мин','«36,6»','win',HOW_POI],['Не нашли','за 20 мин пешком','bad',HOW_POI],['14 мин','','',HOW_POI]]},
+  {g:'Отвечает отель'},
+  {t:'Завтрак',i:'tools-kitchen-2',c:[
+    ['Включён','шведский стол','',"Так ответил отель (демо), 25.10."],
+    ['split'],
+    ['ask']]},
+  {t:'Парковка',i:'parking',c:[
+    ['1 500 ₽ в сутки','бронировать заранее','',"Так ответил отель (демо), 25.10."],
+    ['Бесплатно','заранее не нужно','win',"Так ответил отель (демо), 25.10. На сайте отеля тоже: «Есть парковка»."],
+    ['ask']]},
+  {t:'С питомцем',i:'paw',c:[
+    ['Собаки и кошки','100 ₽ в сутки','win',"Так ответил отель (демо), 25.10."],
+    ['Собаки до 10 кг','кошки нельзя, 1 000 ₽ в сутки','',"Так ответил отель (демо), 25.10. На сайте — до 15 кг: уточняем."],
+    ['ask']]},
+  {g:'Цена и отзывы (демо)'},
+  {t:'Цена за ночь',i:'currency-rubel',c:[['6 600 ₽','','',"Демо-цена."],['4 100 ₽','','win',"Демо-цена."],['4 600 ₽','','',"Демо-цена."]]},
+  {t:'Рейтинг',i:'star',c:[['8,7','478 отзывов','',"Демо-рейтинг."],['8,4','26 отзывов','',"Демо-рейтинг."],['9,8','735 отзывов','win',"Демо-рейтинг."]]},
+];
+
+// ---------- экран 1 ----------
+const picked = new Set(['Pullman Sochi Centre','Azimut Парк Отель Виноградная','Адмирал']);
+let mode = 'okno';
+const tagIcon = {ok:'circle-check',bad:'alert-triangle',unk:'help-circle',soft:'circle-dot'};
+function rub(n){return n.toLocaleString('ru-RU')+' ₽'}
+function cmpBtn(n){return `<button class="cmp ${picked.has(n)?'on':''}" data-n="${n}"><i class="ti ti-${picked.has(n)?'check':'plus'}"></i>${picked.has(n)?'В сравнении':'Сравнить'}</button>`}
+function renderList(){
+  document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
+  document.querySelector('#seg [data-m=okno]').classList.add('ok');
+  const ban=document.getElementById('banner'), list=document.getElementById('list');
+  if(mode==='base'){
+    ban.innerHTML=`<div class="banner warn"><i class="ti ti-alert-triangle"></i><div><b>3 отеля из первой десятки разочаровали бы вас ночью</b> — рядом оживлённая улица, железная дорога или аэропорт. Ещё у 4 мы пока не знаем вид из окна. В «С О!кном» их нет наверху.</div></div>`;
+    list.innerHTML=BASE.map(h=>`<div class="row ${h.trap?'trap':''}">
+      <div class="rank">${h.b}</div>
+      <div><div class="name">${h.n}${h.o>10?`<span class="move down">у нас ${h.o}-й</span>`:''}</div>
+        <div class="meta"><span class="rt">${String(h.r).replace('.',',')}</span><span>${h.line} м до моря по прямой</span></div>
+        <div class="why">${h.why.map(([k,t])=>`<span class="tag ${k==='soft'?'':k}"><i class="ti ti-${tagIcon[k]}"></i>${t}</span>`).join('')}</div></div>
+      <div class="side"><div class="price"><b>${rub(h.p)}</b><small>за ночь, демо</small></div>${cmpBtn(h.n)}</div></div>`).join('');
+  } else {
+    ban.innerHTML=`<div class="banner good"><i class="ti ti-sparkles"></i><div><b>Все 3 условия выполнены у каждого отеля наверху.</b> «Анна Мария» поднялась, хотя рейтинг у неё 7,7: море с любого этажа, пляж в минуте, ночью тихо.</div></div>`;
+    list.innerHTML=OURS.map(h=>`<div class="row">
+      <div class="rank">${h.o}</div>
+      <div><div class="name">${h.n}${h.b===null||h.b>10?`<span class="move up">↑ в обычном поиске ${h.b?h.b+'-й':'ниже 10-го'}</span>`:''}</div>
+        <div class="meta"><span class="rt">${String(h.r).replace('.',',')}</span></div>
+        <div class="why">${h.why.map(t=>`<span class="tag ok"><i class="ti ti-circle-check"></i>${t}</span>`).join('')}</div></div>
+      <div class="side"><div class="price"><b>${rub(h.p)}</b><small>за ночь, демо</small></div>${cmpBtn(h.n)}</div></div>`).join('');
+  }
+  renderTray();
+}
+function renderTray(){
+  const t=document.getElementById('tray');
+  if(!picked.size){t.hidden=true;return}
+  t.hidden=false;
+  t.innerHTML=`<div class="pills">${[...picked].map(n=>`<span class="pill">${n.length>18?n.slice(0,17)+'…':n}<button data-x="${n}" aria-label="Убрать"><i class="ti ti-x"></i></button></span>`).join('')}</div>
+    <button class="go" data-go="s2" ${picked.size<2?'disabled style="opacity:.5"':''}>Сравнить ${picked.size}</button>`;
+}
+document.getElementById('seg').onclick=e=>{const b=e.target.closest('button');if(b){mode=b.dataset.m;renderList()}};
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.cmp');
+  if(c){const n=c.dataset.n; picked.has(n)?picked.delete(n):(picked.size<4&&picked.add(n)); renderList(); return}
+  const x=e.target.closest('[data-x]'); if(x){picked.delete(x.dataset.x);renderList();return}
+  const g=e.target.closest('[data-go]'); if(g){show(g.dataset.go);return}
+  const cell=e.target.closest('td.c'); if(cell&&!e.target.closest('.ask')){cell.classList.toggle('open')}
+});
+
+// ---------- экран 2 ----------
+function cell(c){
+  if(c[0]==='ask') return `<td class="c unk"><div class="v">Не знаем</div><a class="ask" href="#" onclick="return false">Спросить у отеля</a><div class="how">Ни отель, ни его сайт этого не сообщали. Вопрос уйдёт в Экстранет; обычно отвечают за 1–3 дня.</div></td>`;
+  if(c[0]==='split') return `<td class="c"><span class="diff"><i class="ti ti-arrows-diff"></i>Мнения расходятся</span>
+    <div class="split"><div>Отель: <b>включён</b></div><div>Сайт отеля: <b>за доплату</b></div></div>
+    <div class="how">Отель ответил «включён» (демо, 25.10). На сайте azimuthotels.com: «Завтрак за доплату, шведский стол». Уточняем у отеля — пока советуем проверить при бронировании.</div></td>`;
+  const [v,s,k,how]=c;
+  return `<td class="c ${k}">${k==='win'?'<span class="crown"><i class="ti ti-check"></i>лучше</span><br>':''}<div class="v">${v}</div>${s?`<div class="s">${s}</div>`:''}<div class="how">${how}</div></td>`;
+}
+document.getElementById('tbl').innerHTML=
+  `<thead><tr><th class="rowh"></th>${H.map(h=>`<th><div class="hh"><div class="n">${h.n}<button aria-label="Убрать"><i class="ti ti-x"></i></button></div>
+    <div class="m">${'★'.repeat(h.st)} <span class="rt">${String(h.r).replace('.',',')}</span><span class="p">${rub(h.p)}</span></div></div></th>`).join('')}</tr></thead>
+  <tbody>${ROWS.map(r=>r.g?`<tr class="group"><td class="rowh">${r.g}</td><td colspan="3"></td></tr>`:
+    `<tr><td class="rowh"><i class="ti ti-${r.i}"></i>${r.t}${r.sub?`<small>${r.sub}</small>`:''}</td>${r.c.map(cell).join('')}</tr>`).join('')}</tbody>`;
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
+  document.querySelectorAll('.mock-nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===id));
+  document.getElementById('tray').style.display=id==='s1'?'':'none';
+  scrollTo(0,0);
+}
+document.querySelector('.mock-nav').onclick=e=>{const b=e.target.closest('button');if(b)show(b.dataset.s)};
+renderList();
+</script>
+</body>
+</html>
