@@ -13,7 +13,8 @@ STATUS = {"sent": "Ждём ответа отеля", "confirmed": "Отель �
 
 def _hotel(h: dict) -> dict:
     return {"id": h["id"], "name": h["name"], "address": h.get("address"), "lat": h["lat"], "lon": h["lon"],
-            "price_rub": h["mock"]["price_rub"], "rating": h["mock"]["rating"], "reviews": h["mock"]["reviews"]}
+            "price_rub": h["mock"]["price_rub"], "rating": h["mock"]["rating"], "reviews": h["mock"]["reviews"],
+            "levels": h.get("levels")}
 
 
 def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop: set[str], guests: dict | None = None) -> dict | None:

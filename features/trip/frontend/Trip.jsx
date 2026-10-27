@@ -3,6 +3,7 @@ import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import DayPanel from '@features/day/frontend/DayPanel.jsx'
 import { useGuests, guestsText } from '@features/guests/frontend/guests.js'
+import WishPicture from './WishPicture.jsx'
 import { HowKnown, guestsWord, tripDates, NIGHTS } from './common.jsx'
 import './trip.css'
 
@@ -32,8 +33,8 @@ function Status({ t }) {
     <div className="tr-status warn"><Icon name="mail" size={20} /><div><b>Отель ответил: всё выполнить не получится</b>
       {t.hotel_reply && <span className="tr-quote">«{t.hotel_reply}»</span>}</div></div>)
   return (
-    <div className="tr-status"><Icon name="clock" size={20} /><div><b>Пожелание у отеля</b>
-      <span>Ответ появится здесь, обычно отели отвечают в течение дня</span></div></div>)
+    <div className="tr-status"><Icon name="clock" size={20} /><div><b>Ждём ответа отеля на пожелание</b>
+      <span>Номер уже ваш, а пожелание отель выполняет при заселении. Ответ появится здесь, обычно в течение дня</span></div></div>)
 }
 
 const GROUPS = [['bring', 'Взять с собой'], ['remind', 'Не забыть до поездки'], ['skip', 'Можно не брать']]
@@ -167,13 +168,17 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
         {t.hotel.address && <div className="info"><Icon name="pin" />{t.hotel.address}</div>}
         <div className="info"><Icon name="calendar" />{tripDates(t.month)}, {NIGHTS} ночей</div>
         <div className="info"><Icon name="user" />{guestsText(guests, true)}</div>
+        <div className="tr-booked"><Icon name="check" size={18} />Номер забронирован</div>
       </div>
 
       <div className="block">
         <h2>Пожелание к номеру</h2>
         {t.wish.items.length
           ? <>
-              <div className="tr-plate">{t.wish.text}</div>
+              <div className="tr-plate">
+                <WishPicture facade={t.facade} floor={t.floor} levels={t.hotel.levels} items={t.wish.items} />
+                <div className="tr-plate-text"><small>Отелю отправили</small>{t.wish.text}</div>
+              </div>
               {t.wish.items.map(it => <Row key={it.id} icon={{ side: 'window', floor: 'building', quiet: 'mute' }[it.id] || 'check'}
                 title={it.text} note={it.reason} facts={it.facts} />)}
             </>
