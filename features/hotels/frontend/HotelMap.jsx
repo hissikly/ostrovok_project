@@ -3,6 +3,8 @@ import * as maplibregl from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import DayRouteInfo, { OUTING_COLORS } from '@features/day/frontend/DayRoute.jsx'
 import SeaLines, { SEA_COLOR, SEA_OPACITY, SEA_RADIUS } from '@features/beach_route/frontend/SeaLines.jsx'
+import RainToggle, { rainImage } from '@features/climate/frontend/Rain.jsx'
+import { api } from '@app/api.js'
 
 maplibregl.setWorkerUrl(workerUrl)   // MapLibre 6 ищет воркер рядом с бандлом — Vite его туда сам не кладёт
 const STYLE = 'https://tiles.openfreemap.org/styles/liberty'   // цветной стиль OpenFreeMap, без ключей
@@ -57,14 +59,16 @@ function RouteInfo({ r }) {
 // сколько моря в виде — словами и процентом, как на полоске в «О!кне»
 const seaPart = s => s < 0.02 ? 'почти нет' : `${Math.max(1, Math.round(s * 100))}% вида`
 
-export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois, places, route, onPlaceClick, onCloseBox }) {
+export default function HotelMap({ month, hotels, selected, onSelect, cone, fits, pois, places, route, onPlaceClick, onCloseBox }) {
   const box = useRef(null)
   const map = useRef(null)
   const ready = useRef(false)
   const [seaOn, setSeaOn] = useState(true)
+  const [rainOn, setRainOn] = useState(false)
+  const [rain, setRain] = useState(null)   // картинка слоя «Осадки»
   // последние пропсы — чтобы применить их, когда карта догрузится
   const props = useRef({})
-  props.current = { hotels, selected, cone, onSelect, fits, pois, places, route, onPlaceClick }
+  props.current = { hotels, selected, cone, onSelect, fits, pois, places, route, onPlaceClick, rain }
 
   // выбранный отель — оранжевый, крупнее и поверх всех; остальные — по подбору или «посчитано ли О!кно»
   const paintHotels = () => {
@@ -121,6 +125,15 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
       items.forEach(p => b.extend([p.lon, p.lat]))
       m.fitBounds(b, { padding: { top: 180, bottom: 50, left: 50, right: 60 }, maxZoom: 17, duration: 800 })
     }
+  }
+  const applyRain = () => {
+    const m = map.current, { rain } = props.current
+    if (rain && m.getSource('rain')) m.getSource('rain').updateImage(rain)
+    else if (rain) {
+      m.addSource('rain', { type: 'image', ...rain })
+      m.addLayer({ id: 'rain', type: 'raster', source: 'rain', paint: { 'raster-fade-duration': 0 } }, 'cone')   // под точками и лучами
+    }
+    if (m.getLayer('rain')) m.setLayoutProperty('rain', 'visibility', rain ? 'visible' : 'none')
   }
   const applySelected = () => {
     const m = map.current, { selected, hotels } = props.current
@@ -194,7 +207,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
       m.on('mouseenter', 'hotels', () => { m.getCanvas().style.cursor = 'pointer' })
       m.on('mouseleave', 'hotels', () => { m.getCanvas().style.cursor = '' })
       ready.current = true
-      applyHotels(); applyCone(); applyPois(); applyPlaces(); applyRoute(); applySelected()
+      applyHotels(); applyCone(); applyPois(); applyPlaces(); applyRoute(); applySelected(); applyRain()
     })
     map.current = m
     return () => m.remove()
@@ -207,6 +220,14 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
   useEffect(() => { if (ready.current) applyPlaces() }, [places])
   useEffect(() => { if (ready.current) applyRoute() }, [route])
   useEffect(() => { if (ready.current) map.current.setLayoutProperty('sea-line', 'visibility', seaOn ? 'visible' : 'none') }, [seaOn])
+  // осадки — норма на месяц поездки (features/climate); грузим только когда включили
+  useEffect(() => {
+    if (!rainOn) { setRain(null); return }
+    let alive = true
+    api(`/api/climate/rain?month=${month}`).then(d => alive && setRain(rainImage(d)))
+    return () => { alive = false }
+  }, [rainOn, month])
+  useEffect(() => { if (ready.current) applyRain() }, [rain])
 
   const kinds = new Set((cone?.features || []).map(f => f.properties.k))
   return (
@@ -234,6 +255,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
         </>}
         {pois && <div><b className="eye-dot" style={{ borderColor: '#53AF24', background: '#53AF24' }} />рядом, что вы искали</div>}
         <SeaLines on={seaOn} setOn={setSeaOn} />
+        <RainToggle on={rainOn} setOn={setRainOn} month={month} />
       </div>
     </>
   )
