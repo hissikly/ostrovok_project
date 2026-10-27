@@ -39,6 +39,8 @@ button { font: inherit; cursor: pointer; color: inherit }
   .map-legend .eye-dot { width: 8px; height: 8px; border-width: 2.5px; margin: 0 6px 0 0 }
   .map-legend i { width: 14px; height: 3px; margin-right: 6px }
   .map-legend-share { margin-left: 4px }
+  /* раскрытая подпись карты — поверх легенды */
+  .map .maplibregl-ctrl-bottom-right { z-index: 3 }
 }
 .map-legend .eye-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 3px solid var(--brand); background: #fff; vertical-align: middle; margin: 0 11px 0 2px }
 .map-legend i { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 8px }
