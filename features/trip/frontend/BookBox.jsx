@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import { NIGHTS, tripDates } from './common.jsx'
+import { useGuests, guestsText } from '@features/guests/frontend/guests.js'
 import './trip.css'
 
 // Бронь с пожеланием в карточке отеля: пожелание собирается само из выбранного в «О!кне» и фактов,
@@ -9,6 +10,7 @@ import './trip.css'
 export default function BookBox({ hotelId, view, month, price }) {
   const [w, setW] = useState(null)
   const [drop, setDrop] = useState([])
+  const [guests] = useGuests()
   const [last, setLast] = useState(null)
   const [busy, setBusy] = useState(false)
 
@@ -31,7 +33,7 @@ export default function BookBox({ hotelId, view, month, price }) {
     setBusy(true)
     try {
       const b = await post('/api/bookings', { hotel_id: hotelId, month, facade: w?.facade || view?.facade || null,
-        floor: w?.floor || view?.floor || null, drop })
+        floor: w?.floor || view?.floor || null, drop, guests })
       location.hash = `trip/${b.id}`
     } catch { setBusy(false) }
   }
@@ -41,7 +43,7 @@ export default function BookBox({ hotelId, view, month, price }) {
   return (
     <div className="block">
       <h2>Бронирование</h2>
-      <div className="tr-total"><b>{(price * NIGHTS).toLocaleString('ru-RU')} ₽</b>за {NIGHTS} ночей, {tripDates(month)}
+      <div className="tr-total"><b>{(price * NIGHTS).toLocaleString('ru-RU')} ₽</b>за {NIGHTS} ночей, {tripDates(month)}, {guestsText(guests)}
         <span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>
       {items.length > 0 && <>
         <div className="tr-cap">Попросим отель</div>

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from features.hotels.backend import hotel
 
@@ -10,12 +10,18 @@ from .wish import wish
 router = APIRouter(prefix="/api", tags=["trip"])
 
 
+class Guests(BaseModel):
+    adults: int = Field(2, ge=1, le=6)
+    children: list[int] = Field([], max_length=4)   # возраст каждого ребёнка
+
+
 class BookingIn(BaseModel):
     hotel_id: str
     month: int = 5
     facade: str | None = None
     floor: int | None = None
     drop: list[str] = []      # пункты пожелания, которые гость убрал
+    guests: Guests = Guests()
 
 
 class FinishIn(BaseModel):
@@ -41,7 +47,7 @@ def booking_request(hotel_id: str, month: int = Query(5, ge=1, le=12), facade: s
 
 @router.post("/bookings")
 def create_booking(b: BookingIn):
-    r = book(b.hotel_id, b.month, b.facade, b.floor, set(b.drop))
+    r = book(b.hotel_id, b.month, b.facade, b.floor, set(b.drop), b.guests.model_dump())
     return trip(r["id"]) if r else _404("hotel", b.hotel_id)
 
 

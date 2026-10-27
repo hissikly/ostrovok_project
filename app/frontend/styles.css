@@ -241,5 +241,5 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .floor-strip button.on i { background: var(--brand) }
 .floor-strip .ticks { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 4px }
 .floor-strip .ticks b { color: var(--ink); font-size: 13px }
-@media (max-width: 480px) { .hdr { gap: 10px; padding: 0 14px } .trip { display: none } .for-hotels { margin-left: auto } }
+@media (max-width: 480px) { .hdr { gap: 6px; padding: 0 14px } .logo { font-size: 20px } .trip { display: none } .for-hotels { margin-left: auto } }
 .pills-retry { border: 0; background: var(--sec); color: var(--brand); font-weight: 700; border-radius: 999px; padding: 8px 16px }

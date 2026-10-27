@@ -17,7 +17,7 @@ from core.config import DATA
 DB = Path(os.getenv("TRIP_DB", DATA / "runtime" / "trip.db"))
 _lock = threading.RLock()   # одно соединение на все потоки, как в hotelier
 _con = None
-JSON_COLS = ("wish", "promise")
+JSON_COLS = ("wish", "promise", "guests")
 
 
 def now() -> str:
@@ -41,6 +41,9 @@ def con():
                     id integer primary key, booking_id text, hotel_id text, fact_id text, characteristic text,
                     label text, answer text, base_confidence real, demo integer, created_at text);
                 create index if not exists f_fact on feedback(hotel_id, fact_id);""")
+            # кто едет (features/guests) — колонка добавлена позже, старые базы дополняем
+            if "guests" not in {r[1] for r in _con.execute("pragma table_info(bookings)")}:
+                _con.execute("alter table bookings add column guests text")
     return _con
 
 
@@ -53,13 +56,14 @@ def _row(r) -> dict | None:
     return d
 
 
-def create_booking(hotel_id: str, month: int, facade: str | None, floor: int | None, wish: dict, promise: list) -> dict:
+def create_booking(hotel_id: str, month: int, facade: str | None, floor: int | None, wish: dict, promise: list,
+                   guests: dict | None = None) -> dict:
     bid = secrets.token_hex(3)
     with _lock:
-        con().execute("""insert into bookings (id, hotel_id, month, facade, floor, wish, promise, status, created_at)
-                         values (?,?,?,?,?,?,?,'sent',?)""",
+        con().execute("""insert into bookings (id, hotel_id, month, facade, floor, wish, promise, guests, status, created_at)
+                         values (?,?,?,?,?,?,?,?,'sent',?)""",
                       (bid, hotel_id, month, facade, floor, json.dumps(wish, ensure_ascii=False),
-                       json.dumps(promise, ensure_ascii=False), now()))
+                       json.dumps(promise, ensure_ascii=False), json.dumps(guests or {"adults": 2, "children": []}), now()))
         con().commit()
     return get_booking(bid)
 

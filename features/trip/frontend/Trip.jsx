@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import DayPanel from '@features/day/frontend/DayPanel.jsx'
-import { useInterests } from '@features/trip_plan/frontend/interests.js'
+import { useGuests, guestsText } from '@features/guests/frontend/guests.js'
 import { HowKnown, guestsWord, tripDates, NIGHTS } from './common.jsx'
 import './trip.css'
 
@@ -135,10 +135,10 @@ function Feedback({ t, onSent }) {
 // onHotel(id) — показать отель на карте; onRoute / routeShown — выходы из отеля на карте, как в карточке
 export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }) {
   const [t, setT] = useState(null)
-  // «С ребёнком» — интерес «С детьми» из «Чем хотите заняться?» (features/trip_plan): общий для чемодана, дня и шапки
-  const [interests, setInterests] = useInterests()
-  const kids = interests.includes('kids')
-  const setKids = on => setInterests(on ? [...interests, 'kids'] : interests.filter(x => x !== 'kids'))
+  // «С ребёнком» — дети в «Гостях» шапки (features/guests): общий для чемодана, дня и шапки
+  const [guests, setGuests] = useGuests()
+  const kids = guests.children.length > 0
+  const setKids = on => setGuests({ ...guests, children: on ? [5] : [] })
   const [failed, setFailed] = useState(false)
 
   const load = () => api(`/api/bookings/${bookingId}?kids=${kids}`).then(x => { setT(x); onHotel?.(x.hotel_id) }).catch(() => setFailed(true))
@@ -167,7 +167,7 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
         <h1>{t.hotel.name}</h1>
         {t.hotel.address && <div className="info"><Icon name="pin" />{t.hotel.address}</div>}
         <div className="info"><Icon name="calendar" />{tripDates(t.month)}, {NIGHTS} ночей</div>
-        <div className="info"><Icon name="user" />2 взрослых{kids ? ' и ребёнок' : ''}</div>
+        <div className="info"><Icon name="user" />{guestsText(guests, true)}</div>
       </div>
 
       <div className="block">
