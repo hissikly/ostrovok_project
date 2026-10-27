@@ -94,11 +94,11 @@ function Sunset({ sun }) {
   } else if (trip?.sun_hidden_at && trip.minutes_earlier <= 3) {
     // скрывается за дальними домами у самого горизонта — для человека это обычный закат
     title = 'Закат виден из окна'
-    text = `В ${MONTH_IN[TRIP_MONTH]} солнце сядет в ${trip.sunset_astro} за дальними домами у горизонта`
+    text = `В ${MONTH_IN[TRIP_MONTH]} сядет за дальние дома в ${trip.sunset_astro}`
     good = true; kind = 'horizon'
   } else if (trip?.sun_hidden_at && ['building', 'terrain'].includes(trip.hidden_by)) {
     title = trip.hidden_by === 'building' ? 'Закат закроет соседний дом' : 'Солнце уйдёт за склон'
-    text = `В ${MONTH_IN[TRIP_MONTH]} оно скроется в ${trip.sun_hidden_at}, за ${trip.minutes_earlier} мин до заката`
+    text = `Скроется в ${trip.sun_hidden_at}, на ${trip.minutes_earlier} мин раньше`
     kind = trip.hidden_by
   } else {
     title = 'Заката из этих окон не видно'
@@ -121,6 +121,11 @@ function FloorStrip({ floors, shares, value, onPick }) {
   )
 }
 
+// Выбор в «О!кне» помним по отелю в браузере: уйти в бронь и вернуться — не начинать заново
+const KEY = id => `okno:${id}`
+const remembered = id => { try { return JSON.parse(localStorage.getItem(KEY(id))) } catch { return null } }
+const remember = (id, v) => { try { localStorage.setItem(KEY(id), JSON.stringify(v)) } catch { /* не помним */ } }
+
 export default function WindowPanel({ hotelId, onCone, onPick }) {
   const [meta, setMeta] = useState(null)
   const [side, setSide] = useState(null)
@@ -132,9 +137,11 @@ export default function WindowPanel({ hotelId, onCone, onPick }) {
     api(`/api/hotels/${hotelId}/window`).then(m => {
       if (!m.computed) { setMeta(false); return }
       setMeta(m)
-      const s = m.facades.W ? 'W' : Object.keys(m.facades)[0]
+      // вернулись к отелю (из брони, со списка) — сторона и этаж те же, что гость выбрал в прошлый раз
+      const saved = remembered(hotelId)
+      const s = saved && m.facades[saved.facade] ? saved.facade : m.facades.W ? 'W' : Object.keys(m.facades)[0]
       setSide(s)
-      setFloor(Math.max(...Object.keys(m.facades[s].floors).map(Number)))
+      setFloor(saved?.facade === s ? saved.floor : Math.max(...Object.keys(m.facades[s].floors).map(Number)))
     }).catch(() => setMeta(false))
   }, [hotelId])
 
@@ -145,7 +152,11 @@ export default function WindowPanel({ hotelId, onCone, onPick }) {
 
   useEffect(() => () => onCone(null), [])
   // выбранные сторона и этаж — для «Ваш день здесь»
-  useEffect(() => { if (w) onPick?.({ facade: w.facade, floor: w.floor }) }, [w?.facade, w?.floor])
+  useEffect(() => {
+    if (!w) return
+    onPick?.({ facade: w.facade, floor: w.floor })
+    remember(hotelId, { facade: w.facade, floor: w.floor })
+  }, [w?.facade, w?.floor])
 
   if (meta === false) return null
   if (!meta || !w) return <div className="block muted">Смотрим, что видно из окон…</div>
