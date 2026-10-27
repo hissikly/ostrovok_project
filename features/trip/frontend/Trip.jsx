@@ -186,17 +186,16 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
         <Status t={t} />
       </div>
 
-      {t.promise.length > 0 && (
-        <div className="block">
-          <h2>Что мы вам обещали</h2>
-          <p className="lead">На этом держался ваш выбор. После поездки спросим, так ли было.</p>
-          {t.promise.map(p => <Row key={p.id} icon={p.icon} title={p.title} note={p.note} facts={p.facts} guests={p.guests} />)}
-        </div>
-      )}
-
       {t.packing.length > 0 && <Packing items={t.packing} kids={kids} />}
 
       <DayPanel hotelId={t.hotel_id} month={t.month} view={view} onRoute={onRoute} routeShown={routeShown} />
+
+      {t.promise.length > 0 && (
+        <div className="block">
+          <h2>Что мы вам обещали</h2>
+          {t.promise.map(p => <Row key={p.id} icon={p.icon} title={p.title} note={p.note} facts={p.facts} guests={p.guests} />)}
+        </div>
+      )}
 
       <Feedback key={t.id} t={t} onSent={load} />
     </div>

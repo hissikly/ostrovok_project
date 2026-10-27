@@ -22,7 +22,14 @@ function Stepper({ title, note, value, min, max, onChange }) {
 export default function GuestsButton() {
   const [g, setG] = useGuests()
   const [open, setOpen] = useState(false)
+  // место окна запоминаем при открытии: подписи в плашке меняют ширину (дети, интересы), а окно стоит на месте
+  const [at, setAt] = useState(null)
   const box = useRef(null)
+  const toggle = () => {
+    const r = box.current.getBoundingClientRect()
+    setAt(innerWidth > 640 ? { position: 'fixed', left: Math.max(16, r.left), top: r.bottom + 10, right: 'auto' } : null)
+    setOpen(!open)
+  }
   useEffect(() => {
     if (!open) return
     const off = e => { if (box.current && !box.current.contains(e.target)) setOpen(false) }
@@ -36,11 +43,11 @@ export default function GuestsButton() {
 
   return (
     <span className="gs" ref={box}>
-      <button className="gs-btn" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={`Гости: ${guestsText(g)}`}>
+      <button className="gs-btn" onClick={toggle} aria-expanded={open} aria-label={`Гости: ${guestsText(g)}`}>
         <Icon name="user" size={17} /><span className="lbl">{guestsText(g)}</span>
       </button>
       {open && (
-        <div className="gs-pop" role="dialog" aria-label="Гости">
+        <div className="gs-pop" style={at || undefined} role="dialog" aria-label="Гости">
           <h3>Кто едет?</h3>
           <Stepper title="Взрослые" value={g.adults} min={1} max={MAX_ADULTS} onChange={n => setG({ ...g, adults: n })} />
           <Stepper title="Дети" note="До 17 лет" value={g.children.length} min={0} max={MAX_CHILDREN} onChange={setKids} />
