@@ -36,11 +36,49 @@ function Cell({ c, hotelId, best, open, onToggle }) {
             <div className="cmp-split"><div>Отель: <b>{c.split.hotel}</b></div><div>Сайт отеля: <b>{c.split.site}</b></div></div></>
         : <><div className="v">{c.win && <span className="tick"><Icon name="check" size={13} /></span>}{c.value}</div>
             {c.sub && <div className="s">{c.sub}</div>}</>}
-      {c.ask && (asked
+      {(c.ask || c.ask_text) && (asked
         ? <div className="s">Спросили у отеля</div>
-        : <button className="cmp-ask" onClick={e => { e.stopPropagation(); post(`/api/hotelier/${hotelId}/questions`, { topic: c.ask }).then(() => setAsked(true)) }}>Спросить у отеля</button>)}
+        : <button className="cmp-ask" onClick={e => { e.stopPropagation(); post(`/api/hotelier/${hotelId}/questions`, c.ask ? { topic: c.ask } : { text: c.ask_text }).then(() => setAsked(true)) }}>Спросить у отеля</button>)}
       {open && how(c) && <div className="cmp-how">{how(c)}</div>}
     </td>
+  )
+}
+
+// «Не нашли, что искали?» — фраза гостя дописывает строки в таблицу (backend/custom.py): места — по карте,
+// про отель — по сайтам отелей с цитатой, нет ответа — «Спросить у отеля». Не чат: фраза растворяется в строках
+function CustomAsk({ ids, month, have, onRows }) {
+  const [text, setText] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [note, setNote] = useState(null)
+  const submit = async e => {
+    e.preventDefault()
+    if (!text.trim() || busy) return
+    setBusy(true); setNote(null)
+    try {
+      const d = await post('/api/compare/custom', { ids, text, month })
+      const fresh = d.rows.filter(r => !have.has(r.id))
+      const dup = d.rows.filter(r => have.has(r.id)).map(r => r.title.toLowerCase())
+      onRows(fresh)
+      setNote(fresh.length ? `Добавили: ${fresh.map(r => r.title).join(', ')}${dup.length ? `. Уже в таблице: ${dup.join(', ')}` : ''}`
+        : dup.length ? `Это уже есть в таблице: ${dup.join(', ')}`
+          : 'Не поняли, что сравнить. Назовите место («до Зимнего театра») или что важно в отеле («две спальни», «кухня»).')
+      if (fresh.length) setText('')
+    } catch {
+      setNote('Не получилось — похоже, пропала связь с сервером.')
+    }
+    setBusy(false)
+  }
+  return (
+    <form className="cmp-custom" onSubmit={submit}>
+      <div className="cmp-custom-title">Не нашли, что искали?</div>
+      <div className="describe">
+        <Icon name="sparkle" />
+        <input placeholder="Еду на концерт в Фестивальный, хочу гулять у моря, бюджет ограничен" value={text}
+          onChange={e => setText(e.target.value)} disabled={busy} />
+        {text.trim() && <button className="go" disabled={busy}>{busy ? 'Ищем…' : 'Добавить'}</button>}
+      </div>
+      <div className="describe-note">{busy ? 'Ищем на карте и на сайтах отелей…' : note}</div>
+    </form>
   )
 }
 
@@ -50,8 +88,10 @@ export default function Compare({ ids, lenses, on, month, onHotel, onIds, onExit
   const [error, setError] = useState(null)
   const [more, setMore] = useState(false)
   const [open, setOpen] = useState(null)   // «как узнали» у одной клетки: `${row}:${hotel}`
+  const [custom, setCustom] = useState([])   // строки гостя из «Не нашли, что искали?»
   const key = ids.join(',')
 
+  useEffect(() => { setCustom([]) }, [key])   // другой набор отелей — свои строки считаются заново
   useEffect(() => {
     setError(null)
     if (ids.length < 2) return
@@ -68,7 +108,8 @@ export default function Compare({ ids, lenses, on, month, onHotel, onIds, onExit
   if (!data) return <div className="cmp-page muted">Сравниваем…</div>
 
   const title = l => lenses.find(x => x.id === l)
-  const rows = data.rows.filter(r => !r.extra || more)
+  const rows = [...data.rows.filter(r => !r.extra || more), ...custom]
+  const have = new Set([...data.rows, ...custom].map(r => r.id))
   const extra = data.rows.filter(r => r.extra)
   const n = data.hotels.length
   return (
@@ -98,7 +139,9 @@ export default function Compare({ ids, lenses, on, month, onHotel, onIds, onExit
           <tbody>
             {rows.map((r, i) => (
               <tr key={r.id} className={i === 0 ? 'first' : ''}>
-                <td className="cmp-lab"><Icon name={r.icon} size={18} />{r.title}</td>
+                <td className="cmp-lab"><Icon name={r.icon} size={18} />{r.title}
+                  {r.custom && <span className="cmp-yours">ваше<button onClick={() => setCustom(custom.filter(x => x.id !== r.id))}
+                    aria-label={`Убрать строку ${r.title}`}><Icon name="x" size={12} /></button></span>}</td>
                 {r.cells.map((c, j) => (
                   <Cell key={j} c={c} hotelId={data.hotels[j].id} best={data.hotels[j].best}
                     open={open === `${r.id}:${j}`} onToggle={() => setOpen(open === `${r.id}:${j}` ? null : `${r.id}:${j}`)} />
@@ -117,6 +160,7 @@ export default function Compare({ ids, lenses, on, month, onHotel, onIds, onExit
           </tbody>
         </table>
       </div>
+      <CustomAsk ids={ids} month={month} have={have} onRows={r => setCustom([...custom, ...r])} />
       {extra.length > 0 && (
         <button className="cmp-more" onClick={() => setMore(!more)}>
           {more ? 'Свернуть' : `Ещё: ${extra.map(r => r.title.toLowerCase()).join(', ')}`}

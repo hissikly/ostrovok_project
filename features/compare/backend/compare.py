@@ -62,6 +62,14 @@ def _answer_cell(hid: str, topic: str, ctx: dict) -> dict:
     return out
 
 
+def lens_row(l: str, hs: list[dict], results: list[dict], by_id: dict, ctx: dict, query: bool = False) -> dict:
+    """Строка таблицы по линзе: клетки из тех же результатов, что в выдаче, и лучший в строке."""
+    cells = [cell(l, r, by_id[h["id"]], ctx) for r, h in zip(results, hs)]
+    _winners(cells)
+    title = f"Закат в {month_prep(ctx['month'])}" if l == "sunset" and ctx.get("month") else TITLE.get(l, BY_ID[l]["title"])
+    return {"id": l, "title": title, "icon": BY_ID[l]["icon"], "query": query, "cells": cells}
+
+
 def compare(ids: list[str], lens_ids: list[str], ctx: dict) -> dict:
     hs = [hotel(i) for i in ids]
     query = [i for i in dict.fromkeys(lens_ids) if i in BY_ID]
@@ -70,12 +78,7 @@ def compare(ids: list[str], lens_ids: list[str], ctx: dict) -> dict:
     by_id = {h["id"]: {f["id"]: f for f in facts[h["id"]]} for h in hs}
 
     lens_res = {l: [BY_ID[l]["fn"](facts[h["id"]], ctx) for h in hs] for l in shown}
-    rows = []
-    for l in shown:
-        cells = [cell(l, r, by_id[h["id"]], ctx) for r, h in zip(lens_res[l], hs)]
-        _winners(cells)
-        title = f"Закат в {month_prep(ctx['month'])}" if l == "sunset" and ctx.get("month") else TITLE.get(l, BY_ID[l]["title"])
-        rows.append({"id": l, "title": title, "icon": BY_ID[l]["icon"], "query": l in query, "cells": cells})
+    rows = [lens_row(l, hs, lens_res[l], by_id, ctx, query=l in query) for l in shown]
     specs = {s["id"]: s for s in nearby_specs()}
     rows.append({"id": "near", "title": "Рядом пешком", "icon": "walk", "query": False, "kind": "near",
                  "cells": [{"items": near_items(facts[h["id"]], specs), "source": "computed:osm-poi+walk"} for h in hs]})
