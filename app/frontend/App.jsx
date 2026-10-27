@@ -131,7 +131,7 @@ export default function App() {
                 result={result} onSelect={setSelected} />}
         </aside>
         <section className="map">
-          <HotelMap hotels={hotels} selected={mapSel} onSelect={setSelected} cone={route || places ? null : cone} fits={fits} pois={pois} places={places} route={route}
+          <HotelMap month={month} hotels={hotels} selected={mapSel} onSelect={setSelected} cone={route || places ? null : cone} fits={fits} pois={pois} places={places} route={route}
             onPlaceClick={routeTo} onCloseBox={closeMapBox} />
         </section>
       </div>

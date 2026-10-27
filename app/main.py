@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from core.config import STATIC
 from features.beach_route.backend.router import router as routes_router
 from features.characteristics.backend.router import router as characteristics_router
+from features.climate.backend.router import router as climate_router
 from features.compare.backend.router import router as compare_router
 from features.conflicts.backend.router import router as conflicts_router
 from features.day.backend.router import router as day_router
@@ -27,7 +28,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 app = FastAPI(title="О!кно", version="0.1.0")
 
 for r in (hotels_router, facts_router, okno_router, search_router, nearby_router, routes_router, knowledge_router, hotelier_router, conflicts_router,
-          day_router, web_router, characteristics_router, trip_router, trip_plan_router, compare_router, sights_router):
+          day_router, web_router, characteristics_router, trip_router, trip_plan_router, compare_router, sights_router,
+          climate_router):
     app.include_router(r)
 
 
