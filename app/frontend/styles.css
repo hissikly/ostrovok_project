@@ -225,7 +225,7 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .ext-nav a.on { background: var(--sec); color: var(--brand) }
 .ext-nav hr { border: 0; border-top: 1px solid var(--line); margin: 10px 4px }
 .ext-new { margin-left: auto; background: var(--lime); color: var(--lime-ink); font-size: 11px; font-weight: 800; border-radius: 999px; padding: 2px 8px }
-.ext-main { padding: 24px; display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 20px; align-items: start; max-width: 1280px }
+.ext-main { padding: 24px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; max-width: 900px }
 .ext-main h1 { margin: 0 0 16px }
 .ext-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px }
 .ext-stat { background: #fff; border-radius: 20px; padding: 16px 18px }

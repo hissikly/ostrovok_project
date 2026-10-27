@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
-import Faq from '@features/knowledge/frontend/Faq.jsx'
 import ConflictsPanel from '@features/conflicts/frontend/ConflictsPanel.jsx'
 import HotelBookings from '@features/trip/frontend/HotelBookings.jsx'
 import GuestReviews from '@features/profile/frontend/Reviews.jsx'
@@ -111,7 +110,7 @@ function Known({ k, hotelId, onDone }) {
 
 export default function Extranet({ hotelId, hotels, onHotel, onExit }) {
   const [data, setData] = useState(null)
-  const [tick, setTick] = useState(0)   // обновить превью гостя после ответа
+  const [tick, setTick] = useState(0)   // перечитать «Мнения расходятся» после ответа
   useEffect(() => { setData(null); api(`/api/hotelier/${hotelId}`).then(setData) }, [hotelId])
   const refresh = () => { setTick(t => t + 1); api(`/api/hotelier/${hotelId}`).then(d => setData(s => ({ ...s, demand: d.demand }))) }
   const pick = hotels.filter(h => h.okno).sort((a, b) => a.name.localeCompare(b.name, 'ru'))
@@ -141,7 +140,6 @@ export default function Extranet({ hotelId, hotels, onHotel, onExit }) {
                 <div className="ext-stat"><b>{data.known.length}</b><span>{plural(data.known.length, 'факт', 'факта', 'фактов')} мы узнали сами</span></div>
               </div>
               <HotelBookings hotelId={hotelId} />
-              <GuestReviews hotelId={hotelId} extranet />
               <ConflictsPanel key={`${hotelId}-${tick}`} hotelId={hotelId} onDone={refresh} />
               <section className="block">
                 <h2>Вопросы от гостей</h2>
@@ -153,11 +151,8 @@ export default function Extranet({ hotelId, hotels, onHotel, onExit }) {
                 <h2>Что мы о вас узнали сами</h2>
                 {data.known.map(k => <Known key={k.topic} k={k} hotelId={hotelId} onDone={refresh} />)}
               </section>
+              <GuestReviews hotelId={hotelId} extranet />
             </div>
-            <aside className="ext-aside">
-              <div className="ext-cap">Так увидит гость</div>
-              <Faq key={`${hotelId}-${tick}`} hotelId={hotelId} month={5} />
-            </aside>
           </main>
         )}
       </div>

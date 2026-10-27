@@ -86,3 +86,4 @@ status: agreed
 - 2026-10-28 12:00 · ingest · Сверка веток и чатов 27–28.10 (все влиты в main): день по интересам, «Кто едет», «Моя поездка», «Город», цена, линия от моря, слой осадков, одна строка поиска; чек-лист обновлён, inbox перенесён · roadmap, deliverables, index, decisions, inbox
 - 2026-10-28 03:00 · update · Профиль «Мои поездки» v1 (`features/profile`): поездки, «Так и было?» по обещанию и фильтрам, отзыв; бронь хранит фильтры поиска; «Моя волна» отклонена · roadmap, decisions, inbox, features/profile/README.md, features/trip/README.md
 - 2026-10-28 03:40 · update · Отзывы после поездки в карточке отеля и Экстранете: звёзды, текст, что из обещанного совпало / не совпало, в Экстранете — «Чаще всего не совпадало»; 5 демо-отзывов о Pullman и Azimut · roadmap, features/profile/README.md
+- 2026-10-28 04:00 · decision · Экстранет: убрано превью «Так увидит гость», отзывы — в самый низ · decisions, knowledge-base, features/hotelier/README.md
