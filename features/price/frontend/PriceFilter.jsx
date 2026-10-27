@@ -62,9 +62,10 @@ export default function PriceFilter({ prices, value, onChange }) {
 
   return (
     <div className="pf" ref={box}>
-      <button className={`pf-btn ${active ? 'on' : ''} ${open ? 'open' : ''}`} onClick={() => setOpen(!open)}
-        aria-expanded={open} aria-label="Фильтр и сортировка по цене">
-        <Sliders />{label || 'Цена'}
+      {/* без выбора — только иконка; когда выбрано — иконка и что выбрано */}
+      <button className={`pf-btn ${active ? 'on' : 'icon'} ${open ? 'open' : ''}`} onClick={() => setOpen(!open)}
+        aria-expanded={open} aria-label="Фильтр и сортировка по цене" title="Цена и сортировка">
+        <Sliders />{label}
       </button>
       {open && (
         <div className="pf-card" role="dialog" aria-label="Цена">

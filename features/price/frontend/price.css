@@ -9,6 +9,7 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, .06); transition: background .15s, color .15s }
 .pf-btn:hover, .pf-btn.open { background: var(--sec); color: var(--brand) }
 .pf-btn.on { background: var(--brand); color: #fff }
+.pf-btn.icon { padding: 7px }
 
 .pf-card { position: absolute; left: -6px; right: -6px; top: calc(100% + 6px); z-index: 40;
   background: #fff; border-radius: var(--r-lg); padding: 16px; box-shadow: 0 12px 40px rgba(20, 30, 60, .16);
