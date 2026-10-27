@@ -29,8 +29,17 @@ button { font: inherit; cursor: pointer; color: inherit }
   box-shadow: 0 2px 12px rgba(0, 0, 0, .08); font-size: 13px; font-weight: 600; display: grid; gap: 4px; z-index: 2 }
 .map-legend-title { font-weight: 800; font-size: 14px; margin-bottom: 2px }
 .map-legend-share { margin-left: 6px; color: var(--muted); font-weight: 700 }
-/* на телефоне подпись карты (OpenStreetMap и др.) — в две строки, легенда встаёт над ней */
-@media (max-width: 640px) { .map > .map-legend { bottom: 66px; padding: 8px 12px } }
+/* на телефоне легенда — одна строка внизу слева, без заголовка: карта маленькая, легенда не должна её закрывать;
+   подпись карты свёрнута в «i» справа (HotelMap) */
+@media (max-width: 640px) {
+  .map > .map-legend { bottom: 8px; left: 8px; right: 48px; padding: 6px 10px; border-radius: 12px; font-size: 12px;
+    display: flex; flex-wrap: wrap; gap: 2px 12px; width: fit-content; max-width: calc(100% - 56px) }
+  .map-legend-title { display: none }
+  .map > .map-legend > div { white-space: nowrap }
+  .map-legend .eye-dot { width: 8px; height: 8px; border-width: 2.5px; margin: 0 6px 0 0 }
+  .map-legend i { width: 14px; height: 3px; margin-right: 6px }
+  .map-legend-share { margin-left: 4px }
+}
 .map-legend .eye-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 3px solid var(--brand); background: #fff; vertical-align: middle; margin: 0 11px 0 2px }
 .map-legend i { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 8px }
 
