@@ -53,9 +53,12 @@ export default function App() {
     const r = result && (selected ? result.hotels.find(x => x.id === selected) : result.hotels[0])
     const pts = (r?.reasons || []).filter(x => x.point && (selected || x.lens.startsWith('sight_'))).map(x => x.point)
     if (sight && !pts.some(p => p.name === sight.name)) pts.push(sight)
+    // «Жить рядом»: показать место и три лучших отеля — место может быть далеко за краем карты (Роза Хутор)
+    const top = !selected && pts.length ? result.hotels.slice(0, 3).map(x => hotels.find(h => h.id === x.id)).filter(Boolean) : []
     return pts.length ? { type: 'FeatureCollection', features: pts.map(p => ({ type: 'Feature',
       properties: { name: p.name }, geometry: { type: 'Point', coordinates: [p.lon, p.lat] } })),
-      fit: sight?.mode === 'car' ? [sight, hotels.find(h => h.id === selected)].filter(Boolean) : null } : null
+      fit: sight?.mode === 'car' ? [sight, hotels.find(h => h.id === selected)].filter(Boolean)
+        : top.length ? [...pts, ...top] : null } : null
   }, [result, selected, sight, hotels])
   // места одного типа рядом с открытым отелем (клик по «Что рядом пешком»)
   const [places, setPlaces] = useState(null)
