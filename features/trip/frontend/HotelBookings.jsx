@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import { NIGHTS, tripDates } from './common.jsx'
+import { guestsText } from '@features/guests/frontend/guests.js'
 import './trip.css'
 
 // Экстранет: брони с пожеланием. Отель отвечает «Подтверждаем» или «Не сможем, предложим…» — гость видит ответ в «Моей поездке»
@@ -10,7 +11,7 @@ function Booking({ b, hotelId, onDone }) {
   const answer = async (a, text = '') => { onDone(await post(`/api/hotelier/${hotelId}/bookings/${b.id}`, { answer: a, text })); setDecline(null) }
   return (
     <div className="ext-q">
-      <div className="tr-ext-meta">{tripDates(b.month)}, {NIGHTS} ночей, 2 взрослых</div>
+      <div className="tr-ext-meta">{tripDates(b.month)}, {NIGHTS} ночей, {guestsText(b.guests, true)}</div>
       <div className="tr-ext-wish">{b.wish.text || 'Без особых пожеланий'}</div>
       {b.wish.items.length > 0 && <ul className="tr-ext-why">{b.wish.items.map(it => <li key={it.id}><b>{it.text}.</b> {it.reason}</li>)}</ul>}
       {b.status !== 'sent'

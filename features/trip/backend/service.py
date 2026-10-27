@@ -13,10 +13,11 @@ STATUS = {"sent": "Ждём ответа отеля", "confirmed": "Отель �
 
 def _hotel(h: dict) -> dict:
     return {"id": h["id"], "name": h["name"], "address": h.get("address"), "lat": h["lat"], "lon": h["lon"],
-            "price_rub": h["mock"]["price_rub"], "rating": h["mock"]["rating"], "reviews": h["mock"]["reviews"]}
+            "price_rub": h["mock"]["price_rub"], "rating": h["mock"]["rating"], "reviews": h["mock"]["reviews"],
+            "levels": h.get("levels")}
 
 
-def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop: set[str]) -> dict | None:
+def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop: set[str], guests: dict | None = None) -> dict | None:
     ctx = context(hotel_id, month, facade, floor)
     if ctx is None:
         return None
@@ -28,11 +29,11 @@ def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop:
         if it["id"] not in seen:
             seen.add(it["id"])
             prom.append(it)
-    return store.create_booking(hotel_id, month, ctx["side"], ctx["floor"], w, prom)
+    return store.create_booking(hotel_id, month, ctx["side"], ctx["floor"], w, prom, guests)
 
 
 def _short(b: dict) -> dict:
-    return {k: b[k] for k in ("id", "hotel_id", "month", "facade", "floor", "wish", "status", "hotel_reply",
+    return {k: b[k] for k in ("id", "hotel_id", "month", "facade", "floor", "wish", "guests", "status", "hotel_reply",
                               "replied_at", "finished_at", "created_at")} | {"status_text": STATUS[b["status"]]}
 
 

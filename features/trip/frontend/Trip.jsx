@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { api, post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import DayPanel from '@features/day/frontend/DayPanel.jsx'
-import { useInterests } from '@features/trip_plan/frontend/interests.js'
+import { useGuests, guestsText } from '@features/guests/frontend/guests.js'
+import WishPicture from './WishPicture.jsx'
 import { HowKnown, guestsWord, tripDates, NIGHTS } from './common.jsx'
 import './trip.css'
 
@@ -32,19 +33,19 @@ function Status({ t }) {
     <div className="tr-status warn"><Icon name="mail" size={20} /><div><b>Отель ответил: всё выполнить не получится</b>
       {t.hotel_reply && <span className="tr-quote">«{t.hotel_reply}»</span>}</div></div>)
   return (
-    <div className="tr-status"><Icon name="clock" size={20} /><div><b>Пожелание у отеля</b>
-      <span>Ответ появится здесь, обычно отели отвечают в течение дня</span></div></div>)
+    <div className="tr-status"><Icon name="clock" size={20} /><div><b>Ждём ответа отеля на пожелание</b>
+      <span>Номер уже ваш, а пожелание отель выполняет при заселении. Ответ появится здесь, обычно в течение дня</span></div></div>)
 }
 
 const GROUPS = [['bring', 'Взять с собой'], ['remind', 'Не забыть до поездки'], ['skip', 'Можно не брать']]
 
-function Packing({ items, kids, setKids }) {
+// kids — дети из «Гостей» в шапке (features/guests): тогда пометка «С ребёнком», переключать здесь нечего
+function Packing({ items, kids }) {
   return (
     <div className="block">
       <div className="tr-pack-head">
         <h2>Чемодан</h2>
-        <div className="pills"><button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
-          <Icon name="child" size={16} />С ребёнком</button></div>
+        {kids && <span className="tr-kids"><Icon name="child" size={16} />С ребёнком</span>}
       </div>
       <p className="lead">Только то, что следует из фактов об отеле и месте. Нажмите на вещь — расскажем почему.</p>
       {GROUPS.map(([k, name]) => {
@@ -135,10 +136,9 @@ function Feedback({ t, onSent }) {
 // onHotel(id) — показать отель на карте; onRoute / routeShown — выходы из отеля на карте, как в карточке
 export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }) {
   const [t, setT] = useState(null)
-  // «С ребёнком» — интерес «С детьми» из «Чем хотите заняться?» (features/trip_plan): общий для чемодана, дня и шапки
-  const [interests, setInterests] = useInterests()
-  const kids = interests.includes('kids')
-  const setKids = on => setInterests(on ? [...interests, 'kids'] : interests.filter(x => x !== 'kids'))
+  // «С ребёнком» — дети в «Гостях» шапки (features/guests): общие для чемодана, дня и шапки
+  const [guests] = useGuests()
+  const kids = guests.children.length > 0
   const [failed, setFailed] = useState(false)
 
   const load = () => api(`/api/bookings/${bookingId}?kids=${kids}`).then(x => { setT(x); onHotel?.(x.hotel_id) }).catch(() => setFailed(true))
@@ -167,14 +167,18 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
         <h1>{t.hotel.name}</h1>
         {t.hotel.address && <div className="info"><Icon name="pin" />{t.hotel.address}</div>}
         <div className="info"><Icon name="calendar" />{tripDates(t.month)}, {NIGHTS} ночей</div>
-        <div className="info"><Icon name="user" />2 взрослых{kids ? ' и ребёнок' : ''}</div>
+        <div className="info"><Icon name="user" />{guestsText(guests, true)}</div>
+        <div className="tr-booked"><Icon name="check" size={18} />Номер забронирован</div>
       </div>
 
       <div className="block">
         <h2>Пожелание к номеру</h2>
         {t.wish.items.length
           ? <>
-              <div className="tr-plate">{t.wish.text}</div>
+              <div className="tr-plate">
+                <WishPicture facade={t.facade} floor={t.floor} levels={t.hotel.levels} items={t.wish.items} />
+                <div className="tr-plate-text"><small>Отелю отправили</small>{t.wish.text}</div>
+              </div>
               {t.wish.items.map(it => <Row key={it.id} icon={{ side: 'window', floor: 'building', quiet: 'mute' }[it.id] || 'check'}
                 title={it.text} note={it.reason} facts={it.facts} />)}
             </>
@@ -190,7 +194,7 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
         </div>
       )}
 
-      {t.packing.length > 0 && <Packing items={t.packing} kids={kids} setKids={setKids} />}
+      {t.packing.length > 0 && <Packing items={t.packing} kids={kids} />}
 
       <DayPanel hotelId={t.hotel_id} month={t.month} view={view} onRoute={onRoute} routeShown={routeShown} />
 
