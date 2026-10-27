@@ -38,13 +38,13 @@ function Status({ t }) {
 
 const GROUPS = [['bring', 'Взять с собой'], ['remind', 'Не забыть до поездки'], ['skip', 'Можно не брать']]
 
-function Packing({ items, kids, setKids }) {
+// kids — дети из «Гостей» в шапке (features/guests): тогда пометка «С ребёнком», переключать здесь нечего
+function Packing({ items, kids }) {
   return (
     <div className="block">
       <div className="tr-pack-head">
         <h2>Чемодан</h2>
-        <div className="pills"><button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
-          <Icon name="child" size={16} />С ребёнком</button></div>
+        {kids && <span className="tr-kids"><Icon name="child" size={16} />С ребёнком</span>}
       </div>
       <p className="lead">Только то, что следует из фактов об отеле и месте. Нажмите на вещь — расскажем почему.</p>
       {GROUPS.map(([k, name]) => {
@@ -135,10 +135,9 @@ function Feedback({ t, onSent }) {
 // onHotel(id) — показать отель на карте; onRoute / routeShown — выходы из отеля на карте, как в карточке
 export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }) {
   const [t, setT] = useState(null)
-  // «С ребёнком» — дети в «Гостях» шапки (features/guests): общий для чемодана, дня и шапки
-  const [guests, setGuests] = useGuests()
+  // «С ребёнком» — дети в «Гостях» шапки (features/guests): общие для чемодана, дня и шапки
+  const [guests] = useGuests()
   const kids = guests.children.length > 0
-  const setKids = on => setGuests({ ...guests, children: on ? [5] : [] })
   const [failed, setFailed] = useState(false)
 
   const load = () => api(`/api/bookings/${bookingId}?kids=${kids}`).then(x => { setT(x); onHotel?.(x.hotel_id) }).catch(() => setFailed(true))
@@ -190,7 +189,7 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
         </div>
       )}
 
-      {t.packing.length > 0 && <Packing items={t.packing} kids={kids} setKids={setKids} />}
+      {t.packing.length > 0 && <Packing items={t.packing} kids={kids} />}
 
       <DayPanel hotelId={t.hotel_id} month={t.month} view={view} onRoute={onRoute} routeShown={routeShown} />
 
