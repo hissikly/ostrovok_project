@@ -78,7 +78,9 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .verdict { font-size: 22px; font-weight: 800; letter-spacing: -.3px; margin: 16px 0 2px }
 .meter { height: 8px; background: var(--chip); border-radius: 999px; overflow: hidden; margin: 10px 0 4px }
 .meter i { display: block; height: 100%; background: var(--brand); border-radius: 999px; transition: width .3s }
-.sunset { background: var(--lime); border-radius: var(--r-lg); padding: 14px 16px; margin-top: 16px; color: var(--lime-ink) }
+.sunset { background: var(--lime); border-radius: var(--r-lg); padding: 12px 16px 12px 12px; margin-top: 16px; color: var(--lime-ink);
+  display: flex; gap: 14px; align-items: center }
+.sunset-art { width: 56px; height: 56px; flex: none }
 .sunset.off { background: var(--chip); color: var(--ink) }
 .sunset b { display: block; font-size: 17px; font-weight: 800; color: var(--ink) }
 

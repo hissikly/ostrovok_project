@@ -38,27 +38,60 @@ function verdict(share) {
   return 'Моря из этого окна не видно'
 }
 
+// Картинка к плашке заката: небо, солнце у горизонта и что под ним — море, дальние дома, соседний дом или склон
+function SunsetArt({ kind }) {
+  const sky = kind === 'none' ? ['#E3EBFD', '#F6F8FC'] : ['#FFC98A', '#FFF1DF']
+  return (
+    <svg className="sunset-art" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id={`sk-${kind}`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stopColor={sky[0]} /><stop offset="1" stopColor={sky[1]} /></linearGradient></defs>
+      <rect width="64" height="64" rx="16" fill={`url(#sk-${kind})`} />
+      {kind !== 'none' && <g>
+        <circle cx="32" cy="42" r="12" fill="#FF8A1F" />
+        {[-60, -30, 0, 30, 60].map(a => {
+          const r = a * Math.PI / 180
+          return <line key={a} x1={32 + Math.sin(r) * 16} y1={42 - Math.cos(r) * 16} x2={32 + Math.sin(r) * 21} y2={42 - Math.cos(r) * 21}
+            stroke="#FF8A1F" strokeWidth="2.5" strokeLinecap="round" />
+        })}
+      </g>}
+      {kind === 'sea' && <g>
+        <path d="M0 42h64v6a16 16 0 0 1 -16 16H16A16 16 0 0 1 0 48z" fill="#4C7DFF" />
+        <path d="M14 50h12M34 50h16M22 56h20" stroke="#fff" strokeWidth="2" strokeLinecap="round" opacity=".8" />
+      </g>}
+      {kind === 'horizon' && <path d="M0 42h8v-5h6v5h4v-8h7v8h14v-4h6v4h5v-6h6v6h8v6a16 16 0 0 1 -16 16H16A16 16 0 0 1 0 48z" fill="#8A93A6" />}
+      {kind === 'building' && <g><path d="M0 50h64v-2a16 16 0 0 1 -16 16H16A16 16 0 0 1 0 48z" fill="#C9CDD4" />
+        <rect x="18" y="20" width="30" height="44" fill="#8A93A6" />
+        {[26, 34, 42, 50].map(y => <path key={y} d={`M23 ${y}h6M37 ${y}h6`} stroke="#C9CDD4" strokeWidth="3" />)}</g>}
+      {kind === 'terrain' && <path d="M0 64V38q14 -16 30 -6t34 -4v20a16 16 0 0 1 -16 16z" fill="#7FA36B" />}
+      {kind === 'none' && <g><rect x="16" y="14" width="32" height="50" fill="#C9CDD4" />
+        {[22, 31, 40, 49].map(y => <path key={y} d={`M21 ${y}h8M35 ${y}h8`} stroke="#EEF0F3" strokeWidth="3.5" />)}
+        <circle cx="52" cy="12" r="6" fill="#FFC98A" /></g>}
+    </svg>
+  )
+}
+
 // Закат в даты поездки. Салатовая плашка — только для хорошей новости.
 function Sunset({ sun }) {
   const trip = sun.find(s => s.month === TRIP_MONTH)
-  let title, text, good = false
+  let title, text, good = false, kind = 'none'
   if (trip?.sets_into_sea) {
     title = 'Закат над морем прямо из окна'
     text = `В ${MONTH_IN[TRIP_MONTH]} солнце садится в море в ${trip.sunset_astro}`
-    good = true
+    good = true; kind = 'sea'
   } else if (trip?.sun_hidden_at && trip.minutes_earlier <= 3) {
     // скрывается за дальними домами у самого горизонта — для человека это обычный закат
     title = 'Закат виден из окна'
     text = `В ${MONTH_IN[TRIP_MONTH]} солнце сядет в ${trip.sunset_astro} за дальними домами у горизонта`
-    good = true
+    good = true; kind = 'horizon'
   } else if (trip?.sun_hidden_at && ['building', 'terrain'].includes(trip.hidden_by)) {
     title = trip.hidden_by === 'building' ? 'Закат закроет соседний дом' : 'Солнце уйдёт за склон'
     text = `В ${MONTH_IN[TRIP_MONTH]} оно скроется в ${trip.sun_hidden_at}, за ${trip.minutes_earlier} мин до заката`
+    kind = trip.hidden_by
   } else {
     title = 'Заката из этих окон не видно'
     text = 'Солнце садится с другой стороны здания'
   }
-  return <div className={`sunset ${good ? '' : 'off'}`}><b>{title}</b>{text}</div>
+  return <div className={`sunset ${good ? '' : 'off'}`}><SunsetArt kind={kind} /><div><b>{title}</b>{text}</div></div>
 }
 
 // Много этажей: полоска столбиков — высота = сколько моря видно с этажа; сразу видно, «с какого этажа море»
