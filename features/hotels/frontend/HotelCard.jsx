@@ -7,6 +7,7 @@ import Faq from '@features/knowledge/frontend/Faq.jsx'
 import WindowPanel from '@features/okno/frontend/WindowPanel.jsx'
 import AgentFacts from '@features/characteristics/frontend/AgentFacts.jsx'
 import BookBox from '@features/trip/frontend/BookBox.jsx'
+import GuestReviews from '@features/profile/frontend/Reviews.jsx'
 import TripConfirmed from '@features/trip/frontend/TripConfirmed.jsx'
 import CompareButton from '@features/compare/frontend/CompareButton.jsx'
 import SightsNearby from '@features/sights/frontend/SightsNearby.jsx'
@@ -68,6 +69,7 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
       </FactList>
       <SightsNearby hotelId={id} active={sight} onShow={onSight} onCity={onCity} />
       <DayPanel brief hotelId={id} month={month} view={view} onRoute={onDayRoute} routeShown={routeTitle === 'Маршрут дня'} />
+      <GuestReviews hotelId={id} />
       <Faq hotelId={id} month={month} />
     </div>
   )

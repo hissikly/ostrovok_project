@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from .service import answer, card, profile, save_review, stats
+from .service import answer, card, hotel_reviews, profile, save_review, stats
 
 router = APIRouter(prefix="/api", tags=["profile"])
 
@@ -46,3 +46,9 @@ def post_review(booking_id: str, r: ReviewIn):
 def get_stats():
     """Метрика: доля «так и было» по фильтрам, с которыми выбирали отель."""
     return stats()
+
+
+@router.get("/hotels/{hotel_id}/reviews")
+def reviews(hotel_id: str):
+    """Отзывы гостей после поездки: звёзды, текст, что подтвердили и что нет; что чаще всего не совпало."""
+    return hotel_reviews(hotel_id)

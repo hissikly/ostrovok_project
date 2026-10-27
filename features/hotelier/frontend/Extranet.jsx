@@ -4,6 +4,7 @@ import Icon from '@app/icons.jsx'
 import Faq from '@features/knowledge/frontend/Faq.jsx'
 import ConflictsPanel from '@features/conflicts/frontend/ConflictsPanel.jsx'
 import HotelBookings from '@features/trip/frontend/HotelBookings.jsx'
+import GuestReviews from '@features/profile/frontend/Reviews.jsx'
 
 // Раздел Экстранета Островка «Что о вас знают гости» (макет — mockups/hotelier.html)
 const NAV = [['calendar', 'Бронирования'], ['card', 'Цены и наличие'], ['building', 'Номера'],
@@ -140,6 +141,7 @@ export default function Extranet({ hotelId, hotels, onHotel, onExit }) {
                 <div className="ext-stat"><b>{data.known.length}</b><span>{plural(data.known.length, 'факт', 'факта', 'фактов')} мы узнали сами</span></div>
               </div>
               <HotelBookings hotelId={hotelId} />
+              <GuestReviews hotelId={hotelId} extranet />
               <ConflictsPanel key={`${hotelId}-${tick}`} hotelId={hotelId} onDone={refresh} />
               <section className="block">
                 <h2>Вопросы от гостей</h2>

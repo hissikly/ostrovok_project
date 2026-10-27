@@ -115,6 +115,68 @@ def stats() -> dict:
     return by
 
 
+def _guests_word(g: dict | None) -> str:
+    g = g or {"adults": 2, "children": []}
+    a, k = g.get("adults", 2), len(g.get("children") or [])
+    who = "Один" if a == 1 and not k else "Пара" if a == 2 and not k else "Семья с детьми" if k else "Компания"
+    return who
+
+
+def hotel_reviews(hotel_id: str) -> dict:
+    """Отзывы гостей после поездки: звёзды, текст и что из обещанного подтвердили / не подтвердили.
+    Для карточки отеля и Экстранета; демо-отзывы помечены."""
+    items, miss = [], {}
+    for r in store.hotel_reviews(hotel_id):
+        if r["booking_id"].startswith("demo:"):
+            x = r["extra"] or {}
+            when, guest, yes, no = x.get("when"), x.get("guest", "Гость"), x.get("yes", []), x.get("no", [])
+        else:
+            t = trip(r["booking_id"])
+            if t is None:
+                continue
+            qs = questions(t)
+            when = f"{MONTH[t['month']].capitalize()} {(t['finished_at'] or t['created_at'])[:4]}"
+            guest = _guests_word(t["guests"])
+            yes = [q["title"] for q in qs if q["answer"] == "yes"]
+            no = [q["title"] for q in qs if q["answer"] == "no"]
+        for title in no:
+            miss[title] = miss.get(title, 0) + 1
+        items.append({"id": r["booking_id"], "stars": r["stars"], "text": r["text"], "when": when, "guest": guest,
+                      "yes": yes, "no": no, "demo": bool(r["demo"]), "created_at": r["created_at"]})
+    n = len(items)
+    return {"count": n, "avg": round(sum(i["stars"] for i in items) / n, 1) if n else None,
+            "demo": sum(i["demo"] for i in items), "items": items,
+            # что гости чаще всего не подтвердили — отелю, чтобы поправить описание или номер
+            "mismatches": [{"title": k, "count": v} for k, v in sorted(miss.items(), key=lambda kv: -kv[1])]}
+
+
+# Демо-отзывы о двух главных отелях демо (Pullman, Azimut) — без брони, помечены «демо»
+DEMO_REVIEWS = [
+    ("w201474333", 5, "2026-07-14T10:00:00", {"when": "Июль 2026", "guest": "Пара",
+     "yes": ["Море из окна", "Закат над морем из окна", "На пляж 8 минут пешком"], "no": []},
+     "Брали запад и верхний этаж, как советовали, — закат каждый вечер прямо в окне. К морю вниз быстро, обратно в горку, но терпимо."),
+    ("w201474333", 4, "2026-06-02T10:00:00", {"when": "Май 2026", "guest": "Семья с детьми",
+     "yes": ["Море из окна", "На пляж 8 минут пешком"], "no": ["Ночью спокойно"]},
+     "Море из окна правда видно. Но в выходные под окнами шумно до полуночи — с маленьким ребёнком лучше просить номер повыше."),
+    ("w201474333", 5, "2025-09-20T10:00:00", {"when": "Сентябрь 2025", "guest": "Один",
+     "yes": ["Море из окна", "Закат над морем из окна", "Ночью спокойно"], "no": []},
+     "Всё как в описании. Удобно, что заранее знал про подъём от пляжа."),
+    ("w51764141", 4, "2026-08-11T10:00:00", {"when": "Август 2026", "guest": "Пара",
+     "yes": ["Море из окна", "Завтрак за доплату, шведский стол"], "no": ["Закат над морем из окна"]},
+     "Завтраки отличные, хоть и за доплату, море видно. Закат из нашего номера закрывал соседний корпус — уточняйте сторону."),
+    ("w51764141", 5, "2025-07-03T10:00:00", {"when": "Июнь 2025", "guest": "Компания",
+     "yes": ["Море из окна", "Ночью спокойно"], "no": []},
+     "Тихо, чисто, до набережной пешком. Вернёмся."),
+]
+
+
+def seed_demo_reviews() -> None:
+    if store.has_demo_reviews():
+        return
+    for i, (hid, stars, at, extra, text) in enumerate(DEMO_REVIEWS, 1):
+        store.save_review(f"demo:{hid}:{i}", hid, stars, text, demo=True, extra=extra, created_at=at)
+
+
 # Две прошлые поездки демо-гостя: одна с ответами и отзывом, другую ещё не оценили — профиль не пустой с первого запуска
 DEMO = [
     {"hotel_id": "w52526314", "month": 8, "created_at": "2025-07-02T21:14:00", "finished_at": "2025-08-17T12:00:00",
