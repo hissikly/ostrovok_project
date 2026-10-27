@@ -35,7 +35,8 @@ export default function RainToggle({ on, setOn, month }) {
       <button className={on ? 'on' : ''} onClick={() => setOn(!on)} title="Как часто обычно идут дожди в месяц поездки: норма за 6 лет, Open-Meteo">
         <span className="rain-check">{on ? '✓' : ''}</span>Дожди в {MONTH_IN[month]}
       </button>
-      {on && <span className="rain-scale">реже <i /> чаще</span>}
+      {/* шкала всегда в разметке — выезжает плавно, как у «Линии от моря» */}
+      <span className={`rain-scale ${on ? 'on' : ''}`} aria-hidden={!on}>реже <i /> чаще</span>
     </div>
   )
 }
