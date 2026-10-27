@@ -120,7 +120,11 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
   }
 
   useEffect(() => {
-    const m = new maplibregl.Map({ container: box.current, style: STYLE, center: SOCHI, zoom: 12 })
+    // на телефоне подпись карты (OpenStreetMap и др.) — кнопкой «i», раскрывается по нажатию: иначе она в две строки поверх карты
+    const narrow = box.current.clientWidth < 640
+    const m = new maplibregl.Map({ container: box.current, style: STYLE, center: SOCHI, zoom: 12,
+      attributionControl: narrow ? { compact: true } : undefined })
+    if (narrow) m.once('load', () => box.current?.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'))
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
     m.on('load', () => {
       m.addSource('hotels', { type: 'geojson', data: EMPTY })
