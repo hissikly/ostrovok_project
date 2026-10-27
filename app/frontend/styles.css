@@ -138,6 +138,7 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .why .unknown { color: var(--muted); font-size: 13px }
 .lenses button.more { background: none; color: var(--brand); padding: 9px 8px }
 .lenses button.more:hover { background: var(--sec) }
+.lenses button.more.reset { color: var(--muted) }
 .more-box { margin-top: 12px; border-top: 1px solid var(--chip); padding-top: 12px; max-height: 360px; overflow: auto }
 .more-search { width: 100%; height: 40px; border: 0; border-radius: 999px; padding: 0 16px; font: inherit; font-size: 14px; background: var(--page); outline: none }
 .more-group { margin-top: 12px }
