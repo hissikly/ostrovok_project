@@ -14,9 +14,11 @@ function dest([lat, lon], az, d) {
 
 // Лучи обзора для карты: куда видно море — длинные синие, куда упирается дом — короткие красные.
 // Лучи в сушу и склоны не рисуем: без легенды они только путают.
+// share — доля моря в виде с этого этажа, для подписи в легенде: длинные синие лучи на карте выглядят «большими»,
+// даже когда моря краешек
 function coneGeo(w) {
   return {
-    type: 'FeatureCollection',
+    type: 'FeatureCollection', share: w.sea_share,
     features: [
       ...w.profile.filter(([, kind, , sea]) => sea || kind === 'b').map(([az, kind, dist, sea]) => {
         const k = sea ? 's' : kind
@@ -38,7 +40,8 @@ function verdict(share) {
   return 'Моря из этого окна не видно'
 }
 
-// Картинка к плашке заката: небо, солнце у горизонта и что под ним — море, дальние дома, соседний дом или склон
+// Картинка к плашке заката: небо, солнце у горизонта и что под ним — море, дальние дома, соседний дом или склон;
+// aside — солнце за краем рамы окна
 function SunsetArt({ kind }) {
   const sky = kind === 'none' ? ['#E3EBFD', '#F6F8FC'] : ['#FFC98A', '#FFF1DF']
   return (
@@ -46,7 +49,7 @@ function SunsetArt({ kind }) {
       <defs><linearGradient id={`sk-${kind}`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stopColor={sky[0]} /><stop offset="1" stopColor={sky[1]} /></linearGradient></defs>
       <rect width="64" height="64" rx="16" fill={`url(#sk-${kind})`} />
-      {kind !== 'none' && <g>
+      {kind !== 'none' && kind !== 'aside' && <g>
         <circle cx="32" cy="42" r="12" fill="#FF8A1F" />
         {[-60, -30, 0, 30, 60].map(a => {
           const r = a * Math.PI / 180
@@ -63,6 +66,11 @@ function SunsetArt({ kind }) {
         <rect x="18" y="20" width="30" height="44" fill="#8A93A6" />
         {[26, 34, 42, 50].map(y => <path key={y} d={`M23 ${y}h6M37 ${y}h6`} stroke="#C9CDD4" strokeWidth="3" />)}</g>}
       {kind === 'terrain' && <path d="M0 64V38q14 -16 30 -6t34 -4v20a16 16 0 0 1 -16 16z" fill="#7FA36B" />}
+      {kind === 'aside' && <g>
+        <rect x="22" y="10" width="36" height="44" rx="3" fill="#fff" fillOpacity=".5" stroke="#8A93A6" strokeWidth="4" />
+        <path d="M40 10v44M22 32h36" stroke="#8A93A6" strokeWidth="3" />
+        <circle cx="13" cy="44" r="9" fill="#FF8A1F" />
+      </g>}
       {kind === 'none' && <g><rect x="16" y="14" width="32" height="50" fill="#C9CDD4" />
         {[22, 31, 40, 49].map(y => <path key={y} d={`M21 ${y}h8M35 ${y}h8`} stroke="#EEF0F3" strokeWidth="3.5" />)}
         <circle cx="52" cy="12" r="6" fill="#FFC98A" /></g>}
@@ -78,6 +86,11 @@ function Sunset({ sun }) {
     title = 'Закат над морем прямо из окна'
     text = `В ${MONTH_IN[TRIP_MONTH]} солнце садится в море в ${trip.sunset_astro}`
     good = true; kind = 'sea'
+  } else if (trip?.hidden_by === 'aside') {
+    // солнце садится далеко сбоку от оси окна — увидите, только если подойти к стеклу
+    title = 'Закат сбоку от окна'
+    text = `Солнце сядет ${trip.side === 'left' ? 'слева' : 'справа'}, у края окна`
+    kind = 'aside'
   } else if (trip?.sun_hidden_at && trip.minutes_earlier <= 3) {
     // скрывается за дальними домами у самого горизонта — для человека это обычный закат
     title = 'Закат виден из окна'

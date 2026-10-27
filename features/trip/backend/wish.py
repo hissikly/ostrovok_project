@@ -6,6 +6,8 @@
   незачем просить 16-й, если с 7-го то же море;
 - тихая сторона — если выбранная сторона среди самых тихих (не громче тишайшей на 3 дБ), а другая шумнее на 5+ дБ.
 """
+from core.seed import load
+
 from .context import context, hotel_facts
 
 SIDE_TO = {"N": "на север", "E": "на восток", "S": "на юг", "W": "на запад"}
@@ -19,6 +21,17 @@ def brief(f: dict) -> dict:
     """Факт для показа гостю: источник, уверенность, дата и то, что нужно для «как узнали»."""
     return {k: f.get(k) for k in ("id", "characteristic", "scope", "value", "source", "confidence", "obtained_at", "evidence", "note", "level")
             if f.get(k) is not None}
+
+
+def _sea_sunset(hotel_id: str, side: str, floor: int | None, month: int) -> bool:
+    """Закат над морем именно с этого этажа: факт sunset_view — про сторону в целом (по верхнему этажу),
+    а ниже его может закрыть соседний дом. Берём закат этажа из расчёта «О!кна»."""
+    d = load(f"okno/{hotel_id}.json")
+    fls = (d or {}).get("facades", {}).get(side, {}).get("floors", {})
+    if not fls or floor is None:
+        return False
+    v = fls.get(str(floor)) or fls[min(fls, key=lambda k: abs(int(k) - floor))]
+    return any(x["month"] == month and x["sets_into_sea"] for x in v["sun"])
 
 
 def _cap(s: str) -> str:
@@ -48,7 +61,7 @@ def items(ctx: dict) -> list[dict]:
         reasons.append("море видно краешком")
     if share > 0.02:
         facts.append(sea)
-    if sun and month in sun["value"].get("months", []):
+    if sun and _sea_sunset(ctx["hotel_id"], side, floor, month):
         reasons.append(f"закат над морем в {MONTH_IN[month]}")
         facts.append(sun)
     if reasons:
@@ -61,9 +74,15 @@ def items(ctx: dict) -> list[dict]:
         if low > 1:
             if low < floor:
                 why = f"С {low}-го этажа море почти как с {floor}-го"
+            elif floor < top:
+                # выбрали ровно этот этаж: просим «не ниже», а не «N и выше» — так звучит как выбор гостя
+                below = shares.get(floor - 1, 0)
+                why = (f"На {floor - 1}-м моря {'не видно' if below <= 0.02 else 'заметно меньше'}"
+                       + (", выше — больше" if shares.get(top, 0) > share * 1.2 else ""))
             else:
-                why = f"Ниже {floor}-го этажа моря заметно меньше" if floor < top else "С верхнего этажа моря больше всего"
-            out.append({"id": "floor", "text": "Верхний этаж" if low == top else f"Этаж {low} и выше",
+                why = "С верхнего этажа моря больше всего"
+            text = "Верхний этаж" if low == top else f"Этаж {low} и выше" if low < floor else f"Не ниже {floor}-го этажа"
+            out.append({"id": "floor", "text": text,
                         "reason": why, "min_floor": low, "facts": [brief(sea)]})
 
     if noise:
