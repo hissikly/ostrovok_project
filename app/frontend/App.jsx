@@ -9,6 +9,8 @@ import AddCharacteristic from '@features/characteristics/frontend/AddCharacteris
 import Trip from '@features/trip/frontend/Trip.jsx'
 import InterestsButton from '@features/trip_plan/frontend/Interests.jsx'
 import GuestsButton from '@features/guests/frontend/Guests.jsx'
+import Compare from '@features/compare/frontend/Compare.jsx'
+import CompareTray from '@features/compare/frontend/CompareTray.jsx'
 
 const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
@@ -72,6 +74,9 @@ export default function App() {
   const [tripHotel, setTripHotel] = useState(null)
   const mapSel = tripId ? tripHotel : selected
   const sel = useMemo(() => hotels.find(h => h.id === selected), [hotels, selected])
+  // сравнение: #compare/<id>,<id>… — во всю ширину вместо списка и карты
+  const compareIds = selected?.startsWith('compare/') ? selected.slice(8).split(',').filter(Boolean) : null
+  const openCompare = ids => setSelected(`compare/${ids.join(',')}`)
 
   // «Научить О!кно»: новая характеристика описанием (#admin)
   if (selected === 'admin') return <AddCharacteristic onExit={() => setSelected(null)} />
@@ -95,6 +100,8 @@ export default function App() {
         </div>
         <button className="for-hotels" onClick={() => setSelected(`extranet/${sel?.id || 'w201474333'}`)}>Для отелей</button>
       </header>
+      {compareIds ? <div className="main cmp-main"><Compare ids={compareIds} lenses={lenses} on={on} month={month}
+        onHotel={setSelected} onIds={openCompare} onExit={() => setSelected(null)} /></div> : <>
       <div className="main">
         <aside className="panel">
           {error && <div className="chip warn">{error}</div>}
@@ -103,7 +110,7 @@ export default function App() {
             : sel
             ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach} onDayRoute={r => { setPlaces(null); setRoute(r) }}
               places={places} routeTitle={route?.title} nearMeta={nearMeta} />
-            : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} setMonth={setMonth}
+            : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} month={month} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}
         </aside>
         <section className="map">
@@ -111,6 +118,8 @@ export default function App() {
             onPlaceClick={routeTo} onCloseBox={closeMapBox} />
         </section>
       </div>
+      {!tripId && <CompareTray hotels={hotels} onOpen={openCompare} />}
+      </>}
     </div>
   )
 }

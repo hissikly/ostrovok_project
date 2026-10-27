@@ -8,6 +8,7 @@ import WindowPanel from '@features/okno/frontend/WindowPanel.jsx'
 import AgentFacts from '@features/characteristics/frontend/AgentFacts.jsx'
 import BookBox from '@features/trip/frontend/BookBox.jsx'
 import TripConfirmed from '@features/trip/frontend/TripConfirmed.jsx'
+import CompareButton from '@features/compare/frontend/CompareButton.jsx'
 
 function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
@@ -53,7 +54,8 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
             <span style={{ color: '#FFB800' }}>{'★'.repeat(h.stars)}</span>{h.stars_mock && <span className="muted">демо</span>}</span>}
           {h.levels && <span className="chip"><Icon name="building" size={16} />{h.levels} этажей</span>}
         </div>
-        <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span></div>
+        <div className="price"><b>{h.mock.price_rub.toLocaleString('ru-RU')} ₽</b><small>за ночь</small><span className="chip" style={{ padding: '2px 9px', fontSize: 12, color: 'var(--muted)' }}>демо-цена</span>
+          <span style={{ marginLeft: 'auto' }}><CompareButton id={h.id} /></span></div>
       </div>
       <WindowPanel key={id} hotelId={id} onCone={onCone} onPick={setView} />
       <BookBox hotelId={id} view={view} month={month} price={h.mock.price_rub} />

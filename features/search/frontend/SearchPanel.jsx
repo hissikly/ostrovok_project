@@ -3,6 +3,8 @@ import { post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import { FitLine } from '@features/trip_plan/frontend/Interests.jsx'
 import { useFit, useInterests } from '@features/trip_plan/frontend/interests.js'
+import CompareButton from '@features/compare/frontend/CompareButton.jsx'
+import { BaselineList, ModeSwitch, MovedUp, RiseNote, useBaseline } from '@features/compare/frontend/Baseline.jsx'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
 const STATE_ICON = { match: 'check', partial: 'half', no: 'x', unknown: 'question' }
@@ -107,13 +109,13 @@ function Lenses({ lenses, on, toggle }) {
   )
 }
 
-function Row({ h, info, fit, onSelect }) {
+function Row({ h, info, fit, onSelect, rank, ours }) {
   const shown = info.reasons.filter(r => r.state !== 'unknown')
   const unknown = info.reasons.length - shown.length
   return (
     <div className="row result" onClick={() => onSelect(h.id)}>
       <div style={{ minWidth: 0, flex: 1 }}>
-        <div className="nm">{h.name}</div>
+        <div className="nm">{h.name}{rank !== undefined && <MovedUp rank={rank} ours={ours} />}</div>
         <div className="sub">
           <span>{h.kind_ru}</span>
           {h.stars && <span style={{ color: '#FFB800' }}>{'★'.repeat(h.stars)}</span>}
@@ -127,12 +129,12 @@ function Row({ h, info, fit, onSelect }) {
         </div>
         <FitLine fit={fit} />
       </div>
-      <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small></div>
+      <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small><CompareButton id={h.id} /></div>
     </div>
   )
 }
 
-export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, result, onSelect }) {
+export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth, result, onSelect }) {
   const [q, setQ] = useState('')
   const toggle = id => setOn(on.includes(id) ? on.filter(x => x !== id) : [...on, id])
   const apply = d => {
@@ -154,6 +156,9 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
     return s ? rows.filter(x => x.h.name.toLowerCase().includes(s)) : rows
   }, [hotels, result, on, q, byId, fit])
 
+  // «было / стало»: обычная выдача сайта рядом с нашей (features/compare)
+  const [mode, setMode] = useState('okno')
+  const bs = useBaseline(on, month)
   const c = result?.counts
   const count = !on.length || !c ? `${list.length.toLocaleString('ru-RU')} вариантов в Сочи`
     : c.all ? `${c.all} ${plural(c.all, 'отель подходит', 'отеля подходят', 'отелей подходят')} по всем пожеланиям`
@@ -167,9 +172,12 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
         <Lenses lenses={lenses} on={on} toggle={toggle} />
       </div>
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
+      {on.length > 0 && <ModeSwitch mode={mode} setMode={setMode} />}
+      {on.length > 0 && mode === 'base' ? <BaselineList data={bs} byId={byId} onSelect={onSelect} /> : <>
+      {on.length > 0 && !q.trim() && <RiseNote data={bs} list={list} />}
       <div className="count">{count}</div>
-      {list.slice(0, 120).map(({ h, info }) => info
-        ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} />
+      {list.slice(0, 120).map(({ h, info }, k) => info
+        ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} rank={bs ? bs.rank[h.id] ?? null : undefined} ours={k + 1} />
         : (
           <div key={h.id} className="row" onClick={() => onSelect(h.id)}>
             <div style={{ minWidth: 0 }}>
@@ -181,9 +189,10 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
               </div>
               <FitLine fit={fit?.[h.id]} />
             </div>
-            <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small></div>
+            <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small><CompareButton id={h.id} /></div>
           </div>
         ))}
+      </>}
     </div>
   )
 }

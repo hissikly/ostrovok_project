@@ -1,0 +1,105 @@
+/* Сравнение отелей и «было / стало» — по макету mockups/compare.html, токены — wiki/design-system.md */
+
+/* «Сравнить» у отеля */
+.cmp-btn { display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 999px; padding: 5px 11px; margin-top: 8px;
+  font-size: 13px; font-weight: 700; background: var(--sec); color: var(--brand); white-space: nowrap }
+.cmp-btn.on { background: var(--brand); color: #fff }
+.cmp-btn:disabled { opacity: .45; cursor: default }
+
+/* корзинка внизу экрана */
+.cmp-tray { position: fixed; left: 50%; transform: translateX(-50%); bottom: 16px; z-index: 50; display: flex; align-items: center; gap: 10px;
+  max-width: calc(100% - 32px); background: var(--ink); color: #fff; border-radius: 20px; padding: 10px 10px 10px 14px; box-shadow: 0 8px 30px rgba(0, 0, 0, .18) }
+.cmp-pills { display: flex; gap: 6px; overflow-x: auto; min-width: 0 }
+.cmp-pill { display: inline-flex; align-items: center; gap: 4px; background: rgba(255, 255, 255, .12); border-radius: 999px; padding: 5px 6px 5px 11px;
+  font-size: 13px; font-weight: 700; white-space: nowrap }
+.cmp-pill > span { max-width: 150px; overflow: hidden; text-overflow: ellipsis }
+.cmp-pill button { border: 0; background: none; color: #fff; opacity: .7; padding: 0 2px; display: inline-flex }
+.cmp-go { border: 0; background: #fff; color: var(--brand); font-weight: 800; border-radius: 14px; padding: 9px 14px; white-space: nowrap }
+.cmp-go:disabled { opacity: .6; cursor: default }
+
+/* экран сравнения: колонки-карточки на сером фоне */
+.main.cmp-main { grid-template-columns: 1fr; grid-template-rows: 1fr }
+.cmp-page { grid-column: 1 / -1; overflow: auto; background: var(--page); padding: 20px 24px 60px }
+.cmp-page h1 { font-size: 28px; font-weight: 800; letter-spacing: -.5px; margin: 4px 0 0 }
+.cmp-lead { color: var(--muted); margin: 6px 0 0 }
+.cmp-page .chips .chip { background: #fff }
+.cmp-page .chips .chip.on { background: var(--brand); color: #fff }
+.cmp-scroll { overflow-x: auto; margin: 18px -24px 0; padding: 14px 24px 4px }
+.cmp-t { border-collapse: separate; border-spacing: 12px 0; width: calc(100% + 24px); margin: 0 -12px; table-layout: fixed }
+.cmp-t col.lab { width: 150px }
+.cmp-t th, .cmp-t td { padding: 14px 18px; vertical-align: top; text-align: left; font-weight: inherit }
+.cmp-lab { padding: 16px 4px 14px 0 !important; color: var(--muted); font-size: 14px; font-weight: 600 !important; position: sticky; left: 0; background: var(--page); z-index: 1 }
+.cmp-lab svg { vertical-align: -4px; margin-right: 6px }
+.cmp-c { background: #fff; position: relative }
+.cmp-c::before { content: ""; position: absolute; left: 18px; right: 18px; top: 0; border-top: 1px solid #EFEFEF }
+th.cmp-c { border-radius: 24px 24px 0 0; padding-top: 18px !important }
+th.cmp-c::before, tr.first .cmp-c::before { display: none }
+tr.foot .cmp-c { border-radius: 0 0 24px 24px; padding-bottom: 18px !important }
+.cmp-c.best { box-shadow: inset 2px 0 0 var(--lime), inset -2px 0 0 var(--lime) }
+th.cmp-c.best { box-shadow: inset 2px 2px 0 var(--lime), inset -2px 0 0 var(--lime) }
+tr.foot .cmp-c.best { box-shadow: inset 2px -2px 0 var(--lime), inset -2px 0 0 var(--lime) }
+.cmp-best { position: absolute; top: -12px; left: 16px; background: var(--lime); color: var(--lime-ink); font-size: 12px; font-weight: 800;
+  border-radius: 999px; padding: 3px 10px; white-space: nowrap }
+.cmp-hn { display: flex; justify-content: space-between; gap: 8px; font-weight: 800; font-size: 17px; letter-spacing: -.3px; line-height: 1.25 }
+.cmp-hn button { border: 0; background: none; color: #C2C2C2; padding: 0; flex: none; display: inline-flex }
+.cmp-hn button:hover { color: var(--ink) }
+.cmp-hm { display: flex; gap: 8px; align-items: center; margin-top: 8px; font-size: 13px; color: var(--muted) }
+.cmp-hm .st { color: #FFB800 }
+.cmp-hm .p { color: var(--ink); font-weight: 800; font-size: 15px; margin-left: auto; white-space: nowrap }
+.cmp-rt { background: var(--ok); color: #fff; font-weight: 800; border-radius: 8px; padding: 1px 7px; font-size: 13px }
+.cmp-score { margin-top: 10px; font-size: 13px; font-weight: 700; color: var(--muted) }
+.cmp-score b { color: var(--ink) }
+td.cmp-c { cursor: pointer; font-size: 14px }
+.cmp-c .v { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 6px }
+.cmp-c .tick { width: 17px; height: 17px; border-radius: 50%; background: var(--ok); color: #fff; display: inline-grid; place-items: center; flex: none }
+.cmp-c .s { color: var(--muted); font-size: 13px; margin-top: 1px }
+.cmp-c.bad .v { color: #B35A00 }
+.cmp-c.unk .v { color: var(--muted); font-weight: 600 }
+td.cmp-c:hover .v { color: var(--brand) }
+td.cmp-c.bad:hover .v { color: #B35A00 }
+.cmp-ask { border: 0; background: none; padding: 0; margin-top: 2px; color: var(--brand); font-weight: 700; font-size: 13px }
+.cmp-how { margin-top: 8px; padding: 8px 10px; border-radius: 12px; background: var(--chip); color: var(--ink); font-size: 12.5px; line-height: 1.4 }
+.cmp-near { display: grid; gap: 3px; font-size: 14px }
+.cmp-near div { display: flex; align-items: center; gap: 7px }
+.cmp-near svg { color: var(--muted) }
+.cmp-near b { font-weight: 700 }
+.cmp-near .no { color: var(--muted) }
+.cmp-diff { display: inline-block; font-size: 12px; font-weight: 800; color: #8A4500; background: var(--warn-bg); border-radius: 999px; padding: 1px 8px; margin-bottom: 4px }
+.cmp-split { display: grid; gap: 2px; font-size: 13px }
+.cmp-minus { font-size: 13px; color: #8A4500; display: flex; gap: 6px; align-items: flex-start; line-height: 1.35 }
+.cmp-minus svg { color: #E77D00; flex: none; margin-top: 1px }
+.cmp-open { display: inline-flex; margin-top: 12px; border: 0; background: var(--sec); color: var(--brand); font-weight: 700; font-size: 14px; border-radius: 12px; padding: 8px 14px }
+.cmp-more { margin: 14px 0 0 162px; border: 0; background: none; color: var(--brand); font-weight: 700; font-size: 14px; padding: 0 }
+
+/* «было / стало» над выдачей */
+.bs-seg { display: inline-flex; background: #fff; border-radius: 999px; padding: 4px; gap: 2px; margin: 12px 0 0 }
+.bs-seg button { border: 0; background: none; padding: 8px 16px; border-radius: 999px; font-weight: 800; font-size: 14px; color: var(--muted) }
+.bs-seg button.on { background: var(--ink); color: #fff }
+.bs-seg button.on.ok { background: var(--brand) }
+.bs-banner { margin-top: 12px; border-radius: 20px; padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; background: #fff }
+.bs-banner svg { flex: none; margin-top: 1px }
+.bs-banner.warn { background: var(--warn-bg); color: #7A3F00 }
+.bs-banner.good { background: var(--lime); color: var(--lime-ink) }
+.bs-banner b { color: var(--ink) }
+.bs-row { position: relative }
+.bs-row.trap { box-shadow: inset 4px 0 0 #E77D00 }
+.bs-rank { width: 30px; height: 30px; border-radius: 10px; background: var(--chip); display: grid; place-items: center; font-weight: 800; font-size: 13px; flex: none }
+.why .bs-trap { color: #8A4500 }
+.why .bs-trap svg { color: #E77D00 }
+.bs-move { font-size: 12px; font-weight: 800; border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: 2px; white-space: nowrap }
+.bs-move.up { background: #EEF9E6; color: var(--ok-ink) }
+.bs-move.down { background: var(--warn-bg); color: #8A4500 }
+
+@media (max-width: 820px) {
+  .cmp-page { padding: 16px 16px 60px }
+  .cmp-page h1 { font-size: 24px }
+  .cmp-scroll { margin: 16px -16px 0; padding: 14px 16px 4px }
+  .cmp-t { border-spacing: 8px 0; width: calc(100% + 16px); margin: 0 -8px }
+  .cmp-t col.lab { width: 96px }
+  .cmp-t th, .cmp-t td { padding: 12px 14px }
+  .cmp-lab { font-size: 12.5px }
+  .cmp-lab svg { display: block; margin: 0 0 4px }
+  .cmp-hm .st { display: none }
+  .cmp-hn { font-size: 16px }
+  .cmp-more { margin-left: 0 }
+}
