@@ -21,7 +21,7 @@ OWN_REASON = "Своими словами"
 
 
 def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop: set[str], guests: dict | None = None,
-         own: list[str] | None = None) -> dict | None:
+         own: list[str] | None = None, lenses: list[str] | None = None) -> dict | None:
     ctx = context(hotel_id, month, facade, floor)
     if ctx is None:
         return None
@@ -36,11 +36,11 @@ def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop:
         if it["id"] not in seen:
             seen.add(it["id"])
             prom.append(it)
-    return store.create_booking(hotel_id, month, ctx["side"], ctx["floor"], w, prom, guests)
+    return store.create_booking(hotel_id, month, ctx["side"], ctx["floor"], w, prom, guests, lenses)
 
 
 def _short(b: dict) -> dict:
-    return {k: b[k] for k in ("id", "hotel_id", "month", "facade", "floor", "wish", "guests", "status", "hotel_reply",
+    return {k: b[k] for k in ("id", "hotel_id", "month", "facade", "floor", "wish", "guests", "lenses", "status", "hotel_reply",
                               "replied_at", "finished_at", "created_at")} | {"status_text": STATUS[b["status"]]}
 
 

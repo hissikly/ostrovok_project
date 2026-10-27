@@ -23,6 +23,7 @@ class BookingIn(BaseModel):
     drop: list[str] = []      # пункты пожелания, которые гость убрал
     guests: Guests = Guests()
     own: list[str] = Field([], max_length=3)   # свои пожелания гостя, его словами
+    lenses: list[str] = Field([], max_length=20)   # фильтры поиска, с которыми выбрали отель
 
 
 class FinishIn(BaseModel):
@@ -49,7 +50,7 @@ def booking_request(hotel_id: str, month: int = Query(5, ge=1, le=12), facade: s
 @router.post("/bookings")
 def create_booking(b: BookingIn):
     own = [t[:1].upper() + t[1:] for t in (" ".join(x.split())[:120].rstrip(". ") for x in b.own) if t]
-    r = book(b.hotel_id, b.month, b.facade, b.floor, set(b.drop), b.guests.model_dump(), own)
+    r = book(b.hotel_id, b.month, b.facade, b.floor, set(b.drop), b.guests.model_dump(), own, b.lenses)
     return trip(r["id"]) if r else _404("hotel", b.hotel_id)
 
 

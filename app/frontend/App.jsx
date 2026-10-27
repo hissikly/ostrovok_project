@@ -12,6 +12,7 @@ import GuestsButton from '@features/guests/frontend/Guests.jsx'
 import Compare from '@features/compare/frontend/Compare.jsx'
 import CompareTray from '@features/compare/frontend/CompareTray.jsx'
 import City from '@features/sights/frontend/City.jsx'
+import Profile, { ProfileButton } from '@features/profile/frontend/Profile.jsx'
 
 const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
@@ -116,9 +117,11 @@ export default function App() {
           <GuestsButton />
           <InterestsButton />
         </div>
+        <ProfileButton onOpen={() => setSelected('profile')} selected={selected} />
         <button className="for-hotels" onClick={() => setSelected(`extranet/${sel?.id || 'w201474333'}`)}>Для отелей</button>
       </header>
-      {selected === 'city' ? <div className="main sg-main"><City on={on} onLive={liveNear} onExit={() => setSelected(null)} /></div>
+      {selected === 'profile' ? <div className="main pf-main"><Profile onExit={() => setSelected(null)} /></div>
+      : selected === 'city' ? <div className="main sg-main"><City on={on} onLive={liveNear} onExit={() => setSelected(null)} /></div>
       : compareIds ? <div className="main cmp-main"><Compare ids={compareIds} lenses={lenses} on={on} month={month}
         onHotel={setSelected} onIds={openCompare} onExit={() => setSelected(null)} /></div> : <>
       <div className="main">
@@ -129,7 +132,7 @@ export default function App() {
             : sel
             ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach} onDayRoute={r => { setPlaces(null); setRoute(r) }}
               places={places} routeTitle={route?.title} nearMeta={nearMeta}
-              sight={sight?.id} onSight={showSight} onCity={() => setSelected('city')} />
+              sight={sight?.id} onSight={showSight} onCity={() => setSelected('city')} lenses={on} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} month={month} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}
         </aside>
@@ -138,7 +141,7 @@ export default function App() {
             onPlaceClick={routeTo} onCloseBox={closeMapBox} />
         </section>
       </div>
-      {!tripId && selected !== 'city' && <CompareTray hotels={hotels} onOpen={openCompare} />}
+      {!tripId && selected !== 'city' && selected !== 'profile' && <CompareTray hotels={hotels} onOpen={openCompare} />}
       </>}
     </div>
   )

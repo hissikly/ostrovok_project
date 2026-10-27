@@ -39,7 +39,8 @@ function OwnWish({ count, onAdd }) {
   )
 }
 
-export default function BookBox({ hotelId, view, month, price }) {
+// lenses — включённые фильтры поиска: сохраняем с бронью, после поездки профиль спросит, совпало ли
+export default function BookBox({ hotelId, view, month, price, lenses = [] }) {
   const [w, setW] = useState(null)
   const [drop, setDrop] = useState([])
   const [own, setOwn] = useState([])
@@ -66,7 +67,7 @@ export default function BookBox({ hotelId, view, month, price }) {
     setBusy(true)
     try {
       const b = await post('/api/bookings', { hotel_id: hotelId, month, facade: w?.facade || view?.facade || null,
-        floor: w?.floor || view?.floor || null, drop, guests, own })
+        floor: w?.floor || view?.floor || null, drop, guests, own, lenses })
       location.hash = `trip/${b.id}`
     } catch { setBusy(false) }
   }

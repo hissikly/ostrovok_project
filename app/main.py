@@ -17,6 +17,7 @@ from features.hotelier.backend.router import router as hotelier_router
 from features.hotels.backend.router import router as hotels_router
 from features.knowledge.backend.router import router as knowledge_router
 from features.okno.backend.router import router as okno_router
+from features.profile.backend.router import router as profile_router
 from features.nearby.backend.router import router as nearby_router
 from features.search.backend.router import router as search_router
 from features.sights.backend.router import router as sights_router
@@ -29,7 +30,7 @@ app = FastAPI(title="О!кно", version="0.1.0")
 
 for r in (hotels_router, facts_router, okno_router, search_router, nearby_router, routes_router, knowledge_router, hotelier_router, conflicts_router,
           day_router, web_router, characteristics_router, trip_router, trip_plan_router, compare_router, sights_router,
-          climate_router):
+          climate_router, profile_router):
     app.include_router(r)
 
 

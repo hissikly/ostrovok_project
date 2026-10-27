@@ -1,0 +1,78 @@
+/* Профиль «Мои поездки» — белые блоки Островка, токены из app/frontend/styles.css; кнопки и «спасибо» — из features/trip */
+.main.pf-main { display: block; min-width: 0; overflow: auto; background: var(--page) }
+.pf { max-width: 760px; margin: 0 auto; padding: 18px 20px 48px }
+.pf-top { display: flex; align-items: center; gap: 14px; margin: 12px 0 8px }
+.pf-top h1 { margin: 0 }
+.pf-ava { width: 56px; height: 56px; border-radius: 50%; background: var(--sec); color: var(--brand); display: grid; place-items: center; flex: none }
+.pf-sum { color: var(--muted); font-size: 14px; margin-top: 2px }
+.pf-h2 { font-size: 20px; font-weight: 800; margin: 22px 0 10px; letter-spacing: -.3px }
+.pf-empty { color: var(--muted) }
+
+.pf-trip h3 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -.3px }
+.pf-trip h3 a { color: var(--ink); text-decoration: none }
+.pf-trip h3 a:hover { color: var(--brand) }
+.pf-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px }
+.pf-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; color: var(--muted); font-size: 14px }
+.pf-meta span { display: inline-flex; align-items: center; gap: 5px }
+.pf-badge { flex: none; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; background: var(--lime); color: var(--lime-ink); white-space: nowrap }
+.pf-badge.past { background: var(--chip); color: var(--muted) }
+.pf-searched { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; font-size: 14px; color: var(--muted) }
+.pf-chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 4px 10px; background: var(--sec); color: var(--brand); font-weight: 700; font-size: 13px }
+.pf-wish { margin-top: 10px; font-size: 14px; color: var(--muted) }
+.pf-wish b { color: var(--ink); font-weight: 700 }
+.pf-status { display: inline-block; margin-left: 8px; font-weight: 700; color: var(--muted) }
+.pf-status.confirmed { color: var(--ok-ink) }
+.pf-status.declined { color: #8A4A00 }
+.pf-actions { display: flex; align-items: center; gap: 16px; margin-top: 14px }
+.pf-actions .tr-btn { width: auto }
+.pf-open { text-decoration: none; display: inline-block }
+.pf-link { border: 0; background: none; padding: 4px 0; font: inherit; font-weight: 700; font-size: 14px; color: var(--brand); cursor: pointer }
+.pf-link:disabled { color: var(--muted) }
+
+.pf-sec { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--chip) }
+.pf-cap { font-weight: 800; font-size: 16px }
+.pf-fold { width: 100%; display: flex; align-items: center; gap: 10px; border: 0; background: none; padding: 0; font: inherit; color: var(--ink); text-align: left; cursor: pointer }
+.pf-progress { margin-left: auto; color: var(--muted); font-size: 14px; font-weight: 600 }
+.pf-arrow { color: var(--muted); font-size: 22px; line-height: 1; transition: transform .15s }
+.pf-arrow.open { transform: rotate(90deg) }
+.pf-lead { color: var(--muted); font-size: 14px; margin: 8px 0 4px }
+.pf-group { margin: 14px 0 2px; font-size: 13px; font-weight: 700; color: var(--muted) }
+.pf-q { display: grid; grid-template-columns: 32px 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--chip) }
+.pf-group + .pf-q { border-top: 0 }
+.pf-q-ic { width: 32px; height: 32px; border-radius: 10px; background: var(--chip); color: var(--ink); display: grid; place-items: center }
+.pf-q .t { font-weight: 700 }
+.pf-q .s { font-size: 14px; color: var(--muted) }
+.pf-pills { justify-content: flex-end; flex-wrap: nowrap }
+.pf-pills button { padding: 7px 12px }
+.pf-pills button:hover:not(:disabled) { background: var(--sec); color: var(--brand) }
+.pf-ans { border-radius: 999px; padding: 5px 12px; font-size: 14px; font-weight: 700; background: var(--chip); color: var(--muted); white-space: nowrap }
+.pf-ans.yes { background: var(--ok-bg); color: var(--ok-ink) }
+.pf-ans.no { background: var(--warn-bg); color: #8A4A00 }
+
+.pf-stars { display: flex; gap: 2px; margin: 8px 0 }
+.pf-stars button { border: 0; background: none; padding: 2px; color: var(--line); cursor: pointer }
+.pf-stars span { color: var(--line); display: inline-flex }
+.pf-stars .on { color: #F5A623 }
+.pf-stars .on svg { fill: currentColor }
+.pf-text { width: 100%; box-sizing: border-box; font: inherit; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; color: var(--ink); resize: vertical; outline: none }
+.pf-text:focus { border-color: var(--brand) }
+.pf-review p { margin: 0 0 6px; white-space: pre-wrap }
+
+/* кнопка в шапке */
+.pf-btn { border: 0; background: none; color: var(--brand); font-weight: 700; font-size: 14px; padding: 8px 4px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap }
+.pf-btn-ic { position: relative; display: inline-flex }
+.pf-btn-ic i { position: absolute; top: -2px; right: -3px; width: 8px; height: 8px; border-radius: 50%; background: #E8412C; border: 2px solid #fff }
+
+@media (max-width: 600px) {
+  .pf { padding: 12px 16px 40px }
+  .pf-q { grid-template-columns: 32px 1fr }
+  .pf-q > .pills, .pf-q > .pf-ans { grid-column: 2; justify-self: start }
+  .pf-head { flex-direction: column-reverse; gap: 8px }
+}
+/* на телефоне шапка впритык: кнопка — одной иконкой, соседям чуть меньше отступов, чтобы не вылезти за экран */
+@media (max-width: 480px) {
+  .pf-btn-t { display: none }
+  .pf-btn { margin-left: auto; padding: 8px 0 }
+  .pf-btn + .for-hotels { margin-left: 0; padding: 8px 0 }
+  .hdr .chip.lime { padding-left: 6px; padding-right: 6px }
+}

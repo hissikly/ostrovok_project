@@ -15,7 +15,7 @@ function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
 }
 
-export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta, sight, onSight, onCity }) {
+export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta, sight, onSight, onCity, lenses }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
   const [failed, setFailed] = useState(false)
@@ -59,7 +59,7 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
           <span style={{ marginLeft: 'auto' }}><CompareButton id={h.id} /></span></div>
       </div>
       <WindowPanel key={id} hotelId={id} onCone={onCone} onPick={setView} />
-      <BookBox hotelId={id} view={view} month={month} price={h.mock.price_rub} />
+      <BookBox hotelId={id} view={view} month={month} price={h.mock.price_rub} lenses={lenses} />
       <FactList facts={shown.filter(f => f.characteristic !== 'elevation' && !f.evidence?.agent)} activePlace={places?.spec}
         onPlace={onPlace} onBeach={onBeach} beachOn={routeTitle === 'До пляжа'} nearMeta={nearMeta}>
         <AgentFacts inline hotelId={id} onPlace={onPlace} activePlace={places?.spec}

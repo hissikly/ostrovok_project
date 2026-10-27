@@ -35,7 +35,7 @@
              {"id": "floor", "text": "Этаж 7 и выше", "reason": "С 7-го этажа море почти как с 16-го", "min_floor": 7, "facts": […]},
              {"id": "quiet", "text": "Тихая сторона", "reason": "На северной стороне ночью громче: рядом улица Орджоникидзе", "facts": […]}]}
   ```
-- `POST /api/bookings {"hotel_id": "w201474333", "month": 5, "facade": "W", "floor": 16, "drop": []}` → поездка целиком (как ниже).
+- `POST /api/bookings {"hotel_id": "w201474333", "month": 5, "facade": "W", "floor": 16, "drop": [], "lenses": ["sea_view", "quiet"]}` → поездка целиком (как ниже). `lenses` — фильтры поиска, с которыми выбрали отель (их после поездки спрашивает `features/profile`); бронь отдаёт их в поле `lenses`.
 - `GET /api/bookings?hotel_id=w201474333` → брони отеля, новые сверху: `[{id, hotel_id, month, facade, floor, wish, status: sent|confirmed|declined, status_text, hotel_reply, replied_at, finished_at, created_at}]`.
 - `GET /api/bookings/{id}?kids=true` → `{…бронь, hotel: {id, name, address, lat, lon, price_rub, rating, reviews}, kids, promise: [{id, icon, title, note, facts, guests: {yes, no, unsure, demo, guests, confidence_before, confidence} | null}], packing: [{id, kind, icon, item, why, facts}], answers: {id пункта: yes|no|unsure}}`.
   Пример чемодана Pullman (запад, май): «Удобная обувь, не шлёпанцы — к пляжу ведут лестницы, обратно 9 минут в гору, подъём 29 м», «Коралловые тапочки — пляжи в Сочи в основном галечные», «Тёплая кофта на пляж — в мае море около 17°», можно не брать: «Большую аптечку — круглосуточная аптека «36,6» в 7 минутах», «Запас воды и перекусов — продуктовый «Кайрос» в 3 минутах»; с ребёнком ещё «Переноска вместо коляски», «Гидрокостюм ребёнку», «Заказать детскую кроватку».
