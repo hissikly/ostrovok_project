@@ -75,10 +75,13 @@ def _render(tpl: str, facts: dict, month: int) -> str | None:
 
 
 def packing(ctx: dict) -> list[dict]:
-    facts, month, kids = ctx["facts"], ctx["month"], ctx["kids"]
+    facts, month, kids, ages = ctx["facts"], ctx["month"], ctx["kids"], ctx.get("ages") or []
     out, seen = [], set()
     for r in rules():
         if r["id"] in seen or (r.get("mode") == "kids" and not kids) or (r.get("mode") == "adults" and kids):
+            continue
+        # переноска и кроватка — малышам: подростку коляска не нужна. Возраст не знаем — не отсекаем
+        if kids and ages and r.get("ages") and not any(r["ages"][0] <= a <= r["ages"][1] for a in ages):
             continue
         used = [_check(c, facts, month) for c in r["when"]]
         if not all(used):

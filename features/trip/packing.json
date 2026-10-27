@@ -1,5 +1,5 @@
 {
- "_comment": "Правила чемодана: данные, а не код (features/trip/backend/packing.py). Пункт появляется, только если сработали все условия when — по готовым фактам поездки. fact — характеристика факта (noise, beach_route, morning_sun, web:pool, near:pharmacy_24) или знание kb:<тема> (swim, beach_type, crib, breakfast); path — поле в value, $month — месяц поездки. Условия: eq (null — места рядом нет), in, lt, lte, gt, gte, exists. mode: kids — только с ребёнком, adults — только без. kind: bring — взять, remind — не забыть, skip — можно не брать. В why — {факт.поле}, {month_in}; |lower — со строчной. why — строка или список: берётся первый вариант, где все поля нашлись. Пункты с одинаковым id: срабатывает первый.",
+ "_comment": "Правила чемодана: данные, а не код (features/trip/backend/packing.py). Пункт появляется, только если сработали все условия when — по готовым фактам поездки. fact — характеристика факта (noise, beach_route, morning_sun, web:pool, near:pharmacy_24) или знание kb:<тема> (swim, beach_type, crib, breakfast); path — поле в value, $month — месяц поездки. Условия: eq (null — места рядом нет), in, lt, lte, gt, gte, exists. mode: kids — только с ребёнком, adults — только без; ages [от, до] — только если есть ребёнок этого возраста (лет). kind: bring — взять, remind — не забыть, skip — можно не брать. В why — {факт.поле}, {month_in}; |lower — со строчной. why — строка или список: берётся первый вариант, где все поля нашлись. Пункты с одинаковым id: срабатывает первый.",
  "rules": [
   {
    "id": "earplugs",
@@ -41,6 +41,7 @@
    "icon": "child",
    "item": "Переноска вместо коляски",
    "mode": "kids",
+   "ages": [0, 3],
    "when": [
     {
      "fact": "beach_route",
@@ -56,6 +57,7 @@
    "icon": "child",
    "item": "Переноска вместо коляски",
    "mode": "kids",
+   "ages": [0, 3],
    "when": [
     {
      "fact": "beach_route",
@@ -118,6 +120,7 @@
    "icon": "waves",
    "item": "Гидрокостюм ребёнку",
    "mode": "kids",
+   "ages": [0, 12],
    "when": [
     {
      "fact": "kb:swim",
@@ -180,6 +183,7 @@
    "icon": "child",
    "item": "Заказать детскую кроватку",
    "mode": "kids",
+   "ages": [0, 2],
    "when": [
     {
      "fact": "web:crib",
@@ -195,6 +199,7 @@
    "icon": "child",
    "item": "Заказать детскую кроватку",
    "mode": "kids",
+   "ages": [0, 2],
    "when": [
     {
      "fact": "kb:crib",

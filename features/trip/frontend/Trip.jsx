@@ -139,17 +139,18 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
   // «С ребёнком» — дети в «Гостях» шапки (features/guests): общие для чемодана, дня и шапки
   const [guests] = useGuests()
   const kids = guests.children.length > 0
+  const ages = guests.children.join(',')
   const [failed, setFailed] = useState(false)
 
-  const load = () => api(`/api/bookings/${bookingId}?kids=${kids}`).then(x => { setT(x); onHotel?.(x.hotel_id) }).catch(() => setFailed(true))
+  const load = () => api(`/api/bookings/${bookingId}?kids=${kids}&ages=${ages}`).then(x => { setT(x); onHotel?.(x.hotel_id) }).catch(() => setFailed(true))
   useEffect(() => { setT(null); setFailed(false) }, [bookingId])
-  useEffect(() => { load() }, [bookingId, kids])
+  useEffect(() => { load() }, [bookingId, kids, ages])
   // ждём ответа отеля: проверяем раз в несколько секунд, пока экран открыт
   useEffect(() => {
     if (t?.status !== 'sent') return
-    const timer = setInterval(() => api(`/api/bookings/${bookingId}?kids=${kids}`).then(x => x.status !== 'sent' && setT(x)).catch(() => {}), 4000)
+    const timer = setInterval(() => api(`/api/bookings/${bookingId}?kids=${kids}&ages=${ages}`).then(x => x.status !== 'sent' && setT(x)).catch(() => {}), 4000)
     return () => clearInterval(timer)
-  }, [t?.status, bookingId, kids])
+  }, [t?.status, bookingId, kids, ages])
 
   if (failed) return (
     <div className="block">
