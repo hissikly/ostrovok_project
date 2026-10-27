@@ -17,11 +17,18 @@ def _hotel(h: dict) -> dict:
             "levels": h.get("levels")}
 
 
-def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop: set[str], guests: dict | None = None) -> dict | None:
+OWN_REASON = "Своими словами"
+
+
+def book(hotel_id: str, month: int, facade: str | None, floor: int | None, drop: set[str], guests: dict | None = None,
+         own: list[str] | None = None) -> dict | None:
     ctx = context(hotel_id, month, facade, floor)
     if ctx is None:
         return None
     its = [x for x in wish_items(ctx) if x["id"] not in drop]
+    # свои пожелания гостя — его словами, без причин и фактов: мы за них не ручаемся, отель просто их видит
+    its += [{"id": f"own{i}", "text": t, "reason": OWN_REASON, "own": True, "facts": []}
+            for i, t in enumerate(own or [], 1)]
     floor_item = next((x for x in its if x["id"] == "floor"), None)
     w = {"text": wish_text(its), "items": its, "min_floor": floor_item["min_floor"] if floor_item else None}
     seen, prom = set(), []
