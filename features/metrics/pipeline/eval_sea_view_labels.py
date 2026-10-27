@@ -34,10 +34,11 @@ def ours() -> dict:
         if f["characteristic"] == "sea_view" and f["hotel_id"] in hotels:
             by[f["hotel_id"]].append(f)
     out = {}
-    for h, fs in by.items():
-        v = "да" if any(f["value"].get("from_floor") for f in fs) else \
-            "краешек" if any(f["value"].get("glimpse_from") for f in fs) else "нет"
-        out[h] = (v, max(f["confidence"] for f in fs))
+    rank = {"да": 2, "краешек": 1, "нет": 0}
+    for h, fs in by.items():   # ответ отеля — по лучшей стороне, уверенность — её же
+        side = [("да" if f["value"].get("from_floor") else "краешек" if f["value"].get("glimpse_from") else "нет",
+                 f["confidence"]) for f in fs]
+        out[h] = max(side, key=lambda s: (rank[s[0]], s[1]))
     return out
 
 
@@ -79,8 +80,8 @@ def evaluate():
           f"({100 * sum(h[0] for h in hit) / len(hit):.0f}%); точный класс: {exact} из {len(lab)}")
     tab = collections.Counter((p, t) for _, _, p, t in hit)
     print("Наш ответ → разметка: " + ", ".join(f"{p}→{t}: {n}" for (p, t), n in sorted(tab.items())))
-    print("Калибровка (уверенность расчёта → доля верных):")
-    for lo, hi in ((0, 0.55), (0.55, 0.65), (0.65, 1.01)):
+    print("Калибровка (уверенность расчёта → доля верных; порог «надёжно» у вида на море — 0,5):")
+    for lo, hi in ((0, 0.5), (0.5, 1.01)):
         b = [ok for ok, c, _, _ in hit if lo <= c < hi]
         if b:
             print(f"  {lo:.2f}–{min(hi, 1):.2f}: {sum(b)} из {len(b)} верно ({100 * sum(b) / len(b):.0f}%), "
