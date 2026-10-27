@@ -52,7 +52,8 @@ function Describe({ text, setText, onApply, topIds }) {
   return (
     <>
       <form className="describe" onSubmit={submit}>
-        <input placeholder="Опишите отель или найдите фильтр: аптека, парк…" value={text} onChange={e => setText(e.target.value)} />
+        <Icon name="search" />
+        <input placeholder="Опишите отель или найдите фильтр" value={text} onChange={e => setText(e.target.value)} />
         {text.trim() && <button className="go">Подобрать</button>}
       </form>
       {note && <div className="describe-note">{note}</div>}
@@ -170,7 +171,7 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
         <Describe text={text} setText={setText} onApply={apply} topIds={() => list.slice(0, 10).map(x => x.h.id)} />
         <Lenses lenses={lenses} on={on} toggle={toggle} reset={() => setOn([])} q={text} clearQ={() => setText('')} />
       </div>
-      <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
+      <label className="search"><Icon name="building" size={18} /><input placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} /></label>
       <div className="count-row">
         <div className="count">{count}</div>
         {prices.length > 0 && <PriceFilter prices={prices} value={price} onChange={setPrice} />}
