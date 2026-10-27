@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import { post } from '@app/api.js'
 import Icon from '@app/icons.jsx'
+import { FitLine } from '@features/trip_plan/frontend/Interests.jsx'
+import { useFit, useInterests } from '@features/trip_plan/frontend/interests.js'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
 const STATE_ICON = { match: 'check', partial: 'half', no: 'x', unknown: 'question' }
@@ -105,7 +107,7 @@ function Lenses({ lenses, on, toggle }) {
   )
 }
 
-function Row({ h, info, onSelect }) {
+function Row({ h, info, fit, onSelect }) {
   const shown = info.reasons.filter(r => r.state !== 'unknown')
   const unknown = info.reasons.length - shown.length
   return (
@@ -123,6 +125,7 @@ function Row({ h, info, onSelect }) {
           {unknown > 0 && <div className="unknown"><Icon name="question" size={16} />
             {unknown === 1 ? 'Про одно из пожеланий пока не знаем' : `Про ${unknown} пожелания пока не знаем`}</div>}
         </div>
+        <FitLine fit={fit} />
       </div>
       <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small></div>
     </div>
@@ -139,13 +142,17 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
   }
 
   const byId = useMemo(() => Object.fromEntries(hotels.map(h => [h.id, h])), [hotels])
+  // день по интересам: без фильтров отели идут по тому, какой день из них получится
+  const [interests] = useInterests()
+  const fit = useFit(interests)
   const list = useMemo(() => {
     const s = q.trim().toLowerCase()
     const rows = result && on.length
       ? result.hotels.map(r => ({ h: byId[r.id], info: r })).filter(x => x.h && x.info.fit !== 'none')
-      : hotels.slice().sort((a, b) => b.okno - a.okno || b.facts - a.facts).map(h => ({ h, info: null }))
+      : hotels.slice().sort((a, b) => (fit ? (fit[b.id]?.score ?? -1e9) - (fit[a.id]?.score ?? -1e9) : 0) || b.okno - a.okno || b.facts - a.facts)
+        .map(h => ({ h, info: null }))
     return s ? rows.filter(x => x.h.name.toLowerCase().includes(s)) : rows
-  }, [hotels, result, on, q, byId])
+  }, [hotels, result, on, q, byId, fit])
 
   const c = result?.counts
   const count = !on.length || !c ? `${list.length.toLocaleString('ru-RU')} вариантов в Сочи`
@@ -162,7 +169,7 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
       <div className="count">{count}</div>
       {list.slice(0, 120).map(({ h, info }) => info
-        ? <Row key={h.id} h={h} info={info} onSelect={onSelect} />
+        ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} />
         : (
           <div key={h.id} className="row" onClick={() => onSelect(h.id)}>
             <div style={{ minWidth: 0 }}>
@@ -172,6 +179,7 @@ export default function SearchPanel({ hotels, lenses, on, setOn, setMonth, resul
                 {h.stars && <span style={{ color: '#FFB800' }}>{'★'.repeat(h.stars)}</span>}
                 {h.okno && <span className="chip lime" style={{ padding: '2px 9px', fontSize: 12 }}>О!кно: видно, что из окна</span>}
               </div>
+              <FitLine fit={fit?.[h.id]} />
             </div>
             <div className="pr"><b>{rub(h.price_rub)}</b><small>за ночь</small></div>
           </div>

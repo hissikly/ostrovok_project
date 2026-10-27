@@ -4,6 +4,8 @@ import Icon from '@app/icons.jsx'
 import { HOW, sureWord, FoldButton } from '@features/facts/frontend/FactList.jsx'
 import { SiteQuote } from '@features/web_sources/frontend/SiteQuote.jsx'
 import { outingColor } from './DayRoute.jsx'
+import { useInterests } from '@features/trip_plan/frontend/interests.js'
+import TripFooter, { PinButton } from '@features/trip_plan/frontend/TripDay.jsx'
 import './day.css'
 
 const SURE = { hi: 'Данные надёжные.', mid: 'Это расчёт: на месте может немного отличаться.', lo: 'Это примерная оценка.' }
@@ -29,21 +31,22 @@ function StopToggle({ on, n, outing, onToggle }) {
 
 // Одна сцена дня: время, что происходит, по клику — откуда мы это знаем.
 // Строка пути (kind=walk) — тоньше: когда вышли и сколько идти; у места, куда пришли, — «до скольких» там
-function Scene({ s, stop }) {
+function Scene({ s, stop, pin }) {
   const [open, setOpen] = useState(false)
   const toggle = () => setOpen(!open)
   const walk = s.kind === 'walk'
   return (
-    <li className={`day-scene ${walk ? 'day-walk' : ''} ${s.good ? '' : 'warn'} ${stop && !stop.on ? 'off' : ''}`} onClick={toggle}
+    <li className={`day-scene ${walk ? 'day-walk' : ''} ${s.good ? '' : 'warn'} ${stop && !stop.on ? 'off' : ''} ${s.interest === 'surprise' ? 'surprise' : ''}`} onClick={toggle}
       tabIndex={0} aria-expanded={open} onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggle())}>
-      <time>{s.time}{s.visit && <small>до {s.visit.until}</small>}</time>
+      <time>{s.time}</time>
       {walk ? <span className="day-dot" style={{ background: outingColor(s.outing) }} /> : <span className="day-dot"><Icon name={s.icon} size={18} /></span>}
       <div className="day-body">
-        <b>{s.title}</b>
+        {s.interest_title && !walk && <span className="trip-for">{s.interest_title}</span>}
+        <b>{s.title}{s.visit && !walk && <em className="day-until">до {s.visit.until}</em>}</b>
         {s.note && <span>{s.note}</span>}
         {open && s.facts.length > 0 && <How facts={s.facts} />}
       </div>
-      {stop && <StopToggle {...stop} />}
+      {pin ? <div className="trip-side">{stop && <StopToggle {...stop} />}<PinButton {...pin} /></div> : stop && <StopToggle {...stop} />}
     </li>
   )
 }
@@ -55,29 +58,58 @@ const plural = (n, one, few, many) => {
 
 // Ночная аптека — «на всякий случай», в план дня по умолчанию не ставим
 const SKIP0 = ['night']
+// Коротко (в карточке отеля): без выходов из отеля, три главные сцены — подвохи и то, ради чего выбирают отель.
+// Весь день с выходами и картой — по кнопке, и сразу в «Моей поездке» (features/trip)
+const ALL_STOPS = ['coffee', 'beach', 'kids', 'sunset', 'dinner', 'night']
+const WEIGHT = { beach_route: 5, beach_distance: 5, sunset_view: 4, sea_view: 4, noise: 3, morning_sun: 2 }
+function mainScenes(scenes, n = 3) {
+  const score = s => (WEIGHT[s.facts[0]?.characteristic] || (s.facts[0]?.characteristic.startsWith('web:') ? 2 : 1)) + (s.good ? 0 : 3)
+  const best = {}
+  for (const s of scenes.filter(x => x.kind !== 'walk' && x.facts.length)) {
+    const c = s.facts[0].characteristic.replace('beach_distance', 'beach_route')
+    if (!best[c] || score(s) > score(best[c])) best[c] = s
+  }
+  const top = Object.values(best).sort((a, b) => score(b) - score(a)).slice(0, n)
+  return scenes.filter(s => top.includes(s))
+}
 
 // «Ваш день здесь»: лента одного дня из фактов, для стороны и этажа, выбранных в «О!кне».
 // Места вне отеля — выходы из отеля: в ленте время в пути и на месте, на карте — линия на каждый выход.
 // Куда не пойдёт, гость убирает кружком справа. onRoute(маршрут|null) рисует выходы на карте,
 // routeShown — они сейчас на карте (а не путь до пляжа и т.п.)
-export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) {
-  const [kids, setKids] = useState(false)
+// brief — в карточке отеля сначала коротко (три главные сцены), «Весь день с выходами из отеля» раскрывает ленту с картой;
+// выбраны интересы — сразу весь день по ним
+export default function DayPanel({ hotelId, month, view, onRoute, routeShown, brief }) {
+  // день по интересам (features/trip_plan): номер варианта и закреплённые гостем места {интерес: место}
+  const [interests] = useInterests()
+  const [variant, setVariant] = useState(0)
+  const [pins, setPins] = useState({})
+  const trip = interests.length > 0   // интересы выбраны — день всегда по ним («с детьми» — один из интересов)
+  const [full, setFull] = useState(false)
+  const short = brief && !full && !trip && !routeShown
   const [d, setD] = useState(null)
   const [skip, setSkip] = useState(SKIP0)
   const [folded, setFolded] = useState(() => { try { return localStorage.getItem('fold:day') === '1' } catch { return false } })
   const fold = () => { try { localStorage.setItem('fold:day', folded ? '0' : '1') } catch { /* не помним */ } setFolded(!folded) }
 
-  useEffect(() => { setD(null); setSkip(SKIP0) }, [hotelId])  // не показываем день прошлого отеля, пока грузится новый
+  useEffect(() => { setD(null); setSkip(SKIP0); setVariant(0); setPins({}); setFull(false) }, [hotelId])  // не показываем день прошлого отеля, пока грузится новый
+  useEffect(() => { setVariant(0); setPins({}) }, [interests.join(',')])
 
   const q = () => {
     const p = new URLSearchParams({ month })
     if (view?.facade) p.set('facade', view.facade)
     if (view?.floor) p.set('floor', view.floor)
-    if (kids) p.set('mode', 'kids')
-    if (skip.length) p.set('skip', skip.join(','))
+    const sk = short ? ALL_STOPS : skip
+    if (sk.length) p.set('skip', sk.join(','))
+    if (trip) {
+      p.set('interests', interests.join(','))
+      if (variant) p.set('variant', variant)
+      const pp = Object.entries(pins).map(([k, v]) => `${k}:${v}`)
+      if (pp.length) p.set('pins', pp.join(','))
+    }
     return p
   }
-  const deps = [hotelId, month, view?.facade, view?.floor, kids, skip.join(',')]
+  const deps = [hotelId, month, view?.facade, view?.floor, short ? 'brief' : skip.join(','), trip, interests.join(','), variant, JSON.stringify(pins)]
   useEffect(() => {
     let alive = true
     api(`/api/hotels/${hotelId}/day?${q()}`).then(x => alive && setD(x)).catch(() => alive && setD(false))
@@ -90,17 +122,24 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
   useEffect(() => { if (routeShown) showRoute() }, deps)
 
   const toggleStop = id => setSkip(skip.includes(id) ? skip.filter(x => x !== id) : [...skip, id])
+  const togglePin = s => setPins(p => { const n = { ...p }; if (n[s.interest]) delete n[s.interest]; else n[s.interest] = s.place; return n })
 
   if (d === false || (d && d.scenes.length < 2)) return null
   if (!d) return <div className="block muted">Собираем ваш день…</div>
+  if (short) return (
+    <div className="block day">
+      <div className="day-head"><h2>Ваш день здесь</h2></div>
+      <ol className="day-line">{mainScenes(d.scenes).map(s => <Scene key={s.time + s.title} s={s} />)}</ol>
+      <button className="day-more" onClick={() => setFull(true)}>Весь день с выходами из отеля<Icon name="calendar" size={16} /></button>
+    </div>
+  )
   const stops = d.scenes.filter(s => s.stop)
   const w = d.walk
   return (
     <div className="block day">
       <div className="day-head">
         <h2>Ваш день здесь</h2>
-        <div className="pills"><button className={kids ? 'on' : ''} onClick={() => setKids(!kids)}>
-          <Icon name="child" size={16} />С ребёнком</button><FoldButton folded={folded} onClick={fold} /></div>
+        <div className="pills"><FoldButton folded={folded} onClick={fold} /></div>
       </div>
       {stops.length > 0 && (
         <div className={`day-route ${routeShown ? 'on' : ''}`}>
@@ -112,8 +151,10 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown }) 
             ? <button onClick={() => onRoute?.(null)}>Скрыть с карты</button>
             : <button onClick={showRoute}>На карте</button>)}
         </div>)}
-      {!folded && <ol className="day-line">{d.scenes.map(s => <Scene key={(s.kind || '') + s.time + s.title} s={s}
-        stop={s.stop && { on: !skip.includes(s.stop.id), n: s.visit?.n, outing: s.visit?.outing, onToggle: () => toggleStop(s.stop.id) }} />)}</ol>}
+      {!folded && <ol key={trip ? `v${variant}` : 'day'} className={`day-line ${trip ? 'trip-fade' : ''}`}>{d.scenes.map(s => <Scene key={(s.kind || '') + s.time + s.title} s={s}
+        stop={s.stop && { on: !skip.includes(s.stop.id), n: s.visit?.n, outing: s.visit?.outing, onToggle: () => toggleStop(s.stop.id) }}
+        pin={s.alts > 1 && s.kind !== 'walk' && { on: pins[s.interest] === s.place, onClick: () => togglePin(s) }} />)}</ol>}
+      {!folded && d.plan && <TripFooter plan={d.plan} onAgain={() => setVariant(variant + 1)} />}
     </div>
   )
 }

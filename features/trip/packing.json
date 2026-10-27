@@ -1,0 +1,302 @@
+{
+ "_comment": "Правила чемодана: данные, а не код (features/trip/backend/packing.py). Пункт появляется, только если сработали все условия when — по готовым фактам поездки. fact — характеристика факта (noise, beach_route, morning_sun, web:pool, near:pharmacy_24) или знание kb:<тема> (swim, beach_type, crib, breakfast); path — поле в value, $month — месяц поездки. Условия: eq (null — места рядом нет), in, lt, lte, gt, gte, exists. mode: kids — только с ребёнком, adults — только без. kind: bring — взять, remind — не забыть, skip — можно не брать. В why — {факт.поле}, {month_in}; |lower — со строчной. why — строка или список: берётся первый вариант, где все поля нашлись. Пункты с одинаковым id: срабатывает первый.",
+ "rules": [
+  {
+   "id": "earplugs",
+   "kind": "bring",
+   "icon": "mute",
+   "item": "Беруши",
+   "when": [
+    {
+     "fact": "noise",
+     "path": "level",
+     "in": [
+      "noisy",
+      "very_noisy"
+     ]
+    }
+   ],
+   "why": [
+    "Окна выходят на шумную сторону: ночью около {noise.night_db} дБ, рядом {noise.source.name}",
+    "Окна выходят на шумную сторону: ночью около {noise.night_db} дБ, рядом {noise.source.kind_ru}"
+   ]
+  },
+  {
+   "id": "sleep_mask",
+   "kind": "bring",
+   "icon": "moon",
+   "item": "Маска для сна",
+   "when": [
+    {
+     "fact": "morning_sun",
+     "path": "sun_in_window",
+     "lt": "08:00"
+    }
+   ],
+   "why": "Солнце заглянет в окно в {morning_sun.sun_in_window}, рассвет в {morning_sun.sunrise}"
+  },
+  {
+   "id": "carrier",
+   "kind": "bring",
+   "icon": "child",
+   "item": "Переноска вместо коляски",
+   "mode": "kids",
+   "when": [
+    {
+     "fact": "beach_route",
+     "path": "steps",
+     "gt": 0
+    }
+   ],
+   "why": "По пути к пляжу лестницы, а обратно {beach_route.back_minutes} минут в гору, подъём {beach_route.climb_back_m} м"
+  },
+  {
+   "id": "carrier",
+   "kind": "bring",
+   "icon": "child",
+   "item": "Переноска вместо коляски",
+   "mode": "kids",
+   "when": [
+    {
+     "fact": "beach_route",
+     "path": "climb_back_m",
+     "gte": 15
+    }
+   ],
+   "why": "Обратно с пляжа {beach_route.back_minutes} минут в гору, подъём {beach_route.climb_back_m} м: коляску толкать тяжело"
+  },
+  {
+   "id": "shoes",
+   "kind": "bring",
+   "icon": "mountain",
+   "item": "Удобная обувь, не шлёпанцы",
+   "when": [
+    {
+     "fact": "beach_route",
+     "path": "steps",
+     "gt": 0
+    },
+    {
+     "fact": "beach_route",
+     "path": "climb_back_m",
+     "gte": 15
+    }
+   ],
+   "why": "К пляжу ведут лестницы, обратно {beach_route.back_minutes} минут в гору, подъём {beach_route.climb_back_m} м"
+  },
+  {
+   "id": "shoes",
+   "kind": "bring",
+   "icon": "mountain",
+   "item": "Удобная обувь, не шлёпанцы",
+   "when": [
+    {
+     "fact": "beach_route",
+     "path": "climb_back_m",
+     "gte": 25
+    }
+   ],
+   "why": "Обратно с пляжа {beach_route.back_minutes} минут в гору, подъём {beach_route.climb_back_m} м"
+  },
+  {
+   "id": "aqua_shoes",
+   "kind": "bring",
+   "icon": "beach",
+   "item": "Коралловые тапочки",
+   "when": [
+    {
+     "fact": "kb:beach_type",
+     "path": "surface",
+     "eq": "галька"
+    }
+   ],
+   "why": "{kb:beach_type.text}: по камням босиком больно, в воду заходить скользко"
+  },
+  {
+   "id": "wetsuit",
+   "kind": "bring",
+   "icon": "waves",
+   "item": "Гидрокостюм ребёнку",
+   "mode": "kids",
+   "when": [
+    {
+     "fact": "kb:swim",
+     "path": "sea_c.$month",
+     "lt": 21
+    }
+   ],
+   "why": "В {month_in} море около {kb:swim.sea_c.$month}°: ребёнок быстро замёрзнет"
+  },
+  {
+   "id": "pool_swimsuit",
+   "kind": "bring",
+   "icon": "waves",
+   "item": "Купальник для бассейна",
+   "when": [
+    {
+     "fact": "kb:swim",
+     "path": "sea_c.$month",
+     "lt": 20
+    },
+    {
+     "fact": "web:pool",
+     "path": "pool",
+     "eq": "есть"
+    }
+   ],
+   "why": "В {month_in} море около {kb:swim.sea_c.$month}°, зато у отеля {web:pool.text|lower}, так пишет сайт отеля"
+  },
+  {
+   "id": "warm_layer",
+   "kind": "bring",
+   "icon": "snow",
+   "item": "Тёплая кофта на пляж",
+   "when": [
+    {
+     "fact": "kb:swim",
+     "path": "sea_c.$month",
+     "lt": 20
+    }
+   ],
+   "why": "В {month_in} море около {kb:swim.sea_c.$month}°: после купания на берегу прохладно"
+  },
+  {
+   "id": "sunscreen",
+   "kind": "bring",
+   "icon": "sunset",
+   "item": "Крем от солнца и панама",
+   "when": [
+    {
+     "fact": "kb:swim",
+     "path": "sea_c.$month",
+     "gte": 22
+    }
+   ],
+   "why": "В {month_in} море около {kb:swim.sea_c.$month}°: пляжный сезон, на берегу будете подолгу"
+  },
+  {
+   "id": "crib",
+   "kind": "remind",
+   "icon": "child",
+   "item": "Заказать детскую кроватку",
+   "mode": "kids",
+   "when": [
+    {
+     "fact": "web:crib",
+     "path": "preorder",
+     "eq": "нужно"
+    }
+   ],
+   "why": "{web:crib.text}, так пишет сайт отеля"
+  },
+  {
+   "id": "crib",
+   "kind": "remind",
+   "icon": "child",
+   "item": "Заказать детскую кроватку",
+   "mode": "kids",
+   "when": [
+    {
+     "fact": "kb:crib",
+     "path": "preorder",
+     "eq": "нужно"
+    }
+   ],
+   "why": "Кроватку нужно заказать заранее. {kb:crib.note}"
+  },
+  {
+   "id": "breakfast",
+   "kind": "remind",
+   "icon": "cup",
+   "item": "Решить с завтраком",
+   "when": [
+    {
+     "fact": "web:breakfast",
+     "path": "breakfast",
+     "eq": "за доплату"
+    }
+   ],
+   "why": "{web:breakfast.text}, так пишет сайт отеля. Дешевле добавить его сразу в бронь"
+  },
+  {
+   "id": "transfer",
+   "kind": "remind",
+   "icon": "car",
+   "item": "Заказать трансфер из аэропорта",
+   "when": [
+    {
+     "fact": "web:transfer",
+     "path": "transfer",
+     "in": [
+      "за доплату",
+      "бесплатно",
+      "есть"
+     ]
+    }
+   ],
+   "why": "{web:transfer.text}, так пишет сайт отеля. Удобнее договориться до прилёта"
+  },
+  {
+   "id": "pharmacy",
+   "kind": "skip",
+   "icon": "cross",
+   "item": "Большую аптечку",
+   "when": [
+    {
+     "fact": "near:pharmacy_24",
+     "path": "walk_min",
+     "lte": 15
+    }
+   ],
+   "why": [
+    "Круглосуточная аптека «{near:pharmacy_24.name}» в {near:pharmacy_24.walk_min} минутах пешком",
+    "Круглосуточная аптека в {near:pharmacy_24.walk_min} минутах пешком"
+   ]
+  },
+  {
+   "id": "groceries",
+   "kind": "skip",
+   "icon": "cart",
+   "item": "Запас воды и перекусов",
+   "when": [
+    {
+     "fact": "near:grocery",
+     "path": "walk_min",
+     "lte": 5
+    }
+   ],
+   "why": [
+    "Продуктовый «{near:grocery.name}» в {near:grocery.walk_min} минутах пешком",
+    "Продуктовый в {near:grocery.walk_min} минутах пешком"
+   ]
+  },
+  {
+   "id": "first_aid",
+   "kind": "bring",
+   "icon": "cross",
+   "item": "Аптечку с самым нужным",
+   "when": [
+    {
+     "fact": "near:pharmacy",
+     "path": "meters",
+     "eq": null
+    }
+   ],
+   "why": "Аптеки в {near:pharmacy.within_min} минутах пешком от отеля нет"
+  },
+  {
+   "id": "water",
+   "kind": "bring",
+   "icon": "cart",
+   "item": "Воду и перекус на первый вечер",
+   "when": [
+    {
+     "fact": "near:grocery",
+     "path": "meters",
+     "eq": null
+    }
+   ],
+   "why": "Продуктового в {near:grocery.within_min} минутах пешком от отеля нет"
+  }
+ ]
+}
