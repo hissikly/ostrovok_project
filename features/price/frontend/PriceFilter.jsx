@@ -6,7 +6,7 @@ import './price.css'
 export const NO_PRICE = { sort: null, max: null }
 const STEP = 100
 const BINS = 24
-const SORTS = [[null, 'Рекомендуем'], ['asc', 'Дешевле'], ['desc', 'Дороже']]
+const SORTS = [[null, 'Рекомендуем'], ['asc', 'Сначала дешевле'], ['desc', 'Сначала дороже']]
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
 const short = n => (n >= 1000 ? `${(n / 1000).toLocaleString('ru-RU', { maximumFractionDigits: 1 })} тыс` : n)
@@ -57,7 +57,7 @@ export default function PriceFilter({ prices, value, onChange }) {
 
   const set = patch => onChange({ ...value, ...patch })
   const setMax = m => set({ max: m >= hi ? null : m })
-  const label = [value.max && `до ${short(value.max)} ₽`, value.sort === 'asc' && 'дешевле', value.sort === 'desc' && 'дороже']
+  const label = [value.max && `до ${short(value.max)} ₽`, value.sort === 'asc' && 'сначала дешевле', value.sort === 'desc' && 'сначала дороже']
     .filter(Boolean).join(' · ')
 
   return (
@@ -68,7 +68,7 @@ export default function PriceFilter({ prices, value, onChange }) {
       </button>
       {open && (
         <div className="pf-card" role="dialog" aria-label="Цена">
-          <div className="pf-title">Сначала показывать</div>
+          <div className="pf-title">Отсортировать</div>
           <div className="pf-seg">
             {SORTS.map(([k, t]) => (
               <button key={t} className={value.sort === k ? 'on' : ''} onClick={() => set({ sort: k })}>{t}</button>
@@ -77,7 +77,6 @@ export default function PriceFilter({ prices, value, onChange }) {
 
           <div className="pf-head">
             <div className="pf-title">Цена за ночь</div>
-            <b>{value.max ? `до ${rub(max)}` : 'любая'}</b>
           </div>
           <div className="pf-hist" aria-hidden="true">
             {bins.map((n, i) => (
