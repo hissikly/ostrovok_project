@@ -22,6 +22,10 @@
 .gs-age select { font: inherit; font-weight: 600; border: 0; border-radius: 10px; background: var(--chip); padding: 8px 10px; color: var(--ink); cursor: pointer }
 .gs-note { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0 0; font-size: 13px; color: var(--muted) }
 .gs-note svg { flex: none; color: var(--brand) }
+/* возраст и подсказка появляются плавно, окно растёт вниз */
+.gs-age, .gs-note { animation: gs-in .22s ease-out }
+@keyframes gs-in { from { opacity: 0; transform: translateY(-6px) } }
+@media (prefers-reduced-motion: reduce) { .gs-age, .gs-note { animation: none } }
 .gs-done { margin-top: 10px; width: 100%; border: 0; background: var(--brand); color: #fff; font: inherit; font-weight: 700; border-radius: 12px; padding: 12px; cursor: pointer }
 .gs-done:hover { background: var(--brand-hover) }
 @media (max-width: 640px) {
