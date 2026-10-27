@@ -35,8 +35,8 @@ function AskHotels({ ask, topIds }) {
   ))
 }
 
-function Describe({ onApply, topIds }) {
-  const [text, setText] = useState('')
+// одна строка на всё: пока печатаете — подходящие фильтры ниже (Lenses), Enter — разобрать фразу целиком
+function Describe({ text, setText, onApply, topIds }) {
   const [note, setNote] = useState(null)
   const [ask, setAsk] = useState([])
   const submit = async e => {
@@ -52,8 +52,7 @@ function Describe({ onApply, topIds }) {
   return (
     <>
       <form className="describe" onSubmit={submit}>
-        <Icon name="sparkle" />
-        <input placeholder="Опишите, какой отель нужен" value={text} onChange={e => setText(e.target.value)} />
+        <input placeholder="Опишите отель или найдите фильтр: аптека, парк…" value={text} onChange={e => setText(e.target.value)} />
         {text.trim() && <button className="go">Подобрать</button>}
       </form>
       {note && <div className="describe-note">{note}</div>}
@@ -70,16 +69,16 @@ function matches(l, query) {
   return words(query).every(q => hay.some(w => w.startsWith(stem(q)) || q.startsWith(stem(w))))
 }
 
-function Lenses({ lenses, on, toggle, reset }) {
+function Lenses({ lenses, on, toggle, reset, q, clearQ }) {
   const [open, setOpen] = useState(false)
-  const [q, setQ] = useState('')
   const primary = lenses.filter(l => l.primary)
   const extra = lenses.filter(l => !l.primary)
   const extraOn = extra.filter(l => on.includes(l.id))
   const found = q.trim() ? extra.filter(l => matches(l, q)) : extra
   const groups = [...new Set(found.map(l => l.group))]
+  const searching = !!q.trim()
   const btn = l => (
-    <button key={l.id} className={on.includes(l.id) ? 'on' : ''} onClick={() => toggle(l.id)} title={l.hint}>
+    <button key={l.id} className={on.includes(l.id) ? 'on' : ''} onClick={() => { toggle(l.id); if (searching) clearQ() }} title={l.hint}>
       <Icon name={l.icon} size={18} />{l.title}
     </button>
   )
@@ -93,17 +92,15 @@ function Lenses({ lenses, on, toggle, reset }) {
         </button>
         {on.length > 0 && <button className="more reset" onClick={reset}><Icon name="x" size={16} />Сбросить</button>}
       </div>
-      {open && (
+      {(open || (searching && found.length > 0)) && (
         <div className="more-box">
-          <input className="more-search" placeholder="Найти фильтр: аптека, парк, остановка…" value={q}
-            onChange={e => setQ(e.target.value)} autoFocus />
           {groups.map(g => (
             <div key={g} className="more-group">
               <div className="more-title">{g}</div>
               <div className="lenses">{found.filter(l => l.group === g).map(btn)}</div>
             </div>
           ))}
-          {!found.length && <div className="describe-note">Такого фильтра нет. Напишите в строку «опиши» выше: если по карте это не узнать, спросим у отелей.</div>}
+          {!found.length && <div className="describe-note">Такого фильтра нет. Нажмите «Подобрать»: разберём фразу, а если по карте это не узнать — спросим у отелей.</div>}
         </div>
       )}
     </>
@@ -137,6 +134,7 @@ function Row({ h, info, fit, onSelect }) {
 
 export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth, result, onSelect }) {
   const [q, setQ] = useState('')
+  const [text, setText] = useState('')   // строка «опиши» — она же поиск по фильтрам
   const [price, setPrice] = useState(NO_PRICE)
   const toggle = id => setOn(on.includes(id) ? on.filter(x => x !== id) : [...on, id])
   const apply = d => {
@@ -169,8 +167,8 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
     <div>
       <div className="block search-block">
         <h2>Что важно в поездке?</h2>
-        <Describe onApply={apply} topIds={() => list.slice(0, 10).map(x => x.h.id)} />
-        <Lenses lenses={lenses} on={on} toggle={toggle} reset={() => setOn([])} />
+        <Describe text={text} setText={setText} onApply={apply} topIds={() => list.slice(0, 10).map(x => x.h.id)} />
+        <Lenses lenses={lenses} on={on} toggle={toggle} reset={() => setOn([])} q={text} clearQ={() => setText('')} />
       </div>
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
       <div className="count-row">
