@@ -25,11 +25,13 @@ docker compose up --build
 - **О!кно:** вид из окна по сторонам и этажам для 194 отелей, закат над морем по месяцам.
 - **Частые вопросы в карточке:** ответ отеля → посчитанное системой → общее для Сочи/края; нет ответа — «Этого мы пока не знаем :(» и «Спросить у отеля».
 - **Экстранет отельера** (`/#extranet/<id отеля>`, кнопка «Для отелей»): вопросы гостей со счётчиком спроса, ответ своими словами → «как мы поняли» → гость сразу видит ответ; «Верно / Исправить» для того, что система узнала сама.
+- **Город и «Что посмотреть»** (`/#city`, клик по «Сочи» в шапке): 12 мест с фото → «Жить рядом» включает фильтр «Рядом: место», отели по времени пешком по улицам и лестницам (или ≈ на машине); в карточке отеля — три ближайших места с маршрутом. Подробно — `features/sights/README.md`.
 - Без ключа LLM работает всё: разбор фраз и ответов — правила и морфология (pymorphy3).
 
 ## Откуда данные
 | Что | Источник | Как получено |
 |---|---|---|
+| Места «Что посмотреть» (12) | список вручную, координаты OSM, фото Wikimedia Commons | `features/sights/sights.json`, `features/sights/pipeline/` |
 | Отели Сочи (718) | OpenStreetMap | `features/hotels/pipeline/build_hotels.py`; цена, рейтинг, отзывы — мок |
 | Вид из окна, закат | Copernicus DEM GLO-30 + дома OSM | `features/okno/pipeline/` — профиль горизонта по сторонам и этажам |
 | Путь до пляжа, «что рядом» | OSM (пешеходная сеть, 12 тыс. мест) + DEM | `features/beach_route/pipeline/`, `features/nearby/pipeline/` |
@@ -52,6 +54,8 @@ docker compose up --build
 | Внешние сервисы во время работы | тайлы карты OpenFreeMap · шрифт Manrope (Google Fonts) · LLM — только если задан ключ | | данные карты © OpenStreetMap (ODbL) |
 
 Данные: OpenStreetMap — ODbL (атрибуция на карте), Copernicus DEM GLO-30 — © DLR/Airbus, лицензия Copernicus, Open-Meteo — CC BY 4.0.
+
+Фото мест в «Что посмотреть» (12 шт., `data/seed/sights/`) — Wikimedia Commons: 1 — Public domain, остальные — CC BY-SA 3.0/4.0; автор и лицензия подписаны на каждом фото, полный список со ссылками — `data/seed/sights/photos.json` (собирает `features/sights/pipeline/fetch_photos.py`).
 
 **Проверка безопасности — 27.10.2026:** `uvx pip-audit -r app/requirements.txt`, `uvx pip-audit -r features/data_sources/pipeline/requirements.txt`, `npm audit` — **0 известных уязвимостей**. Что нашли и исправили:
 - `starlette 0.41.3` (тянулась `fastapi 0.115.6`) — 7 уязвимостей → FastAPI 0.143.0 + Starlette 1.8.0;

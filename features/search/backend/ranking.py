@@ -28,8 +28,10 @@ def search(lens_ids: list[str], ctx: dict) -> dict:
         states = [r["state"] for r in reasons]
         rows.append({"id": h["id"], "score": round(score, 3), "fit": fit(states),
                      "unknown": states.count(UNKNOWN), "price_rub": h["mock"]["price_rub"],
+                     "minutes": sum(r.get("minutes", 0) for r in reasons),
                      "reasons": reasons})
-    rows.sort(key=lambda r: (-r["score"], r["unknown"], r["price_rub"]))
+    # при равном совпадении ближе к месту из «Что посмотреть» — выше (minutes есть только у таких линз)
+    rows.sort(key=lambda r: (-r["score"], r["unknown"], r["minutes"], r["price_rub"]))
     return {"lenses": [l["id"] for l in lenses], "summary": summary,
             "counts": {k: sum(r["fit"] == k for r in rows) for k in ("all", "some", "unknown", "none")},
             "hotels": rows}

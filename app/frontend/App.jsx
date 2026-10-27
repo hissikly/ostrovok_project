@@ -11,6 +11,7 @@ import InterestsButton from '@features/trip_plan/frontend/Interests.jsx'
 import GuestsButton from '@features/guests/frontend/Guests.jsx'
 import Compare from '@features/compare/frontend/Compare.jsx'
 import CompareTray from '@features/compare/frontend/CompareTray.jsx'
+import City from '@features/sights/frontend/City.jsx'
 
 const MONTH = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
 
@@ -44,18 +45,23 @@ export default function App() {
   const nearMeta = useMemo(() => Object.fromEntries(lenses.filter(l => l.id.startsWith('near_'))
     .map(l => [l.id.slice(5), { icon: l.icon, group: l.group }])), [lenses])
   const fits = useMemo(() => result && Object.fromEntries(result.hotels.map(r => [r.id, r.fit])), [result])
+  // место из «Что посмотреть рядом» в карточке отеля (features/sights)
+  const [sight, setSight] = useState(null)
   // у открытого отеля показываем на карте найденное рядом: магазин, парк, аптеку…
+  // без открытого отеля — место из «Жить рядом», к которому подбираем отели
   const pois = useMemo(() => {
-    const r = result && selected && result.hotels.find(x => x.id === selected)
-    const pts = (r?.reasons || []).filter(x => x.point)
-    return pts.length ? { type: 'FeatureCollection', features: pts.map(x => ({ type: 'Feature',
-      properties: { name: x.point.name }, geometry: { type: 'Point', coordinates: [x.point.lon, x.point.lat] } })) } : null
-  }, [result, selected])
+    const r = result && (selected ? result.hotels.find(x => x.id === selected) : result.hotels[0])
+    const pts = (r?.reasons || []).filter(x => x.point && (selected || x.lens.startsWith('sight_'))).map(x => x.point)
+    if (sight && !pts.some(p => p.name === sight.name)) pts.push(sight)
+    return pts.length ? { type: 'FeatureCollection', features: pts.map(p => ({ type: 'Feature',
+      properties: { name: p.name }, geometry: { type: 'Point', coordinates: [p.lon, p.lat] } })),
+      fit: sight?.mode === 'car' ? [sight, hotels.find(h => h.id === selected)].filter(Boolean) : null } : null
+  }, [result, selected, sight, hotels])
   // места одного типа рядом с открытым отелем (клик по «Что рядом пешком»)
   const [places, setPlaces] = useState(null)
   // пеший маршрут на карте: до пляжа или до выбранного места
   const [route, setRoute] = useState(null)
-  useEffect(() => { if (!selected) setCone(null); setPlaces(null); setRoute(null) }, [selected])
+  useEffect(() => { if (!selected) setCone(null); setPlaces(null); setRoute(null); setSight(null) }, [selected])
   const showRoute = (url, title) => api(url).then(r => setRoute({ ...r, title })).catch(() => setRoute({ title, none: true }))
   const routeTo = p => showRoute(`/api/hotels/${selected}/route?lat=${p.lat}&lon=${p.lon}`,
     p.name ? `До ${/[«"„“]/.test(p.name) ? p.name : `«${p.name}»`}` : `До места: ${p.kind.toLowerCase()}`)
@@ -67,7 +73,16 @@ export default function App() {
     })
   }
   const showBeach = () => { setPlaces(null); showRoute(`/api/hotels/${selected}/beach-route`, 'До пляжа') }
-  const closeMapBox = () => { setPlaces(null); setRoute(null) }
+  const closeMapBox = () => { setPlaces(null); setRoute(null); setSight(null) }
+  // пешком — маршрут по графу; дальше 40 минут — честно «на машине», точка на карте без пешей линии
+  const showSight = r => {
+    setPlaces(null); setSight(r)
+    if (!r) setRoute(null)
+    else if (r.mode === 'walk') showRoute(`/api/hotels/${selected}/route?lat=${r.lat}&lon=${r.lon}`, `До ${r.to}`)
+    else setRoute({ title: `До ${r.to}`, none: true, note: `Пешком дальше 40 минут — на машине ≈ ${r.minutes} мин (оценка по прямой)` })
+  }
+  // «Жить рядом» на экране города: место становится фильтром подбора
+  const liveNear = s => { setOn(prev => prev.includes(s.lens) ? prev : [...prev, s.lens]); setSelected(null) }
 
   // «Моя поездка»: #trip/<id брони>, на карте — отель брони
   const tripId = selected?.startsWith('trip/') ? selected.slice(5) : null
@@ -93,14 +108,15 @@ export default function App() {
         <div className="logo">Островок!</div>
         <span className="chip lime">О!кно</span>
         <div className="trip">
-          <span><Icon name="pin" size={17} />Сочи</span>
+          <span className="sg-city" role="button" title="Город и что посмотреть" onClick={() => setSelected('city')}><Icon name="pin" size={17} />Сочи</span>
           <span><Icon name="calendar" size={17} />{month === 5 ? '12–19 мая' : MONTH[month]}</span>
           <GuestsButton />
           <InterestsButton />
         </div>
         <button className="for-hotels" onClick={() => setSelected(`extranet/${sel?.id || 'w201474333'}`)}>Для отелей</button>
       </header>
-      {compareIds ? <div className="main cmp-main"><Compare ids={compareIds} lenses={lenses} on={on} month={month}
+      {selected === 'city' ? <div className="main sg-main"><City on={on} onLive={liveNear} onExit={() => setSelected(null)} /></div>
+      : compareIds ? <div className="main cmp-main"><Compare ids={compareIds} lenses={lenses} on={on} month={month}
         onHotel={setSelected} onIds={openCompare} onExit={() => setSelected(null)} /></div> : <>
       <div className="main">
         <aside className="panel">
@@ -109,7 +125,8 @@ export default function App() {
             ? <Trip bookingId={tripId} onHotel={setTripHotel} onExit={id => setSelected(id)} onRoute={r => { setPlaces(null); setRoute(r) }} routeShown={route?.title === 'Маршрут дня'} />
             : sel
             ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach} onDayRoute={r => { setPlaces(null); setRoute(r) }}
-              places={places} routeTitle={route?.title} nearMeta={nearMeta} />
+              places={places} routeTitle={route?.title} nearMeta={nearMeta}
+              sight={sight?.id} onSight={showSight} onCity={() => setSelected('city')} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} month={month} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}
         </aside>
@@ -118,7 +135,7 @@ export default function App() {
             onPlaceClick={routeTo} onCloseBox={closeMapBox} />
         </section>
       </div>
-      {!tripId && <CompareTray hotels={hotels} onOpen={openCompare} />}
+      {!tripId && selected !== 'city' && <CompareTray hotels={hotels} onOpen={openCompare} />}
       </>}
     </div>
   )

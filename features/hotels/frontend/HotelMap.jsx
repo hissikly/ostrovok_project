@@ -31,7 +31,7 @@ const toGeo = (hotels, fits) => ({
 
 // Путь словами: туда/обратно с подъёмом и то, что встретится по дороге
 function RouteInfo({ r }) {
-  if (r.none) return <div className="route-info"><b>{r.title}</b><span>Пешеходный путь не нашли</span></div>
+  if (r.none) return <div className="route-info"><b>{r.title}</b><span>{r.note || 'Пешеходный путь не нашли'}</span></div>
   if (r.stops) return <DayRouteInfo r={r} />   // маршрут дня из «Ваш день здесь»
   const f = r.flags
   const notes = [
@@ -97,7 +97,15 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
       m.fitBounds(b, { padding: { top: 180, bottom: 50, left: 50, right: 60 }, maxZoom: 17, duration: 800 })   // сверху плашка с минутами
     }
   }
-  const applyPois = () => map.current.getSource('poi').setData(props.current.pois || EMPTY)
+  const applyPois = () => {
+    const { pois } = props.current
+    map.current.getSource('poi').setData(pois || EMPTY)
+    if (pois?.fit?.length) {   // место далеко (на машине) — показать и его, и отель
+      const b = new maplibregl.LngLatBounds([pois.fit[0].lon, pois.fit[0].lat], [pois.fit[0].lon, pois.fit[0].lat])
+      pois.fit.forEach(p => b.extend([p.lon, p.lat]))
+      map.current.fitBounds(b, { padding: { top: 180, bottom: 60, left: 60, right: 60 }, maxZoom: 15, duration: 800 })
+    }
+  }
   const applyPlaces = () => {
     const m = map.current, { places, hotels, selected } = props.current
     const items = places?.items || []

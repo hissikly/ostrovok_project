@@ -1,0 +1,51 @@
+/* «Что посмотреть»: экран города и блок в карточке отеля — токены из app/frontend/styles.css */
+.main.sg-main { display: block; min-width: 0; overflow: auto; background: var(--page) }
+.trip .sg-city { cursor: pointer }
+.trip .sg-city:hover { background: #fff }
+.sg { max-width: 1180px; margin: 0 auto; padding: 18px 20px 48px }
+.sg h1 { margin: 14px 0 4px }
+.sg-lead { color: var(--muted); margin: 0 0 14px; max-width: 640px }
+.sg-top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap }
+.sg-cities { display: flex; gap: 8px; flex-wrap: wrap }
+.sg-cities button { display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 8px 14px;
+  background: #fff; font-weight: 700; font-size: 14px }
+.sg-cities button.on { background: var(--brand); color: #fff }
+.sg-cities button.soon { color: var(--muted) }
+.sg-cities small { font-weight: 600; font-size: 11px; background: var(--chip); color: var(--muted); border-radius: 999px; padding: 1px 7px }
+.sg-soon { width: 100%; background: var(--warn-bg); border-radius: var(--r-md); padding: 8px 12px; font-size: 14px }
+.sg-filter { margin-bottom: 16px }
+.sg-filter button:first-letter { text-transform: uppercase }
+.sg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px }
+.sg-card { background: #fff; border-radius: var(--r-xl); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 0 0 2px transparent; transition: box-shadow .15s }
+.sg-card.on { box-shadow: 0 0 0 2px var(--brand) }
+.sg-img { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--chip) }
+.sg-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block }
+.sg-credit { position: absolute; right: 8px; bottom: 6px; max-width: calc(100% - 16px); font-size: 10.5px; color: #fff; text-decoration: none;
+  background: rgba(0, 0, 0, .45); border-radius: 6px; padding: 1px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.sg-body { padding: 12px 16px 16px; display: flex; flex-direction: column; flex: 1 }
+.sg-body h3 { font-size: 18px; font-weight: 800; margin: 6px 0 4px; letter-spacing: -.2px }
+.sg-body p { margin: 0 0 12px; font-size: 14px; color: #555; flex: 1 }
+.sg-tags { display: flex; gap: 6px; flex-wrap: wrap }
+.sg-tags span { font-size: 12px; font-weight: 700; color: var(--lime-ink); background: var(--lime); border-radius: 999px; padding: 2px 9px }
+.sg-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px }
+.sg-dur { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: 13px; font-weight: 600 }
+.sg-live { border: 0; border-radius: var(--r-md); background: var(--brand); color: #fff; font-weight: 700; font-size: 14px; padding: 9px 14px }
+.sg-live:hover { background: var(--brand-hover) }
+.sg-card.on .sg-live { background: var(--sec); color: var(--brand) }
+.sg-far { margin-top: 8px; font-size: 12.5px; color: var(--muted) }
+
+.sg-near h2 { margin-bottom: 10px }
+.sg-near-row { display: flex; align-items: center; gap: 12px; padding: 7px 8px; margin: 0 -8px; border-radius: var(--r-md); cursor: pointer }
+.sg-near-row:hover, .sg-near-row.on { background: var(--sec) }
+.sg-near-row img { width: 56px; height: 42px; object-fit: cover; border-radius: 8px; flex: none }
+.sg-near-row div { flex: 1; min-width: 0; display: flex; flex-direction: column }
+.sg-near-row b { font-size: 14.5px }
+.sg-near-row span { font-size: 12.5px; color: var(--muted) }
+.sg-near-row i { font-style: normal; font-weight: 800; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap }
+.sg-near-row i svg { color: var(--muted) }
+.sg-near .back { margin-top: 6px }
+@media (max-width: 640px) {
+  .sg { padding: 12px 16px 40px } .sg-grid { grid-template-columns: 1fr }
+  .sg-cities { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 0 16px; scrollbar-width: none }
+  .sg-cities button { flex: none }
+}

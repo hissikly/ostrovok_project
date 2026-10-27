@@ -6,6 +6,9 @@
 (описание в specs.json → одна общая функция near), новый фильтр там появляется здесь сам.
 """
 from features.nearby.backend import specs as nearby_specs
+from features.sights.backend import sights as city_sights
+from features.sights.backend import state as sight_state
+from features.sights.backend import text as sight_text
 MATCH, PARTIAL, NO, UNKNOWN = "match", "partial", "no", "unknown"
 SIDE = {"N": "север", "E": "восток", "S": "юг", "W": "запад"}
 
@@ -153,6 +156,22 @@ def near(spec):
     return fn
 
 
+def sight(s):
+    """Оценщик «жить рядом» с местом из подборки «Что посмотреть» (features/sights)."""
+    char = f"sight:{s['id']}"
+
+    def fn(facts, ctx):
+        f = _one(facts, char)
+        if not f:
+            return _res(UNKNOWN, f"До {s['to']}: пока не знаем", [])
+        v = f["value"]
+        r = _res(sight_state(s, v), sight_text(s, v), [f])
+        r["minutes"] = v["minutes"]   # внутри «подходит» — ближе выше
+        r["point"] = {"lat": s["lat"], "lon": s["lon"], "name": s["name"]}
+        return r
+    return fn
+
+
 LENSES = [
     {"id": "sea_view", "title": "Вид на море", "icon": "waves", "fn": sea_view,
      "hint": "Считаем по рельефу и соседним домам, с какого этажа видно море"},
@@ -171,4 +190,8 @@ LENSES += [{"id": f"near_{s['id']}", "title": s["title"], "icon": s["icon"], "fn
             "group": s["group"], "synonyms": s["synonyms"],
             "hint": f"До {s['match_min']} мин пешком — рядом, до {s['partial_min']} мин — можно дойти. По карте OSM"}
            for s in nearby_specs()]
+LENSES += [{"id": f"sight_{s['id']}", "title": f"Рядом: {s['name']}", "icon": "landmark", "fn": sight(s),
+            "primary": False, "group": "Что посмотреть", "synonyms": s["synonyms"],
+            "hint": f"До {s['name']} пешком по карте OSM — или ≈ на машине, если пешком больше часа"}
+           for s in city_sights()]
 BY_ID = {l["id"]: l for l in LENSES}

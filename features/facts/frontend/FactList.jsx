@@ -158,7 +158,7 @@ function group(facts) {
   const site = facts.filter(f => f.characteristic.startsWith('web:') && SITE_ROW.includes(f.evidence?.topic))
   if (site.length) rows.push({ key: 'site', icon: 'building', title: 'На сайте отеля пишут', site: true, facts: site })
   for (const f of facts.filter(f => !['sea_view', 'sunset_view', 'beach_distance', 'beach_route', 'noise'].includes(f.characteristic)
-    && !f.characteristic.startsWith('near:') && !f.characteristic.startsWith('web:'))) {
+    && !f.characteristic.startsWith('near:') && !f.characteristic.startsWith('web:') && !f.characteristic.startsWith('sight:'))) {
     rows.push({ key: f.id, icon: 'window', title: f.value?.text || f.characteristic, text: '', facts: [f] })
   }
   return rows

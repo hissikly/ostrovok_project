@@ -9,12 +9,13 @@ import AgentFacts from '@features/characteristics/frontend/AgentFacts.jsx'
 import BookBox from '@features/trip/frontend/BookBox.jsx'
 import TripConfirmed from '@features/trip/frontend/TripConfirmed.jsx'
 import CompareButton from '@features/compare/frontend/CompareButton.jsx'
+import SightsNearby from '@features/sights/frontend/SightsNearby.jsx'
 
 function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
 }
 
-export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta }) {
+export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta, sight, onSight, onCity }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
   const [failed, setFailed] = useState(false)
@@ -65,6 +66,7 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
           skip={facts.filter(f => f.characteristic.startsWith('web:')).map(f => f.characteristic.slice(4))} />
         <TripConfirmed facts={facts} />
       </FactList>
+      <SightsNearby hotelId={id} active={sight} onShow={onSight} onCity={onCity} />
       <DayPanel brief hotelId={id} month={month} view={view} onRoute={onDayRoute} routeShown={routeTitle === 'Маршрут дня'} />
       <Faq hotelId={id} month={month} />
     </div>
