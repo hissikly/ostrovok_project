@@ -14,9 +14,11 @@ function dest([lat, lon], az, d) {
 
 // Лучи обзора для карты: куда видно море — длинные синие, куда упирается дом — короткие красные.
 // Лучи в сушу и склоны не рисуем: без легенды они только путают.
+// share — доля моря в виде с этого этажа, для подписи в легенде: длинные синие лучи на карте выглядят «большими»,
+// даже когда моря краешек
 function coneGeo(w) {
   return {
-    type: 'FeatureCollection',
+    type: 'FeatureCollection', share: w.sea_share,
     features: [
       ...w.profile.filter(([, kind, , sea]) => sea || kind === 'b').map(([az, kind, dist, sea]) => {
         const k = sea ? 's' : kind

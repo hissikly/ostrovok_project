@@ -53,6 +53,9 @@ function RouteInfo({ r }) {
   )
 }
 
+// сколько моря в виде — словами и процентом, как на полоске в «О!кне»
+const seaPart = s => s < 0.02 ? 'почти нет' : `${Math.max(1, Math.round(s * 100))}% вида`
+
 export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois, places, route, onPlaceClick, onCloseBox }) {
   const box = useRef(null)
   const map = useRef(null)
@@ -207,7 +210,8 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
           {kinds.size > 0 && <>
             <div className="map-legend-title">Вид из окна</div>
             <div><b className="eye-dot" />окно номера</div>
-            {kinds.has('s') && <div><i style={{ background: '#3D8BFD' }} />видно море</div>}
+            {kinds.has('s') && <div><i style={{ background: '#3D8BFD' }} />видно море{cone.share != null &&
+              <span className="map-legend-share">{seaPart(cone.share)}</span>}</div>}
             {kinds.has('b') && <div><i style={{ background: '#CE2121' }} />закрывает дом</div>}
           </>}
           {pois && <div><b className="eye-dot" style={{ borderColor: '#53AF24', background: '#53AF24' }} />рядом, что вы искали</div>}
