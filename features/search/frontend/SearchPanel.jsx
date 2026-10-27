@@ -4,7 +4,7 @@ import Icon from '@app/icons.jsx'
 import { FitLine } from '@features/trip_plan/frontend/Interests.jsx'
 import { useFit, useInterests } from '@features/trip_plan/frontend/interests.js'
 import CompareButton from '@features/compare/frontend/CompareButton.jsx'
-import { BaselineList, ModeSwitch, RiseNote, useBaseline } from '@features/compare/frontend/Baseline.jsx'
+import { BaselineList, ModeSwitch, useBaseline } from '@features/compare/frontend/Baseline.jsx'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
 const STATE_ICON = { match: 'check', partial: 'half', no: 'x', unknown: 'question' }
@@ -175,7 +175,6 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
       {on.length > 0 && <ModeSwitch mode={mode} setMode={setMode} />}
       {on.length > 0 && mode === 'base' ? <BaselineList data={bs} byId={byId} onSelect={onSelect} /> : <>
-      {on.length > 0 && !q.trim() && <RiseNote data={bs} list={list} />}
       <div className="count">{count}</div>
       {list.slice(0, 120).map(({ h, info }) => info
         ? <Row key={h.id} h={h} info={info} fit={fit?.[h.id]} onSelect={onSelect} />

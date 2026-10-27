@@ -33,19 +33,6 @@ export function ModeSwitch({ mode, setMode }) {
   )
 }
 
-// плашка над нашей выдачей: кто поднялся, хотя на сайте был бы глубоко внизу
-export function RiseNote({ data, list }) {
-  if (!data) return null
-  const up = list.slice(0, 5).find(x => x.info?.fit === 'all' && !((data.rank[x.h.id] || 1e9) <= 10))
-  if (!up) return null
-  const r = data.rank[up.h.id]
-  return (
-    <div className="bs-banner good"><Icon name="sparkle" size={22} />
-      <div><b>«{up.h.name.replace(/^[«"]|[»"]$/g, '')}»</b> {r ? `в обычном поиске — на ${r}-м месте` : 'в обычный поиск не попадает'}, а здесь подходит по всем вашим условиям.</div>
-    </div>
-  )
-}
-
 export function BaselineList({ data, byId, onSelect }) {
   if (!data) return <div className="count">Собираем обычную выдачу…</div>
   const s = data.summary
