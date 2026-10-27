@@ -19,6 +19,7 @@
 .trip-ints button svg { color: var(--muted); flex: none }
 .trip-ints button.on { background: var(--sec); color: var(--brand) }
 .trip-ints button.on svg { color: var(--brand) }
+.trip-ints button:last-child:nth-child(odd) { grid-column: 1 / -1 }   /* нечётное число плиток — последняя во всю ширину */
 .trip-done { margin-top: 14px; width: 100%; border: 0; background: var(--brand); color: #fff; font: inherit; font-weight: 700; border-radius: 12px; padding: 12px; cursor: pointer }
 .trip-done:hover { background: var(--brand-hover) }
 @media (max-width: 640px) {

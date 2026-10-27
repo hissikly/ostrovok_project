@@ -11,7 +11,8 @@ const hintSeen = () => { if (location.search.includes('hint')) return false; try
 // Кнопка в плашке поездки рядом с датами и гостями: «Чем заняться» → окно с плитками интересов
 export default function InterestsButton() {
   const [list, setList] = useInterests()
-  const catalog = useCatalog()
+  // «С детьми» не выбирают здесь: он сам включается, когда в «Кто едет» есть дети (features/guests)
+  const catalog = useCatalog().filter(i => i.id !== 'kids')
   const [open, setOpen] = useState(false)
   const [hint, setHint] = useState(false)
   useEffect(() => {
