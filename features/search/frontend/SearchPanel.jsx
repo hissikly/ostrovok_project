@@ -70,7 +70,7 @@ function matches(l, query) {
   return words(query).every(q => hay.some(w => w.startsWith(stem(q)) || q.startsWith(stem(w))))
 }
 
-function Lenses({ lenses, on, toggle }) {
+function Lenses({ lenses, on, toggle, reset }) {
   const [open, setOpen] = useState(false)
   const [q, setQ] = useState('')
   const primary = lenses.filter(l => l.primary)
@@ -91,6 +91,7 @@ function Lenses({ lenses, on, toggle }) {
         <button className={`more ${open ? 'open' : ''}`} onClick={() => setOpen(!open)}>
           {open ? 'Свернуть' : `Ещё фильтры${extra.length ? ` (${extra.length})` : ''}`}
         </button>
+        {on.length > 0 && <button className="more reset" onClick={reset}><Icon name="x" size={16} />Сбросить</button>}
       </div>
       {open && (
         <div className="more-box">
@@ -169,7 +170,7 @@ export default function SearchPanel({ hotels, lenses, on, setOn, month, setMonth
       <div className="block search-block">
         <h2>Что важно в поездке?</h2>
         <Describe onApply={apply} topIds={() => list.slice(0, 10).map(x => x.h.id)} />
-        <Lenses lenses={lenses} on={on} toggle={toggle} />
+        <Lenses lenses={lenses} on={on} toggle={toggle} reset={() => setOn([])} />
       </div>
       <input className="search" placeholder="Найти отель по названию" value={q} onChange={e => setQ(e.target.value)} />
       {on.length > 0 && <ModeSwitch mode={mode} setMode={setMode} />}

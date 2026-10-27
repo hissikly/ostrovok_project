@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import DayRouteInfo, { OUTING_COLORS } from '@features/day/frontend/DayRoute.jsx'
+import SeaLines, { SEA_COLOR, SEA_OPACITY, SEA_RADIUS } from '@features/beach_route/frontend/SeaLines.jsx'
 
 maplibregl.setWorkerUrl(workerUrl)   // MapLibre 6 ищет воркер рядом с бандлом — Vite его туда сам не кладёт
 const STYLE = 'https://tiles.openfreemap.org/styles/liberty'   // цветной стиль OpenFreeMap, без ключей
@@ -24,7 +25,7 @@ const toGeo = (hotels, fits) => ({
   type: 'FeatureCollection',
   features: hotels.map(h => ({
     type: 'Feature',
-    properties: { id: h.id, rich: h.okno ? 1 : 0, fit: fits ? fits[h.id] || 'none' : '' },
+    properties: { id: h.id, rich: h.okno ? 1 : 0, fit: fits ? fits[h.id] || 'none' : '', line: h.sea_line || 0 },
     geometry: { type: 'Point', coordinates: [h.lon, h.lat] },
   })),
 })
@@ -60,6 +61,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
   const box = useRef(null)
   const map = useRef(null)
   const ready = useRef(false)
+  const [seaOn, setSeaOn] = useState(true)
   // последние пропсы — чтобы применить их, когда карта догрузится
   const props = useRef({})
   props.current = { hotels, selected, cone, onSelect, fits, pois, places, route, onPlaceClick }
@@ -147,6 +149,9 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
       m.addLayer({ id: 'hotel-halo', type: 'circle', source: 'hotels', filter: ['==', ['get', 'id'], ''],
         paint: { 'circle-radius': 22, 'circle-color': SELECTED, 'circle-opacity': 0.18,
           'circle-stroke-color': SELECTED, 'circle-stroke-width': 1.5, 'circle-stroke-opacity': 0.5 } })
+      // линия от моря — мягкий ореол под точками (features/beach_route)
+      m.addLayer({ id: 'sea-line', type: 'circle', source: 'hotels', filter: ['>', ['get', 'line'], 0], paint: {
+        'circle-radius': SEA_RADIUS, 'circle-color': SEA_COLOR, 'circle-opacity': SEA_OPACITY, 'circle-blur': 0.35 } })
       m.addLayer({ id: 'hotels', type: 'circle', source: 'hotels', paint: {
         'circle-radius': ['case', ['==', ['get', 'rich'], 1], 8, 5],
         'circle-color': ['case', ['==', ['get', 'rich'], 1], '#0E41D2', '#7F9BE6'],
@@ -201,6 +206,7 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
   useEffect(() => { if (ready.current) applyPois() }, [pois])
   useEffect(() => { if (ready.current) applyPlaces() }, [places])
   useEffect(() => { if (ready.current) applyRoute() }, [route])
+  useEffect(() => { if (ready.current) map.current.setLayoutProperty('sea-line', 'visibility', seaOn ? 'visible' : 'none') }, [seaOn])
 
   const kinds = new Set((cone?.features || []).map(f => f.properties.k))
   return (
@@ -217,18 +223,18 @@ export default function HotelMap({ hotels, selected, onSelect, cone, fits, pois,
           <button onClick={onCloseBox} aria-label="Скрыть">×</button>
         </div>
       )}
-      {(kinds.size > 0 || pois) && (
-        <div className="map-legend">
-          {kinds.size > 0 && <>
-            <div className="map-legend-title">Вид из окна</div>
-            <div><b className="eye-dot" />окно номера</div>
-            {kinds.has('s') && <div><i style={{ background: '#3D8BFD' }} />видно море{cone.share != null &&
-              <span className="map-legend-share">{seaPart(cone.share)}</span>}</div>}
-            {kinds.has('b') && <div><i style={{ background: '#CE2121' }} />закрывает дом</div>}
-          </>}
-          {pois && <div><b className="eye-dot" style={{ borderColor: '#53AF24', background: '#53AF24' }} />рядом, что вы искали</div>}
-        </div>
-      )}
+      {/* легенда всегда: в ней переключатель «Линия от моря» */}
+      <div className="map-legend">
+        {kinds.size > 0 && <>
+          <div className="map-legend-title">Вид из окна</div>
+          <div><b className="eye-dot" />окно номера</div>
+          {kinds.has('s') && <div><i style={{ background: '#3D8BFD' }} />видно море{cone.share != null &&
+            <span className="map-legend-share">{seaPart(cone.share)}</span>}</div>}
+          {kinds.has('b') && <div><i style={{ background: '#CE2121' }} />закрывает дом</div>}
+        </>}
+        {pois && <div><b className="eye-dot" style={{ borderColor: '#53AF24', background: '#53AF24' }} />рядом, что вы искали</div>}
+        <SeaLines on={seaOn} setOn={setSeaOn} />
+      </div>
     </>
   )
 }
