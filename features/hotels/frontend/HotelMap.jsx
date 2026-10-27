@@ -63,7 +63,7 @@ export default function HotelMap({ month, hotels, selected, onSelect, cone, fits
   const box = useRef(null)
   const map = useRef(null)
   const ready = useRef(false)
-  const [seaOn, setSeaOn] = useState(true)
+  const [seaOn, setSeaOn] = useState(false)   // линия от моря — по желанию, по умолчанию карта чище
   const [rainOn, setRainOn] = useState(false)
   const [rain, setRain] = useState(null)   // картинка слоя «Осадки»
   // последние пропсы — чтобы применить их, когда карта догрузится
@@ -163,7 +163,7 @@ export default function HotelMap({ month, hotels, selected, onSelect, cone, fits
         paint: { 'circle-radius': 22, 'circle-color': SELECTED, 'circle-opacity': 0.18,
           'circle-stroke-color': SELECTED, 'circle-stroke-width': 1.5, 'circle-stroke-opacity': 0.5 } })
       // линия от моря — мягкий ореол под точками (features/beach_route)
-      m.addLayer({ id: 'sea-line', type: 'circle', source: 'hotels', filter: ['>', ['get', 'line'], 0], paint: {
+      m.addLayer({ id: 'sea-line', type: 'circle', source: 'hotels', filter: ['>', ['get', 'line'], 0], layout: { visibility: 'none' }, paint: {
         'circle-radius': SEA_RADIUS, 'circle-color': SEA_COLOR, 'circle-opacity': SEA_OPACITY, 'circle-blur': 0.35 } })
       m.addLayer({ id: 'hotels', type: 'circle', source: 'hotels', paint: {
         'circle-radius': ['case', ['==', ['get', 'rich'], 1], 8, 5],
