@@ -25,8 +25,16 @@ def _by_id():
     return hotels
 
 
+@lru_cache(maxsize=1)
+def _dups() -> dict:
+    """Дубли из OSM (одно здание дважды) → кого оставили; собирает features/hotels/pipeline/dedup.py."""
+    return load("hotel_dups.json") or {}
+
+
 def hotels() -> list[dict]:
-    return list(_by_id().values())
+    """Отели для выдачи и карты — без дублей. Дубль по прямой ссылке открывается через hotel()."""
+    dups = _dups()
+    return [h for h in _by_id().values() if h["id"] not in dups]
 
 
 def hotel(hotel_id: str) -> dict | None:
