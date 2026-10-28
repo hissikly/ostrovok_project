@@ -88,17 +88,24 @@ export default function Faq({ hotelId, month }) {
             ? <div className="faq-row unknown">
                 <div className="fq">{reply.question}</div>
                 <div className="fa">Этого мы пока не знаем :( Спросить у отеля? {ASK_HINT}</div>
-                <AskHotel hotelId={hotelId} text={reply.question} asked={null} onAsked={qn => { onAsked(qn); setReply({ ...reply, askedQ: qn }) }} />
+                <div className="faq-acts">
+                  <AskHotel hotelId={hotelId} text={reply.question} asked={null} onAsked={qn => { onAsked(qn); setReply({ ...reply, askedQ: qn }) }} />
+                  <AgentTrace steps={reply.trace} />
+                </div>
                 {reply.askedQ && <div className="faq-asked"><Icon name="check" size={16} />Спросили у отеля. Ответ появится здесь</div>}
               </div>
-            : reply.answers.map(a => a.status === 'answered'
+            : reply.answers.map((a, i) => a.status === 'answered'
               ? <Answer key={a.topic} a={a} hotelId={hotelId} asked={asked} onAsked={onAsked} />
               : <div key={a.topic} className="faq-row unknown">
                   <div className="fq">{a.question}</div>
                   <div className="fa">Этого мы пока не знаем :( {a.can_ask_hotel ? `Спросить у отеля? ${ASK_HINT}` : ''}</div>
-                  {a.can_ask_hotel && <AskHotel hotelId={hotelId} topic={a.topic} asked={asked[a.topic]} onAsked={onAsked} />}
+                  <div className="faq-acts">
+                    {a.can_ask_hotel && <AskHotel hotelId={hotelId} topic={a.topic} asked={asked[a.topic]} onAsked={onAsked} />}
+                    {i === reply.answers.length - 1 && <AgentTrace steps={reply.trace} />}
+                  </div>
                 </div>)}
-          <AgentTrace steps={reply.trace} />
+          {/* «Как искали» — в одну строку с «Спросить у отеля», если последний ответ без ответа; иначе под ответами */}
+          {reply.status !== 'no_topic' && reply.answers.at(-1)?.status === 'answered' && <AgentTrace steps={reply.trace} />}
         </div>
       )}
 
