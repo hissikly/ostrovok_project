@@ -69,8 +69,12 @@ def validate(spec: dict, taken: set[str] = frozenset()) -> tuple[dict, list[str]
     if s.get("group") not in GROUPS:
         s["group"] = "Прочее"
     s["synonyms"] = [str(x).lower() for x in s.get("synonyms") or []][:20]
-    s["min_confidence"] = min(max(float(s.get("min_confidence", 0.5)), 0.1), 0.95)
-    s["ttl_days"] = int(s.get("ttl_days", 180))
+    try:
+        s["min_confidence"] = min(max(float(s.get("min_confidence", 0.5)), 0.1), 0.95)
+        s["ttl_days"] = int(s.get("ttl_days", 180))
+    except (TypeError, ValueError):
+        errors.append("min_confidence и ttl_days — числа")
+        s["min_confidence"], s["ttl_days"] = 0.5, 180
     plan = s.get("plan") or []
     if not plan:
         errors.append("Пустой план: не знаем, где искать ответ")
