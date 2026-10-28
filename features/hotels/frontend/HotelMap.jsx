@@ -59,6 +59,17 @@ function RouteInfo({ r }) {
 // сколько моря в виде — словами и процентом, как на полоске в «О!кне»
 const seaPart = s => s < 0.02 ? 'почти нет' : `${Math.max(1, Math.round(s * 100))}% вида`
 
+// найденные места в легенде — по названию (до трёх), без названия — «рядом, что вы искали»
+function PoiLegend({ pois }) {
+  const names = [...new Set(pois.features.map(f => f.properties.name).filter(Boolean))]
+  const dot = <b className="eye-dot" style={{ borderColor: '#53AF24', background: '#53AF24' }} />
+  if (!names.length) return <div>{dot}рядом, что вы искали</div>
+  return <>
+    {names.slice(0, 3).map(n => <div key={n}>{dot}{n}</div>)}
+    {names.length > 3 && <div>{dot}и ещё {names.length - 3}</div>}
+  </>
+}
+
 export default function HotelMap({ month, hotels, selected, onSelect, cone, fits, pois, places, route, onPlaceClick, onCloseBox }) {
   const box = useRef(null)
   const map = useRef(null)
@@ -253,7 +264,7 @@ export default function HotelMap({ month, hotels, selected, onSelect, cone, fits
             <span className="map-legend-share">{seaPart(cone.share)}</span>}</div>}
           {kinds.has('b') && <div><i style={{ background: '#CE2121' }} />закрывает дом</div>}
         </>}
-        {pois && <div><b className="eye-dot" style={{ borderColor: '#53AF24', background: '#53AF24' }} />рядом, что вы искали</div>}
+        {pois && <PoiLegend pois={pois} />}
         <SeaLines on={seaOn} setOn={setSeaOn} />
         <RainToggle on={rainOn} setOn={setRainOn} month={month} />
       </div>
