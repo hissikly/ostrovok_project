@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from features.hotels.backend import hotel
 
@@ -18,7 +18,7 @@ class CompareIn(BaseModel):
 
 class CustomIn(BaseModel):
     ids: list[str]
-    text: str
+    text: str = Field(max_length=1000)   # фраза гостя уходит в LLM: длину ограничиваем
     month: int | None = None
 
 

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .describe import describe
 from .lenses import LENSES
@@ -14,7 +14,7 @@ class SearchIn(BaseModel):
 
 
 class DescribeIn(BaseModel):
-    text: str
+    text: str = Field(max_length=1000)   # фраза гостя уходит в LLM: длину ограничиваем
 
 
 @router.get("/lenses")

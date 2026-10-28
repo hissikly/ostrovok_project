@@ -6,7 +6,6 @@
 """
 import hashlib
 import re
-from functools import lru_cache
 
 from core import llm
 from core.textmatch import lemmas
@@ -47,9 +46,9 @@ def ask_llm(question: str, chunks: list[dict], fields: list[dict] | None = None,
     p = prompt(question, chunks, fields)
     if cache is not None:
         key = hashlib.sha1((llm.LLM_MODEL + p).encode()).hexdigest()
-        if key not in cache:
-            cache[key] = llm.chat([{"role": "user", "content": p}], as_json=True, think=False)
-        r = cache[key]
+        r = cache.get(key) or llm.chat([{"role": "user", "content": p}], as_json=True, think=False)
+        if r:                     # отказ LLM не кешируем: провайдер вернётся — ответ появится
+            cache[key] = r
     else:
         r = _cached(p)
     if not r or not r.get("found") or not r.get("quote"):
@@ -62,10 +61,20 @@ def ask_llm(question: str, chunks: list[dict], fields: list[dict] | None = None,
             "quote": r["quote"].strip(), "chunk": src}
 
 
-@lru_cache(maxsize=512)
+_answers: dict[str, dict] = {}
+
+
 def _cached(p: str):
-    # гость ждёт ответа: без «размышлений» модели (1–3 с), ответ всё равно проверяем цитатой
-    return llm.chat([{"role": "user", "content": p}], as_json=True, timeout=12, think=False)
+    # гость ждёт ответа: без «размышлений» модели (1–3 с), ответ всё равно проверяем цитатой;
+    # отказ LLM не кешируем, иначе вопрос остался бы без ответа до перезапуска
+    if p not in _answers:
+        r = llm.chat([{"role": "user", "content": p}], as_json=True, timeout=12, think=False)
+        if r is None:
+            return None
+        if len(_answers) >= 512:
+            _answers.pop(next(iter(_answers)))
+        _answers[p] = r
+    return _answers[p]
 
 
 def best_sentence(question: str, chunk: dict) -> str | None:

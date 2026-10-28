@@ -1,6 +1,6 @@
 """Характеристики во время работы сервиса: добавленные описанием, их прогоны, факты и трассы.
 
-Добавленные спеки и результаты прогонов лежат в DATA/runtime/characteristics/ (не в git) и
+Добавленные спеки и результаты прогонов лежат в таблице characteristics единой базы (core/db) и
 переживают перезапуск. Встроенные «да / нет» (Wi-Fi) считаются при старте в фоне, без вопросов отелям.
 Факты отдаются в общее хранилище (features/facts, register_provider), линзы — в поиск (features/search):
 новая характеристика сразу видна в «Ещё фильтры», в «✨ опиши» и в карточке отеля.
@@ -11,9 +11,7 @@ import logging
 import threading
 import time
 
-import yaml
-
-from core.config import DATA
+from core import db
 from features.facts.backend import refresh as refresh_facts
 from features.hotels.backend import hotel, hotels
 
@@ -21,7 +19,7 @@ from .planner import characteristic, research
 from .spec import builtin, validate
 
 log = logging.getLogger(__name__)
-DIR = DATA / "runtime" / "characteristics"
+SCHEMA = "create table if not exists characteristics (id text primary key, spec text, results text, updated_at text)"
 _lock = threading.Lock()
 _custom: dict[str, dict] = {}     # id → спека, добавленная описанием
 _results: dict[str, dict] = {}    # id → {run_at, facts: {hotel_id: fact}, traces: {hotel_id: [...]}, asked: [...]}
@@ -43,29 +41,35 @@ def runnable(s: dict) -> bool:
 
 # --- хранение ---------------------------------------------------------------------------------------
 
+def _db():
+    db.schema("characteristics", SCHEMA)
+    return db
+
+
 def load():
-    for p in sorted((DIR / "specs").glob("*.yaml")):
+    try:
+        rows = _db().all("select id, spec, results from characteristics")
+    except db.Unavailable:
+        log.warning("characteristics: база недоступна, добавленные характеристики подгружу позже")
+        return
+    for r in rows:
         try:
-            s = yaml.safe_load(open(p, encoding="utf-8"))
-            _custom[s["id"]] = s
-        except Exception as e:
-            log.warning("characteristics: не прочитал %s (%s)", p.name, e)
-    for p in sorted((DIR / "results").glob("*.json")):
-        try:
-            _results[p.stem] = json.load(open(p, encoding="utf-8"))
-        except Exception as e:
-            log.warning("characteristics: не прочитал %s (%s)", p.name, e)
+            _custom[r["id"]] = json.loads(r["spec"])
+            if r["results"]:
+                _results[r["id"]] = json.loads(r["results"])
+        except ValueError as e:
+            log.warning("characteristics: не прочитал %s (%s)", r["id"], e)
 
 
 def _save_spec(s):
-    (DIR / "specs").mkdir(parents=True, exist_ok=True)
-    yaml.safe_dump(s, open(DIR / "specs" / f"{s['id']}.yaml", "w", encoding="utf-8"), allow_unicode=True,
-                   sort_keys=False)
+    _db().run("""insert into characteristics (id, spec, updated_at) values (?,?,?)
+                 on conflict(id) do update set spec=excluded.spec, updated_at=excluded.updated_at""",
+              (s["id"], json.dumps(s, ensure_ascii=False), s["created_at"]))
 
 
 def _save_results(cid):
-    (DIR / "results").mkdir(parents=True, exist_ok=True)
-    json.dump(_results[cid], open(DIR / "results" / f"{cid}.json", "w", encoding="utf-8"), ensure_ascii=False)
+    _db().run("update characteristics set results=?, updated_at=? where id=?",
+              (json.dumps(_results[cid], ensure_ascii=False), _results[cid]["run_at"], cid))
 
 
 def add(spec: dict) -> tuple[dict | None, list[str], list[str]]:
@@ -75,8 +79,8 @@ def add(spec: dict) -> tuple[dict | None, list[str], list[str]]:
         return None, errors, warnings
     s["created_at"] = dt.datetime.now().isoformat(timespec="seconds")
     with _lock:
+        _save_spec(s)          # сначала в базу: не записалось — характеристики нет и в памяти
         _custom[s["id"]] = s
-        _save_spec(s)
     register_lens(s)
     return s, errors, warnings
 
@@ -85,10 +89,9 @@ def remove(cid: str) -> bool:
     if cid not in _custom:
         return False
     with _lock:
+        _db().run("delete from characteristics where id=?", (cid,))
         _custom.pop(cid)
         _results.pop(cid, None)
-        for sub, ext in (("specs", "yaml"), ("results", "json")):
-            (DIR / sub / f"{cid}.{ext}").unlink(missing_ok=True)
     unregister_lens(cid)
     refresh_facts()
     return True

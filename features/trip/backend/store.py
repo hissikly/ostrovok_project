@@ -1,4 +1,4 @@
-"""Брони и ответы гостей «Так и было?». SQLite TRIP_DB (по умолчанию data/runtime/trip.db, не в git).
+"""Брони и ответы гостей «Так и было?». Таблицы в единой базе (core/db: PostgreSQL или SQLite).
 
 Бронь — мок: цены и оплаты нет, сохраняем выбор гостя (сторона, этаж, месяц), пожелание отелю,
 обещание (факты, на которых держался выбор) и ответ отеля.
@@ -6,111 +6,82 @@
 """
 import datetime as dt
 import json
-import os
 import secrets
-import sqlite3
-import threading
-from pathlib import Path
 
-from core.config import DATA
+from core import db
 
-DB = Path(os.getenv("TRIP_DB", DATA / "runtime" / "trip.db"))
-_lock = threading.RLock()   # одно соединение на все потоки, как в hotelier
-_con = None
 JSON_COLS = ("wish", "promise", "guests", "lenses")
+# guests — кто едет (features/guests); lenses — фильтры поиска, с которыми гость выбрал отель (features/profile)
+SCHEMA = """
+    create table if not exists bookings (
+        id text primary key, hotel_id text, month integer, facade text, floor integer,
+        wish text, promise text, status text, hotel_reply text, replied_at text,
+        finished_at text, created_at text, guests text, lenses text);
+    create index if not exists b_hotel on bookings(hotel_id, created_at);
+    create table if not exists feedback (
+        id {id}, booking_id text, hotel_id text, fact_id text, characteristic text,
+        label text, answer text, base_confidence real, demo integer, created_at text);
+    create index if not exists f_fact on feedback(hotel_id, fact_id)"""
+FEEDBACK_COLS = ("booking_id", "hotel_id", "fact_id", "characteristic", "label", "answer", "base_confidence", "demo",
+                 "created_at")
 
 
 def now() -> str:
     return dt.datetime.now().isoformat(timespec="seconds")
 
 
-def con():
-    global _con
-    with _lock:
-        if _con is None:
-            DB.parent.mkdir(parents=True, exist_ok=True)
-            _con = sqlite3.connect(DB, check_same_thread=False)
-            _con.row_factory = sqlite3.Row
-            _con.executescript("""
-                create table if not exists bookings (
-                    id text primary key, hotel_id text, month integer, facade text, floor integer,
-                    wish text, promise text, status text, hotel_reply text, replied_at text,
-                    finished_at text, created_at text);
-                create index if not exists b_hotel on bookings(hotel_id, created_at);
-                create table if not exists feedback (
-                    id integer primary key, booking_id text, hotel_id text, fact_id text, characteristic text,
-                    label text, answer text, base_confidence real, demo integer, created_at text);
-                create index if not exists f_fact on feedback(hotel_id, fact_id);""")
-            # кто едет (features/guests) — колонка добавлена позже, старые базы дополняем
-            # и фильтры поиска, с которыми гость выбрал отель (features/profile спросит, совпало ли)
-            cols = {r[1] for r in _con.execute("pragma table_info(bookings)")}
-            for col in ("guests", "lenses"):
-                if col not in cols:
-                    _con.execute(f"alter table bookings add column {col} text")
-    return _con
+def _db():
+    db.schema("trip", SCHEMA)
+    return db
 
 
 def _row(r) -> dict | None:
     if r is None:
         return None
-    d = dict(r)
     for k in JSON_COLS:
-        d[k] = json.loads(d[k]) if d.get(k) else None
-    return d
+        r[k] = json.loads(r[k]) if r.get(k) else None
+    return r
 
 
 def create_booking(hotel_id: str, month: int, facade: str | None, floor: int | None, wish: dict, promise: list,
                    guests: dict | None = None, lenses: list[str] | None = None) -> dict:
     bid = secrets.token_hex(3)
-    with _lock:
-        con().execute("""insert into bookings (id, hotel_id, month, facade, floor, wish, promise, guests, lenses, status, created_at)
-                         values (?,?,?,?,?,?,?,?,?,'sent',?)""",
-                      (bid, hotel_id, month, facade, floor, json.dumps(wish, ensure_ascii=False),
-                       json.dumps(promise, ensure_ascii=False), json.dumps(guests or {"adults": 2, "children": []}),
-                       json.dumps(lenses or []), now()))
-        con().commit()
+    _db().run("""insert into bookings (id, hotel_id, month, facade, floor, wish, promise, guests, lenses, status, created_at)
+                 values (?,?,?,?,?,?,?,?,?,'sent',?)""",
+              (bid, hotel_id, month, facade, floor, json.dumps(wish, ensure_ascii=False),
+               json.dumps(promise, ensure_ascii=False), json.dumps(guests or {"adults": 2, "children": []}),
+               json.dumps(lenses or []), now()))
     return get_booking(bid)
 
 
 def get_booking(bid: str) -> dict | None:
-    with _lock:
-        return _row(con().execute("select * from bookings where id=?", (bid,)).fetchone())
+    return _row(_db().one("select * from bookings where id=?", (bid,)))
 
 
 def bookings(hotel_id: str | None = None) -> list[dict]:
-    with _lock:
-        rows = (con().execute("select * from bookings where hotel_id=? order by created_at desc", (hotel_id,))
-                if hotel_id else con().execute("select * from bookings order by created_at desc"))
-        return [_row(r) for r in rows.fetchall()]
+    rows = (_db().all("select * from bookings where hotel_id=? order by created_at desc", (hotel_id,))
+            if hotel_id else _db().all("select * from bookings order by created_at desc"))
+    return [_row(r) for r in rows]
 
 
 def reply(bid: str, status: str, text: str) -> dict | None:
-    with _lock:
-        con().execute("update bookings set status=?, hotel_reply=?, replied_at=? where id=?", (status, text, now(), bid))
-        con().commit()
+    _db().run("update bookings set status=?, hotel_reply=?, replied_at=? where id=?", (status, text, now(), bid))
     return get_booking(bid)
 
 
 def backdate(bid: str, created_at: str, finished_at: str | None) -> None:
     """Демо прошлых поездок (features/profile): бронь сделана и поездка завершена в прошлом."""
-    with _lock:
-        con().execute("update bookings set created_at=?, finished_at=? where id=?", (created_at, finished_at, bid))
-        con().commit()
+    _db().run("update bookings set created_at=?, finished_at=? where id=?", (created_at, finished_at, bid))
 
 
 def finish(bid: str) -> None:
-    with _lock:
-        con().execute("update bookings set finished_at=? where id=?", (now(), bid))
-        con().commit()
+    _db().run("update bookings set finished_at=? where id=?", (now(), bid))
 
 
 def add_feedback(rows: list[dict]) -> None:
-    with _lock:
-        con().executemany("""insert into feedback (booking_id, hotel_id, fact_id, characteristic, label, answer,
-                             base_confidence, demo, created_at) values
-                             (:booking_id, :hotel_id, :fact_id, :characteristic, :label, :answer,
-                              :base_confidence, :demo, :created_at)""", rows)
-        con().commit()
+    with _db().tx() as t:
+        t.many(f"insert into feedback ({', '.join(FEEDBACK_COLS)}) values ({', '.join('?' * len(FEEDBACK_COLS))})",
+               [[r[c] for c in FEEDBACK_COLS] for r in rows])
 
 
 def feedback_rows(hotel_id: str | None = None, booking_id: str | None = None) -> list[dict]:
@@ -119,10 +90,8 @@ def feedback_rows(hotel_id: str | None = None, booking_id: str | None = None) ->
         sql, args = sql + " and hotel_id=?", args + [hotel_id]
     if booking_id:
         sql, args = sql + " and booking_id=?", args + [booking_id]
-    with _lock:
-        return [dict(r) for r in con().execute(sql + " order by id", args).fetchall()]
+    return _db().all(sql + " order by id", args)
 
 
 def has_demo() -> bool:
-    with _lock:
-        return con().execute("select 1 from feedback where demo=1 limit 1").fetchone() is not None
+    return _db().one("select 1 as x from feedback where demo=1 limit 1") is not None

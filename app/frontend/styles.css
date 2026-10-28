@@ -183,6 +183,8 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .near div.on > span, .near div.on > b { color: var(--brand) }
 .map > .map-places { inset: 16px auto auto 16px; background: #fff; border-radius: 16px; padding: 10px 40px 10px 14px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, .08); font-size: 13px; display: grid; gap: 2px; z-index: 2; max-width: 300px }
+.map > .map-down { inset: auto 16px 16px auto; background: #fff; border-radius: 12px; padding: 8px 14px; z-index: 2;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .08); font-size: 13px; font-weight: 600; color: var(--muted); max-width: 300px }
 .map-places b { font-size: 15px; font-weight: 800 }
 .map-places span { color: var(--muted); font-weight: 600 }
 .map-places button { position: absolute; top: 6px; right: 8px; border: 0; background: none; font-size: 20px; color: var(--muted); line-height: 1 }
@@ -282,3 +284,11 @@ h1 { font-size: 26px; line-height: 1.15; font-weight: 800; margin: 6px 0 10px; l
 .floor-strip .ticks b { color: var(--ink); font-size: 13px }
 @media (max-width: 480px) { .hdr { gap: 6px; padding: 0 14px } .logo { font-size: 20px } .trip { display: none } .for-hotels { margin-left: auto } }
 .pills-retry { border: 0; background: var(--sec); color: var(--brand); font-weight: 700; border-radius: 999px; padding: 8px 16px }
+/* временная ошибка: сервер или внешний API не ответил (app/frontend/api.js, ErrorBoundary.jsx) */
+.temp-toast { position: fixed; top: 76px; left: 50%; transform: translateX(-50%); z-index: 50; background: #fff; color: var(--ink);
+  border-radius: 12px; padding: 10px 40px 10px 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, .14); font-size: 14px; font-weight: 600;
+  border-left: 4px solid #FF6B1A; max-width: calc(100vw - 32px) }
+.temp-toast button { position: absolute; top: 6px; right: 8px; border: 0; background: none; font-size: 20px; color: var(--muted); line-height: 1 }
+.temp-error { display: grid; gap: 4px; justify-items: start; align-content: center; padding: 16px; font-size: 14px; color: var(--muted) }
+.temp-error b { color: var(--ink); font-size: 16px }
+.temp-error button { margin-top: 6px; border: 1px solid var(--line, #E1E4EA); background: #fff; border-radius: 10px; padding: 6px 12px; font-weight: 700; color: var(--brand) }

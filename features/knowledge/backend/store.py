@@ -1,23 +1,22 @@
 """База знаний по уровням места: ru → ru/krd → ru/krd/sochi → ru/krd/sochi/<hotel_id>.
 
-- Верхние уровни (страна, край, город) — из демо-данных data/seed/knowledge.json (только чтение).
-- Ответы отелей пишутся на лету в SQLite (KNOWLEDGE_DB, по умолчанию data/runtime/knowledge.db):
+- Верхние уровни (страна, край, город) — демо-данные data/seed/knowledge.json, при первом запуске копируются в базу.
+- Ответы отелей пишутся на лету в таблицу knowledge единой базы (core/db: PostgreSQL или SQLite):
   новая запись по той же теме не стирает старую, а делает её superseded — история остаётся.
 """
 import datetime as dt
 import json
-import os
-import sqlite3
-import threading
 from functools import lru_cache
-from pathlib import Path
 
-from core.config import DATA
+from core import db
 from core.seed import load
 
 CITY = "ru/krd/sochi"
-DB = Path(os.getenv("KNOWLEDGE_DB", DATA / "runtime" / "knowledge.db"))
-_lock = threading.RLock()   # одно соединение на все потоки: и чтение, и запись — под замком
+SCHEMA = """
+    create table if not exists knowledge (
+        id {id}, path text, topic text, value text, text text, source text,
+        confidence real, obtained_at text, valid_until text, evidence text, status text);
+    create index if not exists k_path_topic on knowledge(path, topic, status)"""
 
 
 def hotel_path(hotel_id: str) -> str:
@@ -39,26 +38,20 @@ def _seed() -> dict:
     return out
 
 
+def _seed_rows(t) -> None:
+    """Знания страны/края/города из демо-данных — в ту же таблицу, если их там ещё нет."""
+    for k in _seed().values():
+        if not t.one("select id from knowledge where path=? and topic=? limit 1", (k["path"], k["topic"])):
+            t.run("""insert into knowledge (path, topic, value, text, source, confidence, obtained_at, valid_until,
+                     evidence, status) values (?,?,?,?,?,?,?,?,?, 'active')""",
+                  (k["path"], k["topic"], json.dumps(k.get("value"), ensure_ascii=False), k.get("text"), k.get("source"),
+                   k.get("confidence"), k.get("obtained_at"), k.get("valid_until"),
+                   json.dumps(k.get("evidence") or {}, ensure_ascii=False)))
+
+
 def _db():
-    DB.parent.mkdir(parents=True, exist_ok=True)
-    con = sqlite3.connect(DB, check_same_thread=False)
-    con.row_factory = sqlite3.Row
-    con.execute("""create table if not exists knowledge (
-        id integer primary key, path text, topic text, value text, text text, source text,
-        confidence real, obtained_at text, valid_until text, evidence text, status text)""")
-    con.execute("create index if not exists k_path_topic on knowledge(path, topic, status)")
-    return con
-
-
-_con = None
-
-
-def con():
-    global _con
-    with _lock:
-        if _con is None:
-            _con = _db()
-    return _con
+    db.schema("knowledge", SCHEMA, init=_seed_rows)
+    return db
 
 
 def _row(r) -> dict:
@@ -69,9 +62,8 @@ def _row(r) -> dict:
 
 def get(path: str, topic: str) -> dict | None:
     """Знание ровно этого уровня: сначала записанное на лету (ответ отеля), потом демо-данные."""
-    with _lock:
-        r = con().execute("select * from knowledge where path=? and topic=? and status='active' order by id desc limit 1",
-                          (path, topic)).fetchone()
+    r = _db().one("select * from knowledge where path=? and topic=? and status='active' order by id desc limit 1",
+                  (path, topic))
     if r:
         return _row(r)
     return _seed().get((path, topic))
@@ -94,19 +86,14 @@ def level_name(path: str) -> str:
 def write(path: str, topic: str, value, text: str, source: str, confidence: float,
           evidence: dict | None = None, valid_days: int = 365) -> dict:
     today = dt.date.today()
-    with _lock:
-        c = con()
-        c.execute("update knowledge set status='superseded' where path=? and topic=? and status='active'", (path, topic))
-        cur = c.execute("""insert into knowledge (path, topic, value, text, source, confidence, obtained_at, valid_until,
-                           evidence, status) values (?,?,?,?,?,?,?,?,?, 'active')""",
-                        (path, topic, json.dumps(value, ensure_ascii=False), text, source, confidence,
-                         today.isoformat(), (today + dt.timedelta(days=valid_days)).isoformat(),
-                         json.dumps(evidence or {}, ensure_ascii=False)))
-        c.commit()
-        return _row(c.execute("select * from knowledge where id=?", (cur.lastrowid,)).fetchone())
+    with _db().tx() as t:      # старая запись superseded и новая active — одной транзакцией
+        t.run("update knowledge set status='superseded' where path=? and topic=? and status='active'", (path, topic))
+        return _row(t.one("""insert into knowledge (path, topic, value, text, source, confidence, obtained_at, valid_until,
+                             evidence, status) values (?,?,?,?,?,?,?,?,?, 'active') returning *""",
+                          (path, topic, json.dumps(value, ensure_ascii=False), text, source, confidence,
+                           today.isoformat(), (today + dt.timedelta(days=valid_days)).isoformat(),
+                           json.dumps(evidence or {}, ensure_ascii=False))))
 
 
 def history(path: str, topic: str) -> list[dict]:
-    with _lock:
-        rows = con().execute("select * from knowledge where path=? and topic=? order by id", (path, topic)).fetchall()
-    return [_row(r) for r in rows]
+    return [_row(r) for r in _db().all("select * from knowledge where path=? and topic=? order by id", (path, topic))]

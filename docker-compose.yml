@@ -1,15 +1,36 @@
 services:
   app:
     build: .
+    restart: unless-stopped
     platform: linux/amd64
     env_file:
       - path: .env
         required: false
+    environment:
+      # единая база сервиса (core/db.py); пароль — DB_PASSWORD из .env, по умолчанию локальный okno
+      DB_URL: postgresql://okno:${DB_PASSWORD:-okno}@db:5432/okno
     ports:
       - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
       interval: 10s
       timeout: 3s
       retries: 5
       start_period: 5s
+
+  db:
+    image: postgres:16.6-alpine
+    environment:
+      POSTGRES_USER: okno
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-okno}
+      POSTGRES_DB: okno
+    # порт наружу не пробрасываем: база видна только приложению внутри сети compose
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U okno -d okno"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped

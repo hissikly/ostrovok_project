@@ -5,12 +5,10 @@
 фразу разбирает модель, но выбирать она может только из существующих линз — факты она не создаёт.
 Чего мы пока не считаем (тишина, питомцы в отеле…), называем честно в not_yet.
 """
-import json
 import logging
 import re
-import urllib.request
 
-from core.config import LLM_API_KEY, LLM_BASE_URL, LLM_MODEL
+from core import llm
 
 from .lenses import BY_ID, LENSES
 
@@ -33,7 +31,7 @@ MONTHS = ["январ", "феврал", "март", "апрел", "ма[йяе]"
 
 
 def describe(text: str) -> dict:
-    out = _llm(text) if LLM_API_KEY and LLM_BASE_URL else None
+    out = _llm(text) if llm.enabled() else None
     if out is None:
         out = _rules(text)
     return out
@@ -113,17 +111,11 @@ def _llm(text: str) -> dict | None:
               "Верни JSON: {\"lenses\": [id подходящих линз], \"month\": номер месяца или null, "
               "\"not_yet\": [чего гость хочет, но в списке линз нет — 1–3 слова по-русски, в именительном падеже]}. "
               "Только JSON.")
-    body = {"model": LLM_MODEL, "temperature": 0, "messages": [{"role": "user", "content": prompt}]}
-    req = urllib.request.Request(f"{LLM_BASE_URL.rstrip('/')}/chat/completions", json.dumps(body).encode(),
-                                 {"Content-Type": "application/json", "Authorization": f"Bearer {LLM_API_KEY}"})
-    try:
-        with urllib.request.urlopen(req, timeout=15) as r:
-            content = json.load(r)["choices"][0]["message"]["content"]
-        d = json.loads(re.search(r"\{.*\}", content, re.S).group(0))
-        month = d.get("month")
-        return {"lenses": [i for i in d.get("lenses", []) if i in BY_ID],
-                "month": month if isinstance(month, int) and 1 <= month <= 12 else None,
-                "not_yet": [str(x) for x in d.get("not_yet", [])][:3], "ask": _askable(text), "by": "llm"}
-    except Exception as e:  # сеть, ключ, кривой JSON — откатываемся на правила
-        log.warning("describe: LLM недоступна (%s), разбираю правилами", e)
+    d = llm.chat([{"role": "user", "content": prompt}], as_json=True, timeout=15)   # основной → запасной провайдер
+    if not isinstance(d, dict):
+        log.warning("describe: LLM недоступна, разбираю правилами")
         return None
+    month = d.get("month")
+    return {"lenses": [i for i in d.get("lenses") or [] if i in BY_ID],
+            "month": month if isinstance(month, int) and 1 <= month <= 12 else None,
+            "not_yet": [str(x) for x in d.get("not_yet") or []][:3], "ask": _askable(text), "by": "llm"}

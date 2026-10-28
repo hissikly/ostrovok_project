@@ -1,7 +1,7 @@
 """Спецификации характеристик: что спрашиваем, каким планом ищем ответ, когда верим результату.
 
 Встроенные — features/characteristics/specs/*.yaml (вид на море, закат, пляж, шум, Wi-Fi) и каталог
-«что рядом» (features/nearby/specs.json, 36 фильтров). Добавленные описанием — DATA/runtime/characteristics/.
+«что рядом» (features/nearby/specs.json, 36 фильтров). Добавленные описанием — таблица characteristics единой базы (core/db).
 
 Поля:
   id, title, question          — латиница; как назвать гостю; вопрос гостя

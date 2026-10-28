@@ -32,7 +32,7 @@ class FinishIn(BaseModel):
 
 class ReplyIn(BaseModel):
     answer: str               # "confirm" | "decline"
-    text: str = ""
+    text: str = Field("", max_length=4000)
 
 
 def _404(what: str, detail: str):

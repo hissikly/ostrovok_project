@@ -12,11 +12,10 @@ import json
 import logging
 import math
 import re
-import urllib.request
 from functools import lru_cache
 from pathlib import Path
 
-from core.config import LLM_API_KEY, LLM_BASE_URL, LLM_MODEL
+from core import llm
 from core.textmatch import best, meaning_key
 
 from .geo import known_tags
@@ -63,7 +62,7 @@ def draft(text: str, existing: list[dict]) -> dict:
     if found:
         return {"exists": {"id": found["id"], "title": found["title"]}, "by": "rules", "text": text}
     spec, by, notes = None, "rules", []
-    if LLM_API_KEY and LLM_BASE_URL:
+    if llm.enabled():
         spec = _llm(text)
         if spec:
             by = "llm"
@@ -205,13 +204,8 @@ def _llm(text: str) -> dict | None:
         "вопрос отелю на «вы». min_confidence 0.45 для near, 0.6 для yes_no.\n"
         f"Пример ответа: {json.dumps(example, ensure_ascii=False)}\n"
         "Верни только JSON спеки, без пояснений.")
-    body = {"model": LLM_MODEL, "temperature": 0, "messages": [{"role": "user", "content": prompt}]}
-    req = urllib.request.Request(f"{LLM_BASE_URL.rstrip('/')}/chat/completions", json.dumps(body).encode(),
-                                 {"Content-Type": "application/json", "Authorization": f"Bearer {LLM_API_KEY}"})
-    try:
-        with urllib.request.urlopen(req, timeout=40) as r:
-            content = json.load(r)["choices"][0]["message"]["content"]
-        return json.loads(re.search(r"\{.*\}", content, re.S).group(0))
-    except Exception as e:  # сеть, ключ, кривой JSON — откатываемся на правила
-        log.warning("from-text: LLM недоступна (%s), разбираю правилами", e)
+    spec = llm.chat([{"role": "user", "content": prompt}], as_json=True, timeout=40)   # основной → запасной провайдер
+    if not isinstance(spec, dict):
+        log.warning("from-text: LLM недоступна, разбираю правилами")
         return None
+    return spec

@@ -55,7 +55,7 @@ mockups/        ← HTML-макеты интерфейса
 - Контракт API менять только с записью в `wiki/inbox.md` и в README фичи — фронт на него опирается.
 
 ## Стек (предложен, бэкенд может скорректировать — запиши в inbox)
-Python 3.12 + FastAPI, SQLite (+JSON-поля), numpy/rasterio/shapely/pyproj/osmnx для гео, astral для солнца; фронт — React + Vite + MapLibre GL; один контейнер. LLM — OpenAI-совместимый API (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`).
+Python 3.12 + FastAPI, PostgreSQL 16 — единая база через `core/db.py` (без `DB_URL` — один файл SQLite), numpy/rasterio/shapely/pyproj/osmnx для гео, astral для солнца; фронт — React + Vite + MapLibre GL; один контейнер. LLM — OpenAI-совместимый API (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`).
 
 ## Текущее состояние (24.10)
 - Кода приложения ещё нет. Есть папки фич с README.

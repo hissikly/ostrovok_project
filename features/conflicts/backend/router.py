@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from features.hotels.backend import hotel
 from features.knowledge.backend import hotel_path, resolve, write
@@ -12,7 +12,7 @@ router = APIRouter(prefix="/api", tags=["conflicts"])
 
 class Resolve(BaseModel):
     action: str          # adopt — «расчёт верный», explain — «мой ответ верный, вот почему»
-    text: str | None = None
+    text: str | None = Field(None, max_length=4000)
 
 
 def _check(hotel_id: str):

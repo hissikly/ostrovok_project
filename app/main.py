@@ -1,10 +1,11 @@
 """Точка входа: собирает роутеры фич, отдаёт собранный фронт и /health."""
 import logging
 
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from core import db, llm
 from core.config import STATIC
 from features.beach_route.backend.router import router as routes_router
 from features.characteristics.backend.router import router as characteristics_router
@@ -34,9 +35,22 @@ for r in (hotels_router, facts_router, okno_router, search_router, nearby_router
     app.include_router(r)
 
 
+@app.exception_handler(db.Unavailable)
+def db_unavailable(request: Request, exc: db.Unavailable):
+    # база не ответила — это временная ошибка: экран покажет «Временная ошибка», остальные экраны работают
+    return JSONResponse({"detail": "Временная ошибка: база данных не отвечает, попробуйте через минуту"}, status_code=503,
+                        headers={"Retry-After": "30"})
+
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/health/deps")
+def health_deps():
+    """Зависимости: база и LLM-провайдеры (без адресов и ключей). Упавшая зависимость не роняет /health."""
+    return {"db": {"kind": db.kind(), "up": db.ping()}, "llm": llm.status() or "off: работают правила"}
 
 
 if (STATIC / "assets").exists():

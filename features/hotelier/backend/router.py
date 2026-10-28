@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from features.hotels.backend import hotel
 from features.knowledge.backend.answers import topic
@@ -12,7 +12,7 @@ router = APIRouter(prefix="/api/hotelier", tags=["hotelier"])
 
 class QuestionIn(BaseModel):
     topic: str | None = None
-    text: str = ""
+    text: str = Field("", max_length=1000)
 
 
 class BulkIn(QuestionIn):
@@ -22,13 +22,13 @@ class BulkIn(QuestionIn):
 class AnswerIn(BaseModel):
     question_id: int | None = None
     topic: str | None = None
-    text: str = ""
+    text: str = Field("", max_length=4000)   # ответ отеля своими словами
     fields: list[dict] | None = None
 
 
 class ConfirmIn(BaseModel):
     topic: str
-    text: str | None = None
+    text: str | None = Field(None, max_length=4000)
 
 
 def _check(hotel_id: str):

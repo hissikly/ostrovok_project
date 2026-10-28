@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from features.facts.backend import facts_for
 from features.hotels.backend import hotel
@@ -19,7 +19,7 @@ OWNER = {"sea_view": "sea_view", "sunset_view": "sunset_view", "beach_route": "b
 
 
 class TextIn(BaseModel):
-    text: str
+    text: str = Field(max_length=1000)   # фраза гостя уходит в LLM: длину ограничиваем
 
 
 class SpecIn(BaseModel):

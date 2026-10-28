@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { api, post } from './api.js'
+import { api, post, TEMP_ERROR } from './api.js'
+import ErrorBoundary from './ErrorBoundary.jsx'
 import Icon from './icons.jsx'
 import HotelMap from '@features/hotels/frontend/HotelMap.jsx'
 import SearchPanel from '@features/search/frontend/SearchPanel.jsx'
@@ -28,6 +29,14 @@ export default function App() {
   }, [])
   const [cone, setCone] = useState(null)   // лучи «вид из окна» для карты
   const [error, setError] = useState(null)
+  // сервер не ответил на какой-то запрос — плашка «Временная ошибка» на 10 с, блоки продолжают работать
+  const [down, setDown] = useState(false)
+  useEffect(() => {
+    let t
+    const on = () => { setDown(true); clearTimeout(t); t = setTimeout(() => setDown(false), 10000) }
+    addEventListener('api-down', on)
+    return () => { removeEventListener('api-down', on); clearTimeout(t) }
+  }, [])
   // подбор: включённые линзы, месяц поездки, ответ /api/search
   const [lenses, setLenses] = useState([])
   const [on, setOn] = useState([])
@@ -126,12 +135,13 @@ export default function App() {
         <ProfileButton onOpen={() => setSelected('profile')} selected={selected} />
         <button className="for-hotels" onClick={openExtranet}>Для отелей</button>
       </header>
-      {selected === 'profile' ? <div className="main pf-main"><Profile onExit={() => setSelected(null)} /></div>
-      : selected === 'city' ? <div className="main sg-main"><City on={on} onLive={liveNear} onExit={() => setSelected(null)} /></div>
-      : compareIds ? <div className="main cmp-main"><Compare ids={compareIds} lenses={lenses} on={on} month={month}
-        onHotel={setSelected} onIds={openCompare} onExit={() => setSelected(null)} /></div> : <>
+      {down && <div className="temp-toast" role="alert">{TEMP_ERROR}<button onClick={() => setDown(false)} aria-label="Скрыть">×</button></div>}
+      {selected === 'profile' ? <div className="main pf-main"><ErrorBoundary><Profile onExit={() => setSelected(null)} /></ErrorBoundary></div>
+      : selected === 'city' ? <div className="main sg-main"><ErrorBoundary><City on={on} onLive={liveNear} onExit={() => setSelected(null)} /></ErrorBoundary></div>
+      : compareIds ? <div className="main cmp-main"><ErrorBoundary resetKey={selected}><Compare ids={compareIds} lenses={lenses} on={on} month={month}
+        onHotel={setSelected} onIds={openCompare} onExit={() => setSelected(null)} /></ErrorBoundary></div> : <>
       <div className="main">
-        <aside className="panel">
+        <aside className="panel"><ErrorBoundary resetKey={selected}>
           {error && <div className="chip warn">{error}</div>}
           {tripId
             ? <Trip bookingId={tripId} onHotel={setTripHotel} onExit={id => setSelected(id)} onRoute={r => { setPlaces(null); setRoute(r) }} routeShown={route?.title === 'Маршрут дня'} />
@@ -141,11 +151,11 @@ export default function App() {
               sight={sight?.id} onSight={showSight} onCity={() => setSelected('city')} lenses={on} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} month={month} setMonth={setMonth}
                 result={result} onSelect={setSelected} />}
-        </aside>
-        <section className="map">
+        </ErrorBoundary></aside>
+        <section className="map"><ErrorBoundary>
           <HotelMap month={month} hotels={hotels} selected={mapSel} onSelect={setSelected} cone={route || places ? null : cone} fits={fits} pois={pois} places={places} route={route}
             onPlaceClick={routeTo} onCloseBox={closeMapBox} />
-        </section>
+        </ErrorBoundary></section>
       </div>
       {!tripId && selected !== 'city' && selected !== 'profile' && <CompareTray hotels={hotels} onOpen={openCompare} />}
       </>}

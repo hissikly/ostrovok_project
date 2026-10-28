@@ -7,7 +7,12 @@ import RainToggle, { rainImage } from '@features/climate/frontend/Rain.jsx'
 import { api } from '@app/api.js'
 
 maplibregl.setWorkerUrl(workerUrl)   // MapLibre 6 ищет воркер рядом с бандлом — Vite его туда сам не кладёт
-const STYLE = 'https://tiles.openfreemap.org/styles/liberty'   // цветной стиль OpenFreeMap, без ключей
+// подложка: цветной стиль OpenFreeMap (без ключей); не ответил — CARTO Voyager (тоже без ключей), не ответил и он —
+// пустой фон. Отели, лучи окна и маршруты — наши слои: они переезжают на любую подложку и видны всегда
+const STYLES = ['https://tiles.openfreemap.org/styles/liberty', 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json']
+const BLANK = { version: 8, glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf', sources: {},
+  layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#EEF1F4' } }] }
+const OWN = ['geojson', 'image']   // типы наших источников; у подложек — vector и raster
 const SOCHI = [39.73, 43.585]
 const RAY_COLOR = ['match', ['get', 'k'], 's', '#3D8BFD', '#CE2121']
 const EMPTY = { type: 'FeatureCollection', features: [] }
@@ -77,6 +82,7 @@ export default function HotelMap({ month, hotels, selected, onSelect, cone, fits
   const [seaOn, setSeaOn] = useState(false)   // линия от моря — по желанию, по умолчанию карта чище
   const [rainOn, setRainOn] = useState(false)
   const [rain, setRain] = useState(null)   // картинка слоя «Осадки»
+  const [baseDown, setBaseDown] = useState(false)   // ни одна подложка не ответила
   // последние пропсы — чтобы применить их, когда карта догрузится
   const props = useRef({})
   props.current = { hotels, selected, cone, onSelect, fits, pois, places, route, onPlaceClick, rain }
@@ -156,8 +162,38 @@ export default function HotelMap({ month, hotels, selected, onSelect, cone, fits
   useEffect(() => {
     // на телефоне подпись карты (OpenStreetMap и др.) — кнопкой «i», раскрывается по нажатию: иначе она в две строки поверх карты
     const narrow = box.current.clientWidth < 640
-    const m = new maplibregl.Map({ container: box.current, style: STYLE, center: SOCHI, zoom: 12,
+    const m = new maplibregl.Map({ container: box.current, center: SOCHI, zoom: 12,
       attributionControl: narrow ? { compact: true } : undefined })
+    // подложка — первая из STYLES, чей стиль ответил за 5 с; не ответила ни одна — пустой фон.
+    // Стиль ответил, а тайлы подряд не грузятся — один раз переходим к следующей. Наши слои переезжают с картой
+    let alive = true, level = -1, styled = false, tileOk = false, tileErr = 0
+    const own = st => Object.keys(st?.sources || {}).filter(id => OWN.includes(st.sources[id].type))
+    const pick = async from => {
+      for (let i = from; i < STYLES.length; i++) {
+        try { if ((await fetch(STYLES[i], { signal: AbortSignal.timeout(5000) })).ok) return i } catch { /* следующая */ }
+      }
+      return STYLES.length
+    }
+    const use = i => {
+      if (!alive) return
+      level = i; tileOk = false; tileErr = 0
+      if (i >= STYLES.length) setBaseDown(true)
+      m.setStyle(STYLES[i] || BLANK, { diff: false, transformStyle: (prev, next) => {
+        const ids = own(prev)
+        return { ...next, sources: { ...next.sources, ...Object.fromEntries(ids.map(id => [id, prev.sources[id]])) },
+          layers: [...next.layers, ...(prev?.layers || []).filter(l => ids.includes(l.source))] }
+      } })
+    }
+    pick(0).then(use)
+    m.on('style.load', () => { styled = true })
+    m.on('error', e => {
+      const src = e.sourceId && m.getSource(e.sourceId)
+      if (styled && src && !OWN.includes(src.type) && !tileOk && ++tileErr >= 6 && level < STYLES.length) {
+        styled = false
+        pick(level + 1).then(use)
+      }
+    })
+    m.on('sourcedata', e => { if (e.tile && !OWN.includes(m.getSource(e.sourceId)?.type)) tileOk = true })
     if (narrow) m.once('load', () => box.current?.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show'))
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
     m.on('load', () => {
@@ -221,7 +257,7 @@ export default function HotelMap({ month, hotels, selected, onSelect, cone, fits
       applyHotels(); applyCone(); applyPois(); applyPlaces(); applyRoute(); applySelected(); applyRain()
     })
     map.current = m
-    return () => m.remove()
+    return () => { alive = false; m.remove() }
   }, [])
 
   useEffect(() => { if (ready.current) { applyHotels(); applySelected() } }, [hotels, fits])
@@ -244,6 +280,7 @@ export default function HotelMap({ month, hotels, selected, onSelect, cone, fits
   return (
     <>
       <div ref={box} />
+      {baseDown && <div className="map-down">Подложка карты временно недоступна — отели и маршруты на месте</div>}
       {(places || route) && (
         <div className="map-places">
           {places && <>

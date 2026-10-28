@@ -1,0 +1,17 @@
+flowchart LR
+  U(["Гость / отельер<br/>браузер"]) --> FE["Фронт React<br/>api.js · ErrorBoundary<br/>плашка «Временная ошибка»"]
+  FE -->|/api/*| APP["Приложение FastAPI<br/>контейнер app · 8080<br/>пользователь okno, не root"]
+  FE -.->|подложка карты| T1["OpenFreeMap"]
+  T1 -.->|не ответил| T2["CARTO Voyager"]
+  T2 -.->|не ответил| T3["пустой фон<br/>отели и маршруты на месте"]
+  FE -.->|шрифт| GF["Google Fonts"]
+  GF -.->|не ответил| SF["системный шрифт"]
+  APP --> DB[("PostgreSQL 16<br/>контейнер db · единая база<br/>порт наружу закрыт")]
+  APP --> SEED[("data/seed<br/>посчитанные заранее данные<br/>только чтение, в образе")]
+  APP -->|core/llm.py| L1["LLM основной<br/>LLM_*"]
+  L1 -.->|отказ| L2["LLM запасной<br/>LLM_FALLBACK_*"]
+  L2 -.->|отказ| R["правила без LLM<br/>by: rules"]
+  classDef ext fill:#FFF4EC,stroke:#FF6B1A,color:#2D3137
+  classDef safe fill:#EAF6E4,stroke:#53AF24,color:#2D3137
+  class T1,T2,GF,L1,L2 ext
+  class T3,SF,R safe

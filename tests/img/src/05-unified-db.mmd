@@ -1,0 +1,26 @@
+flowchart LR
+  subgraph W["Кто пишет и читает"]
+    G["Гость<br/>бронь, «Так и было?», отзыв"]
+    H["Отельер — экстранет<br/>ответы на вопросы"]
+    FAQ["Агент FAQ / база знаний<br/>ответ снизу вверх:<br/>отель → город → край"]
+    CH["Агент характеристик<br/>план → инструменты → факт"]
+    WEB["Агент сайтов отелей<br/>цитаты, сверка дословно"]
+  end
+  subgraph PG["PostgreSQL 16 · база okno"]
+    bookings[("bookings")]
+    feedback[("feedback")]
+    reviews[("reviews · lens_answers<br/>demo_trips")]
+    questions[("questions")]
+    knowledge[("knowledge<br/>история: active / superseded")]
+    chars[("characteristics<br/>спеки и прогоны")]
+  end
+  G --> bookings & feedback & reviews
+  H --> questions
+  H -->|ответ отеля| knowledge
+  FAQ -->|читает| knowledge
+  FAQ -->|нет ответа — «Спросить у отеля»| questions
+  CH -->|читает и дописывает| chars
+  CH -->|ask_hotelier| questions
+  CH -->|hotel_answers| knowledge
+  WEB -->|факты с сайта| FAQ
+  SEED[("data/seed — только чтение:<br/>отели, «О!кно», шум, POI,<br/>тексты сайтов, знания города")] -.->|при первом запуске<br/>знания города и края| knowledge
