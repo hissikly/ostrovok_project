@@ -17,9 +17,9 @@ class Guests(BaseModel):
 
 class BookingIn(BaseModel):
     hotel_id: str
-    month: int = 5
-    facade: str | None = None
-    floor: int | None = None
+    month: int = Field(5, ge=1, le=12)
+    facade: str | None = Field(None, pattern="^[NESW]$")
+    floor: int | None = Field(None, ge=1, le=100)
     drop: list[str] = []      # пункты пожелания, которые гость убрал
     guests: Guests = Guests()
     own: list[str] = Field([], max_length=3)   # свои пожелания гостя, его словами
