@@ -21,7 +21,7 @@
 - LLM не используется.
 
 ## API
-- `GET /api/profile` → `{trips: [{id, hotel, month, when, guests, wish, status, status_text, past, lenses: [{id, title, icon}], questions: [{id, kind: promise|wish|lens, icon, title, note, claim?, answer}], answered, review: {stars, text} | null}], summary: {trips, past, answers, reviews, pending}}` — сначала предстоящие, потом прошлые.
+- `GET /api/profile` → `{trips: [{id, hotel, month, when, guests, wish, status, status_text (прошла без ответа отеля — «Не дождались ответа отеля»), past, lenses: [{id, title, icon}], questions: [{id, kind: promise|wish|lens, icon, title, note, claim?, answer}], answered, review: {stars, text} | null}], summary: {trips, past, answers, reviews, pending}}` — сначала предстоящие, потом прошлые.
 - `GET /api/profile/trips/{id}` — одна поездка в том же виде.
 - `POST /api/profile/trips/{id}/answers {"answers": {"<id факта>": "yes", "lens:near_cafe": "no"}}` — «Так и было?»; с пустым `answers` — только «Поездка завершена». Повторный ответ по тому же пункту не принимается.
 - `POST /api/profile/trips/{id}/review {"stars": 4, "text": "…"}` — мнение об отеле.

@@ -56,7 +56,9 @@ def _card(t: dict) -> dict:
     qs, by_id = questions(t), _lenses()
     past = bool(t["finished_at"])
     return {"id": t["id"], "hotel": t["hotel"], "month": t["month"], "facade": t["facade"], "floor": t["floor"],
-            "guests": t["guests"], "wish": t["wish"]["text"], "status": t["status"], "status_text": t["status_text"],
+            "guests": t["guests"], "wish": t["wish"]["text"], "status": t["status"],
+            # поездка прошла, а отель так и не ответил на пожелание — «ждём» уже неправда
+            "status_text": "Не дождались ответа отеля" if past and t["status"] == "sent" else t["status_text"],
             "past": past, "when": f"{MONTH[t['month']].capitalize()} {t['finished_at'][:4]}" if past else None,
             "lenses": [{"id": i, "title": by_id[i]["title"], "icon": by_id[i].get("icon")} for i in t.get("lenses") or [] if i in by_id],
             "questions": qs, "answered": sum(bool(q["answer"]) for q in qs),

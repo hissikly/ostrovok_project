@@ -32,6 +32,9 @@ function Status({ t }) {
   if (t.status === 'declined') return (
     <div className="tr-status warn"><Icon name="mail" size={20} /><div><b>Отель ответил: всё выполнить не получится</b>
       {t.hotel_reply && <span className="tr-quote">«{t.hotel_reply}»</span>}</div></div>)
+  if (t.finished_at) return (
+    <div className="tr-status"><Icon name="clock" size={20} /><div><b>Не дождались ответа отеля на пожелание</b>
+      <span>Поездка прошла, а отель так и не ответил</span></div></div>)
   return (
     <div className="tr-status"><Icon name="clock" size={20} /><div><b>Ждём ответа отеля на пожелание</b>
       <span>Номер уже ваш, а пожелание отель выполняет при заселении. Ответ появится здесь, обычно в течение дня</span></div></div>)
