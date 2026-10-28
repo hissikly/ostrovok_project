@@ -99,6 +99,12 @@ export default function App() {
 
   // «Научить О!кно»: новая характеристика описанием (#admin)
   if (selected === 'admin') return <AddCharacteristic onExit={() => setSelected(null)} />
+  // «Для отелей»: экстранет отеля последней брони гостя (демо-поездки уже прошли — их не берём),
+  // без брони — открытого отеля, иначе Pullman
+  const openExtranet = () => api('/api/bookings').catch(() => []).then(list => {
+    const last = list.filter(b => !b.finished_at).sort((a, b) => b.created_at.localeCompare(a.created_at))[0]
+    setSelected(`extranet/${last?.hotel_id || sel?.id || 'w201474333'}`)
+  })
   // Экстранет отельера: #extranet/<id отеля>
   if (selected?.startsWith('extranet')) {
     const hid = selected.split('/')[1] || 'w201474333'
@@ -118,7 +124,7 @@ export default function App() {
           <InterestsButton />
         </div>
         <ProfileButton onOpen={() => setSelected('profile')} selected={selected} />
-        <button className="for-hotels" onClick={() => setSelected(`extranet/${sel?.id || 'w201474333'}`)}>Для отелей</button>
+        <button className="for-hotels" onClick={openExtranet}>Для отелей</button>
       </header>
       {selected === 'profile' ? <div className="main pf-main"><Profile onExit={() => setSelected(null)} /></div>
       : selected === 'city' ? <div className="main sg-main"><City on={on} onLive={liveNear} onExit={() => setSelected(null)} /></div>
