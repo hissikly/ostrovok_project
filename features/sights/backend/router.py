@@ -19,7 +19,7 @@ def list_sights():
 @router.get("/sights/{sight_id}/photo.jpg")
 def photo(sight_id: str):
     path = SEED / "sights" / f"{sight_id}.jpg"
-    if not path.exists() or "/" in sight_id or sight_id.startswith("."):
+    if len(sight_id) > 64 or "/" in sight_id or sight_id.startswith(".") or not path.exists():
         raise HTTPException(404, detail={"error": "not found", "detail": sight_id})
     return FileResponse(path, media_type="image/jpeg", headers={"Cache-Control": "public, max-age=86400"})
 
