@@ -51,11 +51,6 @@ function Scene({ s, stop, pin }) {
   )
 }
 
-const plural = (n, one, few, many) => {
-  const m10 = n % 10, m100 = n % 100
-  return m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20) ? few : many
-}
-
 // Ночная аптека — «на всякий случай», в план дня по умолчанию не ставим
 const SKIP0 = ['night']
 // Коротко (в карточке отеля): без выходов из отеля, три главные сцены — подвохи и то, ради чего выбирают отель.
@@ -145,7 +140,7 @@ export default function DayPanel({ hotelId, month, view, onRoute, routeShown, br
         <div className={`day-route ${routeShown ? 'on' : ''}`}>
           <Icon name="pin" size={18} />
           <span>{w.outings
-            ? <>{w.outings} {plural(w.outings, 'выход', 'выхода', 'выходов')} из отеля, пешком всего <b>{w.minutes} мин</b>{w.up_m >= 10 ? <>, в гору <b>{w.up_m} м</b></> : ''}</>
+            ? <>Собрали для вас прогулку на <b>{w.minutes} мин</b></>
             : 'Весь день у отеля. Отметьте кружком, куда пойдёте'}</span>
           {w.outings > 0 && (routeShown
             ? <button onClick={() => onRoute?.(null)}>Скрыть с карты</button>
