@@ -172,20 +172,19 @@ export default function Trip({ bookingId, onHotel, onExit, onRoute, routeShown }
         <div className="tr-booked"><Icon name="check" size={18} />Номер забронирован</div>
       </div>
 
-      <div className="block">
-        <h2>Пожелание к номеру</h2>
-        {t.wish.items.length
-          ? <>
-              <div className="tr-plate">
-                <WishPicture facade={t.facade} floor={t.floor} levels={t.hotel.levels} items={t.wish.items} />
-                <div className="tr-plate-text"><small>Отелю отправили</small>{t.wish.text}</div>
-              </div>
-              {t.wish.items.map(it => <Row key={it.id} icon={{ side: 'window', floor: 'building', quiet: 'mute' }[it.id] || 'check'}
-                title={it.text} note={it.reason} facts={it.facts} />)}
-            </>
-          : <p className="lead">Без особых пожеланий: подойдёт любой номер этой категории.</p>}
-        <Status t={t} />
-      </div>
+      {/* без пожеланий блока нет: ждать ответа отеля не на что */}
+      {t.wish.items.length > 0 && (
+        <div className="block">
+          <h2>Пожелание к номеру</h2>
+          <div className="tr-plate">
+            <WishPicture facade={t.facade} floor={t.floor} levels={t.hotel.levels} items={t.wish.items} />
+            <div className="tr-plate-text"><small>Отелю отправили</small>{t.wish.text}</div>
+          </div>
+          {t.wish.items.map(it => <Row key={it.id} icon={{ side: 'window', floor: 'building', quiet: 'mute' }[it.id] || 'check'}
+            title={it.text} note={it.reason} facts={it.facts} />)}
+          <Status t={t} />
+        </div>
+      )}
 
       {t.packing.length > 0 && <Packing items={t.packing} kids={kids} />}
 
