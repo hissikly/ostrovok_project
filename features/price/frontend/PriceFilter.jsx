@@ -61,44 +61,44 @@ export default function PriceFilter({ prices, value, onChange }) {
     .filter(Boolean).join(' · ')
 
   return (
-    <div className="pf" ref={box}>
+    <div className="prf" ref={box}>
       {/* без выбора — только иконка; когда выбрано — иконка и что выбрано */}
-      <button className={`pf-btn ${active ? 'on' : 'icon'} ${open ? 'open' : ''}`} onClick={() => setOpen(!open)}
+      <button className={`prf-btn ${active ? 'on' : 'icon'} ${open ? 'open' : ''}`} onClick={() => setOpen(!open)}
         aria-expanded={open} aria-label="Фильтр и сортировка по цене" title="Цена и сортировка">
         <Sliders />{label}
       </button>
       {open && (
-        <div className="pf-card" role="dialog" aria-label="Цена">
-          <div className="pf-title">Отсортировать</div>
-          <div className="pf-seg">
+        <div className="prf-card" role="dialog" aria-label="Цена">
+          <div className="prf-title">Отсортировать</div>
+          <div className="prf-seg">
             {SORTS.map(([k, t]) => (
               <button key={t} className={value.sort === k ? 'on' : ''} onClick={() => set({ sort: k })}>{t}</button>
             ))}
           </div>
 
-          <div className="pf-head">
-            <div className="pf-title">Цена за ночь</div>
+          <div className="prf-head">
+            <div className="prf-title">Цена за ночь</div>
           </div>
-          <div className="pf-hist" aria-hidden="true">
+          <div className="prf-hist" aria-hidden="true">
             {bins.map((n, i) => (
               <i key={i} style={{ height: `${n ? 8 + 92 * n / top : 0}%` }}
                 className={lo + (i + 0.5) * (hi - lo) / BINS <= max ? 'in' : ''} />
             ))}
           </div>
-          <input className="pf-range" type="range" min={lo} max={hi} step={STEP} value={max}
+          <input className="prf-range" type="range" min={lo} max={hi} step={STEP} value={max}
             style={{ '--p': `${100 * (max - lo) / (hi - lo)}%` }}
             onChange={e => setMax(+e.target.value)} aria-label="Максимальная цена за ночь" />
-          <div className="pf-scale"><span>{rub(lo)}</span><span>{rub(hi)}</span></div>
-          <div className="pf-quick">
+          <div className="prf-scale"><span>{rub(lo)}</span><span>{rub(hi)}</span></div>
+          <div className="prf-quick">
             {quick.map(q => (
               <button key={q} className={value.max === q ? 'on' : ''} onClick={() => setMax(q)}>до {short(q)} ₽</button>
             ))}
             <button className={!value.max ? 'on' : ''} onClick={() => setMax(hi)}>Любая</button>
           </div>
 
-          <div className="pf-foot">
-            <button className="pf-reset" disabled={!active} onClick={() => onChange(NO_PRICE)}>Сбросить</button>
-            <button className="pf-go" onClick={() => setOpen(false)}>
+          <div className="prf-foot">
+            <button className="prf-reset" disabled={!active} onClick={() => onChange(NO_PRICE)}>Сбросить</button>
+            <button className="prf-go" onClick={() => setOpen(false)}>
               {fit ? `Показать ${fit.toLocaleString('ru-RU')}` : 'Таких нет — поднимите сумму'}
             </button>
           </div>

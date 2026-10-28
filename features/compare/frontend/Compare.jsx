@@ -6,7 +6,6 @@ import { useCompare } from './store.js'
 import './compare.css'
 
 const rub = n => `${n.toLocaleString('ru-RU')} ₽`
-const MONTH = ['', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 const quote = n => (/[«"„“]/.test(n) ? n : `«${n}»`)
 
 // «как узнали» — те же слова, что в карточке отеля; у оценки шума слово об уверенности лишнее
@@ -116,10 +115,8 @@ export default function Compare({ ids, lenses, on, month, onHotel, onIds, onExit
     <div className="cmp-page">
       <button className="back" onClick={onExit}>← К выдаче</button>
       <h1>Сравнение: {n} отеля</h1>
-      <p className="cmp-lead">Галочка — лучшее в строке. Нажмите на значение, и мы покажем, откуда это знаем.</p>
       <div className="chips">
         {data.lenses.map(l => title(l) && <span key={l} className="chip on"><Icon name={title(l).icon} size={16} />{title(l).title}</span>)}
-        {data.month && <span className="chip"><Icon name="calendar" size={16} />{MONTH[data.month]}</span>}
       </div>
       <div className="cmp-scroll">
         <table className="cmp-t" style={{ minWidth: 150 + 230 * n }}>
