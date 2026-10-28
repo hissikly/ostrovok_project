@@ -11,3 +11,5 @@ data/raw/
 app/static/
 data/derived/
 data/runtime/
+.vercel
+.vercel/

@@ -1,1 +1,22 @@
--r app/requirements.txt
+# Копия app/requirements.txt для Vercel (его сборщик не читает «-r»). Меняете зависимости — меняйте оба файла.
+annotated-doc==0.0.5
+annotated-types==0.8.0
+anyio==4.15.1
+click==8.5.0
+dawg-python==0.7.2
+fastapi==0.143.0
+h11==0.16.0
+idna==3.20
+opentelemetry-api==1.45.1
+psycopg==3.3.6
+psycopg-binary==3.3.6
+pydantic==2.14.1
+pydantic-core==2.50.1
+pymorphy3==2.0.2
+pymorphy3-dicts-ru==2.4.417150.4580142
+pyyaml==6.0.2
+setuptools==84.1.0
+starlette==1.8.0
+typing-extensions==4.16.0
+typing-inspection==0.4.4
+uvicorn==0.34.0
