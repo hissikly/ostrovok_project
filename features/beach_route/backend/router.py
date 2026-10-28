@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 
 from core.walk import route, to_beach
 from features.hotels.backend import hotel
@@ -24,7 +24,8 @@ def beach_route(hotel_id: str):
 
 
 @router.get("/hotels/{hotel_id}/route")
-def route_to(hotel_id: str, lat: float, lon: float):
+def route_to(hotel_id: str, lat: float = Query(ge=-90, le=90, allow_inf_nan=False),
+             lon: float = Query(ge=-180, le=180, allow_inf_nan=False)):
     """Пешком от отеля до точки (магазин, парк…)."""
     h = _hotel(hotel_id)
     r = route(h["lat"], h["lon"], lat, lon)
