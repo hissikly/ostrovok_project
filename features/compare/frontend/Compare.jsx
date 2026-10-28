@@ -115,9 +115,9 @@ export default function Compare({ ids, lenses, on, month, onHotel, onIds, onExit
     <div className="cmp-page">
       <button className="back" onClick={onExit}>← К выдаче</button>
       <h1>Сравнение: {n} отеля</h1>
-      <div className="chips">
+      {data.lenses.length > 0 && <div className="chips">
         {data.lenses.map(l => title(l) && <span key={l} className="chip on"><Icon name={title(l).icon} size={16} />{title(l).title}</span>)}
-      </div>
+      </div>}
       <div className="cmp-scroll">
         <table className="cmp-t" style={{ minWidth: 150 + 230 * n }}>
           <colgroup><col className="lab" />{data.hotels.map(h => <col key={h.id} />)}</colgroup>
@@ -154,15 +154,20 @@ export default function Compare({ ids, lenses, on, month, onHotel, onIds, onExit
                 </td>
               ))}
             </tr>
+            <tr className="custom">
+              <td className="cmp-lab" />
+              <td colSpan={n}>{/* строка таблицы — форма ровно по ширине карточек */}
+                <CustomAsk ids={ids} month={month} have={have} onRows={r => setCustom([...custom, ...r])} />
+                {extra.length > 0 && (
+                  <button className="cmp-more" onClick={() => setMore(!more)}>
+                    {more ? 'Свернуть' : `Ещё: ${extra.map(r => r.title.toLowerCase()).join(', ')}`}
+                  </button>
+                )}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <CustomAsk ids={ids} month={month} have={have} onRows={r => setCustom([...custom, ...r])} />
-      {extra.length > 0 && (
-        <button className="cmp-more" onClick={() => setMore(!more)}>
-          {more ? 'Свернуть' : `Ещё: ${extra.map(r => r.title.toLowerCase()).join(', ')}`}
-        </button>
-      )}
     </div>
   )
 }
