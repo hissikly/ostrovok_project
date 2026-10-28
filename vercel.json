@@ -7,5 +7,8 @@
       "maxDuration": 60,
       "excludeFiles": "{node_modules/**,raw/**,wiki/**,mockups/**,tests/**,tools/**,data/raw/**,data/derived/**,features/*/pipeline/**,features/*/frontend/**,app/frontend/**,**/*.md}"
     }
-  }
+  },
+  "regions": [
+    "fra1"
+  ]
 }
