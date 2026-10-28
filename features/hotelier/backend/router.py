@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from features.hotels.backend import hotel
+from features.knowledge.backend.answers import topic
 
 from .questions import ask_hotel, open_questions
 from .service import cabinet, confirm, parse_answer, save_answer
@@ -90,4 +91,6 @@ def answer(hotel_id: str, a: AnswerIn):
 @router.post("/{hotel_id}/confirm")
 def confirm_fact(hotel_id: str, c: ConfirmIn):
     _check(hotel_id)
+    if topic(c.topic) is None:
+        raise HTTPException(404, detail={"error": "topic not found", "detail": c.topic})
     return confirm(hotel_id, c.topic, c.text)
