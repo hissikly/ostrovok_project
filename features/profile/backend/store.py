@@ -80,11 +80,6 @@ def hotel_reviews(hotel_id: str) -> list[dict]:
     return [{**dict(r), "extra": json.loads(r["extra"]) if r["extra"] else None} for r in rows]
 
 
-def has_demo_reviews() -> bool:
-    with _lock:
-        return con().execute("select 1 from reviews where booking_id like 'demo:%' limit 1").fetchone() is not None
-
-
 def demo_bookings() -> set[str]:
     with _lock:
         return {r[0] for r in con().execute("select booking_id from demo_trips")}
