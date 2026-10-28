@@ -90,4 +90,8 @@ td.cmp-c.bad:hover .v { color: #B35A00 }
   .cmp-hm .st { display: none }
   .cmp-hn { font-size: 16px }
   .cmp-lab .cmp-yours svg { display: inline }
+  /* на телефоне таблица листается вбок, а «Не нашли, что искали?» стоит на месте во всю ширину экрана */
+  .cmp-t tr.custom .cmp-lab { position: static; background: none }
+  .cmp-custom, .cmp-more { position: sticky; left: 16px; margin-left: -104px; width: calc(100vw - 32px) }
+  .cmp-more { display: block; text-align: left }
 }
