@@ -114,7 +114,7 @@ def main():
                           "text": (f"Море видно с {from_floor}-го этажа ({SIDE_RU[side]} сторона)" if from_floor
                                    else f"С {SIDE_GEN[side]} стороны моря почти не видно")},
                 "confidence": sea_conf,
-                "source": "computed:horizon", "method_version": "horizon@0.3",
+                "source": "computed:horizon", "method_version": "horizon@0.4",   # 0.4: море — только открытое (28.10)
                 "evidence": evidence_base, "obtained_at": today.isoformat(),
                 "valid_until": (today + dt.timedelta(days=180)).isoformat(), "status": "active",
             })

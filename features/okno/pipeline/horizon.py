@@ -14,7 +14,7 @@ import rasterio
 from rasterio import features
 from rasterio.merge import merge
 from rasterio.transform import from_origin
-from shapely.geometry import Polygon, mapping
+from shapely.geometry import Polygon, mapping, shape
 
 R_EARTH = 6_371_000.0
 K_REFR = 0.13            # стандартный коэффициент атмосферной рефракции
@@ -49,10 +49,23 @@ class LocalFrame:
         return self.lat0 + np.asarray(y) / self.ky, self.lon0 + np.asarray(x) / self.kx
 
 
+def open_sea(arr: np.ndarray, transform) -> np.ndarray:
+    """Море — только самая большая связная область ниже SEA_LEVEL_MAX (открытое море).
+    Низкая суша и пруды у берега тоже ≤0,5 м в DEM (Имеретинская низменность у «Омеги»,
+    28.10: лучи на восток над сушей считались «видно море») — с морем они не связаны."""
+    low = (arr <= SEA_LEVEL_MAX).astype(np.uint8)
+    best = max(((g, shape(g).area) for g, _ in features.shapes(low, mask=low.astype(bool), transform=transform)),
+               key=lambda x: x[1], default=None)
+    if best is None:
+        return np.zeros(arr.shape, bool)
+    return features.rasterize([best[0]], out_shape=arr.shape, transform=transform).astype(bool)
+
+
 @dataclass
 class Dem:
     arr: np.ndarray
     transform: object
+    sea: np.ndarray | None = None   # bool: открытое море (см. open_sea)
 
     @classmethod
     def load(cls, paths: list[str], bounds: tuple[float, float, float, float]) -> "Dem":
@@ -60,7 +73,14 @@ class Dem:
         arr, tr = merge(srcs, bounds=bounds)
         for s in srcs:
             s.close()
-        return cls(arr[0].astype(np.float32), tr)
+        a = arr[0].astype(np.float32)
+        return cls(a, tr, open_sea(a, tr))
+
+    def is_sea(self, lat, lon):
+        """Точка в открытом море (ближайшая ячейка маски)."""
+        col, row = (~self.transform) * (np.asarray(lon), np.asarray(lat))
+        h, w = self.sea.shape
+        return self.sea[np.clip(row.astype(int), 0, h - 1), np.clip(col.astype(int), 0, w - 1)]
 
     def sample(self, lat, lon):
         """Билинейная интерполяция высоты (м) в точках lat/lon."""
@@ -184,7 +204,7 @@ def cast(frame: LocalFrame, dem: Dem, local: LocalBuildings, ex: float, ey: floa
         drop = d * d / (2 * R_EARTH) * (1 - K_REFR)
         ang = np.degrees(np.arctan2(h - drop - eye_h, d))
         run_max = np.maximum.accumulate(np.concatenate([[-90.0], ang[:-1]]))
-        sea = (ground <= SEA_LEVEL_MAX) & ~is_bld
+        sea = (ground <= SEA_LEVEL_MAX) & dem.is_sea(lat, lon) & ~is_bld
         sea_vis = sea & (ang >= run_max)
         i = int(np.argmax(ang))
         kind = "building" if is_bld[i] else ("sea" if sea[i] else "terrain")
