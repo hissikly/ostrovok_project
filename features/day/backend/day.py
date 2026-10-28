@@ -330,10 +330,10 @@ def evening(hotel_id, d, side, floor, month, facts):
     return _scene(s["sunset_astro"], "sunset", "Заката из окна не видно", note, False, fs + ([vp] if vp else []), st)
 
 
-def _db(db):
-    like = ("в тихой комнате" if db <= 40 else "в тихом дворе" if db <= 50
-            else "при спокойном разговоре" if db <= 60 else "на оживлённой улице")
-    return f"около {db} дБ, как {like}"
+def _like(db):
+    """Громкость ночью без децибелов — на что похоже."""
+    return ("как в тихой комнате" if db <= 40 else "как в тихом дворе" if db <= 50
+            else "как негромкий разговор рядом" if db <= 60 else "как на оживлённой улице")
 
 
 def night(facts, side):
@@ -343,14 +343,14 @@ def night(facts, side):
     v = f["value"]
     src = v.get("source") or {}
     if v["level"] == "quiet":
-        return _scene("23:00", "moon", "Ночью тихо", "О" + _db(v['night_db'])[1:], True, [f])
+        return _scene("23:00", "moon", "Ночью тихо", f"Улицу не слышно, {_like(v['night_db'])}", True, [f])
     if v["level"] == "calm":
         return _scene("23:00", "moon", "Ночью спокойно", "Улицу почти не слышно", True, [f])
     kind, name = src.get("kind"), src.get("name")
     what = {"runway": "Слышны самолёты", "rail": "Слышны поезда"}.get(kind) or (
         f"Рядом {src.get('kind_ru', 'бар')} {_quote(name)}" if kind in ("bar", "pub", "nightclub")
         else f"Рядом {name}" if name else f"Рядом {src.get('kind_ru', 'улица')}")
-    note = f"{what.strip()}, ночью {_db(v['night_db'])}"
+    note = f"{what.strip()}, ночью шум {_like(v['night_db'])}"
     quieter = [x for x in facts if x["characteristic"] == "noise" and _scope_side(x)
                and x["value"]["level"] in ("quiet", "calm")]
     if quieter and _scope_side(f):

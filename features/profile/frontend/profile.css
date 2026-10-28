@@ -35,7 +35,6 @@
 .pf-progress { margin-left: auto; color: var(--muted); font-size: 14px; font-weight: 600 }
 .pf-arrow { color: var(--muted); font-size: 22px; line-height: 1; transition: transform .15s }
 .pf-arrow.open { transform: rotate(90deg) }
-.pf-lead { color: var(--muted); font-size: 14px; margin: 8px 0 4px }
 .pf-group { margin: 14px 0 2px; font-size: 13px; font-weight: 700; color: var(--muted) }
 .pf-q { display: grid; grid-template-columns: 32px 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--chip) }
 .pf-group + .pf-q { border-top: 0 }

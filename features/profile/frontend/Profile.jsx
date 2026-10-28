@@ -127,7 +127,6 @@ function TripCard({ t, onChange }) {
             <span className={`pf-arrow ${open ? 'open' : ''}`}>›</span>
           </button>
           {open && <>
-            {left.length > 0 && <p className="pf-lead">Отметьте, что совпало. Ответы увидят следующие гости, а там, где не совпало, мы станем осторожнее в обещаниях.</p>}
             {promise.length > 0 && <div className="pf-group">Что мы обещали</div>}
             {promise.map(q => <Question key={q.id} q={q} onAnswer={answer} busy={busy} />)}
             {lens.length > 0 && <div className="pf-group">Подошёл ли отель под ваши фильтры</div>}
