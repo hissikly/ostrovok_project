@@ -130,7 +130,7 @@ export default function App() {
           {tripId
             ? <Trip bookingId={tripId} onHotel={setTripHotel} onExit={id => setSelected(id)} onRoute={r => { setPlaces(null); setRoute(r) }} routeShown={route?.title === 'Маршрут дня'} />
             : sel
-            ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach} onDayRoute={r => { setPlaces(null); setRoute(r) }}
+            ? <HotelCard id={sel.id} month={month} onBack={() => setSelected(null)} onCone={setCone} onPlace={showPlaces} onBeach={showBeach}
               places={places} routeTitle={route?.title} nearMeta={nearMeta}
               sight={sight?.id} onSight={showSight} onCity={() => setSelected('city')} lenses={on} />
             : <SearchPanel hotels={hotels} lenses={lenses} on={on} setOn={setOn} month={month} setMonth={setMonth}

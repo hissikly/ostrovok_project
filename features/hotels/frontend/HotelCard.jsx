@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { api } from '@app/api.js'
 import Icon from '@app/icons.jsx'
 import FactList from '@features/facts/frontend/FactList.jsx'
-import DayPanel from '@features/day/frontend/DayPanel.jsx'
 import Faq from '@features/knowledge/frontend/Faq.jsx'
 import WindowPanel from '@features/okno/frontend/WindowPanel.jsx'
 import AgentFacts from '@features/characteristics/frontend/AgentFacts.jsx'
@@ -16,7 +15,7 @@ function ratingWord(r) {
   return r >= 9 ? 'Превосходно' : r >= 8.5 ? 'Отлично' : r >= 8 ? 'Очень хорошо' : 'Хорошо'
 }
 
-export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, onDayRoute, places, routeTitle, nearMeta, sight, onSight, onCity, lenses }) {
+export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach, places, routeTitle, nearMeta, sight, onSight, onCity, lenses }) {
   const [h, setH] = useState(null)
   const [facts, setFacts] = useState([])
   const [failed, setFailed] = useState(false)
@@ -68,7 +67,6 @@ export default function HotelCard({ id, month, onBack, onCone, onPlace, onBeach,
         <TripConfirmed facts={facts} />
       </FactList>
       <SightsNearby hotelId={id} active={sight} onShow={onSight} onCity={onCity} />
-      <DayPanel brief hotelId={id} month={month} view={view} onRoute={onDayRoute} routeShown={routeTitle === 'Маршрут дня'} />
       <GuestReviews hotelId={id} />
       <Faq hotelId={id} month={month} />
     </div>
