@@ -112,7 +112,9 @@ def _minus(j: int, shown: list[str], lens_res: dict) -> str | None:
     for state in (NO, PARTIAL):
         for l in order:
             r = lens_res[l][j]
+            if l == "quiet" and r["state"] == PARTIAL:   # «ночью спокойно» — не минус (так же в «Вашем дне»)
+                continue
             if r["state"] == state:
-                return r["text"]
+                return r["text"].replace("У отеля — н", "Н")
     unknown = [BY_ID[l]["title"].lower() for l in order if lens_res[l][j]["state"] == UNKNOWN]
     return f"Пока не знаем: {', '.join(unknown)}" if unknown else None
