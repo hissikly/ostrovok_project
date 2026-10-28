@@ -53,7 +53,7 @@ function Describe({ text, setText, onApply, topIds }) {
     <>
       <form className="describe" onSubmit={submit}>
         <Icon name="search" />
-        <input placeholder="Опишите отель или найдите фильтр" value={text} onChange={e => setText(e.target.value)} />
+        <input placeholder="Опишите или найдите фильтр" value={text} onChange={e => setText(e.target.value)} />
         {text.trim() && <button className="go">Подобрать</button>}
       </form>
       {note && <div className="describe-note">{note}</div>}
