@@ -14,5 +14,6 @@ LLM_MODEL = os.getenv("LLM_MODEL", "")
 # запасной LLM-провайдер: включается, когда основной не отвечает (см. core/llm.py)
 LLM_FALLBACK = {"base": os.getenv("LLM_FALLBACK_BASE_URL", ""), "key": os.getenv("LLM_FALLBACK_API_KEY", ""),
                 "model": os.getenv("LLM_FALLBACK_MODEL", "")}
-# единая база: PostgreSQL (postgresql://…), без DB_URL — один файл SQLite для запуска без Docker
-DB_URL = os.getenv("DB_URL", "")
+# единая база: PostgreSQL (postgresql://…), без DB_URL — один файл SQLite для запуска без Docker.
+# На Vercel адрес Postgres из интеграции (Neon) приходит как POSTGRES_URL / DATABASE_URL
+DB_URL = os.getenv("DB_URL") or os.getenv("POSTGRES_URL") or os.getenv("DATABASE_URL") or ""

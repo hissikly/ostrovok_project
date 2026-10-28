@@ -8,16 +8,19 @@ DATA/runtime/okno.db, чтобы сервис и тесты запускалис
 Соединение одно на процесс, под замком (нагрузка демо); оборвалось — переподключаемся на следующем запросе.
 """
 import logging
+import os
 import sqlite3
 import threading
 import time
 from contextlib import contextmanager
+from pathlib import Path
 
 from core.config import DATA, DB_URL
 
 log = logging.getLogger(__name__)
 PG = DB_URL.startswith(("postgres://", "postgresql://"))
-FILE = DATA / "runtime" / "okno.db"
+# на Vercel писать можно только в /tmp (база живёт, пока жив экземпляр функции; для постоянной — POSTGRES_URL)
+FILE = Path("/tmp/okno.db") if os.getenv("VERCEL") else DATA / "runtime" / "okno.db"
 FIRST_WAIT = 30      # с: при старте база в соседнем контейнере может ещё подниматься
 _lock = threading.RLock()
 _con = None
