@@ -331,9 +331,8 @@ def evening(hotel_id, d, side, floor, month, facts):
 
 
 def _like(db):
-    """Громкость ночью без децибелов — на что похоже."""
-    return ("как в тихой комнате" if db <= 40 else "как в тихом дворе" if db <= 50
-            else "как негромкий разговор рядом" if db <= 60 else "как на оживлённой улице")
+    """Тишина ночью без децибелов — на что похоже."""
+    return "как в тихой комнате" if db <= 40 else "как в тихом дворе"
 
 
 def night(facts, side):
@@ -350,7 +349,7 @@ def night(facts, side):
     what = {"runway": "Слышны самолёты", "rail": "Слышны поезда"}.get(kind) or (
         f"Рядом {src.get('kind_ru', 'бар')} {_quote(name)}" if kind in ("bar", "pub", "nightclub")
         else f"Рядом {name}" if name else f"Рядом {src.get('kind_ru', 'улица')}")
-    note = f"{what.strip()}, ночью шум {_like(v['night_db'])}"
+    note = what.strip()                      # «Ночью шумно» уже в заголовке
     quieter = [x for x in facts if x["characteristic"] == "noise" and _scope_side(x)
                and x["value"]["level"] in ("quiet", "calm")]
     if quieter and _scope_side(f):
